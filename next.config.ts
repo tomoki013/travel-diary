@@ -7,12 +7,36 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./netlify-loader.ts",
   },
+
+  async rewrites() {
+    return [
+      // 1. Tomokichi Globe (マップ)
+      {
+        source: "/map",
+        destination: "https://travel-map-for-tomokichidiary.netlify.app/",
+      },
+      {
+        source: "/map/:path*",
+        destination:
+          "https://travel-map-for-tomokichidiary.netlify.app/map/:path*",
+      },
+
+      // // 2. AI Travel Planner (例)
+      // {
+      //   source: "/ai-planner",
+      //   destination: "https://【AIアプリのデプロイ先URL】/ai-planner",
+      // },
+      // {
+      //   source: "/ai-planner/:path*",
+      //   destination: "https://【AIアプリのデプロイ先URL】/ai-planner/:path*",
+      // },
+    ];
+  },
 };
 
 export default withSerwist({
   // Serwist の設定
-  swSrc: "src/app/sw.ts", // サービスワーカーのソースファイル
-  swDest: "public/sw.js", // 出力されるサービスワーカーファイル
-  disable: process.env.NODE_ENV === "development", // 開発環境では無効にする
-  // ...その他の設定はここに記述
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  disable: process.env.NODE_ENV === "development",
 })(nextConfig);
