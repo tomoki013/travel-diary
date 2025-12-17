@@ -13,7 +13,12 @@ const nextConfig: NextConfig = {
       // 1. Tomokichi Globe (マップ)
       {
         source: "/map",
-        destination: "https://travel-map-for-tomokichidiary.netlify.app/",
+        // destinationの末尾に / をつけておくと安全です
+        destination: "https://travel-map-for-tomokichidiary.netlify.app/map/",
+      },
+      {
+        source: "/map/", // スラッシュありのパターンも念の為
+        destination: "https://travel-map-for-tomokichidiary.netlify.app/map/",
       },
       {
         source: "/map/:path*",
