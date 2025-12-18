@@ -17,7 +17,7 @@ interface GlobePromoProps {
 
 const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
   const getMapUrl = () => {
-    const baseUrl = "https://map.tomokichidiary.com/";
+    const baseUrl = "https://travel.tomokichidiary.com/map/";
     if (!queryParams) return baseUrl;
 
     const params = new URLSearchParams();
@@ -69,7 +69,7 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
                 <span>New App Release</span>
               </div>
               <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl font-heading leading-tight">
-                Globe Diary
+                Tomokichi Globe
               </h2>
               <p className="mt-4 text-lg text-indigo-200/90 leading-relaxed">
                 ともきちが訪れた場所を、美しい3D地球儀の上で振り返りませんか？
