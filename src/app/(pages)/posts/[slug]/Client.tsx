@@ -117,14 +117,15 @@ const Client = ({
 
         {post.costs && <CostBreakdown costs={post.costs} />}
 
+        {post.category === "itinerary" && (
+          <GlobePromo className="py-8 px-0" queryParams={queryParams} />
+        )}
+
         <TableOfContent />
 
         <div className="max-w-none mt-12">
           <article>{children}</article>
         </div>
-        {post.category === "itinerary" && (
-          <GlobePromo className="py-8 px-0" queryParams={queryParams} />
-        )}
 
         {post.isPromotion && post.promotionPG && (
           <div className="my-12">
