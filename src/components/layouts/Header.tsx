@@ -18,6 +18,7 @@ import {
   Image as ImageIcon,
   Mail,
   Info,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -199,6 +200,22 @@ const Header = () => {
               <span>AI PLANNER</span>
             </Link>
 
+            {/* Tomokichi Globe Button */}
+            <Link
+              href="https://travel.tomokichidiary.com/map"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
+                isTransparent
+                  ? "bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
+                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+              )}
+            >
+              <Globe className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
+              <span>GLOBE</span>
+            </Link>
+
             {/* Utility Icons */}
             <div
               className={cn(
@@ -323,6 +340,16 @@ const Header = () => {
                 >
                   <Sparkles className="h-5 w-5" />
                   AIプランナーを使う
+                </Link>
+                <Link
+                  href="https://travel.tomokichidiary.com/map"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-primary-foreground shadow-lg transition-all hover:scale-[1.02] hover:bg-primary/90"
+                >
+                  <Globe className="h-5 w-5" />
+                  Tomokichi Globe
                 </Link>
               </motion.div>
             </div>
