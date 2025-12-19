@@ -41,24 +41,28 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
   { name: "写真ギャラリー", pass: "/gallery" },
 ];
 
-export const FOOTER_SUPPORT_LIST: FooterContent[] = [
-  { name: "お問い合わせ", pass: "/contact" },
-  { name: "記事テーマ募集", pass: "/request" },
-  { name: "FAQ", pass: "/faq" },
-];
-
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
-  { name: "プライバシーポリシー", pass: "/privacy" },
-  { name: "利用規約", pass: "/terms" },
-  { name: "アフィリエイトポリシー", pass: "/affiliates" },
+  { name: "FAQ", pass: "/faq" },
   { name: "ロードマップ", pass: "/roadmap" },
-  { name: "サイトマップ", pass: "/sitemap" },
   {
     name: "サイトステータス",
     pass: "https://status.tomokichidiary.com",
     target: "_blank",
   },
+  { name: "サイトマップ", pass: "/sitemap" },
+];
+
+export const FOOTER_COMMUNITY_LIST: FooterContent[] = [
+  { name: "お問い合わせ", pass: "/contact" },
+  { name: "記事テーマ募集", pass: "/request" },
+  { name: "SNS", pass: "/social" },
+];
+
+export const FOOTER_LEGAL_LIST: FooterContent[] = [
+  { name: "プライバシーポリシー", pass: "/privacy" },
+  { name: "利用規約", pass: "/terms" },
+  { name: "アフィリエイトポリシー", pass: "/affiliates" },
 ];
 
 export const SOCIAL_LIST = [

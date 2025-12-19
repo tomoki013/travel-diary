@@ -1,7 +1,8 @@
 import {
   FOOTER_CONTENTS_LIST,
   FOOTER_ABOUT_LIST,
-  FOOTER_SUPPORT_LIST,
+  FOOTER_COMMUNITY_LIST,
+  FOOTER_LEGAL_LIST,
   SOCIAL_LIST,
 } from "@/constants/navigation";
 import Link from "next/link";
@@ -24,7 +25,7 @@ const Footer = () => {
         </p>
       </div>
       <div className="container py-10">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-5">
           <div className="space-y-3 md:col-span-1">
             <Link href="/" className="text-lg font-medium">
               ともきちの旅行日記
@@ -54,7 +55,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="space-y-3">
-            <h3 className="text-lg font-medium">コンテンツ</h3>
+            <h3 className="text-lg font-medium">旅行コンテンツ</h3>
             <ul className="space-y-2 text-sm">
               {FOOTER_CONTENTS_LIST.map((content) => (
                 <li key={content.name}>
@@ -80,9 +81,9 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="text-lg font-medium">サポート</h3>
+            <h3 className="text-lg font-medium">サイト情報</h3>
             <ul className="space-y-2 text-sm">
-              {FOOTER_SUPPORT_LIST.map((link) => (
+              {FOOTER_ABOUT_LIST.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.pass}
@@ -101,9 +102,30 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="text-lg font-medium">このサイトについて</h3>
+            <h3 className="text-lg font-medium">お問い合わせ・参加</h3>
             <ul className="space-y-2 text-sm">
-              {FOOTER_ABOUT_LIST.map((link) => (
+              {FOOTER_COMMUNITY_LIST.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.pass}
+                    className="text-muted-foreground hover:text-secondary"
+                    target={link.target}
+                    rel={
+                      link.target === "_blank"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-lg font-medium">法務情報</h3>
+            <ul className="space-y-2 text-sm">
+              {FOOTER_LEGAL_LIST.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.pass}
