@@ -61,6 +61,12 @@ const Footer = () => {
                   <Link
                     href={content.pass}
                     className="flex items-center text-muted-foreground hover:text-secondary"
+                    target={content.target}
+                    rel={
+                      content.target === "_blank"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                   >
                     {content.name}
                     {content.isNew && (
@@ -81,6 +87,12 @@ const Footer = () => {
                   <Link
                     href={link.pass}
                     className="text-muted-foreground hover:text-secondary"
+                    target={link.target}
+                    rel={
+                      link.target === "_blank"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                   >
                     {link.name}
                   </Link>
@@ -96,6 +108,12 @@ const Footer = () => {
                   <Link
                     href={link.pass}
                     className="text-muted-foreground hover:text-secondary"
+                    target={link.target}
+                    rel={
+                      link.target === "_blank"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                   >
                     {link.name}
                   </Link>

@@ -60,6 +60,9 @@ const mainList = [
   { pass: "/privacy", name: "プライバシーポリシー/免責事項" },
   { pass: "/terms", name: "利用規約/免責事項" },
   { pass: "/affiliates", name: "アフィリエイトポリシー" },
+  { pass: "/roadmap", name: "ロードマップ" },
+  { pass: "https://map.tomokichidiary.com", name: "Tomokichi Globe" },
+  { pass: "https://status.tomokichidiary.com", name: "サイトステータス" },
 ];
 
 // --- Page Component ---
@@ -90,7 +93,16 @@ export default async function SitemapPage() {
               <ul className="space-y-2 text-foreground">
                 {mainList.map((p) => (
                   <li key={p.pass}>
-                    <Link href={p.pass} className="hover:text-secondary">
+                    <Link
+                      href={p.pass}
+                      className="hover:text-secondary"
+                      target={p.pass.startsWith("http") ? "_blank" : undefined}
+                      rel={
+                        p.pass.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                    >
                       {p.name}
                     </Link>
                   </li>
