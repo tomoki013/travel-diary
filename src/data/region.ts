@@ -86,6 +86,18 @@ export const regionData: ContinentData[] = [
           },
         ],
       },
+      {
+        slug: "china",
+        name: "中国",
+        imageURL: "/images/China/shanghai.jpg",
+        children: [
+          {
+            slug: "shanghai",
+            name: "上海",
+            imageURL: "/images/China/shanghai.jpg",
+          },
+        ],
+      },
     ],
   },
   {
