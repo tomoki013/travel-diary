@@ -10,6 +10,7 @@ export interface FooterContent {
   name: string;
   pass: string;
   isNew?: boolean;
+  target?: string;
 }
 
 export const NAV_LINKS: NavLink[] = [
@@ -22,11 +23,17 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const FOOTER_CONTENTS_LIST: FooterContent[] = [
-  { name: "AI旅行プランナー", pass: "/ai-planner", isNew: true },
+  {
+    name: "AI旅行プランナー",
+    pass: "/ai-planner",
+    isNew: true,
+    target: "_blank",
+  },
   {
     name: "Tomokichi Globe",
     pass: "https://travel.tomokichidiary.com/map",
     isNew: true,
+    target: "_blank",
   },
   { name: "地域別一覧", pass: "/destination" },
   { name: "シリーズ一覧", pass: "/series" },
@@ -45,7 +52,13 @@ export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "プライバシーポリシー", pass: "/privacy" },
   { name: "利用規約", pass: "/terms" },
   { name: "アフィリエイトポリシー", pass: "/affiliates" },
+  { name: "ロードマップ", pass: "/roadmap" },
   { name: "サイトマップ", pass: "/sitemap" },
+  {
+    name: "サイトステータス",
+    pass: "https://status.tomokichidiary.com",
+    target: "_blank",
+  },
 ];
 
 export const SOCIAL_LIST = [
