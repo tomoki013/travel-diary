@@ -63,6 +63,7 @@ export const FOOTER_LEGAL_LIST: FooterContent[] = [
   { name: "プライバシーポリシー", pass: "/privacy" },
   { name: "利用規約", pass: "/terms" },
   { name: "アフィリエイトポリシー", pass: "/affiliates" },
+  { name: "クッキーポリシー", pass: "/cookie-policy" },
 ];
 
 export const SOCIAL_LIST = [

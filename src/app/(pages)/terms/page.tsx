@@ -110,10 +110,10 @@ const TermsPage = () => {
             当サイトは、サービスの品質向上とユーザー体験の改善を目的として、Cookie（クッキー）およびGoogle
             Analyticsなどのアクセス解析ツールを利用しています。これにより、ユーザーのサイト利用状況に関する情報を匿名で収集しますが、個人を特定するものではありません。詳細については、別途定める
             <Link
-              href="/privacy"
+              href="/cookie-policy"
               className="text-primary underline hover:text-secondary"
             >
-              プライバシーポリシー
+              クッキーポリシー
             </Link>
             をご確認ください。
           </p>

@@ -27,10 +27,10 @@ const Footer = () => {
       <div className="container py-10">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-5">
           <div className="space-y-3 md:col-span-1">
-            <Link href="/" className="text-lg font-medium">
+            <Link href="/" className="text-lg font-heading font-bold">
               ともきちの旅行日記
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground font-heading">
               日本と世界の旅行記録と観光情報を発信するブログサイトです。
             </p>
             <div className="flex space-x-3">
@@ -49,7 +49,7 @@ const Footer = () => {
             </div>
             <Link
               href={`/social`}
-              className="text-sm text-muted-foreground hover:text-secondary"
+              className="text-lg text-muted-foreground font-code hover:text-secondary"
             >
               Follow Me
             </Link>

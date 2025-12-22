@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { affiliates } from "@/constants/affiliates";
+import { Separator } from "@/components/ui/separator";
 
 const Affiliates = () => {
   const appsToShow = affiliates.filter((aff) => aff.status === "ready");
@@ -58,6 +59,12 @@ const Affiliates = () => {
               </li>
             ))}
           </ul>
+
+          <Separator className="my-8" />
+
+          <p className="text-sm text-muted-foreground">
+            最終更新日：2025年12月22日
+          </p>
         </div>
       </div>
     </div>
