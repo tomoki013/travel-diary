@@ -103,6 +103,16 @@ export default function RootLayout({
           src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
           data-gyg-partner-id="GTNOM0E"
         ></Script>
+
+        {/* Google Analytics */}
+        <Script id="google-analytics">
+          {`
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+						gtag('config', 'G-XYSW6RY98H');
+					`}
+        </Script>
       </head>
       <body
         className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
