@@ -1,67 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Rocket, Globe, MapPin, Languages, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRef, useState, useEffect, useCallback } from "react";
-
-// --- Mock Data ---
-interface RoadmapItem {
-  id: string;
-  season: string;
-  title: string;
-  description: string;
-  status: "COMPLETED" | "DEPLOYED" | "CURRENT_TARGET" | "PENDING" | "CONCEPT";
-  icon: React.ReactNode;
-}
-
-const ROADMAP_DATA: RoadmapItem[] = [
-  {
-    id: "genesis",
-    season: "2024.Q4",
-    title: "旅の始まり",
-    description:
-      "旅行ブログ「ともきちの旅行日記」がスタートしました。Next.jsとMicroCMSで構築された、デジタルな旅の拠点が完成。",
-    status: "COMPLETED",
-    icon: <Rocket className="w-6 h-6" />,
-  },
-  {
-    id: "ai-nav",
-    season: "2025.Q1",
-    title: "AIナビゲーター",
-    description:
-      "AIがあなたの旅をサポート。過去の冒険（記事）を参照して、最適なプランを提案する機能を追加しました。",
-    status: "DEPLOYED",
-    icon: <MapPin className="w-6 h-6" />,
-  },
-  {
-    id: "globe",
-    season: "2025.Q2",
-    title: "地球儀ダイアリー",
-    description:
-      "旅の思い出を3D地球儀上で振り返る。訪れた場所が光り輝く、新しいアルバム体験。",
-    status: "CURRENT_TARGET",
-    icon: <Globe className="w-6 h-6" />,
-  },
-  {
-    id: "global",
-    season: "2025.Q3",
-    title: "世界への扉",
-    description:
-      "言葉の壁を超えて。英語・中国語に対応し、より多くの旅人とつながるプラットフォームへ。",
-    status: "PENDING",
-    icon: <Languages className="w-6 h-6" />,
-  },
-  {
-    id: "neural",
-    season: "2025.Q4",
-    title: "ポケットの中の旅",
-    description:
-      "専用モバイルアプリの構想。オフラインでも旅の記録にアクセスできるように。",
-    status: "CONCEPT",
-    icon: <Smartphone className="w-6 h-6" />,
-  },
-];
+import { ROADMAP_DATA, RoadmapItem } from "@/data/roadmap";
 
 const StatusBadge = ({ status }: { status: RoadmapItem["status"] }) => {
   const styles = {
