@@ -104,13 +104,19 @@ export default function RootLayout({
           data-gyg-partner-id="GTNOM0E"
         ></Script>
 
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-S35FPGY6NW"
+        ></Script>
+
         {/* Google Analytics */}
         <Script id="google-analytics">
           {`
 						window.dataLayer = window.dataLayer || [];
 						function gtag(){dataLayer.push(arguments);}
 						gtag('js', new Date());
-						gtag('config', 'G-XYSW6RY98H');
+						gtag('config', 'G-S35FPGY6NW');
 					`}
         </Script>
       </head>
