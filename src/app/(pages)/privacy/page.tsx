@@ -83,139 +83,24 @@ const PrivacyPage = () => {
           <Separator className="my-8" />
 
           <h2 className="text-2xl font-bold" id="cookie">
-            5. Cookieの使用について
+            5. Cookie（クッキー）の使用について
           </h2>
           <p>
-            当サイトでは、ユーザーの利便性向上、およびサイトの利用状況の分析のためにCookie（クッキー）を使用しています。Cookieとは、ユーザーがサイトを訪れた際に、そのユーザーのコンピュータ内に記録される小さなテキストファイルのことです。これにより、次回以降のアクセス時に、より快適にサービスをご利用いただくことが可能になります。
-          </p>
-          <p>
-            ユーザーはご自身のブラウザ設定を変更することにより、Cookieの使用を無効にすることができます。具体的な設定方法については、下記の「Cookieを無効化する方法」の項目をご参照ください。
-          </p>
-          <h3>Cookieを無効化する方法</h3>
-          <p>
-            主要なブラウザのCookie設定の変更方法については、以下の各社公式サポートページをご確認ください。設定を変更することにより、当サイトおよび他のウェブサイトからのCookieを無効にできますが、一部のウェブサイトが正常に機能しなくなる可能性があります。
-          </p>
-          <ul className="list-disc pl-6">
-            <li>
-              <Link
-                href="https://support.google.com/chrome/answer/95647"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Google Chrome
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://support.mozilla.org/ja/kb/block-websites-storing-cookies-site-data-firefox"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Mozilla Firefox
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://support.apple.com/ja-jp/guide/safari/sfri11471/mac"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Apple Safari
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://support.microsoft.com/ja-jp/microsoft-edge/microsoft-edge-%E3%81%A7-cookie-%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B-63947406-40ac-c3b8-57b9-2a946a29ae09"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Microsoft Edge
-              </Link>
-            </li>
-          </ul>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">6. アクセス解析ツールについて</h2>
-          <p>
-            当サイトでは、サービスの向上を目的として、Google社の提供するアクセス解析ツール「Google
-            Analytics」を利用しています。Google
-            Analyticsは、トラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。なお、ブラウザの設定でCookieそのものを拒否している場合、当サイトで「同意する」を選択しても、Google
-            Analyticsによる情報収集は行われません。
-          </p>
-          <p>
-            この機能は、お使いのブラウザでCookieを無効にすることで収集を拒否することが可能です。Google
-            Analyticsの利用規約およびプライバシーポリシーに関する詳細は、Google社のサイトをご確認ください。
-          </p>
-          <ul className="list-disc pl-6">
-            <li>
-              <Link
-                href="https://marketingplatform.google.com/about/analytics/terms/jp/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Google Analytics利用規約
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://policies.google.com/privacy?hl=ja"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Googleプライバシーポリシー
-              </Link>
-            </li>
-          </ul>
-          <p>
-            また、Googleによるアクセス情報の収集を無効にしたい場合は、Google社が提供する「Google
-            Analyticsオプトアウトアドオン」をご利用ください。
-          </p>
-          <ul className="list-disc pl-6">
-            <li>
-              <Link
-                href="https://tools.google.com/dlpage/gaoptout"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
-              >
-                Google Analyticsオプトアウトアドオン
-              </Link>
-            </li>
-          </ul>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">7. 広告配信サービスについて</h2>
-          <p>
-            当サイトでは、第三者配信の広告サービス「Google
-            AdSense」を利用する可能性があります。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」(氏名、住所、メールアドレス、電話番号は含まれません)
-            を使用することがあります。
-          </p>
-          <p>
-            Google
-            AdSenseに関して、このプロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、
+            当サイトでは、サービスの向上、アクセス解析、および広告配信のためにCookieを使用しています。
+            Cookieの具体的な使用目的、使用しているツール、および無効化の方法などの詳細については、
             <Link
-              href="https://policies.google.com/technologies/ads"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/cookie-policy"
               className="text-primary underline hover:text-secondary"
             >
-              Googleの広告とプライバシーに関するポリシー
+              クッキーポリシー
             </Link>
             をご確認ください。
           </p>
 
-          {/* <Separator className="my-8" /> */}
+          <Separator className="my-8" />
 
           <h2 className="text-2xl font-bold">
-            8. アフィリエイトプログラムについて
+            6. アフィリエイトプログラムについて
           </h2>
           <p>当サイトは、アフィリエイトプログラム参加者です。</p>
           <p>
@@ -225,7 +110,7 @@ const PrivacyPage = () => {
             詳しい運営方針は
             <Link
               href={`/affiliates`}
-              className="text-secondary underline hover:text-primary"
+              className="text-primary underline hover:text-secondary"
             >
               アフィリエイトポリシー
             </Link>
@@ -234,7 +119,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">9. 免責事項</h2>
+          <h2 className="text-2xl font-bold">7. 免責事項</h2>
           <p>
             当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。当サイトからリンクやバナーなどによって他のサイトに移動した場合、移動先サイトで提供される情報、サービス等についても一切の責任を負いません。
           </p>
@@ -244,7 +129,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">10. お問い合わせ</h2>
+          <h2 className="text-2xl font-bold">8. お問い合わせ</h2>
           <p>
             本プライバシーポリシーに関するお問い合わせは、
             <Link
@@ -258,7 +143,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">11. プライバシーポリシーの変更</h2>
+          <h2 className="text-2xl font-bold">9. プライバシーポリシーの変更</h2>
           <p>
             当サイトは、法令の変更やサービスの改善に伴い、本プライバシーポリシーを事前の予告なく変更することがあります。変更後のプライバシーポリシーは、当サイトに掲載したときから効力を生じるものとします。
           </p>
@@ -266,7 +151,7 @@ const PrivacyPage = () => {
           <Separator className="my-8" />
 
           <p className="text-sm text-muted-foreground">
-            最終更新日：2025年8月21日
+            最終更新日：2025年12月22日
           </p>
         </div>
       </div>

@@ -92,7 +92,7 @@ const CookieBanner = () => {
                 disabled={isAgreed}
                 onClick={handleDismiss}
               >
-                <Link href="/privacy#cookie">詳細を見る</Link>
+                <Link href="/cookie-policy">詳細を見る</Link>
               </Button>
               <Button onClick={handleAccept} size="sm" disabled={isAgreed}>
                 同意する
