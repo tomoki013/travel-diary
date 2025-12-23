@@ -34,12 +34,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/ai-travel-planner/", // スラッシュありのパターンも念の為
-        destination: "https://ai-travel-planner-tomokich.netlify.app/ai-travel-planner/",
+        destination: "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
       },
       {
         source: "/ai-travel-planner/:path*",
         destination:
-          "https://ai-travel-planner-tomokich.netlify.app/ai-travel-planner/:path*",
+          "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/:path*",
       },
     ];
   },
