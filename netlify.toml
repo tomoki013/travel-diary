@@ -9,6 +9,11 @@
   directory = "netlify/functions"
   included_files = [".posts.cache.json"]
 
+  [[redirects]]
+  from = "/ai-travel-planner/*"
+  to = "https://ai-travel-planner-project.netlify.app/:splat"
+  status = 200
+
 [[redirects]]
   from = "https://tomokichidiary.netlify.app/*"
   to = "https://travel.tomokichidiary.com/:splat"
