@@ -188,7 +188,7 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             {/* AI Planner Button */}
             <Link
-              href="/ai-planner"
+              href="/ai-travel-planner"
               className={cn(
                 "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
                 isTransparent
@@ -334,7 +334,7 @@ const Header = () => {
                   <ModeToggle />
                 </div>
                 <Link
-                  href="/ai-planner"
+                  href="/ai-travel-planner"
                   onClick={closeMenu}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-primary-foreground shadow-lg transition-all hover:scale-[1.02] hover:bg-primary/90"
                 >

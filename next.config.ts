@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
     loaderFile: "./netlify-loader.ts",
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/ai-planner",
+        destination: "/ai-travel-planner",
+        permanent: true,
+      },
+    ];
+  },
+
   async rewrites() {
     return [
       // 1. Tomokichi Globe (マップ)

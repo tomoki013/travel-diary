@@ -19,7 +19,7 @@ const FloatingAIPlannerButton = () => {
       className="fixed bottom-6 right-6 z-50"
     >
       <Link
-        href="/ai-planner"
+        href="/ai-travel-planner"
         className="flex items-center justify-center w-16 h-16 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-colors"
         aria-label="AI Planner"
       >
