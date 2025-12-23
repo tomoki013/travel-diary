@@ -33,11 +33,11 @@ const nextConfig: NextConfig = {
         destination: "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
       },
       {
-        source: "/map/", // スラッシュありのパターンも念の為
+        source: "/ai-travel-planner/", // スラッシュありのパターンも念の為
         destination: "https://ai-travel-planner-tomokich.netlify.app/ai-travel-planner/",
       },
       {
-        source: "/map/:path*",
+        source: "/ai-travel-planner/:path*",
         destination:
           "https://ai-travel-planner-tomokich.netlify.app/ai-travel-planner/:path*",
       },
