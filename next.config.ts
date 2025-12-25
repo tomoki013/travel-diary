@@ -1,17 +1,14 @@
 import type { NextConfig } from "next";
+import withSerwistInit from "@serwist/next";
 
-const withPWA = require("next-pwa")({
-  dest: "public",
+const withSerwist = withSerwistInit({
+  // 重要: 実際のファイルの場所に合わせる (src/app/sw.ts または src/sw.ts)
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
   disable: process.env.NODE_ENV === "development",
-  register: true,
-  skipWaiting: true,
-  runtimeCaching: [
-    // カスタムキャッシュ設定
-  ],
 });
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
   /* config options here */
   images: {
     loader: "custom",
@@ -55,6 +52,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  reactStrictMode: true,
 };
 
-export default withPWA(nextConfig);
+export default withSerwist(nextConfig);
