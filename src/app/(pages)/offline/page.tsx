@@ -1,23 +1,38 @@
-import Link from "next/link";
-
 // これがないとオフライン用キャッシュに含まれないことがあるので必須
 export const dynamic = "force-static";
 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 export default function OfflinePage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
-      <h1 className="text-2xl font-bold mb-4">現在オフラインです</h1>
-      <p className="mb-8">
-        インターネット接続を確認してください。
+    <div className="flex flex-col items-center justify-center min-h-[80vh] px-4 text-center">
+      <div className="mb-8 scale-150">
+        <div className="loader-compass">
+          <div className="rose" />
+          <div className="marker n">N</div>
+          <div className="marker s">S</div>
+          <div className="marker w">W</div>
+          <div className="marker e">E</div>
+          <div className="needle" />
+        </div>
+      </div>
+
+      <h1 className="font-heading text-4xl font-bold mb-4 text-foreground">
+        Connection Lost
+      </h1>
+
+      <p className="text-muted-foreground mb-8 max-w-md leading-relaxed">
+        インターネット接続が切れているようです。
         <br />
-        一度訪れたページは、オフラインでも閲覧できる場合があります。
+        電波の届く場所でリロードするか、オフラインで閲覧可能なページをご覧ください。
       </p>
-      <Link
-        href="/"
-        className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition"
-      >
-        トップページに戻る
-      </Link>
+
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button asChild variant="default" className="w-full sm:w-auto">
+          <Link href="/">トップページへ戻る</Link>
+        </Button>
+      </div>
     </div>
   );
 }

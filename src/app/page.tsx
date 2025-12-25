@@ -12,6 +12,7 @@ import GalleryLength from "@/components/pages/GalleryLength";
 import { getPhotos } from "@/lib/photo";
 import Affiliates from "@/components/pages/Affiliates";
 import GlobePromo from "@/components/features/promo/GlobePromo";
+import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 
 export default async function HomePage() {
   const allPosts = await getAllPosts();
@@ -31,6 +32,9 @@ export default async function HomePage() {
       <Request />
       <PostsLength posts={allPosts} />
       <GalleryLength galleryLength={photoLength} />
+      <div className="flex justify-center pb-20 mt-10">
+        <InstallPWAButton />
+      </div>
     </>
   );
 }
