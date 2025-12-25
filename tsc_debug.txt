@@ -1,0 +1,6 @@
+.next/dev/types/validator.ts(71,39): error TS2307: Cannot find module '../../../src/app/(pages)/ai-planner/page.js' or its corresponding type declarations.
+src/app/(pages)/offline/page.tsx(1,8): error TS2300: Duplicate identifier 'Link'.
+src/app/(pages)/offline/page.tsx(4,14): error TS2451: Cannot redeclare block-scoped variable 'dynamic'.
+src/app/(pages)/offline/page.tsx(6,8): error TS2300: Duplicate identifier 'Link'.
+src/app/(pages)/offline/page.tsx(10,14): error TS2451: Cannot redeclare block-scoped variable 'dynamic'.
+src/components/features/pwa/InstallPWAButton.tsx(21,7): error TS2820: Type '"outlined"' is not assignable to type '"link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined'. Did you mean '"outline"'?
