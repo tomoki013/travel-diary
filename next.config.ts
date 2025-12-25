@@ -1,5 +1,24 @@
 import type { NextConfig } from "next";
-import withSerwist from "@serwist/next";
+import withSerwistInit from "@serwist/next";
+import { execSync } from "child_process";
+
+// git commit hashをキャッシュバージョン番号として使用
+const revision = execSync("git rev-parse HEAD", { encoding: "utf8" })
+  .trim()
+  .slice(0, 7);
+
+const withSerwist = withSerwistInit({
+  cacheOnNavigation: true,
+  reloadOnOnline: false,
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  disable: process.env.NODE_ENV === "development",
+  additionalPrecacheEntries: [
+    { url: "/", revision },
+    // オプション
+    { url: "/offline", revision },
+  ],
+});
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -35,12 +54,13 @@ const nextConfig: NextConfig = {
         destination:
           "https://travel-map-for-tomokichidiary.netlify.app/map/:path*",
       },
-      
+
       // 2. AI Travel Planner（AI旅行プランナー）
       {
         source: "/ai-travel-planner",
         // destinationの末尾に / をつけておくと安全です
-        destination: "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
+        destination:
+          "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
       },
       {
         source: "/ai-travel-planner/", // スラッシュありのパターンも念の為
@@ -53,11 +73,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  reactStrictMode: true,
 };
 
-export default withSerwist({
-  // Serwist の設定
-  swSrc: "src/app/sw.ts",
-  swDest: "public/sw.js",
-  disable: process.env.NODE_ENV === "development",
-})(nextConfig);
+export default withSerwist(nextConfig);
