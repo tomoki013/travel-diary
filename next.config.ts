@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
-import withSerwist from "@serwist/next";
+
+const withPWA = require("next-pwa")({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+  runtimeCaching: [
+    // カスタムキャッシュ設定
+  ],
+});
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   /* config options here */
   images: {
     loader: "custom",
@@ -25,16 +35,18 @@ const nextConfig: NextConfig = {
         destination:
           "https://travel-map-for-tomokichidiary.netlify.app/map/:path*",
       },
-      
+
       // 2. AI Travel Planner（AI旅行プランナー）
       {
         source: "/ai-travel-planner",
         // destinationの末尾に / をつけておくと安全です
-        destination: "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
+        destination:
+          "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
       },
       {
         source: "/map/", // スラッシュありのパターンも念の為
-        destination: "https://ai-travel-planner-tomokich.netlify.app/ai-travel-planner/",
+        destination:
+          "https://ai-travel-planner-tomokich.netlify.app/ai-travel-planner/",
       },
       {
         source: "/map/:path*",
@@ -45,9 +57,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSerwist({
-  // Serwist の設定
-  swSrc: "src/app/sw.ts",
-  swDest: "public/sw.js",
-  disable: process.env.NODE_ENV === "development",
-})(nextConfig);
+export default withPWA(nextConfig);
