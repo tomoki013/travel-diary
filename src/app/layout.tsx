@@ -72,6 +72,12 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://travel.tomokichidiary.com"),
   manifest: "/manifest.json",
+  themeColor: "#000000",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "ともきちの旅行日記",
+  },
 };
 
 export const viewport = {
