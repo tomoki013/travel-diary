@@ -56,7 +56,8 @@ const cacheStrategies: RuntimeCaching[] = [
   },
   {
     matcher: ({ request, url: { pathname }, sameOrigin }) =>
-      request.headers.get("Content-Type")?.includes("text/html") &&
+      // ✅ "Accept" ヘッダーを見る、または destination が document か確認する
+      request.headers.get("Accept")?.includes("text/html") &&
       sameOrigin &&
       !pathname.startsWith("/api/"),
     handler: new StaleWhileRevalidate({
@@ -64,7 +65,7 @@ const cacheStrategies: RuntimeCaching[] = [
       plugins: [
         new ExpirationPlugin({
           maxEntries: 200,
-          maxAgeSeconds: 24 * 60 * 60, // 24時間
+          maxAgeSeconds: 24 * 60 * 60,
           maxAgeFrom: "last-used",
         }),
       ],
