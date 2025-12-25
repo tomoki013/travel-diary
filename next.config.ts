@@ -1,11 +1,23 @@
 import type { NextConfig } from "next";
 import withSerwistInit from "@serwist/next";
+import { execSync } from "child_process";
+
+// git commit hashをキャッシュバージョン番号として使用
+const revision = execSync("git rev-parse HEAD", { encoding: "utf8" })
+  .trim()
+  .slice(0, 7);
 
 const withSerwist = withSerwistInit({
-  // 重要: 実際のファイルの場所に合わせる (src/app/sw.ts または src/sw.ts)
+  cacheOnNavigation: true,
+  reloadOnOnline: false,
   swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
   disable: process.env.NODE_ENV === "development",
+  additionalPrecacheEntries: [
+    { url: "/", revision },
+    // オプション
+    { url: "/offline", revision },
+  ],
 });
 
 const nextConfig: NextConfig = {

@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://travel.tomokichidiary.com"),
   manifest: "/manifest.json",
-  themeColor: "#000000",
+  themeColor: "#fdfaf6",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
