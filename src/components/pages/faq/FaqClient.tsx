@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   PieChart,
   Pie,
@@ -51,7 +51,18 @@ export default function FaqClient({
   faqs,
 }: FaqClientProps) {
   const [currentCategory, setCurrentCategory] = useState("all");
+  const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(inputValue);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [inputValue]);
 
   const filteredFaqs = faqs.filter((item) => {
     const matchesCategory =
@@ -86,8 +97,11 @@ export default function FaqClient({
 
   const resetFilters = () => {
     setCurrentCategory("all");
+    setInputValue("");
     setSearchQuery("");
   };
+
+  const hasSearchInput = inputValue.length > 0;
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
@@ -98,7 +112,7 @@ export default function FaqClient({
             旅の準備とヒントを深掘りする
           </h2>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Tomokichi Diaryのアーカイブを分析し、あなたの疑問に答えるためのガイドです。
+            ともきちの旅行日記のアーカイブを分析し、あなたの疑問に答えるためのガイドです。
             <br />
             サイトマップ構造に基づき、よくある質問と回答を整理しました。
           </p>
@@ -107,8 +121,8 @@ export default function FaqClient({
               type="text"
               placeholder="「ホテル」「マイル」「おすすめ」などで検索..."
               className="w-full px-6 py-6 rounded-full border-input shadow-sm text-lg transition pr-24 bg-background"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
             <Button
               className="absolute right-2 top-2 bottom-2 rounded-full font-medium transition"
@@ -121,7 +135,12 @@ export default function FaqClient({
       </section>
 
       {/* Dashboard Section */}
-      <section id="dashboard" className="max-w-7xl mx-auto px-4 py-16 w-full">
+      <section
+        id="dashboard"
+        className={`max-w-7xl mx-auto px-4 py-16 w-full ${
+          hasSearchInput ? "order-2" : "order-1"
+        }`}
+      >
         <div className="mb-10 text-center md:text-left">
           <h3 className="text-2xl font-bold text-foreground mb-2 font-heading">
             サイトコンテンツ分析
@@ -225,7 +244,9 @@ export default function FaqClient({
       {/* FAQ Engine Section */}
       <section
         id="faq-engine"
-        className="bg-background py-16 border-t border-border"
+        className={`bg-background py-16 border-t border-border ${
+          hasSearchInput ? "order-1" : "order-2"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-10">
@@ -233,7 +254,7 @@ export default function FaqClient({
               Q&A エクスプローラー
             </h3>
             <p className="text-muted-foreground mb-6">
-              カテゴリーを選択して、Tomokichi Diaryが提供する価値を探求してください。
+              カテゴリーを選択して、ともきちの旅行日記が提供する価値を探求してください。
             </p>
 
             {/* Category Filters */}
