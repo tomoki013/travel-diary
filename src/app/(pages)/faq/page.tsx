@@ -77,15 +77,15 @@ const FAQS = [
   {
     question: "撮影機材は何を使っていますか？",
     answer:
-      "主にミラーレス一眼カメラとスマートフォンを使用しています。記事によっては使用機材を紹介している場合もあります。",
+      "最後の使用機材ですが、iphoneの標準のカメラのみです。",
     category: "site-info",
     tags: ["カメラ", "機材", "写真"],
   },
 ];
 
 export const metadata: Metadata = {
-  title: "FAQ | Tomokichi Diary",
-  description: "Tomokichi Diaryに関するよくある質問と回答を掲載しています。",
+  title: "FAQ | ともきちの旅行日記",
+  description: "ともきちの旅行日記に関するよくある質問と回答を掲載しています。",
   alternates: {
     canonical: new URL("/faq", "https://tomokichidiary.netlify.app"),
   },
