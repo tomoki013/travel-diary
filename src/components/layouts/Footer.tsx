@@ -102,7 +102,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="text-lg font-medium">お問い合わせ・参加</h3>
+            <h3 className="text-lg font-medium">お問い合わせ・サポート</h3>
             <ul className="space-y-2 text-sm">
               {FOOTER_COMMUNITY_LIST.map((link) => (
                 <li key={link.name}>

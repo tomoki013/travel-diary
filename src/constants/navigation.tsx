@@ -43,7 +43,6 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
 
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
-  { name: "FAQ", pass: "/faq" },
   { name: "ロードマップ", pass: "/roadmap" },
   {
     name: "サイトステータス",
@@ -54,9 +53,10 @@ export const FOOTER_ABOUT_LIST: FooterContent[] = [
 ];
 
 export const FOOTER_COMMUNITY_LIST: FooterContent[] = [
+  { name: "FAQ", pass: "/faq" },
   { name: "お問い合わせ", pass: "/contact" },
+  // { name: "機能要望・バグ報告", pass: "/feedback" },
   { name: "記事テーマ募集", pass: "/request" },
-  { name: "SNS", pass: "/social" },
 ];
 
 export const FOOTER_LEGAL_LIST: FooterContent[] = [
