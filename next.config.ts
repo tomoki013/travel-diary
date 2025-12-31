@@ -54,23 +54,6 @@ const nextConfig: NextConfig = {
         destination:
           "https://travel-map-for-tomokichidiary.netlify.app/map/:path*",
       },
-
-      // 2. AI Travel Planner（AI旅行プランナー）
-      {
-        source: "/ai-travel-planner",
-        // destinationの末尾に / をつけておくと安全です
-        destination:
-          "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
-      },
-      {
-        source: "/ai-travel-planner/", // スラッシュありのパターンも念の為
-        destination: "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/",
-      },
-      {
-        source: "/ai-travel-planner/:path*",
-        destination:
-          "https://ai-travel-planner-tomokichi.netlify.app/ai-travel-planner/:path*",
-      },
     ];
   },
   reactStrictMode: true,
