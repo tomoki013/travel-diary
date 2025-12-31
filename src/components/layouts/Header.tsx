@@ -37,16 +37,8 @@ const Header = () => {
 
   // スムーズなスクロールベースのアニメーション用
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(
-    scrollY,
-    [0, 200],
-    [isHomePage ? 0 : 1, 1]
-  );
-  const blurAmount = useTransform(
-    scrollY,
-    [0, 200],
-    [isHomePage ? 0 : 16, 16]
-  );
+  const bgOpacity = useTransform(scrollY, [0, 200], [isHomePage ? 0 : 1, 1]);
+  const blurAmount = useTransform(scrollY, [0, 200], [isHomePage ? 0 : 16, 16]);
 
   // 背景色のアニメーション（ライト/ダークモード対応）
   const headerBg = useTransform(bgOpacity, (opacity) => {
@@ -188,7 +180,9 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             {/* AI Planner Button */}
             <Link
-              href="/ai-travel-planner"
+              href="https://ai.tomokichidiary.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
                 isTransparent
