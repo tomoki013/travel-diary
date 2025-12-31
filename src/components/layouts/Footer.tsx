@@ -148,10 +148,7 @@ const Footer = () => {
         <div className="my-6 h-px w-full bg-gradient-to-r from-transparent via-secondary to-transparent" />
 
         <div className="text-center text-sm text-muted-foreground">
-          <p>
-            &copy; 2024-{new Date().getFullYear()} ともきちの旅行日記. All
-            rights reserved.
-          </p>
+          <p>&copy; 2024-2026 ともきちの旅行日記. All rights reserved.</p>
         </div>
       </div>
     </footer>
