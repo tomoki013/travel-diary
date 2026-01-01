@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/tomoki013/travel-diary)
+
 # ともきちの旅行日記 - A Next.js Travel Blog
 
 [Deploy with Netlify](https://travel.tomokichidiary.com)
