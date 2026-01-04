@@ -151,30 +151,6 @@ const Client = ({
           </div>
         )}
 
-        {/* Categories Affiliate Section */}
-        <div className="border-t border-dashed border-gray-200 dark:border-gray-700 pt-12 mt-12">
-          <AffiliateSection
-            title="おすすめの航空券予約"
-            category="flight"
-            description="お得な航空券を見つけて、旅の準備を始めましょう。"
-          />
-          <AffiliateSection
-            title="おすすめのホテル予約"
-            category="hotel"
-            description="快適な滞在先を予約して、リラックスした時間を。"
-          />
-          <AffiliateSection
-            title="おすすめの現地ツアー・アクティビティ"
-            category="activity"
-            description="ユニークな体験で、旅をもっと特別なものに。"
-          />
-          <AffiliateSection
-            title="旅行に便利なサービス"
-            category="esim"
-            description="eSIMやWi-Fiなど、旅を快適にするアイテム。"
-          />
-        </div>
-
         <motion.footer
           className="mt-16"
           initial="hidden"
@@ -291,6 +267,30 @@ const Client = ({
             </div>
           </div>
         </motion.footer>
+
+        {/* Categories Affiliate Section */}
+        <div className="border-t border-dashed border-gray-200 dark:border-gray-700 pt-12 mt-12">
+          <AffiliateSection
+            title="おすすめの航空券予約"
+            category="flight"
+            description="お得な航空券を見つけて、旅の準備を始めましょう。"
+          />
+          <AffiliateSection
+            title="おすすめのホテル予約"
+            category="hotel"
+            description="快適な滞在先を予約して、リラックスした時間を。"
+          />
+          <AffiliateSection
+            title="おすすめの現地ツアー・アクティビティ"
+            category="activity"
+            description="ユニークな体験で、旅をもっと特別なものに。"
+          />
+          <AffiliateSection
+            title="旅行に便利なサービス"
+            category="esim"
+            description="eSIMやWi-Fiなど、旅を快適にするアイテム。"
+          />
+        </div>
 
         {/* ==================== コメント欄 ==================== */}
         {/* <section className="mt-16">
