@@ -90,6 +90,7 @@ export interface AffiliatesProps {
   description: string;
   status: string;
   bannerHtml?: string;
+  categories?: string[];
 }
 
 // --- AI Planner Types ---
