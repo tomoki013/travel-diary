@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -229,7 +230,22 @@ const ContactForm = () => {
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel>
-                          プライバシーポリシーと利用規約に同意します
+                          <Link
+                            href="/privacy"
+                            className="underline text-primary hover:text-primary/80"
+                            target="_blank"
+                          >
+                            プライバシーポリシー
+                          </Link>
+                          と
+                          <Link
+                            href="/terms"
+                            className="underline text-primary hover:text-primary/80"
+                            target="_blank"
+                          >
+                            利用規約
+                          </Link>
+                          に同意します
                         </FormLabel>
                         <FormDescription>
                           お問い合わせいただいた内容は、お問い合わせへの回答のみに使用します。

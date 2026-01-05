@@ -1,6 +1,6 @@
 import ContactForm from "./ContactForm";
 import { Metadata } from "next";
-import { Mail } from "lucide-react";
+import { Mail, Github } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -32,16 +32,37 @@ const ContactPage = () => {
         <ContactForm />
         <div className="md:col-span-1">
           <div className="bg-background rounded-lg shadow p-6">
-            <div className="flex items-start">
-              <Mail className="mr-3 h-5 w-5 text-primary" />
-              <div>
-                <h3 className="text-sm font-medium">メール</h3>
-                <Link
-                  href="mailto:gaomuyouxi81@gmail.com"
-                  className="text-sm text-muted-foreground"
-                >
-                  gaomuyouxi81@gmail.com
-                </Link>
+            <h2 className="text-lg font-bold mb-6">その他の連絡方法</h2>
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <Mail className="mr-3 h-5 w-5 text-primary shrink-0" />
+                <div>
+                  <h3 className="text-sm font-medium mb-1">メール</h3>
+                  <Link
+                    href="mailto:tomokichidiary@gmail.com"
+                    className="text-sm text-muted-foreground break-all hover:text-primary transition-colors"
+                  >
+                    tomokichidiary@gmail.com
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <Github className="mr-3 h-5 w-5 text-primary shrink-0" />
+                <div>
+                  <h3 className="text-sm font-medium mb-1">Github Issues</h3>
+                  <p className="text-xs text-muted-foreground mb-1">
+                    開発者向け（バグ報告・機能要望など）
+                  </p>
+                  <Link
+                    href="https://github.com/tomoki013/travel-diary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                  >
+                    https://github.com/tomoki013/travel-diary
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
