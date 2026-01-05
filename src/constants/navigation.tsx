@@ -35,7 +35,7 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
     isNew: true,
     target: "_blank",
   },
-  { name: "旅の軌跡", pass: "/journey", isNew: true },
+  { name: "旅の軌跡", pass: "/journey" },
   { name: "地域別一覧", pass: "/destination" },
   { name: "シリーズ一覧", pass: "/series" },
   { name: "ブログ一覧", pass: "/posts" },

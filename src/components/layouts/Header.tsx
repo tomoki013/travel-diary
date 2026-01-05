@@ -19,6 +19,7 @@ import {
   Mail,
   Info,
   Globe,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -192,6 +193,7 @@ const Header = () => {
             >
               <Sparkles className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
               <span>AI PLANNER</span>
+              <ExternalLink className="h-3 w-3 opacity-70 ml-0.5" />
             </Link>
 
             {/* Tomokichi Globe Button */}
@@ -208,6 +210,7 @@ const Header = () => {
             >
               <Globe className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
               <span>GLOBE</span>
+              <ExternalLink className="h-3 w-3 opacity-70 ml-0.5" />
             </Link>
 
             {/* Utility Icons */}
@@ -344,6 +347,7 @@ const Header = () => {
                 >
                   <Globe className="h-5 w-5" />
                   Tomokichi Globe
+                  <ExternalLink className="h-4 w-4 opacity-70 ml-1" />
                 </Link>
               </motion.div>
             </div>
