@@ -60,6 +60,7 @@ const mainList = [
   { pass: "/privacy", name: "プライバシーポリシー/免責事項" },
   { pass: "/terms", name: "利用規約/免責事項" },
   { pass: "/affiliates", name: "アフィリエイトポリシー" },
+  { pass: "/journey", name: "旅の軌跡" },
   { pass: "/roadmap", name: "ロードマップ" },
   { pass: "https://map.tomokichidiary.com", name: "Tomokichi Globe" },
   { pass: "https://status.tomokichidiary.com", name: "サイトステータス" },
