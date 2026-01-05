@@ -5,6 +5,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { User, Mail, Heading, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -132,7 +133,10 @@ const ContactForm = () => {
                       <FormItem>
                         <FormLabel>お名前</FormLabel>
                         <FormControl>
-                          <Input placeholder="山田 太郎" {...field} />
+                          <div className="relative">
+                            <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Input placeholder="山田 太郎" className="pl-9" {...field} />
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -145,7 +149,10 @@ const ContactForm = () => {
                       <FormItem>
                         <FormLabel>メールアドレス</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} />
+                          <div className="relative">
+                            <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Input placeholder="example@email.com" className="pl-9" {...field} />
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -194,7 +201,10 @@ const ContactForm = () => {
                     <FormItem>
                       <FormLabel>件名</FormLabel>
                       <FormControl>
-                        <Input placeholder="お問い合わせの件名" {...field} />
+                        <div className="relative">
+                          <Heading className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                          <Input placeholder="お問い合わせの件名" className="pl-9" {...field} />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -207,11 +217,14 @@ const ContactForm = () => {
                     <FormItem>
                       <FormLabel>メッセージ</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder="お問い合わせ内容を入力してください"
-                          className="min-h-[150px]"
-                          {...field}
-                        />
+                        <div className="relative">
+                          <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                          <Textarea
+                            placeholder="お問い合わせ内容を入力してください"
+                            className="min-h-[150px] pl-9"
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -221,7 +234,7 @@ const ContactForm = () => {
                   control={form.control}
                   name="agreeToTerms"
                   render={({ field }) => (
-                    <FormItem className="space-y-4 rounded-md border p-4">
+                    <FormItem className="space-y-4 rounded-lg border bg-muted/30 p-4 shadow-sm">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <span className="h-1 w-1 rounded-full bg-primary" />
@@ -265,7 +278,7 @@ const ContactForm = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 shadow-md">
                   送信する
                 </Button>
               </form>
