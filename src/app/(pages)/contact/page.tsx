@@ -34,36 +34,36 @@ const ContactPage = () => {
           <div className="bg-background rounded-lg shadow p-6">
             <h2 className="text-lg font-bold mb-6">その他の連絡方法</h2>
             <div className="space-y-6">
-              <div className="flex items-start">
-                <Mail className="mr-3 h-5 w-5 text-primary shrink-0" />
+              <Link
+                href="mailto:tomokichidiary@gmail.com"
+                className="flex items-start p-2 -mx-2 rounded-md hover:bg-muted transition-colors"
+              >
+                <Mail className="mr-3 h-5 w-5 text-primary shrink-0 mt-1" />
                 <div>
                   <h3 className="text-sm font-medium mb-1">メール</h3>
-                  <Link
-                    href="mailto:tomokichidiary@gmail.com"
-                    className="text-sm text-muted-foreground break-all hover:text-primary transition-colors"
-                  >
+                  <p className="text-sm text-muted-foreground break-all">
                     tomokichidiary@gmail.com
-                  </Link>
+                  </p>
                 </div>
-              </div>
+              </Link>
 
-              <div className="flex items-start">
-                <Github className="mr-3 h-5 w-5 text-primary shrink-0" />
+              <Link
+                href="https://github.com/tomoki013/travel-diary"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start p-2 -mx-2 rounded-md hover:bg-muted transition-colors"
+              >
+                <Github className="mr-3 h-5 w-5 text-primary shrink-0 mt-1" />
                 <div>
                   <h3 className="text-sm font-medium mb-1">Github Issues</h3>
                   <p className="text-xs text-muted-foreground mb-1">
                     開発者向け（バグ報告・機能要望など）
                   </p>
-                  <Link
-                    href="https://github.com/tomoki013/travel-diary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
-                  >
+                  <p className="text-sm text-muted-foreground break-all">
                     https://github.com/tomoki013/travel-diary
-                  </Link>
+                  </p>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

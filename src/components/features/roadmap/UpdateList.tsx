@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Calendar, Tag } from "lucide-react";
 
 const UPDATES = [
   {
@@ -10,6 +12,7 @@ const UPDATES = [
     title: "AI旅行プランナー (Beta) & 3D Globe 公開",
     content: "AIがあなたの旅をサポートする旅行プランナーと、旅の軌跡を3Dで体感できる地球儀機能をリリースしました。",
     type: "Feature",
+    isNew: true,
   },
   {
     date: "2025.09.20",
@@ -36,42 +39,65 @@ const UPDATES = [
 
 export default function UpdateList() {
   return (
-    <section className="py-12 max-w-3xl mx-auto px-4">
-      <div className="flex items-center gap-4 mb-8">
-        <h2 className="text-3xl font-heading font-bold text-primary">
-          Update Information
+    <section className="py-12 max-w-4xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+          Update History
         </h2>
-        <div className="h-px bg-border flex-1" />
+        <p className="text-muted-foreground">ともきちの旅行日記の進化の記録</p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-6">
         {UPDATES.map((item, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="flex flex-col md:flex-row gap-4 md:gap-8 border-l-2 border-muted pl-6 relative"
           >
-            {/* Timeline Dot */}
-            <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-background border-2 border-primary" />
+            <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 border-l-4 border-l-primary">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row gap-6">
+                  {/* Meta Info */}
+                  <div className="md:w-48 flex-shrink-0 flex flex-col gap-2 border-b md:border-b-0 md:border-r border-border pb-4 md:pb-0 md:pr-6">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Calendar className="w-4 h-4" />
+                      <span className="font-mono text-sm">{item.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Tag className="w-4 h-4 text-primary" />
+                        <span className="font-bold text-lg">{item.version}</span>
+                    </div>
+                    <div>
+                      <Badge
+                        variant={item.type === "Major" ? "default" : "secondary"}
+                        className="mt-1"
+                      >
+                        {item.type} Update
+                      </Badge>
+                    </div>
+                  </div>
 
-            <div className="md:w-32 flex-shrink-0">
-              <span className="text-sm text-muted-foreground font-mono">{item.date}</span>
-              <div className="mt-1">
-                <Badge variant={item.type === "Major" ? "default" : "secondary"}>
-                  {item.version}
-                </Badge>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {item.content}
-              </p>
-            </div>
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <h3 className="text-xl font-bold text-foreground">
+                        {item.title}
+                      </h3>
+                      {item.isNew && (
+                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">
+                          NEW
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.content}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </motion.div>
         ))}
       </div>

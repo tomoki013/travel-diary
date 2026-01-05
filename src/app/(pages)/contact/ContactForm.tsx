@@ -221,15 +221,10 @@ const ContactForm = () => {
                   control={form.control}
                   name="agreeToTerms"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>
+                    <FormItem className="space-y-4 rounded-md border p-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span className="h-1 w-1 rounded-full bg-primary" />
                           <Link
                             href="/privacy"
                             className="underline text-primary hover:text-primary/80"
@@ -237,7 +232,9 @@ const ContactForm = () => {
                           >
                             プライバシーポリシー
                           </Link>
-                          と
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span className="h-1 w-1 rounded-full bg-primary" />
                           <Link
                             href="/terms"
                             className="underline text-primary hover:text-primary/80"
@@ -245,11 +242,24 @@ const ContactForm = () => {
                           >
                             利用規約
                           </Link>
-                          に同意します
-                        </FormLabel>
-                        <FormDescription>
-                          お問い合わせいただいた内容は、お問い合わせへの回答のみに使用します。
-                        </FormDescription>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel>
+                            上記の内容に同意します
+                          </FormLabel>
+                          <FormDescription>
+                            お問い合わせいただいた内容は、お問い合わせへの回答のみに使用します。
+                          </FormDescription>
+                        </div>
                       </div>
                       <FormMessage />
                     </FormItem>
