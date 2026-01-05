@@ -44,7 +44,7 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
 
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
-  { name: "ロードマップ", pass: "/roadmap" },
+  { name: "更新情報・ロードマップ", pass: "/roadmap" },
   {
     name: "サイトステータス",
     pass: "https://status.tomokichidiary.com",

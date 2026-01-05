@@ -19,10 +19,10 @@ export default function RoadmapHero() {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6 tracking-tight text-primary">
-          Travel Roadmap
+          Updates & Roadmap
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          これは、ともきちの旅行日記がこれから歩む旅のしおり。
+          ともきちの旅行日記の最新情報と、これから歩む旅のしおり。
           <br />
           新しい機能、わくわくする体験、そして未来へのマイルストーン。
           <br />
