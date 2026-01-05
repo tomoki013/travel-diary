@@ -63,11 +63,21 @@ export const getAllPosts = cache(
  */
 export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
   const postsDirectory = path.join(process.cwd(), "posts/travel-posts");
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+  let fullPath = path.join(postsDirectory, `${slug}.md`);
 
   // Check if the file exists
   if (!fs.existsSync(fullPath)) {
-    throw new Error(`Post with slug "${slug}" not found.`);
+    // Case-insensitive fallback
+    const allFiles = fs.readdirSync(postsDirectory);
+    const matchedFile = allFiles.find(
+      (file) => file.toLowerCase() === `${slug}.md`.toLowerCase()
+    );
+
+    if (matchedFile) {
+      fullPath = path.join(postsDirectory, matchedFile);
+    } else {
+      throw new Error(`Post with slug "${slug}" not found.`);
+    }
   }
 
   const fileContents = fs.readFileSync(fullPath, "utf8");

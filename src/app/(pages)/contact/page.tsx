@@ -31,16 +31,21 @@ const ContactPage = () => {
       <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
         <ContactForm />
         <div className="md:col-span-1">
-          <div className="bg-background rounded-lg shadow p-6">
-            <h2 className="text-lg font-bold mb-6">その他の連絡方法</h2>
-            <div className="space-y-6">
+          <div className="bg-background rounded-lg shadow p-6 border sticky top-20">
+            <h2 className="text-lg font-bold mb-6 flex items-center gap-2">
+              <span className="w-1 h-6 bg-primary rounded-full"></span>
+              その他の連絡方法
+            </h2>
+            <div className="space-y-4">
               <Link
                 href="mailto:tomokichidiary@gmail.com"
-                className="flex items-start p-2 -mx-2 rounded-md hover:bg-muted transition-colors"
+                className="group flex items-start p-4 rounded-lg border bg-card hover:bg-accent/50 hover:shadow-md transition-all duration-300"
               >
-                <Mail className="mr-3 h-5 w-5 text-primary shrink-0 mt-1" />
+                <div className="mr-4 p-2 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+                  <Mail className="h-5 w-5 text-primary shrink-0" />
+                </div>
                 <div>
-                  <h3 className="text-sm font-medium mb-1">メール</h3>
+                  <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">メール</h3>
                   <p className="text-sm text-muted-foreground break-all">
                     tomokichidiary@gmail.com
                   </p>
@@ -51,16 +56,18 @@ const ContactPage = () => {
                 href="https://github.com/tomoki013/travel-diary"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start p-2 -mx-2 rounded-md hover:bg-muted transition-colors"
+                className="group flex items-start p-4 rounded-lg border bg-card hover:bg-accent/50 hover:shadow-md transition-all duration-300"
               >
-                <Github className="mr-3 h-5 w-5 text-primary shrink-0 mt-1" />
+                <div className="mr-4 p-2 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+                  <Github className="h-5 w-5 text-primary shrink-0" />
+                </div>
                 <div>
-                  <h3 className="text-sm font-medium mb-1">Github Issues</h3>
-                  <p className="text-xs text-muted-foreground mb-1">
+                  <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">Github Issues</h3>
+                  <p className="text-xs text-muted-foreground mb-2">
                     開発者向け（バグ報告・機能要望など）
                   </p>
-                  <p className="text-sm text-muted-foreground break-all">
-                    https://github.com/tomoki013/travel-diary
+                  <p className="text-xs text-primary/70 break-all font-mono bg-muted/50 p-1 rounded inline-block">
+                    tomoki013/travel-diary
                   </p>
                 </div>
               </Link>

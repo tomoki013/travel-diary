@@ -64,36 +64,8 @@ export function getRawPostsData(): PostMetadata[] {
 
     // 5. 各ファイルのメタデータを処理
     const postsInData = fileNames.map((fileName) => {
-      // ▼▼▼ 追加ロジック: 小文字チェックとリネーム ▼▼▼
-      const lowerCaseFileName = fileName.toLowerCase();
-      let processingFileName = fileName; // 処理に使用するファイル名
-
-      // ファイル名が小文字と異なる（＝大文字が含まれている）場合
-      if (fileName !== lowerCaseFileName) {
-        const oldPath = path.join(currentPostDir, fileName);
-        const newPath = path.join(currentPostDir, lowerCaseFileName);
-
-        try {
-          // 既に同名の小文字ファイルが存在しない場合のみリネームを実行
-          // (Windows/Macでは大文字小文字を区別しないため existsSync は true を返す可能性があるが、renameSync は動作するケースが多い。
-          // 安全のため try-catch で囲んでいます)
-          fs.renameSync(oldPath, newPath);
-          console.log(
-            `[Auto-Fix] Renamed: ${fileName} -> ${lowerCaseFileName}`
-          );
-
-          // リネーム成功後は、小文字のファイル名として処理を続行する
-          processingFileName = lowerCaseFileName;
-        } catch (error) {
-          console.error(`Failed to rename ${fileName} to lowercase:`, error);
-          // 失敗した場合は元のファイル名のまま処理を続行
-        }
-      }
-      // ▲▲▲ 追加ロジック終了 ▲▲▲
-
-      const slug = processingFileName.replace(/\.(md|mdx)$/, "");
-      // 修正点: processingFileNameを使用
-      const fullPath = path.join(currentPostDir, processingFileName);
+      const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();
+      const fullPath = path.join(currentPostDir, fileName);
 
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data } = matter(fileContents);
