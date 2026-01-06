@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Caveat,
   Montserrat,
@@ -72,7 +72,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://travel.tomokichidiary.com"),
   manifest: "/manifest.json",
-  themeColor: "#fdfaf6",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -80,9 +79,10 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#fdfaf6",
 };
 
 export default function RootLayout({
@@ -110,10 +110,10 @@ export default function RootLayout({
           data-gyg-partner-id="GTNOM0E"
         ></Script>
 
-{/* Google Adsense */}
+        {/* Google Adsense */}
         <meta name="google-adsense-account" content="ca-pub-8687520805381056" />
 
-        {/* 自動広告 */}
+        {/* Google Adsense 自動広告 */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687520805381056"
