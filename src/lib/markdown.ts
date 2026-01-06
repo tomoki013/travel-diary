@@ -92,5 +92,13 @@ export function getRawPostsData(): PostMetadata[] {
     allPostsData = allPostsData.concat(postsInData);
   }
 
-  return allPostsData;
+  // Deduplicate posts based on slug
+  const uniquePostsMap = new Map<string, PostMetadata>();
+  allPostsData.forEach((post) => {
+    if (!uniquePostsMap.has(post.slug)) {
+      uniquePostsMap.set(post.slug, post);
+    }
+  });
+
+  return Array.from(uniquePostsMap.values());
 }
