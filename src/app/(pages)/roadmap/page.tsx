@@ -10,16 +10,17 @@ export default function RoadmapPage() {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <RoadmapHero />
-      <UpdateList />
 
       <section className="py-8 text-center">
         <h2 className="text-3xl font-heading font-bold text-primary">
-            Future Roadmap
+          Future Roadmap
         </h2>
         <p className="mt-2 text-muted-foreground">これからの冒険の計画</p>
       </section>
 
       <RoadmapTimeline />
+
+      <UpdateList />
 
       {/* Footer Message */}
       <section className="py-20 text-center space-y-8">
