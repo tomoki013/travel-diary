@@ -12,6 +12,7 @@ import GalleryLength from "@/components/pages/GalleryLength";
 import { getPhotos } from "@/lib/photo";
 import Affiliates from "@/components/pages/Affiliates";
 import GlobePromo from "@/components/features/promo/GlobePromo";
+import JourneyTeaser from "@/components/features/about/JourneyTeaser";
 import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 
 export default async function HomePage() {
@@ -24,6 +25,7 @@ export default async function HomePage() {
       <AIPlannerHero />
       <NewPosts posts={allPosts} />
       <GlobePromo />
+      <JourneyTeaser />
       <Destination />
       <FeaturedSeries />
       <PopularPosts posts={allPosts} />
