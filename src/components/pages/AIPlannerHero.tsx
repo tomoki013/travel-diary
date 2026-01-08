@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, Plane } from "lucide-react";
+import { Sparkles, Plane, ExternalLink } from "lucide-react";
 
 const AIPlannerHero = () => {
   return (
@@ -25,6 +25,7 @@ const AIPlannerHero = () => {
               className="mx-auto flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 md:mx-0"
             >
               <Plane size={18} /> 今すぐ無料でプランを作成
+              <ExternalLink size={16} className="opacity-70 ml-1" />
             </Link>
           </div>
 

@@ -6,6 +6,7 @@ import {
   SOCIAL_LIST,
 } from "@/constants/navigation";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -61,7 +62,7 @@ const Footer = () => {
                 <li key={content.name}>
                   <Link
                     href={content.pass}
-                    className="flex items-center text-muted-foreground hover:text-secondary"
+                    className="flex items-center gap-1 text-muted-foreground hover:text-secondary"
                     target={content.target}
                     rel={
                       content.target === "_blank"
@@ -70,8 +71,11 @@ const Footer = () => {
                     }
                   >
                     {content.name}
+                    {content.target === "_blank" && (
+                      <ExternalLink className="h-3 w-3 opacity-70" />
+                    )}
                     {content.isNew && (
-                      <span className="ml-2 rounded-md bg-primary px-1.5 py-0.5 text-xs font-semibold leading-none text-primary-foreground">
+                      <span className="ml-1 rounded-md bg-primary px-1.5 py-0.5 text-xs font-semibold leading-none text-primary-foreground">
                         NEW
                       </span>
                     )}
@@ -87,7 +91,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.pass}
-                    className="text-muted-foreground hover:text-secondary"
+                    className="flex items-center gap-1 text-muted-foreground hover:text-secondary"
                     target={link.target}
                     rel={
                       link.target === "_blank"
@@ -96,6 +100,9 @@ const Footer = () => {
                     }
                   >
                     {link.name}
+                    {link.target === "_blank" && (
+                      <ExternalLink className="h-3 w-3 opacity-70" />
+                    )}
                   </Link>
                 </li>
               ))}
