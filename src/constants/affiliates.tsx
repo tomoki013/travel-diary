@@ -15,15 +15,14 @@ import { BedDouble, Home, Plane, Ticket, Train, Wifi } from "lucide-react";
 export const affiliates: AffiliatesProps[] = [
   {
     name: "Trip.com",
-    affiliateUrl:
-      "https://jp.trip.com/?Allianceid=7063246&SID=258431426&trip_sub1=",
+    affiliateUrl: "https://www.trip.com/t/D0ylJTzCzS2",
     homeUrl: "https://jp.trip.com/partners/index",
     type: "banner",
     icon: <BedDouble className="w-10 h-10 text-primary" />,
     description:
       "航空券・ホテル・列車まで、旅の予約がこれ一つで完結！セールも豊富でお得に旅しよう。",
     status: "ready",
-    bannerHtml: `<iframe border="0" src="https://jp.trip.com/partners/ad/DB5569405?Allianceid=7063246&SID=258431426&trip_sub1=" style="width:300px;height:250px" frameborder="0" scrolling="no" style="border:none" id="DB5569405"></iframe>`,
+    bannerHtml: `<iframe border="0" src="https://jp.trip.com/partners/ad/DB9811384?Allianceid=7162828&SID=263803828&trip_sub1=Global%E7%94%A8" style="width:300px;height:250px" frameborder="0" scrolling="no" style="border:none" id="DB9811384"></iframe>`,
     categories: ["flight", "hotel", "train"],
   },
   {

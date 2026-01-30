@@ -19,7 +19,7 @@ const AIPlannerHero = () => {
               面倒な旅行計画はAIにおまかせ。あなたの希望を伝えるだけで、オリジナルの旅行プランを数秒で作成します。
             </p>
             <Link
-              href="https://ai.tomokichidiary.com/"
+              href="https://tabide.ai/"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-auto flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 md:mx-0"

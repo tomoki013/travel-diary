@@ -25,7 +25,7 @@ export const NAV_LINKS: NavLink[] = [
 export const FOOTER_CONTENTS_LIST: FooterContent[] = [
   {
     name: "AI旅行プランナー",
-    pass: "https://ai.tomokichidiary.com/",
+    pass: "https://tabide.ai/",
     isNew: true,
     target: "_blank",
   },
