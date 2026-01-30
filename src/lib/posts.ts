@@ -26,9 +26,9 @@ type GetAllPostsOptions = {
   series?: string;
   tag?: string;
   region?: string[];
+  journey?: string;
   limit?: number;
 };
-
 /**
  * Gets all post metadata and processes it based on options.
  */
@@ -47,6 +47,9 @@ export const getAllPosts = cache(
     }
     if (options.region) {
       posts = postFilters.getRegionPosts(posts, options.region);
+    }
+    if (options.journey) {
+      posts = posts.filter((p) => p.journey === options.journey);
     }
 
     let sortedPosts = postFilters.sortByDate(posts);
@@ -100,6 +103,7 @@ export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
     series: data.series,
     isPromotion: data.isPromotion,
     promotionPG: data.promotionPG,
+    journey: data.journey,
   } as Post;
 });
 

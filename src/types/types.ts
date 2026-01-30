@@ -16,6 +16,7 @@ export interface Post {
   series?: string;
   isPromotion?: boolean;
   promotionPG?: string[];
+  journey?: string;
 }
 
 export type PostMetadata = Omit<Post, "content">;

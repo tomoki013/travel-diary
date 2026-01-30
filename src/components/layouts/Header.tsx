@@ -111,7 +111,7 @@ const Header = () => {
           "top-0 z-50 w-full transition-all duration-500 ease-in-out",
           isTransparent
             ? "fixed py-6 border-transparent"
-            : "sticky py-2 border-b border-border/40 shadow-sm bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80"
+            : "sticky py-2 border-b border-border/40 shadow-sm bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
         )}
         style={{
           background: isHomePage ? headerBg : undefined,
@@ -132,7 +132,7 @@ const Header = () => {
                   "font-heading font-bold text-xl leading-none transition-colors duration-300",
                   isTransparent && !isMenuOpen
                     ? "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" // Heroの文字と同様のシャドウ感
-                    : "text-foreground"
+                    : "text-foreground",
                 )}
               >
                 ともきちの旅行日記
@@ -142,7 +142,7 @@ const Header = () => {
                   "text-[10px] font-code tracking-[0.2em] uppercase transition-colors duration-300 mt-0.5",
                   isTransparent && !isMenuOpen
                     ? "text-white/80 drop-shadow-md"
-                    : "text-muted-foreground group-hover:text-primary"
+                    : "text-muted-foreground group-hover:text-primary",
                 )}
               >
                 Travel Diary
@@ -160,7 +160,7 @@ const Header = () => {
                   "relative text-sm font-bold tracking-wide transition-all duration-300 group py-2 font-heading",
                   isTransparent
                     ? "text-white/90 hover:text-white drop-shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {link.label}
@@ -170,7 +170,7 @@ const Header = () => {
                     "absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-300 ease-out group-hover:w-full rounded-full",
                     isTransparent
                       ? "bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-                      : "bg-primary"
+                      : "bg-primary",
                   )}
                 />
               </Link>
@@ -181,14 +181,14 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             {/* AI Planner Button */}
             <Link
-              href="https://ai.tomokichidiary.com/"
+              href="https://tabide.ai/"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
                 "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
                 isTransparent
                   ? "bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
-                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md",
               )}
             >
               <Sparkles className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
@@ -205,7 +205,7 @@ const Header = () => {
                 "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
                 isTransparent
                   ? "bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
-                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md",
               )}
             >
               <Globe className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
@@ -219,7 +219,7 @@ const Header = () => {
                 "flex items-center gap-1 rounded-full p-1 transition-colors duration-300 ml-2",
                 isTransparent
                   ? "bg-black/20 backdrop-blur-md border border-white/10"
-                  : "bg-secondary/50 border border-border/50"
+                  : "bg-secondary/50 border border-border/50",
               )}
             >
               <button
@@ -228,7 +228,7 @@ const Header = () => {
                   "p-2 rounded-full transition-all hover:scale-110",
                   isTransparent
                     ? "text-white hover:bg-white/20"
-                    : "text-foreground hover:bg-background shadow-sm"
+                    : "text-foreground hover:bg-background shadow-sm",
                 )}
                 aria-label="Search"
               >
@@ -248,7 +248,7 @@ const Header = () => {
                 "p-2 rounded-full transition-all",
                 isTransparent && !isMenuOpen
                   ? "text-white hover:bg-white/20"
-                  : "text-foreground hover:bg-background shadow-sm"
+                  : "text-foreground hover:bg-background shadow-sm",
               )}
             >
               <SearchIcon className="h-5 w-5" />
@@ -261,7 +261,7 @@ const Header = () => {
                   ? "text-foreground"
                   : isTransparent
                     ? "text-white hover:bg-white/10"
-                    : "text-foreground hover:bg-accent"
+                    : "text-foreground hover:bg-accent",
               )}
               aria-label="Menu"
             >
