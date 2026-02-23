@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Sparkles, Plane, ExternalLink } from "lucide-react";
+import { AI_PLANNER_PATH } from "@/constants/site";
 
 const AIPlannerHero = () => {
   return (
@@ -19,9 +20,7 @@ const AIPlannerHero = () => {
               面倒な旅行計画はAIにおまかせ。あなたの希望を伝えるだけで、オリジナルの旅行プランを数秒で作成します。
             </p>
             <Link
-              href="https://tabide.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={AI_PLANNER_PATH}
               className="mx-auto flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 md:mx-0"
             >
               <Plane size={18} /> 今すぐ無料でプランを作成

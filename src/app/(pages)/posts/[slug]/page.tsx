@@ -5,6 +5,8 @@ import ArticleContent from "@/components/features/article/Article";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+export const dynamicParams = false;
+
 // 1. 静的パスを生成
 export async function generateStaticParams() {
   const posts = await getAllPosts();

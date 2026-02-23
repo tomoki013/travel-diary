@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Link as LinkIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
+import { PRIMARY_SITE_URL } from "@/constants/site";
 
 interface LinkCardProps {
   href: string;
@@ -18,8 +19,8 @@ export const LinkCard = ({
   imageUrl,
   variant,
 }: LinkCardProps) => {
-  const domain = new URL(href, "https://travel.tomokichidiary.com/posts/")
-    .hostname;
+  const resolvedUrl = new URL(href, `${PRIMARY_SITE_URL}/posts/`);
+  const displayUrl = `${resolvedUrl.hostname}${resolvedUrl.pathname}${resolvedUrl.search}`;
 
   // ===== スタンダード型 =====
   if (variant === "standard") {
@@ -50,7 +51,7 @@ export const LinkCard = ({
             </p>
           )}
           <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1 underline">
-            <LinkIcon size={12} /> {domain + href}
+            <LinkIcon size={12} /> {displayUrl}
           </p>
         </p>
       </Link>
@@ -94,7 +95,7 @@ export const LinkCard = ({
           {title}
         </p>
         <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-          <LinkIcon size={12} /> {domain + href}
+          <LinkIcon size={12} /> {displayUrl}
         </p>
       </Link>
     );

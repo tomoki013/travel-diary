@@ -20,6 +20,8 @@ const withSerwist = withSerwistInit({
   ],
 });
 
+const AI_PLANNER_EXTERNAL_URL = "https://tabide.ai/";
+
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
@@ -31,7 +33,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/ai-planner",
-        destination: "/ai-travel-planner",
+        destination: AI_PLANNER_EXTERNAL_URL,
+        permanent: true,
+      },
+      {
+        source: "/ai-travel-planner",
+        destination: AI_PLANNER_EXTERNAL_URL,
         permanent: true,
       },
     ];

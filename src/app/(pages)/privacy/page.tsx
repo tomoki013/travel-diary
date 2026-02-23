@@ -17,7 +17,7 @@ export const metadata: Metadata = {
       "ともきちの旅行日記のプライバシーポリシーです。個人情報の取り扱いやCookieの使用について詳しく説明しています。",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };

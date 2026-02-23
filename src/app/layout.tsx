@@ -13,7 +13,7 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import CookieBanner from "@/components/common/CookieBanner";
 import Background from "@/components/common/Background";
-import FloatingAIPlannerButton from "@/components/common/FloatingAIPlannerButton";
+import { PRIMARY_SITE_URL } from "@/constants/site";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "ともきちの旅行日記 | Travel Diary",
     description:
       "日本と世界の美しい風景、文化、食べ物を通じて、新しい旅の発見をお届けする旅行ブログ。",
-    url: "https://tomokichidiary.netlify.app/",
+    url: PRIMARY_SITE_URL,
     siteName: "ともきちの旅行日記",
     type: "website",
     images: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
       "日本と世界の美しい風景、文化、食べ物を通じて、新しい旅の発見をお届けする旅行ブログ。",
     images: ["favicon.ico"],
   },
-  metadataBase: new URL("https://travel.tomokichidiary.com"),
+  metadataBase: new URL(PRIMARY_SITE_URL),
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,

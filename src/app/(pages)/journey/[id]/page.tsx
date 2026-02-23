@@ -1,14 +1,22 @@
 import { notFound } from "next/navigation";
-import { getJourneyById } from "@/data/journey";
+import { JOURNEY_DATA, getJourneyById } from "@/data/journey";
 import { getAllPosts } from "@/lib/posts";
 import PostCard from "@/components/common/PostCard";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 
+export const dynamicParams = false;
+
 interface PageProps {
   params: Promise<{
     id: string;
   }>;
+}
+
+export function generateStaticParams() {
+  return JOURNEY_DATA.map((journey) => ({
+    id: journey.id,
+  }));
 }
 
 export async function generateMetadata({ params }: PageProps) {

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "お問い合わせ",
     description:
-      "ご質問、ご意見、ご提案などがpigございましたら、お気軽にお問い合わせください。",
+      "ご質問、ご意見、ご提案などがございましたら、お気軽にお問い合わせください。",
   },
   twitter: {
     title: "お問い合わせ",

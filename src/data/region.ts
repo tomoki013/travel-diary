@@ -15,7 +15,11 @@ export const regionData: ContinentData[] = [
             name: "京都",
             imageURL: "/images/Kyoto/kiyomizu-temple-autumn-leaves-lightup.jpg",
           },
-          { slug: "osaka", name: "大阪", imageURL: "/images/Osaka/" },
+          {
+            slug: "osaka",
+            name: "大阪",
+            imageURL: "/images/Osaka/kansai-airport.jpg",
+          },
           {
             slug: "hokkaido",
             name: "北海道",
@@ -24,12 +28,12 @@ export const regionData: ContinentData[] = [
         ],
       },
       {
-        slug: "south korea",
+        slug: "south-korea",
         name: "韓国",
         imageURL: "/images/Korea/monument.jpg",
         children: [
           {
-            slug: "soul",
+            slug: "seoul",
             name: "ソウル",
             imageURL: "/images/Korea/monument.jpg",
           },
@@ -89,12 +93,12 @@ export const regionData: ContinentData[] = [
       {
         slug: "china",
         name: "中国",
-        imageURL: "/images/China/shanghai.jpg",
+        imageURL: "/images/China/shanghai-airport-food.jpg",
         children: [
           {
             slug: "shanghai",
             name: "上海",
-            imageURL: "/images/China/shanghai.jpg",
+            imageURL: "/images/China/shanghai-airport-food.jpg",
           },
         ],
       },

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
       "ともきちの旅行日記の利用規約です。サイトの利用条件や禁止事項、免責事項などを詳しく説明しています。",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };
