@@ -128,6 +128,12 @@ const Client = ({
           <article>{children}</article>
         </div>
 
+        <div className="mt-8 text-right">
+          <p className="text-xs text-gray-400">
+            本記事は執筆のサポートとして一部AIを使用していますが、大部分の執筆および最終確認は運営者が責任を持って行っており、内容の正当性を保証します。
+          </p>
+        </div>
+
         {post.isPromotion && post.promotionPG && (
           <div className="my-12">
             <h2 className="text-2xl font-bold mb-6 text-center">
