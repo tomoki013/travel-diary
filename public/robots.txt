@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://travel.tomokichidiary.com/
+Host: https://tomokichidiary.com
 
 # Sitemaps
-Sitemap: https://travel.tomokichidiary.com/sitemap.xml
+Sitemap: https://tomokichidiary.com/sitemap.xml

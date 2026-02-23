@@ -2,7 +2,7 @@
 
 # ともきちの旅行日記 - A Next.js Travel Blog
 
-[Deploy with Netlify](https://travel.tomokichidiary.com)
+[Deploy with Netlify](https://tomokichidiary.com)
 
 **ともきちの旅行日記**は、「旅に出るワクワク感」をコンセプトにした、モダンな技術で構築された個人旅行ブログです。インタラクティブな世界地図やテーマ別のシリーズ記事を通じて、読者の冒険心を刺激するユニークな視覚体験を提供します。
 
@@ -68,6 +68,23 @@ yarn dev
 
 5. **ブラウザで確認**:
    ブラウザで `http://localhost:3000` を開くと、サイトが表示されます。
+
+---
+
+## 🌐 ドメイン切替（1箇所で反転）
+
+本番で使う正規ドメインは `NEXT_PUBLIC_SITE_URL` で切り替えできます。
+
+- 現在の既定値: `https://tomokichidiary.com`
+- 以前の値へ戻す場合: `https://travel.tomokichidiary.com`
+
+例（Netlify/環境変数）:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://tomokichidiary.com
+```
+
+この値は `metadataBase/canonical/og/sitemap/robots` に反映されます。
 
 ---
 

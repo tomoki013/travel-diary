@@ -27,6 +27,7 @@ import ModeToggle from "../common/mode-toggle";
 import SearchOverlay from "../features/search/SearchOverlay";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { AI_PLANNER_PATH, MAP_PATH } from "@/constants/site";
 
 const Header = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
@@ -181,9 +182,7 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             {/* AI Planner Button */}
             <Link
-              href="https://tabide.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={AI_PLANNER_PATH}
               className={cn(
                 "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
                 isTransparent
@@ -198,7 +197,7 @@ const Header = () => {
 
             {/* Tomokichi Globe Button */}
             <Link
-              href="https://travel.tomokichidiary.com/map"
+              href={MAP_PATH}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -331,7 +330,7 @@ const Header = () => {
                   <ModeToggle />
                 </div>
                 <Link
-                  href="/ai-travel-planner"
+                  href={AI_PLANNER_PATH}
                   onClick={closeMenu}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-primary-foreground shadow-lg transition-all hover:scale-[1.02] hover:bg-primary/90"
                 >
@@ -339,7 +338,7 @@ const Header = () => {
                   AIプランナーを使う
                 </Link>
                 <Link
-                  href="https://travel.tomokichidiary.com/map"
+                  href={MAP_PATH}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={closeMenu}

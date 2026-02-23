@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { regionData } from "@/data/region";
 import { getAllPosts } from "@/lib/posts";
 
+export const dynamicParams = false;
+
 // 1. 静的パスを生成
 export async function generateStaticParams() {
   const slugs = getAllRegionSlugs();

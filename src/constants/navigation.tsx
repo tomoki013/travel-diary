@@ -1,4 +1,5 @@
 import { FaGithub, FaPenSquare, FaTiktok, FaYoutube } from "react-icons/fa";
+import { AI_PLANNER_PATH, MAP_PATH, SITE_STATUS_PATH } from "./site";
 
 export interface NavLink {
   href: string;
@@ -25,15 +26,13 @@ export const NAV_LINKS: NavLink[] = [
 export const FOOTER_CONTENTS_LIST: FooterContent[] = [
   {
     name: "AI旅行プランナー",
-    pass: "https://tabide.ai/",
+    pass: AI_PLANNER_PATH,
     isNew: true,
-    target: "_blank",
   },
   {
     name: "Tomokichi Globe",
-    pass: "https://travel.tomokichidiary.com/map",
+    pass: MAP_PATH,
     isNew: true,
-    target: "_blank",
   },
   { name: "旅の軌跡", pass: "/journey" },
   { name: "地域別一覧", pass: "/destination" },
@@ -47,8 +46,7 @@ export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "更新情報・ロードマップ", pass: "/roadmap" },
   {
     name: "サイトステータス",
-    pass: "https://status.tomokichidiary.com",
-    target: "_blank",
+    pass: SITE_STATUS_PATH,
   },
   { name: "サイトマップ", pass: "/sitemap" },
 ];

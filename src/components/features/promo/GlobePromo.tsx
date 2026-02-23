@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Globe, Map as MapIcon, ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { MAP_URL } from "@/constants/site";
 
 interface GlobePromoProps {
   className?: string;
@@ -17,7 +18,7 @@ interface GlobePromoProps {
 
 const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
   const getMapUrl = () => {
-    const baseUrl = "https://travel.tomokichidiary.com/map/";
+    const baseUrl = `${MAP_URL}/`;
     if (!queryParams) return baseUrl;
 
     const params = new URLSearchParams();

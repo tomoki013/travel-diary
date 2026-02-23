@@ -100,6 +100,9 @@ const Client = ({
         vietnam: { country: "vietnam" },
         india: { country: "india" },
         delhi: { region: "new-delhi" }, // Assuming slugs, verify if crucial
+        seoul: { region: "seoul" },
+        soul: { region: "seoul" },
+        "south-korea": { country: "south-korea" },
         varanasi: { region: "varanasi" },
         europe: { region: "europe" }, // Assuming invalid broadly but maybe useful?
       };
@@ -173,13 +176,10 @@ const Client = ({
           viewport={{ once: true, amount: 0.1 }}
           variants={slideFadeIn()}
         >
-          {/* --- Shared Components --- */}
+          {/* Shared Components */}
           <ShareButtons post={post} />
-
-          {/* --- PC Layout --- */}
-          <div className="hidden md:block space-y-12">
-            {/* Area 1: Actions */}
-            <div className="space-y-8">
+          <div className="mt-10 grid gap-8 md:gap-12">
+            <div className="order-2 md:order-1">
               <PostNavigation
                 previousPost={previousPost}
                 nextPost={nextPost}
@@ -191,8 +191,7 @@ const Client = ({
                 category={post.category}
               />
             </div>
-            {/* Area 2: Author & Content */}
-            <div className="space-y-8">
+            <div className="order-1 md:order-2 space-y-8">
               <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg flex items-center gap-6">
                 <Image
                   src={author?.image || "/favicon.ico"}
@@ -219,65 +218,9 @@ const Client = ({
               {post.category !== "itinerary" && (
                 <GlobePromo className="py-4 px-0" queryParams={queryParams} />
               )}
-              {regionRelatedPosts && (
-                <RelatedPosts posts={regionRelatedPosts} />
-              )}
+              {regionRelatedPosts && <RelatedPosts posts={regionRelatedPosts} />}
             </div>
-            {/* Area 3: Monetization & Site Navigation */}
-            <div className="space-y-8">
-              {/* <div className="text-center p-8 border border-dashed rounded-lg">
-                <p className="text-gray-500">広告（AdSenseなど）</p>
-              </div> */}
-              <div className="text-center">
-                <Button href={`/posts`}>ブログ一覧へ</Button>
-              </div>
-            </div>
-          </div>
-
-          {/* --- Mobile Layout --- */}
-          <div className="block md:hidden space-y-10">
-            {/* Area 1: Share & Author */}
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg flex items-center gap-6">
-              <Image
-                src={author?.image || "/favicon.ico"}
-                alt={author?.name || "ともきちの旅行日記"}
-                width={80}
-                height={80}
-                className="rounded-full"
-              />
-              <div>
-                <h3 className="text-lg font-bold">
-                  {author?.name || "ともきちの旅行日記"}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-2">
-                  {author?.description || ""}
-                </p>
-                <Link
-                  href="/about"
-                  className="font-semibold text-teal-600 hover:text-teal-700"
-                >
-                  プロフィール詳細へ →
-                </Link>
-              </div>
-            </div>
-            <GlobePromo className="py-4 px-0" queryParams={queryParams} />
-            {/* Area 2: Core Engagement */}
-            {regionRelatedPosts && <RelatedPosts posts={regionRelatedPosts} />}
-            {/* Area 3: Monetization & Navigation */}
-            {/* <div className="text-center p-8 border border-dashed rounded-lg">
-              <p className="text-gray-500">広告（AdSenseなど）</p>
-            </div> */}
-            <PostNavigation
-              previousPost={previousPost}
-              nextPost={nextPost}
-              previousCategoryPost={previousCategoryPost}
-              nextCategoryPost={nextCategoryPost}
-              previousSeriesPost={previousSeriesPost}
-              nextSeriesPost={nextSeriesPost}
-              series={post.series}
-              category={post.category}
-            />
-            <div className="text-center">
+            <div className="order-3 md:order-3 text-center">
               <Button href={`/posts`}>ブログ一覧へ</Button>
             </div>
           </div>

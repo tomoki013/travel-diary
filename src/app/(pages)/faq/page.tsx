@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
 import FaqClient from "@/components/pages/faq/FaqClient";
+import { PRIMARY_SITE_URL } from "@/constants/site";
 
 // Existing FAQs from the old page, with added metadata for the new UI
 const FAQS = [
@@ -87,7 +88,7 @@ export const metadata: Metadata = {
   title: "FAQ | ともきちの旅行日記",
   description: "ともきちの旅行日記に関するよくある質問と回答を掲載しています。",
   alternates: {
-    canonical: new URL("/faq", "https://tomokichidiary.netlify.app"),
+    canonical: new URL("/faq", PRIMARY_SITE_URL),
   },
 };
 
