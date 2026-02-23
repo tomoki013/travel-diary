@@ -128,6 +128,21 @@ const Client = ({
           <article>{children}</article>
         </div>
 
+        <div className="mt-8 text-right">
+          <p className="text-xs text-gray-400">
+            本記事の大部分の執筆および最終確認は執筆者が行っておりますが、一部執筆のサポートとしてAIを使用しています。
+            <br />
+            内容の正当性は執筆者が保証しますが、これは記事の内容によって生じた損害等の責任を負うものではありません。詳しくは
+            <Link
+              href="/privacy-policy"
+              className="underline hover:text-gray-600"
+            >
+              プライバシーポリシー
+            </Link>
+            をご確認ください。
+          </p>
+        </div>
+
         {post.isPromotion && post.promotionPG && (
           <div className="my-12">
             <h2 className="text-2xl font-bold mb-6 text-center">
