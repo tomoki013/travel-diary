@@ -3,6 +3,7 @@
 import { MenuIcon, XIcon } from "@/components/common/Icons";
 import { NAV_LINKS } from "@/constants/navigation";
 import { useMobileMenu } from "@/hooks/useMobileMenu";
+import { useUI } from "@/context/UIContext";
 import {
   AnimatePresence,
   motion,
@@ -32,7 +33,7 @@ import { useFocusMode } from "../features/article/focus-mode/FocusModeContext";
 
 const Header = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { isSearchOpen, openSearch, closeSearch } = useUI();
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -90,9 +91,6 @@ const Header = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen, closeMenu]);
-
-  const openSearch = () => setIsSearchOpen(true);
-  const closeSearch = () => setIsSearchOpen(false);
 
   // 透過状態かどうか
   const isTransparent = isHomePage && !isScrolled;
