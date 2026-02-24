@@ -42,7 +42,15 @@ const FocusModeToggle = () => {
   const { isMobileMenuOpen, isSearchOpen } = useUI();
   const [isOpen, setIsOpen] = useState(false);
   const [showHint, setShowHint] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.matchMedia("(min-width: 640px)").matches);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   useEffect(() => {
     // 3秒後にヒント（テキストラベル）を非表示にする
@@ -86,12 +94,12 @@ const FocusModeToggle = () => {
   return (
     <motion.div
       ref={rootRef}
-      className="fixed right-4 top-4 z-[80] sm:right-6 sm:top-6"
+      className="fixed right-4 bottom-4 z-[120] flex flex-col-reverse items-end gap-2 sm:top-6 sm:bottom-auto sm:block"
       initial={false}
-      animate={{ y: isFocusActive ? 0 : 88 }}
+      animate={{ y: isDesktop ? (isFocusActive ? 0 : 88) : 0 }}
       transition={{ type: "spring", stiffness: 220, damping: 30, mass: 1 }}
     >
-      <div className="flex items-center gap-2 rounded-2xl border border-border/80 bg-background/90 p-2 shadow-xl backdrop-blur-md">
+      <div className="flex items-center gap-2 rounded-2xl border border-border/80 bg-background/90 p-2 shadow-xl backdrop-blur-md transition-opacity duration-300 hover:opacity-100 sm:opacity-100 opacity-80">
         <button
           type="button"
           className={cn(
@@ -155,7 +163,7 @@ const FocusModeToggle = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.32 }}
-            className="mt-2 rounded-lg bg-background/90 px-3 py-1.5 text-xs text-muted-foreground shadow-md backdrop-blur-sm"
+            className="rounded-lg bg-background/90 px-3 py-1.5 text-xs text-muted-foreground shadow-md backdrop-blur-sm sm:mt-2"
           >
             現在: {activeOption?.label ?? "標準"} / 右のボタンでレベル変更
           </motion.p>
@@ -169,7 +177,7 @@ const FocusModeToggle = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={PANEL_TRANSITION}
-            className="mt-3 w-72 overflow-hidden rounded-2xl border border-border/80 bg-background/95 p-2 shadow-2xl backdrop-blur-md"
+            className="w-72 overflow-hidden rounded-2xl border border-border/80 bg-background/95 p-2 shadow-2xl backdrop-blur-md sm:mt-3"
           >
             {FOCUS_LEVEL_OPTIONS.map((option) => (
               <button
