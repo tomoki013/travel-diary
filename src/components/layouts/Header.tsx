@@ -28,6 +28,7 @@ import SearchOverlay from "../features/search/SearchOverlay";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { AI_PLANNER_PATH, MAP_PATH } from "@/constants/site";
+import { useFocusMode } from "../features/article/focus-mode/FocusModeContext";
 
 const Header = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
@@ -36,6 +37,7 @@ const Header = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const { isFocusActive } = useFocusMode();
 
   // スムーズなスクロールベースのアニメーション用
   const { scrollY } = useScroll();
@@ -109,10 +111,12 @@ const Header = () => {
     <>
       <motion.header
         className={cn(
-          "top-0 z-50 w-full transition-all duration-500 ease-in-out",
+          "top-0 z-50 w-full max-h-40 overflow-hidden transition-[max-height,opacity,transform,padding,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
           isTransparent
             ? "fixed py-6 border-transparent"
             : "sticky py-2 border-b border-border/40 shadow-sm bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
+          isFocusActive &&
+            "max-h-0 py-0 opacity-0 -translate-y-6 pointer-events-none border-transparent shadow-none"
         )}
         style={{
           background: isHomePage ? headerBg : undefined,

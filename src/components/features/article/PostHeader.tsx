@@ -12,9 +12,10 @@ import { categories } from "@/data/categories";
 
 interface PostHeaderProps {
   post: Post;
+  variant?: "full" | "titleOnly";
 }
 
-const PostHeader = ({ post }: PostHeaderProps) => {
+const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
   const series = featuredSeries.find((s) => s.slug === post.series);
   const regionTags = getValidRegionsBySlugs(post.location || []);
   const primarySlug =
@@ -24,6 +25,7 @@ const PostHeader = ({ post }: PostHeaderProps) => {
   const category = categories.filter(
     (category) => category.slug === post.category
   );
+  const isTitleOnly = variant === "titleOnly";
 
   return (
     <motion.header
@@ -31,6 +33,12 @@ const PostHeader = ({ post }: PostHeaderProps) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
+      {isTitleOnly ? (
+        <h1 className="mb-2 text-3xl font-bold text-foreground md:text-5xl">
+          {post.title}
+        </h1>
+      ) : (
+        <>
       {/* Promotion */}
       {post.isPromotion && (
         <section className="flex justify-center items-center my-8 text-gray-800 italic bg-white/80 h-12 rounded-sm border border-secondary">
@@ -143,6 +151,8 @@ const PostHeader = ({ post }: PostHeaderProps) => {
           に作成されたものです。最新の情報に注意をして旅行をしてください。
         </p>
       </section>
+        </>
+      )}
     </motion.header>
   );
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FOOTER_CONTENTS_LIST,
   FOOTER_ABOUT_LIST,
@@ -7,10 +9,19 @@ import {
 } from "@/constants/navigation";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { useFocusMode } from "../features/article/focus-mode/FocusModeContext";
+import { cn } from "@/lib/utils";
 
 const Footer = () => {
+  const { isFocusActive } = useFocusMode();
+
   return (
-    <footer className="bg-background text-foreground py-16 px-8">
+    <footer
+      className={cn(
+        "max-h-[120rem] overflow-hidden bg-background px-8 py-16 text-foreground transition-[max-height,opacity,transform,padding] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isFocusActive && "max-h-0 py-0 opacity-0 translate-y-8 pointer-events-none"
+      )}
+    >
       {/* アフィリエイトポリシー */}
       <div className="italic">
         <p>
