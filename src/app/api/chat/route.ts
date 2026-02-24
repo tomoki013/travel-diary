@@ -25,24 +25,24 @@ async function loadCache() {
 
 async function buildCacheFromSource() {
   try {
-    const postsDir = path.join(process.cwd(), "src/posts");
+    const postsDir = path.join(process.cwd(), "posts");
     const stat = await fs.stat(postsDir).catch(() => null);
     if (!stat || !stat.isDirectory()) {
       console.warn(`API Route: Posts directory not found at ${postsDir}`);
       return;
     }
     const files = await fs.readdir(postsDir);
-    const mdFiles = files.filter((f) => f.endsWith(".md"));
+    const mdFiles = files.filter((f) => f.endsWith(".md") || f.endsWith(".mdx"));
     const built: Record<string, string> = {};
     for (const file of mdFiles) {
-      const slug = file.replace(/\.md$/, "").toLowerCase();
+      const slug = file.replace(/\.(md|mdx)$/, "").toLowerCase();
       const fileContents = await fs.readFile(path.join(postsDir, file), "utf8");
       const { content } = matter(fileContents);
       built[slug] = content;
     }
     if (Object.keys(built).length > 0) {
       postsCache = built;
-      console.log("✅ API Route: Built posts cache from src/posts fallback.");
+      console.log("✅ API Route: Built posts cache from posts fallback.");
     }
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
