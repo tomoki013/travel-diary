@@ -94,12 +94,13 @@ NEXT_PUBLIC_SITE_URL=https://tomokichidiary.com
 
 ```text
 .
+├── posts/ # 公開用Markdown記事
+├── draft-posts/ # 下書き記事
 ├── src
 │ ├── app/ # App Routerのルートとページ
 │ ├── components/ # 再利用可能なUIコンポーネント
 │ ├── data/ # 地域情報などの静的データ
-│ ├── lib/ # 汎用的なヘルパー関数
-│ └── posts/ # Markdown形式のブログ記事
+│ └── lib/ # 汎用的なヘルパー関数
 ├── public/ # 画像などの静的アセット
 └── README.md
 ```
@@ -108,7 +109,8 @@ NEXT_PUBLIC_SITE_URL=https://tomokichidiary.com
 
 ## 📝 コンテンツ管理
 
-新しいブログ記事は、`src/posts/` ディレクトリ内にMarkdownファイル (`.md`) として追加します。
+新しいブログ記事は、`posts/` ディレクトリ直下にMarkdownファイル (`.md`) として追加します。
+下書きは `draft-posts/` に保存します。
 各記事ファイルは、メタデータを定義する**フロントマター**を持つ必要があります。
 
 **例 (`example-post.md`):**

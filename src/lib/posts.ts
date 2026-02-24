@@ -65,7 +65,7 @@ export const getAllPosts = cache(
  * Gets a single post data (including raw Markdown content) based on the slug.
  */
 export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
-  const postsDirectory = path.join(process.cwd(), "posts/travel-posts");
+  const postsDirectory = path.join(process.cwd(), "posts");
   let fullPath = path.join(postsDirectory, `${slug}.md`);
 
   // Check if the file exists

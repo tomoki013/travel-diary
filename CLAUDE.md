@@ -10,7 +10,7 @@ A Japanese travel diary blog ("ともきちの旅行日記") built with Next.js 
 
 ```bash
 pnpm dev           # Start dev server (webpack mode)
-pnpm build         # Full build (updates git submodule, generates caches, builds Next.js, generates sitemap)
+pnpm build         # Full build (generates caches, builds Next.js, generates sitemap)
 pnpm lint          # Run ESLint
 pnpm start         # Start production server
 ```
@@ -23,7 +23,7 @@ The build process runs prebuild scripts that generate:
 
 ### Content System
 
-**Posts** are stored in the `posts/` directory as a git submodule. The config file `posts/travel-diary.config.json` specifies which subdirectories to scan (currently `travel-posts`).
+**Posts** are stored as Markdown files directly in the repository's `posts/` directory. Drafts are stored in `draft-posts/`.
 
 Post files use Markdown (.md/.mdx) with gray-matter frontmatter:
 ```yaml
