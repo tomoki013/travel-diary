@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Eye, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FocusMode, useFocusMode } from "./FocusModeContext";
+import { useUI } from "@/context/UIContext";
 
 const FOCUS_LEVEL_OPTIONS: {
   value: Extract<FocusMode, "minimal" | "standard" | "maximum">;
@@ -38,8 +39,18 @@ const PANEL_TRANSITION = {
 const FocusModeToggle = () => {
   const { focusMode, setFocusMode, isPostDetailPage, isFocusActive } =
     useFocusMode();
+  const { isMobileMenuOpen, isSearchOpen } = useUI();
   const [isOpen, setIsOpen] = useState(false);
+  const [showHint, setShowHint] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // 3秒後にヒント（テキストラベル）を非表示にする
+    const timer = setTimeout(() => {
+      setShowHint(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -65,7 +76,8 @@ const FocusModeToggle = () => {
     };
   }, [isPostDetailPage]);
 
-  if (!isPostDetailPage) {
+  // モーダルやメニューが開いているときは非表示にする
+  if (!isPostDetailPage || isMobileMenuOpen || isSearchOpen) {
     return null;
   }
 
@@ -83,7 +95,11 @@ const FocusModeToggle = () => {
         <button
           type="button"
           className={cn(
-            "inline-flex h-10 items-center gap-2 rounded-xl px-4 text-sm font-semibold transition-colors",
+            "inline-flex items-center justify-center gap-2 text-sm font-semibold transition-all duration-300",
+            // モバイル時のスタイル（ヒント表示中 or 常に表示の設定なら広げる、それ以外は丸ボタン）
+            showHint ? "h-10 px-4 rounded-xl" : "h-10 w-10 rounded-full",
+            // デスクトップ(sm以上)は常にテキストあり
+            "sm:w-auto sm:px-4 sm:rounded-xl sm:h-10",
             isFocusActive
               ? "bg-primary text-primary-foreground hover:bg-primary/90"
               : "bg-secondary/70 text-foreground hover:bg-secondary"
@@ -99,8 +115,16 @@ const FocusModeToggle = () => {
           }}
           aria-label={isFocusActive ? "集中モードを終了" : "集中モードを開始"}
         >
-          <Eye className="h-4 w-4" />
-          <span>{isFocusActive ? "集中モードを解除" : "集中モードを開始"}</span>
+          <Eye className="h-4 w-4 flex-shrink-0" />
+          <span
+            className={cn(
+              "whitespace-nowrap overflow-hidden transition-all duration-300",
+              showHint ? "max-w-[100px] opacity-100" : "max-w-0 opacity-0",
+              "sm:max-w-[100px] sm:opacity-100"
+            )}
+          >
+            {isFocusActive ? "集中モードを解除" : "集中モードを開始"}
+          </span>
         </button>
 
         <AnimatePresence initial={false}>

@@ -1,19 +1,11 @@
-import { useState } from "react";
+import { useUI } from "@/context/UIContext";
 
 export const useMobileMenu = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useUI();
 
   return {
-    isMenuOpen,
-    toggleMenu,
-    closeMenu,
+    isMenuOpen: isMobileMenuOpen,
+    toggleMenu: toggleMobileMenu,
+    closeMenu: closeMobileMenu,
   };
 };

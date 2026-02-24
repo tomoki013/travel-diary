@@ -15,6 +15,7 @@ import CookieBanner from "@/components/common/CookieBanner";
 import Background from "@/components/common/Background";
 import { PRIMARY_SITE_URL } from "@/constants/site";
 import { FocusModeProvider } from "@/components/features/article/focus-mode/FocusModeContext";
+import { UIProvider } from "@/context/UIContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -148,14 +149,16 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FocusModeProvider>
-            <Background />
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-1 text-sm md:text-base">{children}</main>
-              <Footer />
-            </div>
-            <CookieBanner />
-            <Toaster />
+            <UIProvider>
+              <Background />
+              <div className="flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-1 text-sm md:text-base">{children}</main>
+                <Footer />
+              </div>
+              <CookieBanner />
+              <Toaster />
+            </UIProvider>
           </FocusModeProvider>
         </ThemeProvider>
       </body>
