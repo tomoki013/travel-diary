@@ -82,6 +82,34 @@ export const CustomImg = ({ src, alt }: CustomImgProps) => {
   }
 };
 
+const normalizeLinkedSlug = (href: string): string | null => {
+  if (!href) return null;
+
+  const [rawPath] = href.split("#");
+  const [pathname] = rawPath.split("?");
+
+  const relativeMatch = pathname.match(/^\.\/([\w-]+)$/i);
+  if (relativeMatch) return relativeMatch[1].toLowerCase();
+
+  const directPostPathMatch = pathname.match(/^\/posts\/([\w-]+)\/?$/i);
+  if (directPostPathMatch) return directPostPathMatch[1].toLowerCase();
+
+  const bareSlugMatch = pathname.match(/^([\w-]+)$/i);
+  if (bareSlugMatch) return bareSlugMatch[1].toLowerCase();
+
+  if (/^https?:\/\//i.test(pathname)) {
+    try {
+      const parsed = new URL(pathname);
+      const absolutePostPathMatch = parsed.pathname.match(/^\/posts\/([\w-]+)\/?$/i);
+      if (absolutePostPathMatch) return absolutePostPathMatch[1].toLowerCase();
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
+};
+
 /**
  * @param {object} props
  * @param {string} props.href - リンク先のURL
@@ -91,13 +119,10 @@ export const CustomImg = ({ src, alt }: CustomImgProps) => {
  */
 export const CustomLink = ({ href, children, allPosts }: CustomLinkProps) => {
   const hrefStr = href || "";
-  let linkedPost;
-
-  const relativeLinkMatch = hrefStr.match(/^\.\/([\w-]+)$/);
-  if (relativeLinkMatch && !linkedPost) {
-    const [, slug] = relativeLinkMatch;
-    linkedPost = allPosts.find((p) => p.slug === slug);
-  }
+  const linkedSlug = normalizeLinkedSlug(hrefStr);
+  const linkedPost = linkedSlug
+    ? allPosts.find((p) => p.slug.toLowerCase() === linkedSlug)
+    : undefined;
 
   // 内部リンクで記事が見つかった場合
   if (linkedPost) {
