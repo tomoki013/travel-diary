@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { Post } from "@/types/types";
 import { ensureStringArray } from "@/lib/utils";
+import { enrichPostRevenueCategory } from "@/lib/revenue";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -24,7 +25,7 @@ export function getRawPostsData(): PostMetadata[] {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data } = matter(fileContents);
 
-    return {
+    return enrichPostRevenueCategory({
       slug,
       title: data.title,
       dates: ensureStringArray(data.dates),
@@ -39,7 +40,8 @@ export function getRawPostsData(): PostMetadata[] {
       series: data.series,
       isPromotion: data.isPromotion,
       promotionPG: data.promotionPG,
-    } as PostMetadata;
+      revenueCategory: data.revenueCategory,
+    } as PostMetadata);
   });
 
   // Deduplicate posts based on slug

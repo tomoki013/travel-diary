@@ -7,6 +7,7 @@ import * as postFilters from "./post-filters";
 import { Post } from "@/types/types";
 import { ensureStringArray } from "@/lib/utils";
 import { calculateScores } from "@/lib/search";
+import { enrichPostRevenueCategory, getNextActionPosts } from "@/lib/revenue";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -86,7 +87,7 @@ export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
-  return {
+  return enrichPostRevenueCategory({
     slug,
     content,
     title: data.title,
@@ -104,7 +105,8 @@ export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
     isPromotion: data.isPromotion,
     promotionPG: data.promotionPG,
     journey: data.journey,
-  } as Post;
+    revenueCategory: data.revenueCategory,
+  } as Post);
 });
 
 /**
@@ -210,6 +212,9 @@ export const getPostData = cache(async (slug: string) => {
       .map((sp) => sp.post);
   }
 
+
+  const nextActionPosts = getNextActionPosts(post, allPosts);
+
   // Format the next/previous post data to match the expected structure in the component
   const previousPost = previousPostData
     ? {
@@ -235,5 +240,6 @@ export const getPostData = cache(async (slug: string) => {
     nextCategoryPost,
     previousSeriesPost,
     nextSeriesPost,
+    nextActionPosts,
   };
 });
