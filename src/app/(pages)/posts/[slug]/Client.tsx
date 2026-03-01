@@ -16,6 +16,8 @@ import AffiliateCard from "@/components/common/AffiliateCard";
 import { affiliates } from "@/constants/affiliates";
 import AffiliateSection from "@/components/features/affiliates/AffiliateSection";
 import React from "react";
+import ArticleCTASection from "@/components/features/revenue/ArticleCTASection";
+import { NextStepLinks } from "@/components/features/revenue/RevenueComponents";
 import CostBreakdown from "@/components/features/article/CostBreakdown";
 import GlobePromo from "@/components/features/promo/GlobePromo";
 import { cn } from "@/lib/utils";
@@ -35,6 +37,7 @@ interface ClientProps {
   nextCategoryPost?: { href: string; title: string };
   previousSeriesPost?: { href: string; title: string };
   nextSeriesPost?: { href: string; title: string };
+  nextActionPosts?: Omit<Post, "content">[];
 }
 
 const ITINERARY_SLUG_MAP: Record<string, string> = {
@@ -112,6 +115,7 @@ const Client = ({
   nextCategoryPost,
   previousSeriesPost,
   nextSeriesPost,
+  nextActionPosts = [],
 }: ClientProps) => {
   const author = members.find((m) => m.name === post.author);
   const { focusMode, isFocusActive } = useFocusMode();
@@ -230,6 +234,8 @@ const Client = ({
           className="mt-12 w-full"
         >
           <article className="max-w-none">{childrenWithFocusMode}</article>
+          <ArticleCTASection revenueCategory={post.revenueCategory} />
+          <NextStepLinks posts={nextActionPosts} />
         </motion.div>
 
         <div className="mt-8 text-right">

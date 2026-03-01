@@ -37,8 +37,8 @@ const Footer = () => {
         </p>
       </div>
       <div className="container py-10">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-5">
-          <div className="space-y-3 md:col-span-1">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+          <div className="space-y-3 col-span-2 md:col-span-1">
             <Link href="/" className="text-lg font-heading font-bold">
               ともきちの旅行日記
             </Link>
