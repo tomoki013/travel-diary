@@ -1,6 +1,7 @@
 import { Post, RevenueCategory } from "@/types/types";
 
 type PostMetadata = Omit<Post, "content">;
+type PostLike = PostMetadata | Post;
 
 const HIGH_INTENT: RevenueCategory[] = [
   "money",
@@ -43,7 +44,7 @@ export const inferRevenueCategory = (post: PostMetadata): RevenueCategory => {
   return "guide";
 };
 
-export const enrichPostRevenueCategory = (post: PostMetadata): PostMetadata => ({
+export const enrichPostRevenueCategory = <T extends PostLike>(post: T): T => ({
   ...post,
   revenueCategory: post.revenueCategory || inferRevenueCategory(post),
 });
