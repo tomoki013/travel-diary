@@ -1,6 +1,9 @@
 import { Post, RevenueCategory } from "@/types/types";
 
 type PostMetadata = Omit<Post, "content">;
+type RevenueInferenceSource = Pick<Post, "title" | "excerpt" | "category" | "tags"> & {
+  revenueCategory?: RevenueCategory;
+};
 
 const HIGH_INTENT: RevenueCategory[] = [
   "money",
@@ -22,7 +25,7 @@ const KEYWORDS: Record<RevenueCategory, string[]> = {
   essay: [],
 };
 
-export const inferRevenueCategory = (post: PostMetadata): RevenueCategory => {
+export const inferRevenueCategory = (post: RevenueInferenceSource): RevenueCategory => {
   const corpus = [
     post.title,
     post.excerpt,
@@ -43,7 +46,13 @@ export const inferRevenueCategory = (post: PostMetadata): RevenueCategory => {
   return "guide";
 };
 
-export const enrichPostRevenueCategory = (post: PostMetadata): PostMetadata => ({
+export const enrichPostRevenueCategory = <T extends {
+  title: string;
+  excerpt?: string;
+  category: string;
+  tags?: string[];
+  revenueCategory?: RevenueCategory;
+}>(post: T): T & { revenueCategory: RevenueCategory } => ({
   ...post,
   revenueCategory: post.revenueCategory || inferRevenueCategory(post),
 });
