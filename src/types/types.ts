@@ -1,4 +1,14 @@
 export type PostType = "tourism" | "itinerary" | "series" | "one-off";
+export type RevenueCategory =
+  | "money"
+  | "visa"
+  | "transport"
+  | "booking"
+  | "sim"
+  | "insurance"
+  | "guide"
+  | "essay";
+
 export interface Post {
   slug: string;
   title: string;
@@ -17,6 +27,7 @@ export interface Post {
   isPromotion?: boolean;
   promotionPG?: string[];
   journey?: string;
+  revenueCategory?: RevenueCategory;
 }
 
 export type PostMetadata = Omit<Post, "content">;
