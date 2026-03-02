@@ -73,17 +73,50 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
   };
 
   const order = flow[current.revenueCategory || "guide"];
+  const currentTags = new Set((current.tags || []).map((tag) => tag.toLowerCase()));
+  const currentLocations = new Set(
+    (current.location || []).map((location) => location.toLowerCase())
+  );
+
   return allPosts
-    .filter((p) => p.slug !== current.slug)
-    .sort((a, b) => {
-      const ai = order.indexOf(a.revenueCategory || "guide");
-      const bi = order.indexOf(b.revenueCategory || "guide");
-      if (ai === bi) return 0;
-      if (ai === -1) return 1;
-      if (bi === -1) return -1;
-      return ai - bi;
+    .filter((post) => post.slug !== current.slug)
+    .map((post) => {
+      const postCategory = post.revenueCategory || "guide";
+      const categoryIndex = order.indexOf(postCategory);
+      const locationMatches = (post.location || []).filter((location) =>
+        currentLocations.has(location.toLowerCase())
+      ).length;
+      const tagMatches = (post.tags || []).filter((tag) =>
+        currentTags.has(tag.toLowerCase())
+      ).length;
+      const sameSeries = Boolean(current.series && post.series === current.series);
+      const sameJourney = Boolean(current.journey && post.journey === current.journey);
+
+      // 地理・シリーズ・タグなどの文脈一致がない記事は除外
+      const hasContextMatch = sameSeries || sameJourney || locationMatches > 0 || tagMatches > 0;
+      if (!hasContextMatch) {
+        return null;
+      }
+
+      let score = 0;
+      score += categoryIndex === -1 ? -20 : (order.length - categoryIndex) * 10;
+      score += sameSeries ? 35 : 0;
+      score += sameJourney ? 28 : 0;
+      score += locationMatches * 14;
+      score += tagMatches * 10;
+      score += post.category === current.category ? 6 : 0;
+
+      const recency = new Date(post.dates?.[0] || "1970-01-01").getTime();
+
+      return { post, score, recency };
     })
-    .slice(0, 3);
+    .filter((item): item is { post: PostMetadata; score: number; recency: number } => Boolean(item))
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return b.recency - a.recency;
+    })
+    .slice(0, 3)
+    .map(({ post }) => post);
 };
 
 export const HIGH_INTENT_CATEGORIES = HIGH_INTENT;
