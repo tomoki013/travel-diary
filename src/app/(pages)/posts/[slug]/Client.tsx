@@ -234,8 +234,13 @@ const Client = ({
           className="mt-12 w-full"
         >
           <article className="max-w-none">{childrenWithFocusMode}</article>
-          <ArticleCTASection revenueCategory={post.revenueCategory} />
-          <NextStepLinks posts={nextActionPosts} />
+          <FocusSection show={!isStandardOrHigher}>
+            <ArticleCTASection
+              revenueCategory={post.revenueCategory}
+              nextActionPosts={nextActionPosts}
+            />
+            <NextStepLinks posts={nextActionPosts} />
+          </FocusSection>
         </motion.div>
 
         <div className="mt-8 text-right">

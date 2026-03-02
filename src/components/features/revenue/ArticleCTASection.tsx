@@ -1,14 +1,38 @@
-import { CTA_BY_CATEGORY } from "@/constants/revenue";
-import { RevenueCategory } from "@/types/types";
+import { CTA_BY_CATEGORY, CtaItem } from "@/constants/revenue";
+import { Post, RevenueCategory } from "@/types/types";
 import { ComparisonTable, ReviewCardGroup } from "./RevenueComponents";
+
+type PostMetadata = Omit<Post, "content">;
+
+const buildPostCtaItems = (posts: PostMetadata[]): CtaItem[] =>
+  posts.slice(0, 2).map((post, index) => ({
+    title: post.title,
+    description:
+      post.excerpt || "次の準備に進む前に、要点だけ先にチェックしておきましょう。",
+    serviceName: `STEP ${index + 1}`,
+    comparePoints: [
+      post.category === "itinerary" ? "旅程の流れ" : "準備の手順",
+      post.location?.[0] ? `対象: ${post.location[0]}` : "実践ノウハウ",
+      post.revenueCategory ? `カテゴリ: ${post.revenueCategory}` : "旅行準備",
+    ],
+    buttonText: "この記事を読む",
+    href: `/posts/${post.slug}`,
+    destinationLabel: `${post.title} 記事`,
+    eventName: "cta_next_article_click",
+  }));
 
 const ArticleCTASection = ({
   revenueCategory,
+  nextActionPosts = [],
 }: {
   revenueCategory?: RevenueCategory;
+  nextActionPosts?: PostMetadata[];
 }) => {
   const category = revenueCategory || "guide";
-  const items = CTA_BY_CATEGORY[category];
+  const fallbackItems = CTA_BY_CATEGORY[category];
+  const items = nextActionPosts.length
+    ? buildPostCtaItems(nextActionPosts)
+    : fallbackItems;
 
   return (
     <section className="my-12 overflow-hidden rounded-3xl border border-teal-200/60 bg-gradient-to-br from-teal-50/80 via-background to-cyan-50/60 p-6 shadow-sm dark:border-teal-900/80 dark:from-teal-950/20 dark:via-background dark:to-cyan-950/20">

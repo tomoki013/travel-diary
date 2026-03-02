@@ -73,16 +73,50 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
   };
 
   const order = flow[current.revenueCategory || "guide"];
+
+  const currentTags = new Set((current.tags || []).map((tag) => tag.toLowerCase()));
+  const currentLocations = new Set(
+    (current.location || []).map((location) => location.toLowerCase())
+  );
+
   return allPosts
     .filter((p) => p.slug !== current.slug)
-    .sort((a, b) => {
-      const ai = order.indexOf(a.revenueCategory || "guide");
-      const bi = order.indexOf(b.revenueCategory || "guide");
-      if (ai === bi) return 0;
-      if (ai === -1) return 1;
-      if (bi === -1) return -1;
-      return ai - bi;
+    .map((post) => {
+      const postCategory = post.revenueCategory || "guide";
+      const categoryIndex = order.indexOf(postCategory);
+
+      let score = 0;
+
+      // 1) 次の準備として優先したいカテゴリの流れ
+      score += categoryIndex === -1 ? -20 : (order.length - categoryIndex) * 12;
+
+      // 2) 同じ地域・旅程の文脈を優先
+      if (current.series && post.series === current.series) score += 30;
+      if (current.journey && post.journey === current.journey) score += 24;
+
+      const locationMatches = (post.location || []).filter((location) =>
+        currentLocations.has(location.toLowerCase())
+      ).length;
+      score += locationMatches * 10;
+
+      // 3) タグとカテゴリの関連性
+      const tagMatches = (post.tags || []).filter((tag) =>
+        currentTags.has(tag.toLowerCase())
+      ).length;
+      score += tagMatches * 8;
+
+      if (post.category === current.category) score += 5;
+
+      // 4) 同点時に新しい記事を少し優先
+      const recency = new Date(post.dates?.[0] || "1970-01-01").getTime();
+
+      return { post, score, recency };
     })
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return b.recency - a.recency;
+    })
+    .map(({ post }) => post)
     .slice(0, 3);
 };
 
