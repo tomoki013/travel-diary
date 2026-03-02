@@ -73,51 +73,50 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
   };
 
   const order = flow[current.revenueCategory || "guide"];
-
   const currentTags = new Set((current.tags || []).map((tag) => tag.toLowerCase()));
   const currentLocations = new Set(
     (current.location || []).map((location) => location.toLowerCase())
   );
 
   return allPosts
-    .filter((p) => p.slug !== current.slug)
+    .filter((post) => post.slug !== current.slug)
     .map((post) => {
       const postCategory = post.revenueCategory || "guide";
       const categoryIndex = order.indexOf(postCategory);
-
-      let score = 0;
-
-      // 1) 次の準備として優先したいカテゴリの流れ
-      score += categoryIndex === -1 ? -20 : (order.length - categoryIndex) * 12;
-
-      // 2) 同じ地域・旅程の文脈を優先
-      if (current.series && post.series === current.series) score += 30;
-      if (current.journey && post.journey === current.journey) score += 24;
-
       const locationMatches = (post.location || []).filter((location) =>
         currentLocations.has(location.toLowerCase())
       ).length;
-      score += locationMatches * 10;
-
-      // 3) タグとカテゴリの関連性
       const tagMatches = (post.tags || []).filter((tag) =>
         currentTags.has(tag.toLowerCase())
       ).length;
-      score += tagMatches * 8;
+      const sameSeries = Boolean(current.series && post.series === current.series);
+      const sameJourney = Boolean(current.journey && post.journey === current.journey);
 
-      if (post.category === current.category) score += 5;
+      // 地理・シリーズ・タグなどの文脈一致がない記事は除外
+      const hasContextMatch = sameSeries || sameJourney || locationMatches > 0 || tagMatches > 0;
+      if (!hasContextMatch) {
+        return null;
+      }
 
-      // 4) 同点時に新しい記事を少し優先
+      let score = 0;
+      score += categoryIndex === -1 ? -20 : (order.length - categoryIndex) * 10;
+      score += sameSeries ? 35 : 0;
+      score += sameJourney ? 28 : 0;
+      score += locationMatches * 14;
+      score += tagMatches * 10;
+      score += post.category === current.category ? 6 : 0;
+
       const recency = new Date(post.dates?.[0] || "1970-01-01").getTime();
 
       return { post, score, recency };
     })
+    .filter((item): item is { post: PostMetadata; score: number; recency: number } => Boolean(item))
     .sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
       return b.recency - a.recency;
     })
-    .map(({ post }) => post)
-    .slice(0, 3);
+    .slice(0, 3)
+    .map(({ post }) => post);
 };
 
 export const HIGH_INTENT_CATEGORIES = HIGH_INTENT;

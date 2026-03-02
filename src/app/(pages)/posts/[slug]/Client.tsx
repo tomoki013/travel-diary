@@ -235,10 +235,7 @@ const Client = ({
         >
           <article className="max-w-none">{childrenWithFocusMode}</article>
           <FocusSection show={!isStandardOrHigher}>
-            <ArticleCTASection
-              revenueCategory={post.revenueCategory}
-              nextActionPosts={nextActionPosts}
-            />
+            <ArticleCTASection nextActionPosts={nextActionPosts} />
             <NextStepLinks posts={nextActionPosts} />
           </FocusSection>
         </motion.div>
