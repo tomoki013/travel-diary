@@ -2,7 +2,7 @@ import { cache } from "react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { getRawPostsData } from "./markdown";
+import { getRawPostsData, getRawDraftPostsData } from "./markdown";
 import * as postFilters from "./post-filters";
 import { Post } from "@/types/types";
 import { ensureStringArray } from "@/lib/utils";
@@ -11,6 +11,7 @@ import { calculateScores } from "@/lib/search";
 type PostMetadata = Omit<Post, "content">;
 
 let cachedPosts: PostMetadata[] | null = null;
+let cachedDraftPosts: PostMetadata[] | null = null;
 
 const fetchAllPosts = cache((): PostMetadata[] => {
   if (cachedPosts) {
@@ -19,6 +20,15 @@ const fetchAllPosts = cache((): PostMetadata[] => {
   const posts = getRawPostsData();
   cachedPosts = postFilters.sortByDate(posts);
   return cachedPosts;
+});
+
+const fetchAllDraftPosts = cache((): PostMetadata[] => {
+  if (cachedDraftPosts) {
+    return cachedDraftPosts;
+  }
+  const posts = getRawDraftPostsData();
+  cachedDraftPosts = postFilters.sortByDate(posts);
+  return cachedDraftPosts;
 });
 
 type GetAllPostsOptions = {
@@ -62,24 +72,38 @@ export const getAllPosts = cache(
 );
 
 /**
- * Gets a single post data (including raw Markdown content) based on the slug.
+ * Gets all draft posts metadata.
  */
-export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
-  const postsDirectory = path.join(process.cwd(), "posts");
+export const getAllDraftPosts = cache(async (): Promise<PostMetadata[]> => {
+  return fetchAllDraftPosts();
+});
+
+/**
+ * Generic function to get a post data (including raw Markdown content) based on the slug and directory.
+ */
+async function getPostFromDirectory(
+  slug: string,
+  directory: string
+): Promise<Post> {
+  const postsDirectory = path.join(process.cwd(), directory);
   let fullPath = path.join(postsDirectory, `${slug}.md`);
 
   // Check if the file exists
   if (!fs.existsSync(fullPath)) {
     // Case-insensitive fallback
-    const allFiles = fs.readdirSync(postsDirectory);
-    const matchedFile = allFiles.find(
-      (file) => file.toLowerCase() === `${slug}.md`.toLowerCase()
-    );
+    if (fs.existsSync(postsDirectory)) {
+      const allFiles = fs.readdirSync(postsDirectory);
+      const matchedFile = allFiles.find(
+        (file) => file.toLowerCase() === `${slug}.md`.toLowerCase()
+      );
 
-    if (matchedFile) {
-      fullPath = path.join(postsDirectory, matchedFile);
+      if (matchedFile) {
+        fullPath = path.join(postsDirectory, matchedFile);
+      } else {
+        throw new Error(`Post with slug "${slug}" not found in ${directory}.`);
+      }
     } else {
-      throw new Error(`Post with slug "${slug}" not found.`);
+      throw new Error(`Directory ${directory} not found.`);
     }
   }
 
@@ -105,6 +129,20 @@ export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
     promotionPG: data.promotionPG,
     journey: data.journey,
   } as Post;
+}
+
+/**
+ * Gets a single post data based on the slug.
+ */
+export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
+  return getPostFromDirectory(slug, "posts");
+});
+
+/**
+ * Gets a single draft post data based on the slug.
+ */
+export const getDraftPostBySlug = cache(async (slug: string): Promise<Post> => {
+  return getPostFromDirectory(slug, "draft-posts");
 });
 
 /**
@@ -114,11 +152,40 @@ export const getPostData = cache(async (slug: string) => {
   const post = await getPostBySlug(slug);
 
   if (!post) {
-    // 意図的にエラーを発生させ、page.tsxのcatchに渡す
     throw new Error(`Post with slug "${slug}" not found.`);
   }
 
   const allPosts = await getAllPosts();
+  return processPostNavigation(slug, post, allPosts);
+});
+
+/**
+ * Gets all the necessary data for a single draft post page.
+ */
+export const getDraftPostData = cache(async (slug: string) => {
+  const post = await getDraftPostBySlug(slug);
+
+  if (!post) {
+    throw new Error(`Draft post with slug "${slug}" not found.`);
+  }
+
+  const allPosts = await getAllPosts(); // We use actual posts for navigation if needed, or maybe all drafts?
+  // User wants it to look the same, so maybe navigation should work within drafts?
+  // But navigation usually links to /posts/. Let's use drafts for navigation if we're in preview mode.
+  const allDrafts = await getAllDraftPosts();
+
+  return processPostNavigation(slug, post, allPosts, true, allDrafts);
+});
+
+async function processPostNavigation(
+  slug: string,
+  post: Post,
+  allPosts: PostMetadata[],
+  isPreview: boolean = false,
+  allDrafts: PostMetadata[] = []
+) {
+  const navigationPosts = isPreview ? allDrafts : allPosts;
+  const baseUrl = isPreview ? "/preview" : "/posts";
 
   // --- Category-specific navigation ---
   let previousCategoryPost, nextCategoryPost;
@@ -127,7 +194,10 @@ export const getPostData = cache(async (slug: string) => {
     post.category === "tourism" ||
     post.category === "one-off"
   ) {
-    const categoryPosts = postFilters.filterByCategory(allPosts, post.category);
+    const categoryPosts = postFilters.filterByCategory(
+      navigationPosts,
+      post.category
+    );
     const previousCategoryPostData = postFilters.getPreviousPost(
       slug,
       categoryPosts
@@ -136,13 +206,13 @@ export const getPostData = cache(async (slug: string) => {
 
     if (previousCategoryPostData) {
       previousCategoryPost = {
-        href: `/posts/${previousCategoryPostData.slug}`,
+        href: `${baseUrl}/${previousCategoryPostData.slug}`,
         title: previousCategoryPostData.title,
       };
     }
     if (nextCategoryPostData) {
       nextCategoryPost = {
-        href: `/posts/${nextCategoryPostData.slug}`,
+        href: `${baseUrl}/${nextCategoryPostData.slug}`,
         title: nextCategoryPostData.title,
       };
     }
@@ -151,7 +221,7 @@ export const getPostData = cache(async (slug: string) => {
   // --- Series-specific navigation ---
   let previousSeriesPost, nextSeriesPost;
   if (post.series) {
-    const seriesPosts = allPosts.filter((p) => p.series === post.series);
+    const seriesPosts = navigationPosts.filter((p) => p.series === post.series);
     const previousSeriesPostData = postFilters.getPreviousPost(
       slug,
       seriesPosts
@@ -160,25 +230,26 @@ export const getPostData = cache(async (slug: string) => {
 
     if (previousSeriesPostData) {
       previousSeriesPost = {
-        href: `/posts/${previousSeriesPostData.slug}`,
+        href: `${baseUrl}/${previousSeriesPostData.slug}`,
         title: previousSeriesPostData.title,
       };
     }
     if (nextSeriesPostData) {
       nextSeriesPost = {
-        href: `/posts/${nextSeriesPostData.slug}`,
+        href: `${baseUrl}/${nextSeriesPostData.slug}`,
         title: nextSeriesPostData.title,
       };
     }
   }
 
-  const previousPostData = postFilters.getPreviousPost(slug, allPosts);
-  const nextPostData = postFilters.getNextPost(slug, allPosts);
+  const previousPostData = postFilters.getPreviousPost(slug, navigationPosts);
+  const nextPostData = postFilters.getNextPost(slug, navigationPosts);
 
   let regionRelatedPosts: PostMetadata[] = [];
   if (post.location && post.location.length > 0) {
+    // Related posts always come from actual posts
     const regionPosts = await getAllPosts({ region: post.location });
-    // Exclude the current post itself
+    // Exclude the current post itself (only if it's not a draft, but for simplicity we filter by slug)
     const filteredRegionPosts = regionPosts.filter((p) => p.slug !== post.slug);
 
     const query = [
@@ -213,14 +284,14 @@ export const getPostData = cache(async (slug: string) => {
   // Format the next/previous post data to match the expected structure in the component
   const previousPost = previousPostData
     ? {
-        href: `/posts/${previousPostData.slug}`,
+        href: `${baseUrl}/${previousPostData.slug}`,
         title: previousPostData.title,
       }
     : undefined;
 
   const nextPost = nextPostData
     ? {
-        href: `/posts/${nextPostData.slug}`,
+        href: `${baseUrl}/${nextPostData.slug}`,
         title: nextPostData.title,
       }
     : undefined;
@@ -236,4 +307,4 @@ export const getPostData = cache(async (slug: string) => {
     previousSeriesPost,
     nextSeriesPost,
   };
-});
+}
