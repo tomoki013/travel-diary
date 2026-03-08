@@ -109,7 +109,7 @@ const Header = () => {
     <>
       <motion.header
         className={cn(
-          "top-0 z-50 w-full max-h-40 overflow-hidden transition-[max-height,opacity,transform,padding,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "top-0 z-[100] w-full max-h-40 overflow-hidden transition-[max-height,opacity,transform,padding,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
           isTransparent
             ? "fixed py-6 border-transparent"
             : "sticky py-2 border-b border-border/40 shadow-sm bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
@@ -286,7 +286,7 @@ const Header = () => {
             animate={{ opacity: 1, backdropFilter: "blur(16px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background/95 md:hidden flex flex-col touch-none"
+            className="fixed inset-0 z-[90] bg-background/95 md:hidden flex flex-col touch-none"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background pointer-events-none" />
 

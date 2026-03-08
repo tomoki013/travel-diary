@@ -37,7 +37,7 @@ const PostsPage = async (props: {
 
   if (category !== "all") {
     processedPosts = processedPosts.filter(
-      (post) => post.category === category
+      (post) => post.category === category || post.revenueCategory === category
     );
   }
 
