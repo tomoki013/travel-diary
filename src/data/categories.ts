@@ -1,5 +1,13 @@
 export const categories = [
   { slug: "all", title: "すべてのカテゴリー" },
+  { slug: "money", title: "お金・決済" },
+  { slug: "visa", title: "ビザ" },
+  { slug: "transport", title: "交通" },
+  { slug: "booking", title: "予約" },
+  { slug: "sim", title: "通信" },
+  { slug: "insurance", title: "保険" },
+  { slug: "guide", title: "ガイド" },
+  { slug: "essay", title: "エッセイ" },
   { slug: "series", title: "シリーズ" },
   { slug: "tourism", title: "観光情報" },
   { slug: "itinerary", title: "旅程&費用レポート" },

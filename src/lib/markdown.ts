@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { Post } from "@/types/types";
 import { ensureStringArray } from "@/lib/utils";
+import { enrichPostRevenueCategory } from "@/lib/revenue";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 const draftPostsDirectory = path.join(process.cwd(), "draft-posts");
@@ -17,7 +18,9 @@ function getRawDataFromDirectory(directory: string): PostMetadata[] {
 
   const fileNames = fs
     .readdirSync(directory)
-    .filter((fileName) => fileName.endsWith(".md") || fileName.endsWith(".mdx"));
+    .filter(
+      (fileName) => fileName.endsWith(".md") || fileName.endsWith(".mdx"),
+    );
 
   const allPostsData = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();
@@ -25,7 +28,7 @@ function getRawDataFromDirectory(directory: string): PostMetadata[] {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data } = matter(fileContents);
 
-    return {
+    return enrichPostRevenueCategory({
       slug,
       title: data.title,
       dates: ensureStringArray(data.dates),
@@ -41,7 +44,8 @@ function getRawDataFromDirectory(directory: string): PostMetadata[] {
       isPromotion: data.isPromotion,
       promotionPG: data.promotionPG,
       journey: data.journey,
-    } as PostMetadata;
+      revenueCategory: data.revenueCategory,
+    } as PostMetadata);
   });
 
   // Deduplicate posts based on slug

@@ -194,7 +194,7 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
       {isOpen && (
         <motion.div
           {...ANIMATION_CONFIG.overlay}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm overflow-y-auto"
           onClick={onClose}
         >
           <motion.div
