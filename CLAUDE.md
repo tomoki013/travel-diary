@@ -73,6 +73,22 @@ Many pages follow a Server Component + Client Component pattern:
 - **Forms**: react-hook-form + zod validation
 - **AI Chat**: Vercel AI SDK with Google AI (`src/app/api/chat/`)
 
+## Blogging Mandates (AI Rules)
+
+All AI agents MUST adhere to the following rules for blog post creation, editing, and formatting.
+
+### Rule Source
+- **Primary Rules:** `draft-posts/rules/*.md`
+- Agents MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
+- Specifically, follow `draft-posts/rules/EDITORIAL_RULES.md` for formatting and content cleanup.
+
+### Core Principles
+- **Style Consistency:** Match the existing patterns in the `posts/` directory.
+- **Fixed Targets:** Always define the target file path before starting edits.
+- **Structural Integrity:** Use proper Markdown headings (`##`, `###`), unified "Desu/Masu" (です・ます) tone, and chronological re-organization.
+- **Noise Removal:** Rigorously remove all non-essential elements (Images, ToC, CTAs, external links).
+- **Verification:** Double-check for residual noise keywords (URLs, "ToC", "images", etc.) before finalizing any post.
+
 ### External Services
 
 - Rewrites to `travel-map-for-tomokichidiary.netlify.app` for `/map` route

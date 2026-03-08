@@ -6,22 +6,25 @@ import { ensureStringArray } from "@/lib/utils";
 import { enrichPostRevenueCategory } from "@/lib/revenue";
 
 const postsDirectory = path.join(process.cwd(), "posts");
+const draftPostsDirectory = path.join(process.cwd(), "draft-posts");
 
 type PostMetadata = Omit<Post, "content">;
 
-export function getRawPostsData(): PostMetadata[] {
-  if (!fs.existsSync(postsDirectory) || !fs.statSync(postsDirectory).isDirectory()) {
-    console.warn(`Posts directory not found at ${postsDirectory}`);
+function getRawDataFromDirectory(directory: string): PostMetadata[] {
+  if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory()) {
+    console.warn(`Directory not found at ${directory}`);
     return [];
   }
 
   const fileNames = fs
-    .readdirSync(postsDirectory)
-    .filter((fileName) => fileName.endsWith(".md") || fileName.endsWith(".mdx"));
+    .readdirSync(directory)
+    .filter(
+      (fileName) => fileName.endsWith(".md") || fileName.endsWith(".mdx"),
+    );
 
   const allPostsData = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();
-    const fullPath = path.join(postsDirectory, fileName);
+    const fullPath = path.join(directory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data } = matter(fileContents);
 
@@ -40,6 +43,7 @@ export function getRawPostsData(): PostMetadata[] {
       series: data.series,
       isPromotion: data.isPromotion,
       promotionPG: data.promotionPG,
+      journey: data.journey,
       revenueCategory: data.revenueCategory,
     } as PostMetadata);
   });
@@ -53,4 +57,12 @@ export function getRawPostsData(): PostMetadata[] {
   });
 
   return Array.from(uniquePostsMap.values());
+}
+
+export function getRawPostsData(): PostMetadata[] {
+  return getRawDataFromDirectory(postsDirectory);
+}
+
+export function getRawDraftPostsData(): PostMetadata[] {
+  return getRawDataFromDirectory(draftPostsDirectory);
 }

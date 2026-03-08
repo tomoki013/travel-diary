@@ -1,0 +1,25 @@
+# GEMINI.md
+
+This file provides priority mandates for Gemini CLI when working on this repository.
+
+## Blogging Mandates
+
+The following rules are foundational for all blog post creation, editing, and formatting tasks.
+
+### Rule Source
+- **Primary Rules:** `draft-posts/rules/*.md`
+- Gemini MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
+- **Specific Guides:**
+  - `EDITORIAL_RULES.md`: Content cleanup and structural integrity.
+  - `METADATA_RULES.md`: Frontmatter structure and mandatory fields.
+  - `NAMING_CONVENTIONS.md`: Filenames and notation style.
+
+### Core Principles
+- **Style Consistency:** Match the existing patterns in the `posts/` directory.
+- **Fixed Targets:** Always define the target file path before starting edits.
+- **Structural Integrity:** Use proper Markdown headings (`##`, `###`), unified "Desu/Masu" tone, and chronological re-organization.
+- **Noise Removal:** Rigorously remove all non-essential elements (Images, ToC, CTAs, external links).
+- **Verification:** Double-check for residual noise keywords (URLs, "ToC", "images", etc.) before finalizing any post.
+
+## Workflow Mandates
+- When tasked with "cleaning up" or "writing" a blog post, Gemini must first read the rules in `draft-posts/rules/` to ensure full compliance.
