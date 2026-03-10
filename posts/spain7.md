@@ -9,7 +9,7 @@ image: /images/Belgium/galeries-royales-saint-hubert.jpg
 location: "madrid, brussels"
 author: ともきち
 series: travel-diary
-journey: 2025-02-25
+journey: j-2025-02-13
 tags:
   - 海外旅行
   - 一人旅

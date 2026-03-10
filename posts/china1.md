@@ -13,7 +13,7 @@ author: ともきち
 series: travel-diary
 tags:
   - 海外旅行
-journey: 2025-11-29
+journey: j-2025-11-29
 ---
 
 今回は3泊4日で中国・上海に行ってきました！

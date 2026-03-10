@@ -9,7 +9,7 @@ image: /images/Thai/river-view-from-the-hotel-at-noon.jpg
 location: bangkok
 author: ともきち
 series: travel-diary
-journey: 2024-03-01
+journey: j-2024-03-01
 tags:
   - 海外旅行
   - タイ旅行記

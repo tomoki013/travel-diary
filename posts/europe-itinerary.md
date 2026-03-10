@@ -8,6 +8,7 @@ location: "paris, barcelona, madrid, toledo"
 author: ともきち
 budget: 368509
 category: itinerary
+journey: j-2025-02-13
 costs:
   flight: 123940
   train: 5180

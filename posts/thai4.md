@@ -8,7 +8,7 @@ image: /images/Thai/do-dee-cafe.jpg
 location: bangkok
 author: ともきち
 series: travel-diary
-journey: 2025-06-10
+journey: j-2025-06-10
 tags:
   - 海外旅行
 ---

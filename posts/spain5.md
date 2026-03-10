@@ -11,7 +11,7 @@ image: /images/Spain/royal-palace-in-the-daytime.jpg
 location: madrid
 author: ともきち
 series: travel-diary
-journey: 2025-02-23
+journey: j-2025-02-13
 tags:
   - 海外旅行
   - 一人旅

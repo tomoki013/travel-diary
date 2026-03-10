@@ -10,7 +10,7 @@ image: /images/India/indian-gate-at-noon.jpg
 location: new-delhi
 author: ともきち
 series: travel-diary
-journey: 2024-09-25
+journey: j-2024-09-21
 tags:
   - 海外旅行
 ---

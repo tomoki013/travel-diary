@@ -9,6 +9,7 @@ location: bangkok
 author: ともきち
 budget: 110613
 category: itinerary
+journey: j-2024-03-01
 costs:
   flight: 85140
   train: 0

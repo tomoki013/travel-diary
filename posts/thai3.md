@@ -10,7 +10,7 @@ image: /images/Thai/wat-pho-nirvana-buddha.jpg
 location: bangkok
 author: ともきち
 series: travel-diary
-journey: 2024-03-03
+journey: j-2024-03-01
 tags:
   - 海外旅行
   - タイ旅行記

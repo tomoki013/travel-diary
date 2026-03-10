@@ -10,7 +10,7 @@ image: /images/Spain/sagrada-familia.jpg
 location: "barcelona, madrid"
 author: ともきち
 series: travel-diary
-journey: 2025-02-19
+journey: j-2025-02-13
 tags:
   - 海外旅行
   - 一人旅
