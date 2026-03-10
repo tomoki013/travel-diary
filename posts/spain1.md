@@ -10,7 +10,7 @@ image: /images/Spain/casa-mira.jpg
 location: "paris, barcelona"
 author: ともきち
 series: travel-diary
-journey: 2025-02-18
+journey: j-2025-02-13
 tags:
   - 海外旅行
   - 一人旅

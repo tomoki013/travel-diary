@@ -11,7 +11,7 @@ image: /images/
 location: shanghai
 author: ともきち
 series: travel-diary
-journey: 2025-12-02
+journey: j-2025-11-29
 tags:
   - 海外旅行
 ---

@@ -13,7 +13,7 @@ author: ともきち
 series: travel-diary
 tags:
   - 海外旅行
-journey: 2025-12-01
+journey: j-2025-11-29
 ---
 
 ## 3日目

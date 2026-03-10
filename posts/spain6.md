@@ -10,7 +10,7 @@ image: /images/Spain/toledo-view.jpg
 location: toledo
 author: ともきち
 series: travel-diary
-journey: 2025-02-24
+journey: j-2025-02-13
 tags:
   - 海外旅行
   - 一人旅

@@ -5,10 +5,6 @@
 [dev]
   command = "next dev"
 
-[functions]
-  directory = "netlify/functions"
-  included_files = [".posts.cache.json"]
-
 [[redirects]]
   from = "https://tomokichidiary.netlify.app/*"
   to = "https://travel.tomokichidiary.com/:splat"

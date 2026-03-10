@@ -10,7 +10,7 @@ image: /images/Hokkaido/sapporo-tv-tower.jpg
 location: hokkaido
 author: ともきち
 series: travel-diary
-journey: 2024-02-27
+journey: j-2024-02-26
 tags:
   - 国内旅行
 ---

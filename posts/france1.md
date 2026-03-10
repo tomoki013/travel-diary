@@ -10,7 +10,7 @@ image: /images/Korea/monument.jpg
 location: "seoul, paris"
 author: ともきち
 series: travel-diary
-journey: 2025-02-14
+journey: j-2025-02-13
 tags:
   - 海外旅行
   - 一人旅

@@ -10,7 +10,7 @@ image: /images/India/amber-palace1.jpg
 location: jaipur
 author: ともきち
 series: travel-diary
-journey: 2024-09-27
+journey: j-2024-09-21
 tags:
   - 海外旅行
 ---

@@ -10,7 +10,7 @@ image: /images/Vietnam/dong-kinh-nghia-thuc-square.jpg
 location: hanoi
 author: ともきち
 series: travel-diary
-journey: 2024-09-24
+journey: j-2024-09-21
 tags:
   - 海外旅行
 ---
