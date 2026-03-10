@@ -3,58 +3,33 @@ import { CoreMessage, generateText } from "ai";
 import { google } from "@ai-sdk/google";
 import fs from "fs/promises";
 import path from "path";
-import matter from "gray-matter";
 
-// --- Post Cache Logic ---
 const postsCachePath = path.join(process.cwd(), ".posts.cache.json");
 // nft hint: path.join(process.cwd(), ".posts.cache.json")
 let postsCache: Record<string, string> | null = null;
 
 async function loadCache() {
-  if (postsCache) return;
+  if (postsCache) {
+    return postsCache;
+  }
+
   try {
     const data = await fs.readFile(postsCachePath, "utf8");
-    postsCache = JSON.parse(data);
-    console.log("✅ API Route: Posts cache loaded successfully.");
-  } catch {
-    console.warn(
-      "API Route: Failed to load posts cache. Will build from source."
+    const parsed = JSON.parse(data) as Record<string, string>;
+    postsCache = Object.fromEntries(
+      Object.entries(parsed).map(([slug, content]) => [slug.toLowerCase(), content])
     );
+    console.log("✅ API Route: Posts cache loaded successfully.");
+    return postsCache;
+  } catch {
+    console.warn("API Route: Failed to load posts cache.");
     postsCache = null;
-  }
-}
-
-async function buildCacheFromSource() {
-  try {
-    const postsDir = path.join(process.cwd(), "posts");
-    const stat = await fs.stat(postsDir).catch(() => null);
-    if (!stat || !stat.isDirectory()) {
-      console.warn(`API Route: Posts directory not found at ${postsDir}`);
-      return;
-    }
-    const files = await fs.readdir(postsDir);
-    const mdFiles = files.filter((f) => f.endsWith(".md") || f.endsWith(".mdx"));
-    const built: Record<string, string> = {};
-    for (const file of mdFiles) {
-      const slug = file.replace(/\.(md|mdx)$/, "").toLowerCase();
-      const fileContents = await fs.readFile(path.join(postsDir, file), "utf8");
-      const { content } = matter(fileContents);
-      built[slug] = content;
-    }
-    if (Object.keys(built).length > 0) {
-      postsCache = built;
-      console.log("✅ API Route: Built posts cache from posts fallback.");
-    }
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    console.error("❌ API Route: Failed to build posts cache:", msg);
+    return null;
   }
 }
 
 async function getPostsCache() {
-  if (!postsCache) await loadCache();
-  if (!postsCache) await buildCacheFromSource();
-  return postsCache;
+  return loadCache();
 }
 
 // --- System Prompt Builders ---
@@ -366,14 +341,11 @@ export async function POST(req: NextRequest) {
         const cache = await getPostsCache();
         if (!cache) {
           return NextResponse.json(
-            { error: "Server not ready: Could not load post cache." },
+            { error: "Server not ready: Posts cache is unavailable." },
             { status: 503 }
           );
         }
-        const lowerCasePostsCache = Object.fromEntries(
-          Object.entries(cache).map(([k, v]) => [k.toLowerCase(), v])
-        );
-        const articleContent = lowerCasePostsCache[articleSlug.toLowerCase()];
+        const articleContent = cache[articleSlug.toLowerCase()];
         if (!articleContent) {
           return NextResponse.json(
             { error: `Article '${articleSlug}' not found.` },
