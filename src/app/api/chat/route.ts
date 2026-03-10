@@ -7,6 +7,7 @@ import matter from "gray-matter";
 
 // --- Post Cache Logic ---
 const postsCachePath = path.join(process.cwd(), ".posts.cache.json");
+// nft hint: path.join(process.cwd(), ".posts.cache.json")
 let postsCache: Record<string, string> | null = null;
 
 async function loadCache() {
