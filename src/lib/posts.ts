@@ -1,75 +1,18 @@
 import { cache } from "react";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import * as postFilters from "./post-filters";
 import { Post, PostMetadata } from "@/types/types";
-import { ensureStringArray } from "@/lib/utils";
 import { calculateScores } from "@/lib/search";
-import { enrichPostRevenueCategory, getNextActionPosts } from "@/lib/revenue";
+import { getNextActionPosts } from "@/lib/revenue";
 import { getAllPosts } from "./post-metadata";
+import { getPublishedPostBySlug } from "./post-content";
 
 export { getAllPosts } from "./post-metadata";
-
-/**
- * Generic function to get a post data (including raw Markdown content) based on the slug and directory.
- */
-async function getPostFromDirectory(
-  slug: string,
-  directory: string
-): Promise<Post> {
-  const postsDirectory = path.join(process.cwd(), directory);
-  let fullPath = path.join(postsDirectory, `${slug}.md`);
-
-  // Check if the file exists
-  if (!fs.existsSync(fullPath)) {
-    // Case-insensitive fallback
-    if (fs.existsSync(postsDirectory)) {
-      const allFiles = fs.readdirSync(postsDirectory);
-      const matchedFile = allFiles.find(
-        (file) => file.toLowerCase() === `${slug}.md`.toLowerCase()
-      );
-
-      if (matchedFile) {
-        fullPath = path.join(postsDirectory, matchedFile);
-      } else {
-        throw new Error(`Post with slug "${slug}" not found in ${directory}.`);
-      }
-    } else {
-      throw new Error(`Directory ${directory} not found.`);
-    }
-  }
-
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return enrichPostRevenueCategory({
-    slug,
-    content,
-    title: data.title,
-    dates: ensureStringArray(data.dates),
-    category: data.category,
-    // Pass through other properties
-    excerpt: data.excerpt,
-    image: data.image,
-    tags: ensureStringArray(data.tags),
-    location: ensureStringArray(data.location),
-    author: data.author,
-    budget: data.budget,
-    costs: data.costs,
-    series: data.series,
-    isPromotion: data.isPromotion,
-    promotionPG: data.promotionPG,
-    journey: data.journey,
-    revenueCategory: data.revenueCategory,
-  } as Post);
-}
 
 /**
  * Gets a single post data based on the slug.
  */
 export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
-  return getPostFromDirectory(slug, "posts");
+  return getPublishedPostBySlug(slug);
 });
 
 /**
