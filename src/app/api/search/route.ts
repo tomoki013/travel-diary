@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
 

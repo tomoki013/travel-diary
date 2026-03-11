@@ -5,7 +5,7 @@ import NewPosts from "@/components/pages/NewPosts";
 import FeaturedSeries from "@/components/pages/FeaturedSeries";
 import PopularPosts from "@/components/pages/PopularPosts";
 import Request from "@/components/pages/Request";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import PostsLength from "@/components/pages/PostsLength";
 import GalleryLength from "@/components/pages/GalleryLength";
 import { getPhotos } from "@/lib/photo";

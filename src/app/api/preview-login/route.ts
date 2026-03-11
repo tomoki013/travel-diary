@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isPreviewEnabled } from "@/lib/preview-mode";
 
 export async function POST(request: NextRequest) {
+  if (!isPreviewEnabled()) {
+    return NextResponse.json({ message: "Not Found" }, { status: 404 });
+  }
+
   const { password } = await request.json();
   const correctPassword = process.env.PREVIEW_PASSWORD;
 

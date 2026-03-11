@@ -1,11 +1,16 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getAllDraftPosts } from "@/lib/posts";
+import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { isPreviewEnabled } from "@/lib/preview-mode";
 
 export default async function PreviewPage() {
+  if (!isPreviewEnabled()) {
+    notFound();
+  }
+
   const cookieStore = await cookies();
   const isAuthenticated = cookieStore.get("preview_auth")?.value === "true";
 
@@ -13,6 +18,7 @@ export default async function PreviewPage() {
     redirect("/preview/login?callbackUrl=/preview");
   }
 
+  const { getAllDraftPosts } = await import("@/lib/draft-posts");
   const drafts = await getAllDraftPosts();
 
   return (

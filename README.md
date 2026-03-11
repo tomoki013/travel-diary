@@ -61,7 +61,7 @@ yarn install
 4. **開発サーバーを起動**:
 
 ```bash
-npm run dev
+pnpm dev
 # or
 yarn dev
 ```

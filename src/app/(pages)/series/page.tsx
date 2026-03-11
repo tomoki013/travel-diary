@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Client from "./Client";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import { featuredSeries } from "@/data/series";
 import SeriesCard from "@/components/features/series/SeriesCard";
 

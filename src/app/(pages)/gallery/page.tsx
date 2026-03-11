@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import Client from "./Client";
 import { Metadata } from "next";
 import { getPhotos } from "@/lib/photo";

@@ -1,6 +1,6 @@
 import {
   Serwist,
-  StaleWhileRevalidate,
+  CacheFirst,
   ExpirationPlugin,
   type RuntimeCaching,
   type PrecacheEntry,
@@ -19,74 +19,32 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-// カスタムキャッシュ戦略
+const ARTICLE_DOCUMENT_PATHS = [/^\/posts\/[^/]+\/?$/];
+
 const cacheStrategies: RuntimeCaching[] = [
   {
-    matcher: ({ request, url: { pathname }, sameOrigin }) =>
-      request.headers.get("RSC") === "1" &&
-      request.headers.get("Next-Router-Prefetch") === "1" &&
-      sameOrigin &&
-      !pathname.startsWith("/api/"),
-    handler: new StaleWhileRevalidate({
-      cacheName: "pages-rsc-prefetch",
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 200,
-          maxAgeSeconds: 24 * 60 * 60, // 24時間
-          maxAgeFrom: "last-used",
-        }),
-      ],
-    }),
-  },
-  {
-    matcher: ({ request, url: { pathname }, sameOrigin }) =>
-      request.headers.get("RSC") === "1" &&
-      sameOrigin &&
-      !pathname.startsWith("/api/"),
-    handler: new StaleWhileRevalidate({
-      cacheName: "pages-rsc",
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 200,
-          maxAgeSeconds: 24 * 60 * 60, // 24時間
-          maxAgeFrom: "last-used",
-        }),
-      ],
-    }),
-  },
-  {
-    matcher: ({ request, url: { pathname }, sameOrigin }) =>
-      // ✅ "Accept" ヘッダーを見る、または destination が document か確認する
-      request.headers.get("Accept")?.includes("text/html") &&
-      sameOrigin &&
-      !pathname.startsWith("/api/"),
-    handler: new StaleWhileRevalidate({
-      cacheName: "pages",
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 200,
-          maxAgeSeconds: 24 * 60 * 60,
-          maxAgeFrom: "last-used",
-        }),
-      ],
-    }),
-  },
+    matcher: ({ request, url, sameOrigin }) => {
+      if (!sameOrigin || request.destination !== "document") {
+        return false;
+      }
 
-  // その他のリソースのキャッシュ戦略
-  // {
-  //   matcher: /\.(?:mp4|webm)$/i,
-  //   handler: new StaleWhileRevalidate({
-  //     cacheName: 'static-video-assets',
-  //     plugins: [
-  //       new ExpirationPlugin({
-  //         maxEntries: 32,
-  //         maxAgeSeconds: 7 * 24 * 60 * 60,
-  //         maxAgeFrom: 'last-used',
-  //       }),
-  //      new RangeRequestsPlugin(),
-  //     ],
-  //   }),
-  // },
+      if (url.pathname.startsWith("/api/")) {
+        return false;
+      }
+
+      return ARTICLE_DOCUMENT_PATHS.some((pattern) => pattern.test(url.pathname));
+    },
+    handler: new CacheFirst({
+      cacheName: "article-documents",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 50,
+          maxAgeSeconds: 14 * 24 * 60 * 60,
+          maxAgeFrom: "last-used",
+        }),
+      ],
+    }),
+  },
 ];
 
 const serwist = new Serwist({

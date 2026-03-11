@@ -1,5 +1,5 @@
 import { featuredSeries } from "@/data/series";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import Client from "./Client";
 import { notFound } from "next/navigation";
 

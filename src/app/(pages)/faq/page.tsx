@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import FaqClient from "@/components/pages/faq/FaqClient";
 import { PRIMARY_SITE_URL } from "@/constants/site";
 

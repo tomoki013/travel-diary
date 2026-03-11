@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Post } from "@/types/types";
 type PostMetadata = Omit<Post, "content">;
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import HeroSection from "@/components/pages/HeroSection";
 import { featuredSeries } from "@/data/series";
 import { regionData } from "@/data/region";

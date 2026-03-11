@@ -1,14 +1,15 @@
 import type { NextConfig } from "next";
 import withSerwistInit from "@serwist/next";
-import { execSync } from "child_process";
 
-// git commit hashをキャッシュバージョン番号として使用
-const revision = execSync("git rev-parse HEAD", { encoding: "utf8" })
-  .trim()
-  .slice(0, 7);
+const revision =
+  process.env.COMMIT_REF?.slice(0, 7) ||
+  process.env.GITHUB_SHA?.slice(0, 7) ||
+  process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ||
+  process.env.npm_package_version ||
+  "local";
 
 const withSerwist = withSerwistInit({
-  cacheOnNavigation: true,
+  cacheOnNavigation: false,
   reloadOnOnline: false,
   swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
