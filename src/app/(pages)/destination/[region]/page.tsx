@@ -2,7 +2,7 @@ import { getRegionBySlug, getAllRegionSlugs } from "@/lib/regionUtil";
 import Client from "./Client";
 import { notFound } from "next/navigation";
 import { regionData } from "@/data/region";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 
 export const dynamicParams = false;
 

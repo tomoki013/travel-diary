@@ -19,7 +19,7 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const ARTICLE_DOCUMENT_PATHS = [/^\/posts\/[^/]+\/?$/, /^\/preview\/[^/]+\/?$/];
+const ARTICLE_DOCUMENT_PATHS = [/^\/posts\/[^/]+\/?$/];
 
 const cacheStrategies: RuntimeCaching[] = [
   {

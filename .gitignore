@@ -53,6 +53,7 @@ public/sitemap-*.xml
 
 # Cache files
 .posts.cache.json
+.posts.metadata.json
 
 # Service worker
 /public/sw.js

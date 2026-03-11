@@ -1,9 +1,9 @@
-import { getDraftPostBySlug, getDraftPostData } from "@/lib/posts";
 import Client from "../../posts/[slug]/Client";
 import ArticleContent from "@/components/features/article/Article";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { isPreviewEnabled } from "@/lib/preview-mode";
 
 // Prevent static generation for preview pages
 export const dynamic = "force-dynamic";
@@ -12,8 +12,16 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  if (!isPreviewEnabled()) {
+    return {
+      title: "記事が見つかりませんでした",
+      description: "指定された記事は存在しません。",
+    };
+  }
+
   const params = await props.params;
   try {
+    const { getDraftPostBySlug } = await import("@/lib/draft-posts");
     const post = await getDraftPostBySlug(params.slug);
 
     return {
@@ -32,6 +40,10 @@ export async function generateMetadata(props: {
 
 // Preview Pageコンポーネント
 const DraftPreviewPage = async (props: { params: Promise<{ slug: string }> }) => {
+  if (!isPreviewEnabled()) {
+    notFound();
+  }
+
   const cookieStore = await cookies();
   const isAuthenticated = cookieStore.get("preview_auth")?.value === "true";
   const params = await props.params;
@@ -42,6 +54,7 @@ const DraftPreviewPage = async (props: { params: Promise<{ slug: string }> }) =>
   }
 
   try {
+    const { getDraftPostData } = await import("@/lib/draft-posts");
     const {
       post,
       previousPost,

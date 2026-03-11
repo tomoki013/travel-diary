@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import BlogClient from "./Client";
 import { Suspense } from "react";
 import { Metadata } from "next";

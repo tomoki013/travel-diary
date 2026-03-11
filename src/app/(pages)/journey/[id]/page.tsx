@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { JOURNEY_DATA, getJourneyById } from "@/data/journey";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import PostCard from "@/components/common/PostCard";
 import Image from "next/image";
 import { MapPin } from "lucide-react";

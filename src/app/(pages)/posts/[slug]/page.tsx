@@ -1,4 +1,5 @@
-import { getAllPosts, getPostBySlug, getPostData } from "@/lib/posts";
+import { getPostBySlug, getPostData } from "@/lib/posts";
+import { getAllPosts } from "@/lib/post-metadata";
 import Client from "./Client";
 import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 import ArticleContent from "@/components/features/article/Article";
