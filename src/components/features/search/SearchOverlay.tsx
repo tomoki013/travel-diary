@@ -258,7 +258,7 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
               />
 
               <FilterChipGroup
-                title="実用ラベルで絞り込む"
+                title="実用ラベルで絞り込む（観光情報のみ）"
                 options={availableTopics}
                 selectedValue={selectedTopic}
                 onToggle={(value) => toggleTopic(value as TravelTopic)}

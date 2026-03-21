@@ -14,7 +14,6 @@ tags:
   - 交通情報
 travelTopics:
   - transport
-  - booking
 ---
 
 ## アブシンベル神殿とは？

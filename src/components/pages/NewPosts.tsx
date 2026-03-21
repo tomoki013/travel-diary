@@ -8,13 +8,26 @@ import {
   staggerContainer,
 } from "@/components/common/animation";
 import { Post } from "@/types/types";
+
 type PostMetadata = Omit<Post, "content">;
 
 interface NewPostsProps {
   posts: PostMetadata[];
+  title?: string;
+  description?: string;
+  buttonHref?: string;
+  buttonLabel?: string;
+  limit?: number;
 }
 
-const NewPosts = ({ posts }: NewPostsProps) => {
+const NewPosts = ({
+  posts,
+  title = "New Posts",
+  description,
+  buttonHref = "/posts",
+  buttonLabel = "ブログ一覧を見る",
+  limit = 6,
+}: NewPostsProps) => {
   return (
     <motion.section
       initial="hidden"
@@ -23,21 +36,23 @@ const NewPosts = ({ posts }: NewPostsProps) => {
       variants={sectionVariants}
       className="py-24 px-6 md:px-8 max-w-5xl mx-auto"
     >
-      {/* セクションタイトル */}
       <div className="text-center mb-16">
         <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-          New Posts
+          {title}
         </h2>
-        {/* タイトル下のアクセントライン */}
+        {description && (
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            {description}
+          </p>
+        )}
         <div className="w-30 h-0.5 bg-secondary mx-auto mt-6" />
       </div>
 
-      {/* 記事一覧 */}
       <motion.div
         variants={staggerContainer()}
         className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-12"
       >
-        {posts.slice(0, 6).map((post) => (
+        {posts.slice(0, limit).map((post) => (
           <motion.div
             key={post.slug}
             initial="hidden"
@@ -50,8 +65,7 @@ const NewPosts = ({ posts }: NewPostsProps) => {
         ))}
       </motion.div>
 
-      {/* ボタン */}
-      <Button href={`/posts`}>ブログ一覧を見る</Button>
+      <Button href={buttonHref}>{buttonLabel}</Button>
     </motion.section>
   );
 };

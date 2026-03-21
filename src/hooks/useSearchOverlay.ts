@@ -9,7 +9,6 @@ type Suggestion = {
   slug: string;
 };
 
-// APIレスポンスの型を定義
 type SearchApiResponse = {
   suggestions: Suggestion[];
   total: number;
@@ -25,7 +24,7 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<TravelTopic | null>(null);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [totalResults, setTotalResults] = useState<number | null>(null); // 総件数を保持するstate
+  const [totalResults, setTotalResults] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedSearchTerm = useDebounce(
@@ -35,7 +34,6 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
 
   const fetchSuggestions = useCallback(
     async (query: string, category: string | null, topic: TravelTopic | null) => {
-      // 検索語が不十分で、かつフィルタも未選択の場合はリセット
       if (query.length < SEARCH_CONFIG.MIN_QUERY_LENGTH && !category && !topic) {
         setSuggestions([]);
         setTotalResults(null);
@@ -43,7 +41,7 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
       }
 
       setIsLoading(true);
-      setTotalResults(null); // 検索開始時にリセット
+      setTotalResults(null);
 
       try {
         const params = new URLSearchParams();
@@ -67,7 +65,7 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
       } catch (error) {
         console.error("検索候補の取得に失敗しました:", error);
         setSuggestions([]);
-        setTotalResults(0); // エラー時は0件とする
+        setTotalResults(0);
       } finally {
         setIsLoading(false);
       }
@@ -76,7 +74,6 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   );
 
   useEffect(() => {
-    // 検索語かフィルタが有効な場合に候補をフェッチ
     if (
       debouncedSearchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH ||
       selectedCategory ||
@@ -121,11 +118,23 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   );
 
   const toggleCategory = useCallback((category: string) => {
-    setSelectedCategory((prev) => (prev === category ? null : category));
+    setSelectedCategory((prev) => {
+      const nextCategory = prev === category ? null : category;
+      if (nextCategory && nextCategory !== "tourism") {
+        setSelectedTopic(null);
+      }
+      return nextCategory;
+    });
   }, []);
 
   const toggleTopic = useCallback((topic: TravelTopic) => {
-    setSelectedTopic((prev) => (prev === topic ? null : topic));
+    setSelectedTopic((prev) => {
+      const nextTopic = prev === topic ? null : topic;
+      if (nextTopic) {
+        setSelectedCategory("tourism");
+      }
+      return nextTopic;
+    });
   }, []);
 
   return {

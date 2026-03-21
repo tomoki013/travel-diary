@@ -15,8 +15,6 @@ tags:
 isPromotion: true
 promotionPG:
   - Trip.com
-travelTopics:
-  - booking
 ---
 
 ## 空港での待ち時間、どうしてる？ Trip.comのランク特典で旅が変わる

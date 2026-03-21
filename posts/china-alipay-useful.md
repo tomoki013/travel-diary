@@ -13,7 +13,6 @@ tags:
   - 海外旅行
 travelTopics:
   - money
-  - transport
 ---
 
 どうも。先日3泊4日で上海に行ってきました。

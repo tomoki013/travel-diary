@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import { sectionVariants, staggerContainer } from "@/components/common/animation";
-import { CustomSelect } from "@/components/common/CustomSelect";
 import { useSearchParams, useRouter } from "next/navigation";
 import HeroSection from "@/components/pages/HeroSection";
 import { articleCategories, travelTopicOptions } from "@/data/categories";
@@ -13,6 +12,50 @@ import { SearchInput } from "@/components/common/SearchInput";
 
 // Postのメタデータの型を定義
 type PostMetadata = Omit<Post, "content">;
+
+type FilterOption = {
+  slug: string;
+  title: string;
+};
+
+interface FilterGroupProps {
+  title: string;
+  options: FilterOption[];
+  activeValue: string;
+  onChange: (value: string) => void;
+}
+
+const FilterButtonGroup = ({
+  title,
+  options,
+  activeValue,
+  onChange,
+}: FilterGroupProps) => (
+  <div className="rounded-2xl border border-border/70 bg-card/70 p-4 shadow-sm backdrop-blur">
+    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+      {title}
+    </p>
+    <div className="flex flex-wrap gap-2">
+      {options.map((option) => {
+        const isActive = activeValue === option.slug;
+        return (
+          <button
+            key={option.slug}
+            type="button"
+            onClick={() => onChange(option.slug)}
+            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              isActive
+                ? "border-teal-600 bg-teal-600 text-white shadow-sm"
+                : "border-border bg-background text-foreground hover:border-teal-300 hover:text-teal-700"
+            }`}
+          >
+            {option.title}
+          </button>
+        );
+      })}
+    </div>
+  </div>
+);
 
 // Propsの型を定義
 interface BlogClientProps {
@@ -31,12 +74,10 @@ const BlogClient = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // URLパラメータを取得
   const categoryParam = searchParams.get("category") || "all";
   const topicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
 
-  // URLを組み立てて遷移するヘルパー関数
   const navigate = (
     page: number,
     category: string,
@@ -57,18 +98,14 @@ const BlogClient = ({
     router.push(`?${params.toString()}`);
   };
 
-  // スクロール処理を共通化
   const scrollToSearchSection = () => {
     const section = document.getElementById("search-section");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     } else {
-      // フォールバックとしてページ上部にスクロール
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
-  // --- イベントハンドラ ---
 
   const handleSearch = (query: string) => {
     navigate(1, categoryParam, topicParam, query);
@@ -79,11 +116,8 @@ const BlogClient = ({
   };
 
   const handleCategoryChange = (slug: string) => {
-    navigate(1, slug, topicParam, searchParam);
-  };
-
-  const handleTopicChange = (slug: string) => {
-    navigate(1, categoryParam, slug, searchParam);
+    const nextTopic = slug === "tourism" || slug === "all" ? topicParam : "all";
+    navigate(1, slug, nextTopic, searchParam);
   };
 
   const handlePageChange = (page: number) => {
@@ -103,15 +137,12 @@ const BlogClient = ({
     );
   };
 
-  // searchParamsが変更された後にスクロールを実行
   useEffect(() => {
-    // URLに何らかのクエリパラメータがある場合のみスクロール
     if (searchParams.toString()) {
       scrollToSearchSection();
     }
   }, [searchParams]);
 
-  // --- ページネーション番号の生成ロジック (useMemoで不要な再計算を防ぐ) ---
   const paginationNumbers = useMemo(() => {
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -131,10 +162,10 @@ const BlogClient = ({
     return pages;
   }, [totalPages, currentPage]);
 
-  // --- JSX ---
+  const topicFilterDisabled = categoryParam !== "all" && categoryParam !== "tourism";
+
   return (
     <div>
-      {/* ==================== Hero Section ==================== */}
       <HeroSection
         src="/images/Spain/toledo-view.jpg"
         alt="Blog Hero Image"
@@ -143,7 +174,6 @@ const BlogClient = ({
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* ==================== Search ==================== */}
         <section id="search-section" className="mb-2 scroll-mt-24">
           <SearchInput
             initialValue={searchParam}
@@ -157,7 +187,6 @@ const BlogClient = ({
           </p>
         </section>
 
-        {/* ==================== Total Results ==================== */}
         {totalPosts !== null && (
           <section className="mb-4 text-center">
             <p className="text-lg font-medium text-foreground">
@@ -166,23 +195,31 @@ const BlogClient = ({
           </section>
         )}
 
-        {/* ==================== Filters ==================== */}
-        <section className="relative z-30 mb-12 grid gap-4 md:grid-cols-2">
-          <CustomSelect
+        <section className="mb-12 grid gap-4">
+          <FilterButtonGroup
+            title="記事カテゴリ"
             options={articleCategories}
-            value={categoryParam}
+            activeValue={categoryParam}
             onChange={handleCategoryChange}
-            labelPrefix="記事カテゴリ"
           />
-          <CustomSelect
-            options={travelTopicOptions}
-            value={topicParam}
-            onChange={handleTopicChange}
-            labelPrefix="実用ラベル"
-          />
+          <div className={topicFilterDisabled ? "opacity-60" : ""}>
+            <FilterButtonGroup
+              title="実用ラベル（観光情報のみ）"
+              options={travelTopicOptions}
+              activeValue={topicParam}
+              onChange={(slug) => {
+                const nextCategory = slug === "all" ? categoryParam : "tourism";
+                navigate(1, nextCategory, slug, searchParam);
+              }}
+            />
+            <p className="mt-2 px-1 text-xs text-muted-foreground">
+              実用ラベルは観光情報の記事だけに厳格に付けています。
+              {topicFilterDisabled &&
+                " 今は観光情報以外を見ているので、ラベルを押すと観光情報に切り替わります。"}
+            </p>
+          </div>
         </section>
 
-        {/* ==================== Article List ==================== */}
         {posts.length > 0 ? (
           <motion.section
             key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}`}
@@ -219,17 +256,14 @@ const BlogClient = ({
             })}
           </motion.section>
         ) : (
-          // 検索結果がない場合の表示
           <div className="rounded-2xl border bg-card px-6 py-16 text-center">
             <p className="text-xl text-foreground">該当する記事が見つかりませんでした。</p>
             <p className="mt-2 text-sm text-muted-foreground">検索条件またはカテゴリ・ラベルを変更してお試しください。</p>
           </div>
         )}
 
-        {/* ==================== Pagination ==================== */}
         {totalPages > 1 && (
           <section className="mt-16 flex flex-wrap justify-center items-center gap-2">
-            {/* Prevボタン */}
             {currentPage > 1 && (
               <button
                 onClick={handlePrev}
@@ -239,7 +273,6 @@ const BlogClient = ({
               </button>
             )}
 
-            {/* ページ番号 */}
             {paginationNumbers.map((page, idx) =>
               page === "..." ? (
                 <span key={`ellipsis-${idx}`} className="px-2">
@@ -257,10 +290,9 @@ const BlogClient = ({
                 >
                   {page}
                 </button>
-              )
+              ),
             )}
 
-            {/* Nextボタン */}
             {currentPage < totalPages && (
               <button
                 onClick={handleNext}
