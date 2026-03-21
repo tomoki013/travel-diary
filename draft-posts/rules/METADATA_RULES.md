@@ -19,7 +19,7 @@
 | `costs`        | `Record`   | 任意      | 費用の内訳（JSON形式）                                         | `category: itinerary` の時のみ                                   |
 | `series`       | `string`   | 任意      | 連載シリーズのスラッグ（`series.ts` 参照）                     | `category: series` の時のみ                                      |
 | `journey`      | `string`   | 任意      | `journey.ts` の ID。行程表示用                                 | **`series: travel-diary` または `category: itinerary`** の時のみ |
-| `travelTopics` | `string[]` | 任意      | 実用情報ラベル。`money`, `visa`, `transport`, `booking`, `sim`, `insurance` | 実用性の高い記事全般                                             |
+| `travelTopics` | `string[]` | 任意      | 実用情報ラベル。`money`, `visa`, `transport`, `booking`, `sim`, `insurance` | 実用性の高い `tourism` 記事                                      |
 | `isPromotion`  | `boolean`  | 任意      | プロモーション（PR）記事か否か                                 | PR記事のみ                                                       |
 | `promotionPG`  | `string[]` | 任意      | プロモーションの種類やリンク情報                               | PR記事のみ                                                       |
 
@@ -42,11 +42,10 @@
 ### 4. travelTopics（実用ラベル）
 
 - **目的:** ブログ一覧・検索ダイアログで「お金・決済」「交通」「ビザ」「予約」などの実務情報を横断で見つけやすくするためのラベルです。
-- **対象記事:** 記事カテゴリを問いません。`tourism` / `itinerary` / `series` / `one-off` のいずれでも、読者がそのテーマの記事として探す価値がある場合は付けて構いません。
+- **対象記事:** `travelTopics` は原則として `category: tourism` の記事にだけ付けます。旅行記や連載には付けません。
 - **使い分け:** `category` は記事の形式、`travelTopics` は記事内で扱う実務テーマです。両者を混同しないでください。
 - **複数付与:** 1記事に複数ラベルを付けて構いません。例: 空港アクセス記事に `transport`、空港到着後の両替説明が厚い記事に `transport` + `money`。
 - **厳選付与:** 話題が少し触れているだけなら付与しません。記事の主要導線・見出し・比較軸として成立しているテーマだけを残してください。
-- **検索反映前提:** `travelTopics` を付けた記事は、ブログ一覧ページと検索ダイアログのラベル絞り込み対象になります。カテゴリとは独立して絞り込まれる前提で設計してください。
 - **推奨基準:**
   - `money`: 両替、現金、カード、QR決済、レート、支払い事情
   - `visa`: ビザ申請、入国条件、必要書類
