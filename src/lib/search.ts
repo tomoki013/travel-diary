@@ -57,6 +57,7 @@ export const filterPostsBySearch = (
       post.author,
       post.series,
       post.tags,
+      post.travelTopics,
     ]
       .flat()
       .filter((value): value is string => typeof value === "string")
@@ -114,6 +115,7 @@ export const calculateScores = (
     author: 3,
     series: 3,
     tags: 3,
+    travelTopics: 6,
     ...weights,
   };
 
@@ -125,11 +127,11 @@ export const calculateScores = (
     "author",
     "series",
     "tags",
+    "travelTopics",
   ];
 
   const calculateTermFrequency = (text: string, term: string): number => {
     if (!text || !term) return 0;
-    // text is pre-lowercased, term is from lowercased query
     const escapedTerm = escapeRegExp(term);
     const regex = new RegExp(escapedTerm, "g");
     return (text.match(regex) || []).length;
@@ -161,11 +163,8 @@ export const calculateScores = (
       });
     };
 
-    // Score based on individual terms
     processTerms(allTerms);
-
-    // Score based on phrases with a bonus multiplier
-    processTerms(phrases, 2); // Phrases get double weight
+    processTerms(phrases, 2);
 
     return { post, score };
   });

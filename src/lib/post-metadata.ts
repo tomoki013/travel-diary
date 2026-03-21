@@ -1,4 +1,4 @@
-import { PostMetadata } from "@/types/types";
+import { PostMetadata, TravelTopic } from "@/types/types";
 import fs from "fs/promises";
 import path from "path";
 import { cache } from "react";
@@ -11,6 +11,7 @@ export type GetAllPostsOptions = {
   tag?: string;
   region?: string[];
   journey?: string;
+  topic?: TravelTopic;
   limit?: number;
 };
 
@@ -46,6 +47,9 @@ export const getAllPosts = cache(
     }
     if (options.journey) {
       posts = posts.filter((post) => post.journey === options.journey);
+    }
+    if (options.topic) {
+      posts = postFilters.filterByTravelTopic(posts, options.topic);
     }
 
     let sortedPosts = postFilters.sortByDate(posts);

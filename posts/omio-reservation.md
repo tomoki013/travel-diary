@@ -2,11 +2,12 @@
 category: tourism
 title: 【スペイン旅行】鉄道予約はOmioで完結！Renfe・Iryo・Ouigoを日本語で比較（体験談あり）
 dates:
-  - "2025-02-22"
+  - '2025-02-22'
 excerpt: >-
-  スペイン旅行の高速鉄道予約ならOmioがおすすめ！Renfe, Iryo, Ouigoの料金や時刻を日本語で一括比較し、簡単・お得にチケットを予約する方法を解説します。筆者が実際にバルセロナ〜マドリード、トレド間を予約した体験談も紹介。もうスペイン語サイトで悩みません！
+  スペイン旅行の高速鉄道予約ならOmioがおすすめ！Renfe, Iryo,
+  Ouigoの料金や時刻を日本語で一括比較し、簡単・お得にチケットを予約する方法を解説します。筆者が実際にバルセロナ〜マドリード、トレド間を予約した体験談も紹介。もうスペイン語サイトで悩みません！
 image: /images/Spain/renfe-at-barcelona-sants.jpg
-location: "madrid, barcelona, toledo, spain"
+location: 'madrid, barcelona, toledo, spain'
 author: ともきち
 tags:
   - 海外旅行
@@ -16,6 +17,9 @@ tags:
 isPromotion: true
 promotionPG:
   - Omio
+travelTopics:
+  - booking
+  - transport
 ---
 
 情熱の国、スペイン

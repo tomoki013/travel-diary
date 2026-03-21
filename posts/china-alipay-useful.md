@@ -2,16 +2,18 @@
 category: tourism
 title: 中国でAlipayが便利すぎた話
 dates:
-  - "2025-11-28"
+  - '2025-11-28'
 excerpt: >-
-  上海旅行で実感した、Alipayの便利さを5つに分けて紹介します。
-  支払い、交通、配車、モバイル注文、支出管理まで
+  上海旅行で実感した、Alipayの便利さを5つに分けて紹介します。 支払い、交通、配車、モバイル注文、支出管理まで
   旅行中の行動がアプリ1つで完結した体験談です。
 image: /images/
 location: shanghai
 author: ともきち
 tags:
   - 海外旅行
+travelTopics:
+  - money
+  - transport
 ---
 
 どうも。先日3泊4日で上海に行ってきました。

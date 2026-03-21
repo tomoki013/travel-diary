@@ -57,6 +57,7 @@ async function generatePostsMetadata() {
         promotionPG: ensureStringArray(data.promotionPG),
         journey: data.journey || undefined,
         revenueCategory: data.revenueCategory || undefined,
+        travelTopics: ensureStringArray(data.travelTopics),
       });
 
       postsContent[slug] = {
@@ -77,6 +78,7 @@ async function generatePostsMetadata() {
         promotionPG: ensureStringArray(data.promotionPG),
         journey: data.journey || undefined,
         revenueCategory: data.revenueCategory || undefined,
+        travelTopics: ensureStringArray(data.travelTopics),
       };
     }
 

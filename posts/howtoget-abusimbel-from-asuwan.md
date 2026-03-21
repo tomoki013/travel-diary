@@ -2,16 +2,19 @@
 category: tourism
 title: 【2025年版】アスワンからアブシンベル神殿への行き方完全ガイド！バス・ツアー・飛行機を徹底比較
 dates:
-  - "2025-06-20"
+  - '2025-06-20'
 excerpt: >-
   【アスワンからアブシンベル神殿への行き方】を徹底解説！個人旅行に人気のバス（長距離・乗り合い）での行き方や帰り方、安心なツアー、時短できる飛行機まで、各手段の料金や時間を比較。アスワン駅からのアクセスやバスの金曜運休など、旅行前に知りたい現地情報も満載の完全ガイドです。
 image: /images/Egypt/abusimbel-temple.jpg
-location: "aswan, abu-simbel"
+location: 'aswan, abu-simbel'
 author: ともきち
 tags:
   - 海外旅行
   - 観光スポット
   - 交通情報
+travelTopics:
+  - transport
+  - booking
 ---
 
 ## アブシンベル神殿とは？

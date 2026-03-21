@@ -77,10 +77,10 @@ export const CustomSelect = ({
   const selectedOption = options.find((opt) => opt.slug === value);
 
   return (
-    <div ref={wrapperRef} className="relative w-full font-sans">
+    <div ref={wrapperRef} className="relative z-40 w-full font-sans isolate">
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between text-left p-4 bg-white/80 border border-gray-200/80 rounded-xl shadow-sm hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all duration-300"
+        className="relative z-10 w-full flex items-center justify-between text-left p-4 bg-white/80 border border-gray-200/80 rounded-xl shadow-sm hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all duration-300"
         whileTap={{ scale: 0.98 }}
       >
         <div className="flex flex-col">
@@ -106,7 +106,7 @@ export const CustomSelect = ({
             initial="closed"
             animate="open"
             exit="closed"
-            className="absolute z-10 w-full mt-2 origin-top bg-white/80 text-gray-800 backdrop-blur-lg rounded-xl shadow-2xl ring-1 ring-secondary overflow-hidden"
+            className="absolute z-[80] w-full mt-2 origin-top bg-white/95 text-gray-800 backdrop-blur-lg rounded-xl shadow-2xl ring-1 ring-secondary overflow-hidden"
           >
             {options.map((option) => (
               <motion.li
@@ -125,7 +125,7 @@ export const CustomSelect = ({
                 >
                   {option.title}
                 </span>
-                {value === option.title && (
+                {value === option.slug && (
                   <motion.div layoutId="selected-check">
                     <Check className="text-secondary" size={20} />
                   </motion.div>
