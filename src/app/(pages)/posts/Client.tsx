@@ -8,7 +8,7 @@ import { sectionVariants, staggerContainer } from "@/components/common/animation
 import { CustomSelect } from "@/components/common/CustomSelect";
 import { useSearchParams, useRouter } from "next/navigation";
 import HeroSection from "@/components/pages/HeroSection";
-import { categories } from "@/data/categories";
+import { articleCategories, travelTopicOptions } from "@/data/categories";
 import { SearchInput } from "@/components/common/SearchInput";
 
 // Postのメタデータの型を定義
@@ -33,14 +33,23 @@ const BlogClient = ({
 
   // URLパラメータを取得
   const categoryParam = searchParams.get("category") || "all";
+  const topicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
 
   // URLを組み立てて遷移するヘルパー関数
-  const navigate = (page: number, category: string, search: string) => {
+  const navigate = (
+    page: number,
+    category: string,
+    topic: string,
+    search: string,
+  ) => {
     const params = new URLSearchParams();
     params.set("page", String(page));
     if (category && category !== "all") {
       params.set("category", category);
+    }
+    if (topic && topic !== "all") {
+      params.set("topic", topic);
     }
     if (search) {
       params.set("search", search);
@@ -62,27 +71,36 @@ const BlogClient = ({
   // --- イベントハンドラ ---
 
   const handleSearch = (query: string) => {
-    navigate(1, categoryParam, query);
+    navigate(1, categoryParam, topicParam, query);
   };
 
   const handleResetSearch = () => {
-    navigate(1, categoryParam, "");
+    navigate(1, categoryParam, topicParam, "");
   };
 
   const handleCategoryChange = (slug: string) => {
-    navigate(1, slug, searchParam);
+    navigate(1, slug, topicParam, searchParam);
+  };
+
+  const handleTopicChange = (slug: string) => {
+    navigate(1, categoryParam, slug, searchParam);
   };
 
   const handlePageChange = (page: number) => {
-    navigate(page, categoryParam, searchParam);
+    navigate(page, categoryParam, topicParam, searchParam);
   };
 
   const handlePrev = () => {
-    navigate(Math.max(1, currentPage - 1), categoryParam, searchParam);
+    navigate(Math.max(1, currentPage - 1), categoryParam, topicParam, searchParam);
   };
 
   const handleNext = () => {
-    navigate(Math.min(totalPages, currentPage + 1), categoryParam, searchParam);
+    navigate(
+      Math.min(totalPages, currentPage + 1),
+      categoryParam,
+      topicParam,
+      searchParam,
+    );
   };
 
   // searchParamsが変更された後にスクロールを実行
@@ -126,7 +144,7 @@ const BlogClient = ({
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* ==================== Search ==================== */}
-        <section id="search-section" className="mb-2">
+        <section id="search-section" className="mb-2 scroll-mt-24">
           <SearchInput
             initialValue={searchParam}
             onSearch={handleSearch}
@@ -149,19 +167,25 @@ const BlogClient = ({
         )}
 
         {/* ==================== Filters ==================== */}
-        <section className="mb-12">
+        <section className="relative z-30 mb-12 grid gap-4 md:grid-cols-2">
           <CustomSelect
-            options={categories}
+            options={articleCategories}
             value={categoryParam}
             onChange={handleCategoryChange}
-            labelPrefix="カテゴリー"
+            labelPrefix="記事カテゴリ"
+          />
+          <CustomSelect
+            options={travelTopicOptions}
+            value={topicParam}
+            onChange={handleTopicChange}
+            labelPrefix="実用ラベル"
           />
         </section>
 
         {/* ==================== Article List ==================== */}
         {posts.length > 0 ? (
           <motion.section
-            key={currentPage}
+            key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}`}
             variants={staggerContainer()}
             className="flex flex-col gap-16 md:gap-20 mb-12"
           >
@@ -198,7 +222,7 @@ const BlogClient = ({
           // 検索結果がない場合の表示
           <div className="rounded-2xl border bg-card px-6 py-16 text-center">
             <p className="text-xl text-foreground">該当する記事が見つかりませんでした。</p>
-            <p className="mt-2 text-sm text-muted-foreground">検索条件またはカテゴリを変更してお試しください。</p>
+            <p className="mt-2 text-sm text-muted-foreground">検索条件またはカテゴリ・ラベルを変更してお試しください。</p>
           </div>
         )}
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, KeyboardEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "./useDebounce";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
+import { TravelTopic } from "@/types/types";
 
 type Suggestion = {
   title: string;
@@ -22,6 +23,7 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<TravelTopic | null>(null);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [totalResults, setTotalResults] = useState<number | null>(null); // 総件数を保持するstate
   const [isLoading, setIsLoading] = useState(false);
@@ -32,9 +34,9 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   );
 
   const fetchSuggestions = useCallback(
-    async (query: string, category: string | null) => {
-      // 検索語が不十分で、かつカテゴリも未選択の場合はリセット
-      if (query.length < SEARCH_CONFIG.MIN_QUERY_LENGTH && !category) {
+    async (query: string, category: string | null, topic: TravelTopic | null) => {
+      // 検索語が不十分で、かつフィルタも未選択の場合はリセット
+      if (query.length < SEARCH_CONFIG.MIN_QUERY_LENGTH && !category && !topic) {
         setSuggestions([]);
         setTotalResults(null);
         return;
@@ -50,6 +52,9 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
         }
         if (category) {
           params.append("category", category);
+        }
+        if (topic) {
+          params.append("topic", topic);
         }
 
         const response = await fetch(`/api/search?${params.toString()}`);
@@ -71,21 +76,22 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   );
 
   useEffect(() => {
-    // 検索語かカテゴリが有効な場合に候補をフェッチ
+    // 検索語かフィルタが有効な場合に候補をフェッチ
     if (
       debouncedSearchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH ||
-      selectedCategory
+      selectedCategory ||
+      selectedTopic
     ) {
-      fetchSuggestions(debouncedSearchTerm, selectedCategory);
+      fetchSuggestions(debouncedSearchTerm, selectedCategory, selectedTopic);
     } else {
       setSuggestions([]);
       setTotalResults(null);
     }
-  }, [debouncedSearchTerm, selectedCategory, fetchSuggestions]);
+  }, [debouncedSearchTerm, selectedCategory, selectedTopic, fetchSuggestions]);
 
   const executeSearch = useCallback(() => {
     const trimmedSearchTerm = searchTerm.trim();
-    if (!trimmedSearchTerm && !selectedCategory) {
+    if (!trimmedSearchTerm && !selectedCategory && !selectedTopic) {
       onClose();
       return;
     }
@@ -97,10 +103,13 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
     if (selectedCategory) {
       searchParams.append("category", selectedCategory);
     }
+    if (selectedTopic) {
+      searchParams.append("topic", selectedTopic);
+    }
 
     router.push(`/posts?${searchParams.toString()}`);
     onClose();
-  }, [searchTerm, selectedCategory, router, onClose]);
+  }, [searchTerm, selectedCategory, selectedTopic, router, onClose]);
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -115,11 +124,17 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
     setSelectedCategory((prev) => (prev === category ? null : category));
   }, []);
 
+  const toggleTopic = useCallback((topic: TravelTopic) => {
+    setSelectedTopic((prev) => (prev === topic ? null : topic));
+  }, []);
+
   return {
     searchTerm,
     setSearchTerm,
     selectedCategory,
+    selectedTopic,
     toggleCategory,
+    toggleTopic,
     suggestions,
     totalResults,
     isLoading,

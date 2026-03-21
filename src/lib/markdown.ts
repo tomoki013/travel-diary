@@ -45,6 +45,7 @@ function getRawDataFromDirectory(directory: string): PostMetadata[] {
       promotionPG: data.promotionPG,
       journey: data.journey,
       revenueCategory: data.revenueCategory,
+      travelTopics: ensureStringArray(data.travelTopics),
     } as PostMetadata);
   });
 

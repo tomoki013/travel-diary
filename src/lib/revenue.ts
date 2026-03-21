@@ -1,9 +1,10 @@
-import { Post, RevenueCategory } from "@/types/types";
+import { Post, RevenueCategory, TravelTopic } from "@/types/types";
 
 type PostMetadata = Omit<Post, "content">;
-type RevenueInferenceSource = Pick<Post, "title" | "excerpt" | "category" | "tags"> & {
-  revenueCategory?: RevenueCategory;
-};
+type RevenueInferenceSource = Pick<
+  Post,
+  "title" | "excerpt" | "category" | "tags" | "travelTopics" | "revenueCategory"
+>;
 
 const HIGH_INTENT: RevenueCategory[] = [
   "money",
@@ -14,24 +15,33 @@ const HIGH_INTENT: RevenueCategory[] = [
   "insurance",
 ];
 
+const PRACTICAL_TOPICS: TravelTopic[] = [
+  "money",
+  "visa",
+  "transport",
+  "booking",
+  "sim",
+  "insurance",
+];
+
 const KEYWORDS: Record<RevenueCategory, string[]> = {
-  money: ["両替", "クレカ", "カード", "alipay", "wechat", "currency", "exchange", "支払い"],
+  money: ["両替", "クレカ", "カード", "alipay", "wechat", "currency", "exchange", "支払い", "決済", "現金"],
   visa: ["visa", "ビザ", "e-visa", "入国", "申請"],
-  transport: ["鉄道", "train", "空港", "アクセス", "バス", "交通", "metro", "subway"],
-  booking: ["予約", "booking", "hotel", "flight", "航空券", "omio", "agoda", "trip.com"],
+  transport: ["鉄道", "train", "空港", "アクセス", "バス", "交通", "metro", "subway", "地下鉄", "列車", "移動", "transit"],
+  booking: ["予約", "booking", "hotel", "flight", "航空券", "omio", "agoda", "trip.com", "チケット", "ツアー"],
   sim: ["sim", "esim", "wifi", "通信"],
   insurance: ["保険", "insurance"],
   guide: ["観光", "ガイド", "おすすめ", "how", "tips"],
   essay: [],
 };
 
+const dedupeTopics = (topics: TravelTopic[]) => [...new Set(topics)];
+
+const normalizeTravelTopics = (topics?: TravelTopic[]) =>
+  dedupeTopics((topics || []).filter((topic): topic is TravelTopic => PRACTICAL_TOPICS.includes(topic)));
+
 export const inferRevenueCategory = (post: RevenueInferenceSource): RevenueCategory => {
-  const corpus = [
-    post.title,
-    post.excerpt,
-    post.category,
-    ...(post.tags || []),
-  ]
+  const corpus = [post.title, post.excerpt, post.category, ...(post.tags || [])]
     .join(" ")
     .toLowerCase();
 
@@ -46,15 +56,38 @@ export const inferRevenueCategory = (post: RevenueInferenceSource): RevenueCateg
   return "guide";
 };
 
+export const inferTravelTopics = (post: RevenueInferenceSource): TravelTopic[] => {
+  const explicitTopics = normalizeTravelTopics(post.travelTopics);
+  if (explicitTopics.length > 0) {
+    return explicitTopics;
+  }
+
+  const corpus = [post.title, post.excerpt, post.category, ...(post.tags || [])]
+    .join(" ")
+    .toLowerCase();
+
+  const inferred = PRACTICAL_TOPICS.filter((topic) =>
+    KEYWORDS[topic].some((keyword) => corpus.includes(keyword.toLowerCase()))
+  );
+
+  if (post.revenueCategory && PRACTICAL_TOPICS.includes(post.revenueCategory as TravelTopic)) {
+    inferred.push(post.revenueCategory as TravelTopic);
+  }
+
+  return dedupeTopics(inferred);
+};
+
 export const enrichPostRevenueCategory = <T extends {
   title: string;
   excerpt?: string;
   category: string;
   tags?: string[];
   revenueCategory?: RevenueCategory;
-}>(post: T): T & { revenueCategory: RevenueCategory } => ({
+  travelTopics?: TravelTopic[];
+}>(post: T): T & { revenueCategory: RevenueCategory; travelTopics: TravelTopic[] } => ({
   ...post,
   revenueCategory: post.revenueCategory || inferRevenueCategory(post),
+  travelTopics: inferTravelTopics(post),
 });
 
 export const getHighIntentPosts = (posts: PostMetadata[]) =>

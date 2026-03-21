@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { categories } from "@/data/categories";
+import { articleCategories, travelTopicOptions } from "@/data/categories";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Loader2, SearchIcon, XIcon } from "lucide-react";
 import { useMemo } from "react";
@@ -10,6 +10,7 @@ import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
 import { LinkCard } from "@/components/common/LinkCard";
 import { useSearchOverlay } from "@/hooks/useSearchOverlay";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
+import { TravelTopic } from "@/types/types";
 
 // 型定義
 type Suggestion = {
@@ -37,41 +38,33 @@ const ANIMATION_CONFIG = {
   },
 } as const;
 
-/**
- * カテゴリ選択コンポーネント
- */
-const CategorySelector = ({
-  selectedCategory,
-  onCategoryToggle,
+const FilterChipGroup = ({
+  title,
+  options,
+  selectedValue,
+  onToggle,
 }: {
-  selectedCategory: string | null;
-  onCategoryToggle: (category: string) => void;
-}) => {
-  const availableCategories = useMemo(
-    () => categories.filter((c) => c.slug !== "all"),
-    []
-  );
-
-  return (
-    <div>
-      <h3 className="text-lg font-semibold mb-2 font-heading">
-        カテゴリを絞り込む
-      </h3>
-      <div className="flex flex-wrap gap-2 mt-2">
-        {availableCategories.map((category) => (
-          <Button
-            key={category.slug}
-            variant={selectedCategory === category.slug ? "default" : "outline"}
-            onClick={() => onCategoryToggle(category.slug)}
-            size="sm"
-          >
-            {category.title}
-          </Button>
-        ))}
-      </div>
+  title: string;
+  options: { slug: string; title: string }[];
+  selectedValue: string | null;
+  onToggle: (value: string) => void;
+}) => (
+  <div>
+    <h3 className="text-lg font-semibold mb-2 font-heading">{title}</h3>
+    <div className="mt-2 flex flex-wrap gap-2">
+      {options.map((option) => (
+        <Button
+          key={option.slug}
+          variant={selectedValue === option.slug ? "default" : "outline"}
+          onClick={() => onToggle(option.slug)}
+          size="sm"
+        >
+          {option.title}
+        </Button>
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 /**
  * 検索候補表示コンポーネント
@@ -81,21 +74,24 @@ const SearchSuggestions = ({
   suggestions,
   isLoading,
   selectedCategory,
+  selectedTopic,
   executeSearch,
   onClose,
   totalResults,
 }: {
-  searchTerm:string;
+  searchTerm: string;
   suggestions: Suggestion[];
   isLoading: boolean;
   selectedCategory: string | null;
+  selectedTopic: TravelTopic | null;
   executeSearch: () => void;
   onClose: () => void;
   totalResults: number | null;
 }) => {
-  // カテゴリ選択時もサジェストを表示するため、selectedCategoryも条件に含める
   const canShowComponent =
-    searchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH || selectedCategory;
+    searchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH ||
+    selectedCategory ||
+    selectedTopic;
 
   const displayedSuggestions = suggestions.slice(
     0,
@@ -161,7 +157,7 @@ const SearchSuggestions = ({
 
       {!isLoading &&
         suggestions.length === 0 &&
-        (searchTerm || selectedCategory) &&
+        (searchTerm || selectedCategory || selectedTopic) &&
         totalResults === 0 && (
           <div className="p-4 text-muted-foreground">
             一致する記事は見つかりませんでした。
@@ -181,13 +177,24 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
     searchTerm,
     setSearchTerm,
     selectedCategory,
+    selectedTopic,
     toggleCategory,
+    toggleTopic,
     suggestions,
     totalResults,
     isLoading,
     executeSearch,
     handleKeyDown,
   } = useSearchOverlay({ onClose });
+
+  const availableCategories = useMemo(
+    () => articleCategories.filter((c) => c.slug !== "all"),
+    [],
+  );
+  const availableTopics = useMemo(
+    () => travelTopicOptions.filter((topic) => topic.slug !== "all"),
+    [],
+  );
 
   return (
     <AnimatePresence>
@@ -243,10 +250,18 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
                 も使えます。
               </p>
 
-              {/* カテゴリ検索 */}
-              <CategorySelector
-                selectedCategory={selectedCategory}
-                onCategoryToggle={toggleCategory}
+              <FilterChipGroup
+                title="記事カテゴリで絞り込む"
+                options={availableCategories}
+                selectedValue={selectedCategory}
+                onToggle={toggleCategory}
+              />
+
+              <FilterChipGroup
+                title="実用ラベルで絞り込む"
+                options={availableTopics}
+                selectedValue={selectedTopic}
+                onToggle={(value) => toggleTopic(value as TravelTopic)}
               />
             </div>
 
@@ -256,6 +271,7 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
               suggestions={suggestions}
               isLoading={isLoading}
               selectedCategory={selectedCategory}
+              selectedTopic={selectedTopic}
               executeSearch={executeSearch}
               onClose={onClose}
               totalResults={totalResults}

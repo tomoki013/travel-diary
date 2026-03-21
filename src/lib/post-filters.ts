@@ -1,4 +1,4 @@
-import { Post } from "@/types/types";
+import { Post, TravelTopic } from "@/types/types";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -35,6 +35,13 @@ export function filterByTag(
 ): PostMetadata[] {
   // `tags` is now guaranteed to be an array by the data layer.
   return posts.filter((post) => post.tags && post.tags.includes(tag));
+}
+
+export function filterByTravelTopic(
+  posts: PostMetadata[],
+  topic: TravelTopic
+): PostMetadata[] {
+  return posts.filter((post) => post.travelTopics?.includes(topic));
 }
 
 /**
