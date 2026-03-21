@@ -1,6 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect, RefObject } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  RefObject,
+  useCallback,
+  useLayoutEffect,
+} from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Check } from "lucide-react";
 
@@ -18,18 +26,23 @@ interface CustomSelectProps {
 
 // コンポーネント外クリックを検知するカスタムフック (変更なし)
 const useOutsideClick = (
-  ref: RefObject<HTMLDivElement | null>,
+  refs: Array<RefObject<HTMLElement | null>>,
   callback: () => void
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      const clickedInside = refs.some(
+        (ref) => ref.current && ref.current.contains(target),
+      );
+
+      if (!clickedInside) {
         callback();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [ref, callback]);
+  }, [refs, callback]);
 };
 
 // Framer Motionのアニメーション定義
@@ -71,14 +84,50 @@ export const CustomSelect = ({
   labelPrefix,
 }: CustomSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState<{
+    top: number;
+    left: number;
+    width: number;
+  } | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  useOutsideClick(wrapperRef, () => setIsOpen(false));
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
+  useOutsideClick([wrapperRef, menuRef], () => setIsOpen(false));
 
   const selectedOption = options.find((opt) => opt.slug === value);
+  const canUsePortal = typeof document !== "undefined";
+
+  const updateMenuPosition = useCallback(() => {
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    setMenuPosition({
+      top: rect.bottom + 8,
+      left: rect.left,
+      width: rect.width,
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    updateMenuPosition();
+
+    const handlePositionUpdate = () => updateMenuPosition();
+
+    window.addEventListener("resize", handlePositionUpdate);
+    window.addEventListener("scroll", handlePositionUpdate, true);
+
+    return () => {
+      window.removeEventListener("resize", handlePositionUpdate);
+      window.removeEventListener("scroll", handlePositionUpdate, true);
+    };
+  }, [isOpen, updateMenuPosition]);
 
   return (
     <div ref={wrapperRef} className="relative z-40 w-full font-sans isolate">
       <motion.button
+        ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className="relative z-10 w-full flex items-center justify-between text-left p-4 bg-white/80 border border-gray-200/80 rounded-xl shadow-sm hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all duration-300"
         whileTap={{ scale: 0.98 }}
@@ -99,42 +148,54 @@ export const CustomSelect = ({
         </motion.div>
       </motion.button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            variants={listVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            className="absolute z-[80] w-full mt-2 origin-top bg-white/95 text-gray-800 backdrop-blur-lg rounded-xl shadow-2xl ring-1 ring-secondary overflow-hidden"
-          >
-            {options.map((option) => (
-              <motion.li
-                key={option.slug}
-                variants={itemVariants}
-                onClick={() => {
-                  onChange(option.slug);
-                  setIsOpen(false);
+      {canUsePortal &&
+        createPortal(
+          <AnimatePresence>
+            {isOpen && menuPosition && (
+              <motion.ul
+                ref={menuRef}
+                variants={listVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                className="fixed z-[220] origin-top bg-white/95 text-gray-800 backdrop-blur-lg rounded-xl shadow-2xl ring-1 ring-secondary overflow-hidden"
+                style={{
+                  top: menuPosition.top,
+                  left: menuPosition.left,
+                  width: menuPosition.width,
                 }}
-                className="flex items-center justify-between px-5 py-3 cursor-pointer hover:bg-sky-100/70"
               >
-                <span
-                  className={
-                    value === option.slug ? "font-semibold text-secondary" : ""
-                  }
-                >
-                  {option.title}
-                </span>
-                {value === option.slug && (
-                  <motion.div layoutId="selected-check">
-                    <Check className="text-secondary" size={20} />
-                  </motion.div>
-                )}
-              </motion.li>
-            ))}
-          </motion.ul>
+                {options.map((option) => (
+                  <motion.li
+                    key={option.slug}
+                    variants={itemVariants}
+                    onClick={() => {
+                      onChange(option.slug);
+                      setIsOpen(false);
+                    }}
+                    className="flex items-center justify-between px-5 py-3 cursor-pointer hover:bg-sky-100/70"
+                  >
+                    <span
+                      className={
+                        value === option.slug
+                          ? "font-semibold text-secondary"
+                          : ""
+                      }
+                    >
+                      {option.title}
+                    </span>
+                    {value === option.slug && (
+                      <motion.div layoutId="selected-check">
+                        <Check className="text-secondary" size={20} />
+                      </motion.div>
+                    )}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </div>
   );
 };

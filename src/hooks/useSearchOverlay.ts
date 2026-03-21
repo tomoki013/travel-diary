@@ -18,23 +18,6 @@ interface UseSearchOverlayProps {
   onClose: () => void;
 }
 
-const normalizeFilters = (
-  category: string | null,
-  topic: TravelTopic | null,
-): { category: string | null; topic: TravelTopic | null } => {
-  let nextCategory = category;
-  const nextTopic = topic;
-
-  if (nextTopic) {
-    nextCategory = "tourism";
-  }
-
-  return {
-    category: nextCategory,
-    topic: nextTopic,
-  };
-};
-
 export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,12 +34,10 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
 
   const fetchSuggestions = useCallback(
     async (query: string, category: string | null, topic: TravelTopic | null) => {
-      const normalized = normalizeFilters(category, topic);
-
       if (
         query.length < SEARCH_CONFIG.MIN_QUERY_LENGTH &&
-        !normalized.category &&
-        !normalized.topic
+        !category &&
+        !topic
       ) {
         setSuggestions([]);
         setTotalResults(null);
@@ -71,11 +52,11 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
         if (query) {
           params.append("q", query);
         }
-        if (normalized.category) {
-          params.append("category", normalized.category);
+        if (category) {
+          params.append("category", category);
         }
-        if (normalized.topic) {
-          params.append("topic", normalized.topic);
+        if (topic) {
+          params.append("topic", topic);
         }
 
         const response = await fetch(`/api/search?${params.toString()}`);
@@ -97,14 +78,12 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   );
 
   useEffect(() => {
-    const normalized = normalizeFilters(selectedCategory, selectedTopic);
-
     if (
       debouncedSearchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH ||
-      normalized.category ||
-      normalized.topic
+      selectedCategory ||
+      selectedTopic
     ) {
-      fetchSuggestions(debouncedSearchTerm, normalized.category, normalized.topic);
+      fetchSuggestions(debouncedSearchTerm, selectedCategory, selectedTopic);
     } else {
       setSuggestions([]);
       setTotalResults(null);
@@ -113,9 +92,8 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
 
   const executeSearch = useCallback(() => {
     const trimmedSearchTerm = searchTerm.trim();
-    const normalized = normalizeFilters(selectedCategory, selectedTopic);
 
-    if (!trimmedSearchTerm && !normalized.category && !normalized.topic) {
+    if (!trimmedSearchTerm && !selectedCategory && !selectedTopic) {
       onClose();
       return;
     }
@@ -124,11 +102,11 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
     if (trimmedSearchTerm) {
       searchParams.append("search", trimmedSearchTerm);
     }
-    if (normalized.category) {
-      searchParams.append("category", normalized.category);
+    if (selectedCategory) {
+      searchParams.append("category", selectedCategory);
     }
-    if (normalized.topic) {
-      searchParams.append("topic", normalized.topic);
+    if (selectedTopic) {
+      searchParams.append("topic", selectedTopic);
     }
 
     router.push(`/posts?${searchParams.toString()}`);
@@ -145,29 +123,11 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   );
 
   const toggleCategory = useCallback((category: string) => {
-    setSelectedCategory((prev) => {
-      const nextCategory = prev === category ? null : category;
-      setSelectedTopic((currentTopic) => {
-        if (nextCategory && nextCategory !== "tourism") {
-          return null;
-        }
-
-        const normalized = normalizeFilters(nextCategory, currentTopic);
-        return normalized.topic;
-      });
-      return nextCategory;
-    });
+    setSelectedCategory((prev) => (prev === category ? null : category));
   }, []);
 
   const toggleTopic = useCallback((topic: TravelTopic) => {
-    setSelectedTopic((prev) => {
-      const nextTopic = prev === topic ? null : topic;
-      setSelectedCategory((currentCategory) => {
-        const normalized = normalizeFilters(currentCategory, nextTopic);
-        return normalized.category;
-      });
-      return nextTopic;
-    });
+    setSelectedTopic((prev) => (prev === topic ? null : topic));
   }, []);
 
   return {

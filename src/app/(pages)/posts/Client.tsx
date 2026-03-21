@@ -20,20 +20,6 @@ interface BlogClientProps {
   totalPosts: number | null;
 }
 
-const normalizeFilters = (category: string, topic: string) => {
-  let nextCategory = category;
-  const nextTopic = topic;
-
-  if (nextTopic !== "all") {
-    nextCategory = "tourism";
-  }
-
-  return {
-    category: nextCategory,
-    topic: nextTopic,
-  };
-};
-
 const BlogClient = ({
   posts,
   totalPages,
@@ -43,13 +29,9 @@ const BlogClient = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const rawCategoryParam = searchParams.get("category") || "all";
-  const rawTopicParam = searchParams.get("topic") || "all";
+  const categoryParam = searchParams.get("category") || "all";
+  const topicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
-  const { category: categoryParam, topic: topicParam } = normalizeFilters(
-    rawCategoryParam,
-    rawTopicParam,
-  );
 
   const navigate = (
     page: number,
@@ -57,14 +39,13 @@ const BlogClient = ({
     topic: string,
     search: string,
   ) => {
-    const normalized = normalizeFilters(category, topic);
     const params = new URLSearchParams();
     params.set("page", String(page));
-    if (normalized.category !== "all") {
-      params.set("category", normalized.category);
+    if (category !== "all") {
+      params.set("category", category);
     }
-    if (normalized.topic !== "all") {
-      params.set("topic", normalized.topic);
+    if (topic !== "all") {
+      params.set("topic", topic);
     }
     if (search) {
       params.set("search", search);
@@ -90,8 +71,7 @@ const BlogClient = ({
   };
 
   const handleCategoryChange = (slug: string) => {
-    const nextTopic = slug === "tourism" ? topicParam : "all";
-    navigate(1, slug, nextTopic, searchParam);
+    navigate(1, slug, topicParam, searchParam);
   };
 
   const handleTopicChange = (slug: string) => {
