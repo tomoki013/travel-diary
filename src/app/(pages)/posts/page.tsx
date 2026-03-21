@@ -13,11 +13,28 @@ export const metadata: Metadata = {
     "「ともきちの旅行日記」の全記事を時系列で掲載しています。世界中の旅の記録や旅行記、観光情報をお届け。あなたの次の冒険のヒントがきっと見つかります。",
 };
 
+const normalizeFilters = (
+  category: string,
+  topic: TravelTopic | "all",
+): { category: string; topic: TravelTopic | "all" } => {
+  let nextCategory = category;
+  const nextTopic = topic;
+
+  if (nextTopic !== "all") {
+    nextCategory = "tourism";
+  }
+
+  return {
+    category: nextCategory,
+    topic: nextTopic,
+  };
+};
+
 const PostsPage = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const searchParams = await props.searchParams;
-  const category =
+  const rawCategory =
     typeof searchParams.category === "string" ? searchParams.category : "all";
   const topic =
     typeof searchParams.topic === "string" ? (searchParams.topic as TravelTopic) : "all";

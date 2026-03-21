@@ -10,7 +10,6 @@ import HeroSection from "@/components/pages/HeroSection";
 import { articleCategories, travelTopicOptions } from "@/data/categories";
 import { SearchInput } from "@/components/common/SearchInput";
 
-// Postのメタデータの型を定義
 type PostMetadata = Omit<Post, "content">;
 
 type FilterOption = {
@@ -65,6 +64,20 @@ interface BlogClientProps {
   totalPosts: number | null;
 }
 
+const normalizeFilters = (category: string, topic: string) => {
+  let nextCategory = category;
+  const nextTopic = topic;
+
+  if (nextTopic !== "all") {
+    nextCategory = "tourism";
+  }
+
+  return {
+    category: nextCategory,
+    topic: nextTopic,
+  };
+};
+
 const BlogClient = ({
   posts,
   totalPages,
@@ -77,6 +90,10 @@ const BlogClient = ({
   const categoryParam = searchParams.get("category") || "all";
   const topicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
+  const { category: categoryParam, topic: topicParam } = normalizeFilters(
+    rawCategoryParam,
+    rawTopicParam,
+  );
 
   const navigate = (
     page: number,
@@ -86,8 +103,11 @@ const BlogClient = ({
   ) => {
     const params = new URLSearchParams();
     params.set("page", String(page));
-    if (category && category !== "all") {
-      params.set("category", category);
+    if (normalized.category !== "all") {
+      params.set("category", normalized.category);
+    }
+    if (normalized.topic !== "all") {
+      params.set("topic", normalized.topic);
     }
     if (topic && topic !== "all") {
       params.set("topic", topic);

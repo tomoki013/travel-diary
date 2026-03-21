@@ -18,6 +18,23 @@ interface UseSearchOverlayProps {
   onClose: () => void;
 }
 
+const normalizeFilters = (
+  category: string | null,
+  topic: TravelTopic | null,
+): { category: string | null; topic: TravelTopic | null } => {
+  let nextCategory = category;
+  const nextTopic = topic;
+
+  if (nextTopic) {
+    nextCategory = "tourism";
+  }
+
+  return {
+    category: nextCategory,
+    topic: nextTopic,
+  };
+};
+
 export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,8 +65,11 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
         if (query) {
           params.append("q", query);
         }
-        if (category) {
-          params.append("category", category);
+        if (normalized.category) {
+          params.append("category", normalized.category);
+        }
+        if (normalized.topic) {
+          params.append("topic", normalized.topic);
         }
         if (topic) {
           params.append("topic", topic);
@@ -97,8 +117,11 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
     if (trimmedSearchTerm) {
       searchParams.append("search", trimmedSearchTerm);
     }
-    if (selectedCategory) {
-      searchParams.append("category", selectedCategory);
+    if (normalized.category) {
+      searchParams.append("category", normalized.category);
+    }
+    if (normalized.topic) {
+      searchParams.append("topic", normalized.topic);
     }
     if (selectedTopic) {
       searchParams.append("topic", selectedTopic);
