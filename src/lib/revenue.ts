@@ -6,7 +6,7 @@ type RevenueInferenceSource = Pick<
   "title" | "excerpt" | "category" | "tags" | "travelTopics" | "revenueCategory"
 >;
 
-const HIGH_INTENT: RevenueCategory[] = [
+const HIGH_INTENT: TravelTopic[] = [
   "money",
   "visa",
   "transport",
@@ -84,7 +84,9 @@ export const enrichPostRevenueCategory = <T extends {
 });
 
 export const getHighIntentPosts = (posts: PostMetadata[]) =>
-  posts.filter((post) => post.revenueCategory && HIGH_INTENT.includes(post.revenueCategory));
+  posts.filter(
+    (post) => post.category === "tourism" && (post.travelTopics?.length || 0) > 0,
+  );
 
 export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata[]) => {
   const flow: Record<RevenueCategory, RevenueCategory[]> = {

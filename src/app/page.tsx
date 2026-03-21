@@ -14,6 +14,7 @@ import HighIntentSection from "@/components/pages/HighIntentSection";
 import { getHighIntentPosts } from "@/lib/revenue";
 import JourneyTeaser from "@/components/features/about/JourneyTeaser";
 import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
+import TravelDiarySpotlight from "@/components/pages/TravelDiarySpotlight";
 
 const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"));
 const Gallery = dynamic(() => import("@/components/pages/Gallery"));
@@ -24,10 +25,15 @@ export default async function HomePage() {
   const allPhotos = await getPhotos();
   const photoLength = allPhotos.length;
   const highIntentPosts = getHighIntentPosts(allPosts);
+  const diaryPosts = allPosts.filter(
+    (post) => post.category === "series" || post.category === "itinerary",
+  );
+
   return (
     <>
       <Hero />
       <HighIntentSection posts={highIntentPosts} />
+      <TravelDiarySpotlight posts={diaryPosts} />
       <NewPosts posts={allPosts} />
       <FeaturedSeries />
       <PopularPosts posts={highIntentPosts.length ? highIntentPosts : allPosts} />
@@ -40,7 +46,7 @@ export default async function HomePage() {
       <Request />
       <PostsLength posts={allPosts} />
       <GalleryLength galleryLength={photoLength} />
-      <div className="flex justify-center pb-20 mt-10">
+      <div className="mt-10 flex justify-center pb-20">
         <InstallPWAButton />
       </div>
     </>

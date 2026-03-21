@@ -22,7 +22,8 @@ const PostCard = ({ post, variant = "default" }: PostCardProps) => {
   }
 
   const categoryTitle = getCategoryTitle(post.category);
-  const topicTitles = (post.travelTopics || [])
+  const isTourismPost = post.category === "tourism";
+  const topicTitles = (isTourismPost ? post.travelTopics || [] : [])
     .map((topic) => getTravelTopicTitle(topic))
     .filter((title): title is string => Boolean(title))
     .slice(0, 3);
@@ -48,7 +49,7 @@ const PostCard = ({ post, variant = "default" }: PostCardProps) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-orange-900/15 via-transparent to-transparent group-hover:from-orange-900/8 transition-colors duration-500" />
               </>
             )}
-            {categoryTitle && (
+            {isTourismPost && categoryTitle && (
               <div className="absolute top-3 left-3 bg-gradient-to-r from-orange-400/90 to-amber-400/90 dark:from-orange-500/90 dark:to-amber-500/90 backdrop-blur-md text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg ring-1 ring-white/20 group-hover:scale-105 transition-transform duration-300">
                 {categoryTitle}
               </div>
@@ -56,16 +57,24 @@ const PostCard = ({ post, variant = "default" }: PostCardProps) => {
           </div>
 
           <div className="flex flex-col flex-grow">
-            <div className="mb-3 flex flex-wrap gap-2">
-              {topicTitles.map((topicTitle) => (
-                <span
-                  key={topicTitle}
-                  className="inline-flex items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-sky-950/70 dark:text-sky-200"
-                >
-                  {topicTitle}
-                </span>
-              ))}
-            </div>
+            {topicTitles.length > 0 && (
+              <div className="mb-3 flex flex-wrap gap-2">
+                {topicTitles.map((topicTitle) => (
+                  <span
+                    key={topicTitle}
+                    className="inline-flex items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-sky-950/70 dark:text-sky-200"
+                  >
+                    {topicTitle}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {!isTourismPost && categoryTitle && (
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground/80">
+                {categoryTitle}
+              </p>
+            )}
 
             <h3 className="text-xl font-bold text-foreground mb-3 leading-snug group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
               {post.title}
