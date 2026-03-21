@@ -48,6 +48,7 @@ const fetchAllDraftPosts = cache((): PostMetadata[] => {
       promotionPG: ensureStringArray(data.promotionPG),
       journey: data.journey,
       revenueCategory: data.revenueCategory,
+      travelTopics: ensureStringArray(data.travelTopics),
     } as PostMetadata);
   });
 
@@ -95,6 +96,7 @@ export const getDraftPostBySlug = cache(async (slug: string): Promise<Post> => {
     promotionPG: ensureStringArray(data.promotionPG),
     journey: data.journey,
     revenueCategory: data.revenueCategory,
+    travelTopics: ensureStringArray(data.travelTopics),
   } as Post);
 });
 

@@ -1,11 +1,13 @@
 export type PostType = "tourism" | "itinerary" | "series" | "one-off";
-export type RevenueCategory =
+export type TravelTopic =
   | "money"
   | "visa"
   | "transport"
   | "booking"
   | "sim"
-  | "insurance"
+  | "insurance";
+export type RevenueCategory =
+  | TravelTopic
   | "guide"
   | "essay";
 
@@ -28,6 +30,7 @@ export interface Post {
   promotionPG?: string[];
   journey?: string;
   revenueCategory?: RevenueCategory;
+  travelTopics?: TravelTopic[];
 }
 
 export type PostMetadata = Omit<Post, "content">;

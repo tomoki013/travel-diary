@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getAllPosts } from "@/lib/post-metadata";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
+import { TravelTopic } from "@/types/types";
 
 export const revalidate = 3600; // 1 hour
 
@@ -9,10 +10,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q");
   const category = searchParams.get("category");
+  const topic = searchParams.get("topic") as TravelTopic | null;
 
-  if (!query && !category) {
+  if (!query && !category && !topic) {
     return NextResponse.json(
-      { error: "Query or category parameter is missing" },
+      { error: "Query or filter parameter is missing" },
       { status: 400 },
     );
   }
@@ -21,16 +23,18 @@ export async function GET(request: Request) {
     const allPosts = await getAllPosts();
     let postsToSearch = allPosts;
 
-    // 1. カテゴリで絞り込み（カテゴリが指定されている場合）
     if (category) {
-      postsToSearch = postsToSearch.filter(
-        (post) => post.category === category,
+      postsToSearch = postsToSearch.filter((post) => post.category === category);
+    }
+
+    if (topic) {
+      postsToSearch = postsToSearch.filter((post) =>
+        post.travelTopics?.includes(topic)
       );
     }
 
     let finalPosts = postsToSearch;
 
-    // 2. 検索クエリでさらにフィルタリング & スコアリング（クエリがある場合）
     if (query) {
       const filteredBySearch = filterPostsBySearch(postsToSearch, query);
       const scoredPosts = calculateScores(filteredBySearch, query);
@@ -39,7 +43,6 @@ export async function GET(request: Request) {
         .map((item) => item.post);
     }
 
-    // 3. 結果を整形して返却
     const total = finalPosts.length;
     const suggestions = finalPosts
       .slice(0, SEARCH_CONFIG.API_MAX_RESULTS)

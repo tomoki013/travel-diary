@@ -8,19 +8,31 @@ import { sectionVariants, staggerContainer } from "@/components/common/animation
 import { CustomSelect } from "@/components/common/CustomSelect";
 import { useSearchParams, useRouter } from "next/navigation";
 import HeroSection from "@/components/pages/HeroSection";
-import { categories } from "@/data/categories";
+import { articleCategories, travelTopicOptions } from "@/data/categories";
 import { SearchInput } from "@/components/common/SearchInput";
 
-// Postのメタデータの型を定義
 type PostMetadata = Omit<Post, "content">;
 
-// Propsの型を定義
 interface BlogClientProps {
   posts: PostMetadata[];
   totalPages: number;
   currentPage: number;
   totalPosts: number | null;
 }
+
+const normalizeFilters = (category: string, topic: string) => {
+  let nextCategory = category;
+  const nextTopic = topic;
+
+  if (nextTopic !== "all") {
+    nextCategory = "tourism";
+  }
+
+  return {
+    category: nextCategory,
+    topic: nextTopic,
+  };
+};
 
 const BlogClient = ({
   posts,
@@ -31,16 +43,28 @@ const BlogClient = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // URLパラメータを取得
-  const categoryParam = searchParams.get("category") || "all";
+  const rawCategoryParam = searchParams.get("category") || "all";
+  const rawTopicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
+  const { category: categoryParam, topic: topicParam } = normalizeFilters(
+    rawCategoryParam,
+    rawTopicParam,
+  );
 
-  // URLを組み立てて遷移するヘルパー関数
-  const navigate = (page: number, category: string, search: string) => {
+  const navigate = (
+    page: number,
+    category: string,
+    topic: string,
+    search: string,
+  ) => {
+    const normalized = normalizeFilters(category, topic);
     const params = new URLSearchParams();
     params.set("page", String(page));
-    if (category && category !== "all") {
-      params.set("category", category);
+    if (normalized.category !== "all") {
+      params.set("category", normalized.category);
+    }
+    if (normalized.topic !== "all") {
+      params.set("topic", normalized.topic);
     }
     if (search) {
       params.set("search", search);
@@ -48,52 +72,55 @@ const BlogClient = ({
     router.push(`?${params.toString()}`);
   };
 
-  // スクロール処理を共通化
   const scrollToSearchSection = () => {
     const section = document.getElementById("search-section");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     } else {
-      // フォールバックとしてページ上部にスクロール
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  // --- イベントハンドラ ---
-
   const handleSearch = (query: string) => {
-    navigate(1, categoryParam, query);
+    navigate(1, categoryParam, topicParam, query);
   };
 
   const handleResetSearch = () => {
-    navigate(1, categoryParam, "");
+    navigate(1, categoryParam, topicParam, "");
   };
 
   const handleCategoryChange = (slug: string) => {
-    navigate(1, slug, searchParam);
+    const nextTopic = slug === "tourism" ? topicParam : "all";
+    navigate(1, slug, nextTopic, searchParam);
+  };
+
+  const handleTopicChange = (slug: string) => {
+    navigate(1, categoryParam, slug, searchParam);
   };
 
   const handlePageChange = (page: number) => {
-    navigate(page, categoryParam, searchParam);
+    navigate(page, categoryParam, topicParam, searchParam);
   };
 
   const handlePrev = () => {
-    navigate(Math.max(1, currentPage - 1), categoryParam, searchParam);
+    navigate(Math.max(1, currentPage - 1), categoryParam, topicParam, searchParam);
   };
 
   const handleNext = () => {
-    navigate(Math.min(totalPages, currentPage + 1), categoryParam, searchParam);
+    navigate(
+      Math.min(totalPages, currentPage + 1),
+      categoryParam,
+      topicParam,
+      searchParam,
+    );
   };
 
-  // searchParamsが変更された後にスクロールを実行
   useEffect(() => {
-    // URLに何らかのクエリパラメータがある場合のみスクロール
     if (searchParams.toString()) {
       scrollToSearchSection();
     }
   }, [searchParams]);
 
-  // --- ページネーション番号の生成ロジック (useMemoで不要な再計算を防ぐ) ---
   const paginationNumbers = useMemo(() => {
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -113,10 +140,8 @@ const BlogClient = ({
     return pages;
   }, [totalPages, currentPage]);
 
-  // --- JSX ---
   return (
     <div>
-      {/* ==================== Hero Section ==================== */}
       <HeroSection
         src="/images/Spain/toledo-view.jpg"
         alt="Blog Hero Image"
@@ -125,8 +150,7 @@ const BlogClient = ({
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* ==================== Search ==================== */}
-        <section id="search-section" className="mb-2">
+        <section id="search-section" className="mb-2 scroll-mt-24">
           <SearchInput
             initialValue={searchParam}
             onSearch={handleSearch}
@@ -139,7 +163,6 @@ const BlogClient = ({
           </p>
         </section>
 
-        {/* ==================== Total Results ==================== */}
         {totalPosts !== null && (
           <section className="mb-4 text-center">
             <p className="text-lg font-medium text-foreground">
@@ -148,20 +171,24 @@ const BlogClient = ({
           </section>
         )}
 
-        {/* ==================== Filters ==================== */}
-        <section className="mb-12">
+        <section className="relative z-30 mb-12 grid gap-4 md:grid-cols-2">
           <CustomSelect
-            options={categories}
+            options={articleCategories}
             value={categoryParam}
             onChange={handleCategoryChange}
-            labelPrefix="カテゴリー"
+            labelPrefix="記事カテゴリ"
+          />
+          <CustomSelect
+            options={travelTopicOptions}
+            value={topicParam}
+            onChange={handleTopicChange}
+            labelPrefix="実用ラベル"
           />
         </section>
 
-        {/* ==================== Article List ==================== */}
         {posts.length > 0 ? (
           <motion.section
-            key={currentPage}
+            key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}`}
             variants={staggerContainer()}
             className="flex flex-col gap-16 md:gap-20 mb-12"
           >
@@ -195,17 +222,14 @@ const BlogClient = ({
             })}
           </motion.section>
         ) : (
-          // 検索結果がない場合の表示
           <div className="rounded-2xl border bg-card px-6 py-16 text-center">
             <p className="text-xl text-foreground">該当する記事が見つかりませんでした。</p>
-            <p className="mt-2 text-sm text-muted-foreground">検索条件またはカテゴリを変更してお試しください。</p>
+            <p className="mt-2 text-sm text-muted-foreground">検索条件またはカテゴリ・ラベルを変更してお試しください。</p>
           </div>
         )}
 
-        {/* ==================== Pagination ==================== */}
         {totalPages > 1 && (
           <section className="mt-16 flex flex-wrap justify-center items-center gap-2">
-            {/* Prevボタン */}
             {currentPage > 1 && (
               <button
                 onClick={handlePrev}
@@ -215,7 +239,6 @@ const BlogClient = ({
               </button>
             )}
 
-            {/* ページ番号 */}
             {paginationNumbers.map((page, idx) =>
               page === "..." ? (
                 <span key={`ellipsis-${idx}`} className="px-2">
@@ -236,7 +259,6 @@ const BlogClient = ({
               )
             )}
 
-            {/* Nextボタン */}
             {currentPage < totalPages && (
               <button
                 onClick={handleNext}
