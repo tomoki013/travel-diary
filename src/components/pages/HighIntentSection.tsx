@@ -22,9 +22,9 @@ const HighIntentSection = ({ posts }: { posts: PostMetadata[] }) => {
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-14">
-      <h2 className="text-center text-3xl font-bold">旅行前に役立つ観光情報</h2>
-      <p className="mx-auto mt-2 max-w-2xl text-center text-muted-foreground">
-        実用ラベルは、観光情報としてしっかりまとまっている記事だけに絞って載せています。
+      <h2 className="text-center text-3xl font-bold">旅のインスピレーション</h2>
+      <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground leading-relaxed">
+        次の旅行に役立つ、おすすめの観光スポットや旅のヒントを厳選してお届けします。
       </p>
 
       <div className="mt-8 grid gap-8">

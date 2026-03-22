@@ -26,30 +26,15 @@ const Hero = () => {
         <h1 className="mb-4 font-heading text-5xl font-bold leading-tight text-shadow-[2px_2px_10px_rgba(0,0,0,0.5)] md:text-7xl">
           次の冒険は、どこへ？
         </h1>
-        <p className="text-lg font-medium md:text-xl">
-          世界を旅した記憶と体験を、あなたと共有したい
+        <p className="text-lg font-medium md:text-xl text-shadow-[1px_1px_5px_rgba(0,0,0,0.5)]">
+          世界を旅した記憶と体験、そして次の旅のインスピレーションをお届けします。
         </p>
-        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/90 md:text-base">
-          役立つ観光情報を探したい時も、旅先で感じた空気ごと日記としてたどりたい時も、
-          この場所から自然に行き来できるトップページを目指しています。
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/90 md:text-base text-shadow-[1px_1px_5px_rgba(0,0,0,0.5)]">
+          息を呑むような絶景、その土地ならではの文化、そして旅先での小さな発見。
+          まだ見ぬ世界への扉を開き、あなただけの物語を見つけにいきませんか。
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm">
-          <Link
-            href="/posts?category=tourism"
-            className="rounded-full bg-white px-5 py-2.5 font-semibold text-slate-900 transition hover:bg-white/90"
-          >
-            観光情報を見る
-          </Link>
-          <Link
-            href="/journey"
-            className="rounded-full border border-white/35 bg-white/10 px-5 py-2.5 font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
-          >
-            旅行日記を見る
-          </Link>
-        </div>
-
-        <div className="font-code my-4 text-4xl text-white/90">Tomokichi</div>
+        <div className="font-code my-10 text-4xl text-white/90 text-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">Tomokichi</div>
         <LoadingAnimation
           variant="splitFlap"
           className="mt-12 flex items-center justify-center"
