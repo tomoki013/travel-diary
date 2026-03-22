@@ -24,17 +24,18 @@ export default async function HomePage() {
   const allPhotos = await getPhotos();
   const photoLength = allPhotos.length;
   const highIntentPosts = getHighIntentPosts(allPosts);
+
   return (
     <>
       <Hero />
       <HighIntentSection posts={highIntentPosts} />
+      <JourneyTeaser />
       <NewPosts posts={allPosts} />
       <FeaturedSeries />
       <PopularPosts posts={highIntentPosts.length ? highIntentPosts : allPosts} />
       <AIPlannerHero />
       <GlobePromo />
       <Gallery />
-      <JourneyTeaser />
       <Destination />
       <Affiliates />
       <Request />
