@@ -34,12 +34,20 @@ CHAGEEの看板メニューとしてよく挙がるのが伯牙絶弦です。
 
 ジャスミン緑茶と新鮮な牛乳を使ったミルクティーで、実際に飲んでみてもとても美味しかったです。
 
+[[photo]]
+![CHAGEEの看板メニュー伯牙絶弦のカップ](/images/_photo-placeholder/chagee-boya-juexian-cup.jpg)
+[[/photo]]
+
 ## 私のおすすめ: 白雾红尘
 
 個人的なおすすめは白雾红尘です。
 
 大紅袍を使った、より濃厚なミルクティーで、しっかりしたお茶感を楽しめます。
 初めて行くなら、伯牙絶弦と白雾红尘の2つはぜひ試してほしいです。
+
+[[photo]]
+![CHAGEEの白雾红尘を手に持った様子](/images/_photo-placeholder/chagee-baiwu-hongchen-cup.jpg)
+[[/photo]]
 
 ## 味以外のおすすめ理由
 
@@ -55,6 +63,10 @@ CHAGEEは味だけでなく、パッケージのデザインも魅力です。
 ### 1店舗目
 
 南京東路近くの店舗。観光中に立ち寄りやすく便利でした。
+
+[[photo]]
+![上海で最初に入ったCHAGEE店舗の外観](/images/_photo-placeholder/chagee-shanghai-storefront.jpg)
+[[/photo]]
 
 ### 2店舗目
 

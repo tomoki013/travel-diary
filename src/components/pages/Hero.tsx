@@ -12,7 +12,7 @@ const Hero = () => {
   );
 
   return (
-    <section className="relative flex h-[85vh] flex-col items-center justify-center pt-30 text-center text-white md:flex-row">
+    <section className="relative flex h-[85vh] flex-col items-center justify-center px-4 pt-40 text-center text-white md:flex-row md:px-0 md:pt-44">
       <Image
         src="/images/Turkey/balloons-in-cappadocia.jpg"
         alt="Man looking at a globe"

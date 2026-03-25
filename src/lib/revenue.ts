@@ -101,37 +101,47 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
   };
 
   const order = flow[current.revenueCategory || "guide"];
-  const currentTags = new Set((current.tags || []).map((tag) => tag.toLowerCase()));
+  const currentTopics = new Set(normalizeTravelTopics(current.travelTopics));
   const currentLocations = new Set(
     (current.location || []).map((location) => location.toLowerCase())
   );
 
   return allPosts
-    .filter((post) => post.slug !== current.slug)
+    .filter(
+      (post) => post.slug !== current.slug && (post.revenueCategory || "guide") !== "essay",
+    )
     .map((post) => {
       const postCategory = post.revenueCategory || "guide";
       const categoryIndex = order.indexOf(postCategory);
+      if (categoryIndex === -1) {
+        return null;
+      }
+
       const locationMatches = (post.location || []).filter((location) =>
         currentLocations.has(location.toLowerCase())
       ).length;
-      const tagMatches = (post.tags || []).filter((tag) =>
-        currentTags.has(tag.toLowerCase())
+      const sharedTopics = normalizeTravelTopics(post.travelTopics).filter((topic) =>
+        currentTopics.has(topic)
       ).length;
       const sameSeries = Boolean(current.series && post.series === current.series);
       const sameJourney = Boolean(current.journey && post.journey === current.journey);
+      const hasStrongContextMatch = sameJourney || locationMatches > 0;
 
-      const hasContextMatch = sameSeries || sameJourney || locationMatches > 0 || tagMatches > 0;
-      if (!hasContextMatch) {
+      if (!hasStrongContextMatch) {
         return null;
       }
 
       let score = 0;
-      score += categoryIndex === -1 ? -20 : (order.length - categoryIndex) * 10;
-      score += sameSeries ? 35 : 0;
-      score += sameJourney ? 28 : 0;
-      score += locationMatches * 14;
-      score += tagMatches * 10;
-      score += post.category === current.category ? 6 : 0;
+      score += (order.length - categoryIndex) * 12;
+      score += sameJourney ? 30 : 0;
+      score += sameSeries ? 8 : 0;
+      score += locationMatches * 22;
+      score += sharedTopics * 12;
+      score += post.category === "tourism" ? 6 : 0;
+
+      if (score < 40) {
+        return null;
+      }
 
       const recency = new Date(post.dates?.[0] || "1970-01-01").getTime();
 

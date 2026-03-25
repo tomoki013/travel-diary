@@ -7,7 +7,7 @@ excerpt: >-
   【中国旅行記 第4回】最終日は成隆行蟹王府のリベンジから昼の豫園、
   そして空港でのラストCHAGEEまで。3泊4日の上海旅を締めくくった
   1日を振り返ります。
-image: /images/
+image: /images/China/chenglong-hang-crab-palace.jpg
 location: shanghai
 author: ともきち
 series: travel-diary
@@ -20,7 +20,9 @@ tags:
 
 上海旅行記の最終日です。
 
-まだ見ていない方は、1日目から順に読むと流れが分かりやすいと思います。
+前日の上海ディズニーからの続きです。
+
+[中国旅行記 第3回：上海ディズニーを1日で遊び尽くした日](./china3)
 
 ### 朝？
 
@@ -40,6 +42,9 @@ tags:
 蟹が有名なお店なので、蟹料理を中心に注文。
 蟹チャーハン、蟹焼売、蟹小籠包2、蟹豆腐、蟹担担麺、杏仁茶をいただきました。
 
+![成隆行蟹王府](/images/China/chenglong-hang-crab-palace.jpg)
+![成隆行蟹王府で食べた上海蟹料理のテーブル](/images/China/the-table-where-we-ate-shanghai-crab-dishes-at-seiryu-ko-kani-o-fu.jpg)
+
 個人的には蟹小籠包が大優勝でした。
 
 ### 昼の豫園
@@ -48,6 +53,8 @@ tags:
 
 小腹が空いたタイミングで、2日目に行った南翔饅頭店のテイクアウト店舗でまた小籠包を食べました。
 やはり小籠包はとても美味しいです。
+
+![昼の光で見た豫園の中国建築](/images/China/chinese-architecture-at-yuyuan-garden-in-the-daylight.jpg)
 
 その後はスーパーやコンビニにも寄りつつ、ホテルに預けていた荷物を取りに行きました。
 
@@ -74,4 +81,7 @@ tags:
 美味しい食べ物と素敵な街の雰囲気に包まれて、とても楽しい旅になりました。
 
 また必ず行きたいと思える場所でした。
-それではまた、どこかの旅行記でお会いしましょう。
+
+上海で一番印象に残った CHAGEE の話は、別の記事でもまとめています。
+
+[上海でCHAGEEにハマりすぎた話。日本上陸前に飲んでおいてよかったと思った](./shanghai-chagee-addict)

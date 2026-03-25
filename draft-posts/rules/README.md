@@ -1,42 +1,45 @@
 # Blog Rules & Guidelines
 
-このディレクトリには、ブログ記事の執筆、編集、およびメタデータ管理に関するルールをまとめています。
-AI はこのルール群を「絶対的規範」として扱い、記事の種類に応じて必要なファイルを組み合わせて適用します。
+このディレクトリは、ブログ記事の執筆、編集、変換、運用に関するルールの正本です。
+AI はここにあるファイルを優先参照し、記事の種類に応じて必要なものだけを組み合わせて適用します。
 
-## ファイル構成
+## ルール体系
 
-| ファイル名                         | 役割 |
-| :--------------------------------- | :--- |
-| **`WRITING_GUIDELINES.md`**        | **全記事共通の基本原則。** 構成、文体、誠実さ、情報鮮度などの総論。 |
-| **`CONTENT_TYPE_GUIDELINES.md`**   | **カテゴリ別の書き分け。** `tourism` / `itinerary` / `series` / `one-off` の目的と優先順位。 |
-| **`PERSONA_RULES.md`**             | **デフォルト語り手の設計。** 主に travel-diary / series 系で使う人格、感情、口調、価値観。 |
-| **`REVISION_RULES.md`**            | **修正専門ルール。** 既存下書きや外部テキストをブログ向けに整形・再構成する手順。 |
-| **`NOTE_CONVERSION_RULES.md`**     | **Note変換専門ルール。** Note 特有のノイズや埋め込みを除去するための特化ルール。 |
-| **`METADATA_RULES.md`**            | **メタデータ運用ルール。** Frontmatter の型、必須項目、カテゴリ別定義、`travelTopics` の付与基準。 |
-| **`NAMING_CONVENTIONS.md`**        | **命名・表記ルール。** ファイル名、slug、数字、記号、地名表記の統一。 |
-| **`README.md`**                    | (本ファイル) ルール全体の概要と適用順。 |
+| ファイル名 | 役割 |
+| :-- | :-- |
+| `EDITORIAL_BASELINE.md` | 全記事共通の編集基準。文体、構成、誠実さ、鮮度管理、禁止事項。 |
+| `CONTENT_STRATEGY.md` | カテゴリ別の目的と優先順位。`tourism` `itinerary` `series` `one-off` の書き分け。 |
+| `TRAVEL_DIARY_RULES.md` | `series: travel-diary` の正本。粒度、構成、タイトル、取捨選択、締め方。 |
+| `OPERATIONS.md` | frontmatter、命名、内部リンク、修正運用、公開前チェック。 |
+| `SOURCE_CONVERSION.md` | Note など外部原稿をブログ記事へ再構成するための変換ルール。 |
 
-## 適用フロー
+## 適用順
 
 ### 新規執筆
 
-1. `METADATA_RULES.md` と `NAMING_CONVENTIONS.md` を確認する。
-2. `WRITING_GUIDELINES.md` で全体方針を合わせる。
-3. `CONTENT_TYPE_GUIDELINES.md` でカテゴリごとの書き分けを確認する。
-4. 実用記事では `travelTopics` を定義し、一覧・検索導線に乗るか確認する。
-5. `series` など人格が重要な記事では `PERSONA_RULES.md` を適用する。
-6. 必要なら `REVISION_RULES.md` で仕上げのチェックを行う。
+1. `OPERATIONS.md` で frontmatter と命名を確認する。
+2. `EDITORIAL_BASELINE.md` で全体方針を合わせる。
+3. `CONTENT_STRATEGY.md` でカテゴリごとの目的を確認する。
+4. `series: travel-diary` を書く場合は `TRAVEL_DIARY_RULES.md` を必ず適用する。
 
 ### 修正案件
 
-1. `REVISION_RULES.md` を起点にする。
-2. 必要に応じて `WRITING_GUIDELINES.md` と `CONTENT_TYPE_GUIDELINES.md` で方向性を合わせる。
-3. Note 原稿なら `NOTE_CONVERSION_RULES.md` を先に通す。
-4. 記事一覧・検索導線に関わる修正では `METADATA_RULES.md` の `travelTopics` も確認する。
+1. `OPERATIONS.md` で出力先、内部リンク、公開前チェックを確認する。
+2. `EDITORIAL_BASELINE.md` と `CONTENT_STRATEGY.md` で方向性を合わせる。
+3. `series: travel-diary` の修正なら `TRAVEL_DIARY_RULES.md` で構成と密度を合わせる。
+4. Note 原稿や外部原稿なら `SOURCE_CONVERSION.md` を先に通す。
 
-## 運用方針
+### Source Conversion
 
-- **旅行日記と情報記事を分ける:** 同じ文体・同じ温度で全カテゴリを書かない。
-- **人格は必要な場面だけ使う:** 情報記事では抑え、series ではしっかり出す。
-- **旅行以外にも広げる:** one-off などでは、旅行ブログ由来の誠実さと構造化を保ちながら、テーマ拡張に対応する。
-- **導線の意味を揃える:** `category` は記事形式、`travelTopics` は実用テーマとして運用し、一覧と検索で一貫した絞り込み体験を保つ。
+1. `SOURCE_CONVERSION.md` で元原稿のノイズ除去と再構成方針を確認する。
+2. 変換先カテゴリに合わせて `CONTENT_STRATEGY.md` を適用する。
+3. `series: travel-diary` に落とし込む場合は `TRAVEL_DIARY_RULES.md` を正本とする。
+4. 最後に `OPERATIONS.md` で frontmatter、命名、配置を確認する。
+
+## 運用原則
+
+- 旅行日記と情報記事を同じ温度で書かない。
+- `travel-diary` の判断は `TRAVEL_DIARY_RULES.md` に一本化する。
+- 人格表現は `series` では出してよいが、情報記事では抑える。
+- `category` は記事形式、`travelTopics` は実用テーマとして運用する。
+- 新規作成や修正結果は、必ず一旦 `draft-posts/` に出力する。

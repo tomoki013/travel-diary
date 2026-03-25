@@ -10,9 +10,11 @@ The following rules are foundational for all blog post creation, editing, and fo
 - **Primary Rules:** `draft-posts/rules/*.md`
 - Gemini MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
 - **Specific Guides:**
-  - `EDITORIAL_RULES.md`: Content cleanup and structural integrity.
-  - `METADATA_RULES.md`: Frontmatter structure and mandatory fields.
-  - `NAMING_CONVENTIONS.md`: Filenames and notation style.
+  - `EDITORIAL_BASELINE.md`: Shared editorial baseline for all articles.
+  - `CONTENT_STRATEGY.md`: Category-specific intent and tone.
+  - `TRAVEL_DIARY_RULES.md`: `series: travel-diary` specific structure and selection rules.
+  - `OPERATIONS.md`: Frontmatter, naming, link placement, and publishing workflow.
+  - `SOURCE_CONVERSION.md`: Rules for rewriting Note or other source text into blog posts.
 
 ### Core Principles
 - **Style Consistency:** Match the existing patterns in the `posts/` directory.

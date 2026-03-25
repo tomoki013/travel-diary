@@ -102,6 +102,68 @@ export const regionData: ContinentData[] = [
           },
         ],
       },
+      {
+        slug: "malaysia",
+        name: "マレーシア",
+        imageURL: "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+        children: [
+          {
+            slug: "kuala-lumpur",
+            name: "クアラルンプール",
+            imageURL: "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+          {
+            slug: "putrajaya",
+            name: "プトラジャヤ",
+            imageURL: "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+        ],
+      },
+      {
+        slug: "singapore",
+        name: "シンガポール",
+        imageURL:
+          "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+        children: [
+          {
+            slug: "singapore-city",
+            name: "シンガポール市内",
+            imageURL:
+              "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+          {
+            slug: "sentosa",
+            name: "セントーサ島",
+            imageURL:
+              "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+          {
+            slug: "changi",
+            name: "チャンギ",
+            imageURL:
+              "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+        ],
+      },
+      {
+        slug: "indonesia",
+        name: "インドネシア",
+        imageURL: "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+        children: [
+          {
+            slug: "seminyak",
+            name: "スミニャック",
+            imageURL:
+              "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+          {
+            slug: "yogyakarta",
+            name: "ジョグジャカルタ",
+            imageURL:
+              "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+          },
+        ],
+      },
     ],
   },
   {

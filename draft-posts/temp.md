@@ -1,4 +1,4 @@
-export interface Post {
+---
 slug: string;
 title: string;
 dates: string[];
@@ -16,4 +16,4 @@ series?: string;
 isPromotion?: boolean;
 promotionPG?: string[];
 journey?: string;
-}
+---

@@ -1,0 +1,23 @@
+[
+  {
+    "fileName": "malioboro-street.jpg",
+    "title": "ジョグジャカルタのマリオボロ通り",
+    "description": "ジョグジャカルタで歩いたマリオボロ通りの街並みです。",
+    "location": "yogyakarta",
+    "categories": "街並み"
+  },
+  {
+    "fileName": "the-interior-design-of-a-spa-in-bali.jpg",
+    "title": "バリのスパの内装",
+    "description": "旅の途中で立ち寄ったバリのスパの内装です。",
+    "location": "seminyak",
+    "categories": "スパ"
+  },
+  {
+    "fileName": "the-rice-fields-of-bali-and-the-ocean-visible-in-the-distance.jpg",
+    "title": "バリの棚田と遠くに見える海",
+    "description": "バリで見た棚田と、その奥に広がる海の景色です。",
+    "location": "indonesia",
+    "categories": "景色"
+  }
+]

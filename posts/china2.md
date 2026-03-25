@@ -7,7 +7,7 @@ excerpt: >-
   【中国旅行記 第2回】Starbucks Reserve Roastery、静安寺、張園、田子坊、
   そして夜の予園まで。中華とヨーロッパの空気が混ざり合う上海2日目を
   たっぷり巡った1日を振り返ります。
-image: /images/
+image: /images/China/yuen-garden-illuminated-at-night.jpg
 location: shanghai
 author: ともきち
 series: travel-diary
@@ -15,6 +15,12 @@ tags:
   - 海外旅行
 journey: j-2025-11-29
 ---
+
+前日に外灘まで歩いた流れの続きで、この日は上海の街をもう少し深く見て回る日にしました。
+
+前回の初日から読むと流れがつながりやすいです。
+
+[中国旅行記 第1回：遅延スタートでも大満喫した上海初日](./china1)
 
 ## 2日目
 
@@ -27,8 +33,7 @@ journey: j-2025-11-29
 世界に6店舗しかない特別なスターバックスで、コーヒー豆へのこだわりを感じられるとても素敵な場所でした。
 ちなみに東京にもあります。
 
-しかし思っていたのとは少し違ったため、中には入らずに戻ることに。
-ちなみにここはWechat Payのみだったので、中に入りたい方は事前にインストールしておくのがおすすめです。
+![上海のStarbucks Reserve Roasteryの外観](/images/China/exterior-of-the-starbucks-reserve-roastery-in-shanghai.jpg)
 
 ### 裕興記 (Yuxing Ji)
 
@@ -36,11 +41,17 @@ journey: j-2025-11-29
 
 ここでは蟹味噌麺と小籠包を食べました。
 
+![裕興記](/images/China/yuko-ki.jpg)
+![裕興記で食べた蟹味噌麺と小籠包](/images/China/the-crab-miso-noodles-and-xiaolongbao-i-had-at-yuko-ki.jpg)
+
 ### 静安寺
 
 昼食後は歩いて静安寺へ向かいます。
 
 周りはとても賑やかで、いかにも観光地という雰囲気。外からでも金色に輝く屋根が見えて迫力がありました。
+
+しかし思っていたのとは少し違ったため、中には入らずに戻ることに。
+ちなみにここはWechat Payのみだったので、中に入りたい方は事前にインストールしておくのがおすすめです。
 
 ### Starbucks???
 
@@ -59,13 +70,14 @@ journey: j-2025-11-29
 早速、夜と翌朝用にパンを購入しました。
 張園の近くにあり、とても美味しかったのでおすすめです。
 
+![AMAM LONDON BAKERY](/images/China/amam-london-bakery.jpg)
+
 ### 張園 (Zhangyuan)
 
 続いては張園 (Zhangyuan) へ。
 
 ここは倉庫をリノベーションして作られた、オシャレなお店が集まる洋風の街。
 ここでは何も購入しませんでしたが、ウィンドウショッピングを楽しみました。
-
 ちなみにトイレがとても綺麗だったので、周辺で困ったときにも助かる場所でした。
 
 ### 田子坊 (Tianzifang)
@@ -74,6 +86,8 @@ journey: j-2025-11-29
 
 中華なのか洋風なのか一言では表せない雰囲気でしたが、とても綺麗な街並みでした。
 ここでは自分用のお土産に、青稚護手霜 (Qingzhi Hand Cream) のハンドクリームを購入しました。
+
+![路地に店が並ぶ田子坊の街並み](/images/China/the-streets-of-tianzifang-lined-with-shops.jpg)
 
 ### 成隆行蟹王府 (Chenglonghang) で夜ご飯、、、のはずが？
 
@@ -93,6 +107,9 @@ journey: j-2025-11-29
 
 特に豚の小籠包が一番美味しかったです。
 
+![南翔饅頭店](/images/China/nanxiang-steamed-bun-shop.jpg)
+![南翔饅頭店で食べた小籠包](/images/China/the-xiaolongbao-i-ate-at-nanxiang-mantou-shop.jpg)
+
 ### 予園 (Yuyuan)
 
 食後は夜の予園 (Yuyuan) を観光。
@@ -102,9 +119,14 @@ journey: j-2025-11-29
 
 きれいすぎて写真を撮りまくりました。
 
+![夜にライトアップされた予園の建物群](/images/China/the-buildings-of-yuen-garden-illuminated-at-night.jpg)
+
 ## おわり
 
 その後はCHAGEEを買ってホテルに戻り、デザート用に買ったパンを食べて就寝。
 
 観光のために整備された中華とヨーロッパの街並みを、一日でしっかり体験できた日でした。
-明日は1日上海ディズニーです。
+
+CHAGEE にかなりハマった話は、別の記事でもまとめています。
+
+[上海でCHAGEEにハマりすぎた話。日本上陸前に飲んでおいてよかったと思った](./shanghai-chagee-addict)
