@@ -54,7 +54,7 @@ tags:
 
 プトラモスクは外から見るだけでも十分きれいです。ただ、せっかく行くなら中まで見たいと思っていたので、かなりもったいなかったです。
 
-![公開時間外で外から見たプトラモスクの入口周辺](/images/Malaysia/the-area-around-the-entrance-to-the-putra-mosque-as-seen-from-the-outside-during-non-opening-hours,jpg)
+![公開時間外で外から見たプトラモスクの入口周辺](/images/Malaysia/the-area-around-the-entrance-to-the-putra-mosque-as-seen-from-the-outside-during-non-opening-hours.jpg)
 
 しかもこの場所は、中心部からふらっと歩いて行けるような立地ではありません。MRTとバスを乗り継いで向かうので、現地に着いた時点で入れないと、単純に予定がずれた以上のダメージがあります。
 

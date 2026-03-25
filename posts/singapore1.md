@@ -7,7 +7,7 @@ excerpt: >-
   クアラルンプールから移動して、そのままシンガポール観光へ。ラクサ、
   アラブ通り、マリーナベイ、ナイトサファリまで、移動日とは思えない
   密度で動き続けた1日です。
-image: /images/Singapore/views-around-marina-bay-sands-and-the-merlion,jpg
+image: /images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg
 location:
   - singapore-city
 author: ともきち

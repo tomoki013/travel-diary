@@ -6,7 +6,7 @@ dates:
 excerpt: >-
   海外旅行ではGoogleマップが便利ですが、発展途上国寄りの地域のバスはそのまま信じると危ないことがあります。
   タイ、ベトナム、マレーシア、エジプトで感じたズレをもとに、使い方の距離感を整理します。
-image: /images/
+image: /images/Thai/bangkok-red-bus.jpg
 location:
   - putrajaya
   - bangkok
