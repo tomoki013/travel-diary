@@ -14,6 +14,19 @@ import Button from "../common/Button";
 import { sectionVariants } from "../common/animation";
 
 const photos = [
+  {
+    path: "/images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg",
+    title: "マリーナベイサンズとマーライオン周辺の景色",
+  },
+  {
+    path: "/images/Malaysia/petronas-twin-towers.jpg",
+    title: "ペトロナスツインタワー",
+  },
+  {
+    path: "/images/China/yuen-garden-illuminated-at-night.jpg",
+    title: "豫園の夜景",
+  },
+  { path: "/images/China/the-night-view-of-the-bund.jpg", title: "外灘の夜景" },
   { path: "/images/Belgium/chez-leon-carbonade.jpg", title: "カルボナード" },
   {
     path: "/images/Belgium/galeries-royales-saint-hubert.jpg",

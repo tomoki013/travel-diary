@@ -62,8 +62,8 @@ KTM Komuter の公式平日時刻表でも、Batu Caves 方面は日中にほぼ
 
 有料エリア自体は普通に良かったです。ただ、「行きたかった場所とは別のところに先に課金した」というズレはしっかり残りました。
 
-![ラマヤナ洞窟](/images/Malaysia/ramayana-caves1.jpg)
-![ラマヤナ洞窟](/images/Malaysia/batu-caves2.jpg)
+![ラマヤナ洞窟](/images/Malaysia/ramayana-cave1.jpg)
+![ラマヤナ洞窟](/images/Malaysia/ramayana-cave2.jpg)
 
 ## 現地で迷わないためのポイント
 

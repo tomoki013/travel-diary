@@ -31,7 +31,7 @@ travelTopics:
 Touch'n Go はクアラルンプール観光ならかなり便利で、ほぼ必須に近いと思いました。
 
 [[photo]]
-![Touch'n Goカード本体と改札機のイメージ](/images/_photo-placeholder/touch-n-go-card-and-gate.jpg)
+![Touch'n Goカード本体](/images/_photo-placeholder/touch-n-go-card-and-gate.jpg)
 [[/photo]]
 
 ただし、最初のチャージは **RM20〜30くらい** で十分だと思いました。市内観光だけなら思ったより一気には減りませんし、足りなければ後から足せます。

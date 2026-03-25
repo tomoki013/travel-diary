@@ -33,7 +33,7 @@ tags:
 
 アロー通りのような屋台街に行くと、人も多いし、煙もにおいも濃いし、夜なのに街の勢いが全然落ちません。
 
-![夜のアロー通りの屋台街と食事を楽しむ人たち](/images/Malaysia/mpeople-enjoying-the-food-stalls-along-arrow-street-at-night.jpg)
+![夜のアロー通りの屋台街と食事を楽しむ人たち](/images/Malaysia/people-enjoying-the-food-stalls-along-arrow-street-at-night.jpg)
 
 その一方で、KLCC 周辺まで行くと、一気に都会の夜景になります。高層ビル、商業施設、噴水ショー、明るい歩道まで揃っていて、同じ街の中でも夜の表情がかなり違います。
 
