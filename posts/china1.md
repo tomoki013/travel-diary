@@ -7,7 +7,7 @@ excerpt: >-
   【中国旅行記 第1回】エアバスのソフトウェア改修による3時間遅延という
   波乱の幕開けから、南京路の食べ歩き、CHAGEEでの休憩、外灘の夜景まで、
   上海初日をたっぷり楽しんだ1日をお届けします。
-image: /images/
+image: /images/China/the-night-view-of-the-bund.jpg
 location: shanghai
 author: ともきち
 series: travel-diary
@@ -32,6 +32,10 @@ journey: j-2025-11-29
 
 今回のトラブルではラウンジ特典があって本当に助かりました。
 
+Trip.com のラウンジ特典については、別の記事でもまとめています。
+
+[Trip.comのラウンジ特典は本当に使える？実際に助かった場面をまとめました](./trip_com-lounge-benefits)
+
 飛行機は3時間遅れで無事出発し、2時間半ほどで上海に到着しました。
 
 ## いよいよ上海観光スタート
@@ -48,6 +52,9 @@ journey: j-2025-11-29
 
 初の本場の小籠包は、肉汁に溢れておりとても美味しかったです。
 
+![佳家湯包](/images/China/jiajia-dumplings.jpg)
+![佳家湯包で食べた小籠包](/images/China/the-xiaolongbao-i-ate-at-jiajia-tangbao.jpg)
+
 ### 小楊生煎
 
 次に行ったのは小楊生煎。
@@ -58,6 +65,9 @@ journey: j-2025-11-29
 
 この時点では1番です。まあまだ2つ目ですが笑
 
+![小楊生煎](/images/China/xiao-yang-sheng-jian.jpg)
+![小楊生煎で食べた生煎](/images/China/the-xiaojiao-buns-i-ate-at-xiao-yang-sheng-jian.jpg)
+
 ## 南京東路を散策
 
 そこからは南京東路を見て回りながら外灘を目指します。
@@ -65,6 +75,8 @@ journey: j-2025-11-29
 さすがは中華商業第一街。
 
 様々なお店が立ち並んでおり、見たいお店ばっかりでとても楽しかったです。
+
+![ネオンと人通りが続く南京東路の街並み](/images/China/the-streetscape-of-east-nanjing-road.jpg)
 
 ## CHAGEE（霸王茶姬）で休憩
 
@@ -74,6 +86,12 @@ journey: j-2025-11-29
 
 これがとても美味しくて、この後旅行中何度も訪れることになります。
 
+![上海で最初に飲んだCHAGEEのジャスミンミルクティー](/images/China/chagee-in-shanghai1.jpg)
+
+CHAGEE にかなりハマった話は、別の記事でもまとめています。
+
+[上海でCHAGEEにハマりすぎた話。日本上陸前に飲んでおいてよかったと思った](./shanghai-chagee-addict)
+
 ## 外灘の夜景へ
 
 その後はそのまま南京東路を真っ直ぐ外灘の夜景を見に行きます。
@@ -82,12 +100,12 @@ journey: j-2025-11-29
 
 中国の発展を象徴する景色としてよく語られるだけあって、確かに凄く発展してるなと思ったし、日本も負けてられないなと思いました。
 
+![ライトアップされた外灘と黄浦江沿いの夜景](/images/China/the-night-view-of-the-bund.jpg)
+
 ## 1日目終了
 
 激動の初日でしたが、とても楽しかったです。
 
 まだまだ始まったばかり、この後の日程がとても楽しみになりました。
-
-それでは2日目でお会いしましょう！
 
 P.S. 初日に食べた屋台飯はムカデと淀粉腸です。

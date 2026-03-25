@@ -104,15 +104,13 @@ export const ComparisonTable = ({ items }: { items: CtaItem[] }) => (
 );
 
 export const NextStepLinks = ({ posts }: { posts: PostMetadata[] }) => (
-  <section className="mt-10 rounded-3xl border border-amber-200/70 bg-gradient-to-br from-amber-50/80 via-background to-orange-50/70 p-6 dark:border-amber-900/70 dark:from-amber-950/30 dark:to-orange-950/20">
-    <h3 className="text-lg font-bold">次の準備はこちら</h3>
-    <p className="mt-1 text-sm text-muted-foreground">
-      {posts.length
-        ? "読み終わったら、この順で進めると準備がスムーズです。"
-        : "このテーマで次に読むべき記事がないため、無関係な記事は表示していません。"}
-    </p>
+  posts.length === 0 ? null : (
+    <section className="mt-10 rounded-3xl border border-amber-200/70 bg-gradient-to-br from-amber-50/80 via-background to-orange-50/70 p-6 dark:border-amber-900/70 dark:from-amber-950/30 dark:to-orange-950/20">
+      <h3 className="text-lg font-bold">次の準備はこちら</h3>
+      <p className="mt-1 text-sm text-muted-foreground">
+        読み終わったら、この順で進めると準備がスムーズです。
+      </p>
 
-    {posts.length ? (
       <ol className="mt-4 space-y-3">
         {posts.map((post, index) => (
           <li key={post.slug}>
@@ -131,10 +129,6 @@ export const NextStepLinks = ({ posts }: { posts: PostMetadata[] }) => (
           </li>
         ))}
       </ol>
-    ) : (
-      <div className="mt-4 rounded-2xl border border-dashed border-amber-300/80 bg-background/70 p-4 text-sm dark:border-amber-800">
-        まずはこの記事の準備内容を実行し、次の地域・手続きが決まったタイミングで関連記事を探すのがおすすめです。
-      </div>
-    )}
-  </section>
+    </section>
+  )
 );

@@ -1,16 +1,37 @@
 [
   {
     "fileName": "changi-international-airport-lounge-plaza-premium-lounge-meal.jpg",
-    "title": "チャンギ国際空港のプラザプレミアムラウンジ",
-    "description": "",
-    "location": "shingapore",
+    "title": "チャンギ国際空港のプラザプレミアムラウンジの食事",
+    "description": "チャンギ国際空港のプラザプレミアムラウンジで食べた食事です。",
+    "location": "changi",
     "categories": "空港"
   },
   {
     "fileName": "changi-international-airport-lounge-plaza-premium-lounge.jpg",
     "title": "チャンギ国際空港のプラザプレミアムラウンジ",
-    "description": "",
-    "location": "shingapore",
+    "description": "チャンギ国際空港のプラザプレミアムラウンジの様子です。",
+    "location": "changi",
     "categories": "空港"
+  },
+  {
+    "fileName": "jewel-and-chagee-at-changi-international-airport.jpg",
+    "title": "チャンギ空港のJewelとCHAGEE",
+    "description": "チャンギ空港で立ち寄ったJewelとCHAGEEです。",
+    "location": "changi",
+    "categories": "空港"
+  },
+  {
+    "fileName": "the-nighttime-view-of-gardens-by-the-bay.jpg",
+    "title": "夜のガーデンズ・バイ・ザ・ベイ",
+    "description": "夜に見たガーデンズ・バイ・ザ・ベイの光景です。",
+    "location": "singapore-city",
+    "categories": "夜景"
+  },
+  {
+    "fileName": "views-around-marina-bay-sands-and-the-merlion,jpg.jpg",
+    "title": "マリーナベイサンズとマーライオン周辺の景色",
+    "description": "マリーナベイサンズとマーライオン周辺を歩いたときの景色です。",
+    "location": "singapore-city",
+    "categories": "街並み"
   }
 ]

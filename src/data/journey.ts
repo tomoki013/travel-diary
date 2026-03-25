@@ -69,6 +69,17 @@ export const JOURNEY_DATA: JourneyItem[] = [
     tags: ["City", "Food", "History"],
     image: "/images/China/shanghai.jpg",
   },
+  {
+    id: "j-2026-03-12",
+    date: "2026.03.12~03.20",
+    title: "東南アジアをつないで巡る食と街歩きの旅",
+    location: "Kuala Lumpur, Singapore, Seminyak, Yogyakarta",
+    description:
+      "クアラルンプールの食べ歩きから始まり、シンガポールの定番観光、バリの街歩き、そしてジョグジャカルタへの移動まで。ローカル交通と食を詰め込んだ周遊旅。",
+    tags: ["Food", "City", "Adventure"],
+    image:
+      "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+  },
 ];
 
 export const getJourneyById = (id: string): JourneyItem | undefined => {

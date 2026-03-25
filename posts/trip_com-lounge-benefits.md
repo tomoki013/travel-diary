@@ -2,7 +2,7 @@
 category: tourism
 title: 【体験談】Trip.comの会員特典！空港ラウンジを無料で使う裏ワザ、教えます
 dates:
-  - '2025-09-21'
+  - "2025-09-21"
 excerpt: >-
   【知らないと損！】Trip.comのプラチナ/ダイヤモンド特典で空港ラウンジを無料で使う方法を、ドンムアン・チャンギ空港での感動体験と共に紹介。予約のコツやLCC利用時の賢い活用術も解説します。学生や若者必見！あなたの旅をアップグレードする、知る人ぞ知る裏ワザです。
 image: /images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg

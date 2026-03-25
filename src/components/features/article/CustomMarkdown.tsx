@@ -63,17 +63,19 @@ export const CustomImg = ({ src, alt }: CustomImgProps) => {
 
   // ファイルが存在するかどうかを確認
   if (fs.existsSync(imagePath)) {
+    let width = 700;
+    let height = 400;
+
     try {
       const buffer = fs.readFileSync(imagePath);
       const dimensions = sizeOf(buffer);
-      const { width, height } = dimensions;
-
-      return <Image src={src} alt={alt} width={width} height={height} />;
+      width = dimensions.width ?? width;
+      height = dimensions.height ?? height;
     } catch (error) {
       console.error(`Error getting dimensions for image: ${src}`, error);
-      // 寸法が取得できなかった場合はデフォルトのサイズでフォールバック
-      return <Image src={src} alt={alt} width={700} height={400} />;
     }
+
+    return <Image src={src} alt={alt} width={width} height={height} />;
   } else {
     // ファイルが存在しない場合は、代替テキストと共にメッセージを表示するか、
     // デフォルトの画像やサイズを使用

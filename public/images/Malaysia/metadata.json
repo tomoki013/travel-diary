@@ -1,0 +1,114 @@
+[
+  {
+    "fileName": "daytime-views-of-urban-areas-in-kuala-lumpur.jpg",
+    "title": "昼のクアラルンプール市街地",
+    "description": "昼に見たクアラルンプール市街地の景色です。",
+    "location": "kuala-lumpur",
+    "categories": "街並み"
+  },
+  {
+    "fileName": "exterior-of-the-putra-mosque.jpg",
+    "title": "プトラモスクの外観",
+    "description": "プトラジャヤで見たプトラモスクの外観です。",
+    "location": "putrajaya",
+    "categories": "モスク"
+  },
+  {
+    "fileName": "information-on-the-exterior-of-the-putra-mosque-and-visiting-hours-during-ramadan.jpg",
+    "title": "プトラモスク外の案内とラマダン中の見学時間",
+    "description": "プトラモスク外に掲示されていた案内とラマダン中の見学時間です。",
+    "location": "putrajaya",
+    "categories": "モスク"
+  },
+  {
+    "fileName": "nasi-lemak-i-ate-at-central-market.jpg",
+    "title": "セントラルマーケットで食べたナシレマ",
+    "description": "セントラルマーケットで食べたナシレマです。",
+    "location": "kuala-lumpur",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "people-enjoying-the-food-stalls-along-arrow-street-at-night.jpg",
+    "title": "夜のアロー通りの屋台街",
+    "description": "夜のアロー通りでにぎわう屋台街の様子です。",
+    "location": "kuala-lumpur",
+    "categories": "夜景"
+  },
+  {
+    "fileName": "petronas-twin-towers.jpg",
+    "title": "夜のペトロナスツインタワー",
+    "description": "KLCC で見た夜のペトロナスツインタワーです。",
+    "location": "kuala-lumpur",
+    "categories": "夜景"
+  },
+  {
+    "fileName": "ramayana-cave1.jpg",
+    "title": "ラーマーヤナ洞窟の入口付近",
+    "description": "バトゥ洞窟周辺にあるラーマーヤナ洞窟の入口付近です。",
+    "location": "kuala-lumpur",
+    "categories": "洞窟"
+  },
+  {
+    "fileName": "ramayana-cave2.jpg",
+    "title": "ラーマーヤナ洞窟の内部",
+    "description": "バトゥ洞窟周辺にあるラーマーヤナ洞窟の内部です。",
+    "location": "kuala-lumpur",
+    "categories": "洞窟"
+  },
+  {
+    "fileName": "the-area-around-the-entrance-to-the-putra-mosque-as-seen-from-the-outside-during-non-opening-hours,jpg.jpg",
+    "title": "見学時間外のプトラモスク入口周辺",
+    "description": "見学時間外に外から見たプトラモスク入口周辺です。",
+    "location": "putrajaya",
+    "categories": "モスク"
+  },
+  {
+    "fileName": "the-benjo-burger-i-bought-on-my-way-hotel.jpg",
+    "title": "ホテルへ戻る途中に買ったBenjoバーガー",
+    "description": "ホテルへ戻る途中に買った Benjo のバーガーです。",
+    "location": "kuala-lumpur",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "the-entrance-to-batu-caves-with-its-colorful-staircase.jpg",
+    "title": "バトゥ洞窟のカラフルな階段",
+    "description": "バトゥ洞窟入口のカラフルな階段です。",
+    "location": "kuala-lumpur",
+    "categories": "街並み"
+  },
+  {
+    "fileName": "the-illuminated-lights-spreading-across-downtown-kuala-lumpur-at-night.jpg",
+    "title": "夜のクアラルンプール中心部の灯り",
+    "description": "夜に広がるクアラルンプール中心部の灯りです。",
+    "location": "kuala-lumpur",
+    "categories": "夜景"
+  },
+  {
+    "fileName": "the-kunafa-i-sampled-on-my-last-day-in-kuala-lumpur.jpg",
+    "title": "クアラルンプール最終日に食べたクナーファ",
+    "description": "クアラルンプール最終日に食べたクナーファです。",
+    "location": "kuala-lumpur",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "the-nasi-goreng-and-hokkien-mee-i-had-on-my-first-night-in-kuala-lumpur.jpg",
+    "title": "初日の夜に食べたナシゴレンとホッケンミー",
+    "description": "クアラルンプール初日の夜に食べたナシゴレンとホッケンミーです。",
+    "location": "kuala-lumpur",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "the-rainbow-stairs-at-batu-caves.jpg",
+    "title": "バトゥ洞窟のレインボー階段",
+    "description": "バトゥ洞窟の有名なレインボー階段です。",
+    "location": "kuala-lumpur",
+    "categories": "街並み"
+  },
+  {
+    "fileName": "the-roti-i-sampled-on-my-last-day-in-kuala-lumpur.jpg",
+    "title": "クアラルンプール最終日に食べたロティ",
+    "description": "クアラルンプール最終日に食べたロティです。",
+    "location": "kuala-lumpur",
+    "categories": "グルメ"
+  }
+]

@@ -9,7 +9,7 @@ All AI agents MUST adhere to the following rules for blog post creation, editing
 ### Rule Source
 - **Primary Rules:** `draft-posts/rules/*.md`
 - Agents MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
-- Specifically, follow `draft-posts/rules/EDITORIAL_RULES.md` for formatting and content cleanup.
+- Specifically, use `draft-posts/rules/EDITORIAL_BASELINE.md` as the general editorial baseline, apply `draft-posts/rules/CONTENT_STRATEGY.md` for category intent, and apply `draft-posts/rules/TRAVEL_DIARY_RULES.md` whenever working on `series: travel-diary`.
 
 ### Core Principles
 - **Style Consistency:** Match the existing patterns in the `posts/` directory.
