@@ -7,9 +7,11 @@ excerpt: >-
   インド旅行で実際に試して学んだ、屋台選びのポイントを3つに整理しました。
   加熱の有無や現地の人の集まり方など、
   お腹を壊しにくくするための実体験ベースの考え方を紹介します。
-image: /images/
-location: india
+image: /images/India/chai1.jpg
+location:
+  - india
 author: ともきち
+journey: j-2024-09-21
 tags:
   - 海外旅行
 ---

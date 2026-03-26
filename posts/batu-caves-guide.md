@@ -15,6 +15,7 @@ tags:
   - 観光スポット
   - バトゥ洞窟
   - クアラルンプール
+journey: j-2026-03-12
 travelTopics:
   - transport
 ---

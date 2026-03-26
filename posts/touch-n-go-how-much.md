@@ -6,7 +6,7 @@ dates:
 excerpt: >-
   クアラルンプール観光で便利だったTouch'n Goカードについて、買い方・使い方・チャージ額の目安をまとめました。
   電車・市内バスでの使いどころ、KL中心部のバス事情、50RM入れすぎた失敗談、郊外で現金が必要だった点まで整理します。
-image: /images/Malaysia/
+image: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
 location:
   - kuala-lumpur
 author: ともきち
@@ -15,6 +15,7 @@ tags:
   - 交通情報
   - キャッシュレス
   - クアラルンプール
+journey: j-2026-03-12
 travelTopics:
   - money
   - transport

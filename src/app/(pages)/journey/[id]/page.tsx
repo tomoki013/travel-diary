@@ -43,7 +43,9 @@ export default async function JourneyDetailsPage({ params }: PageProps) {
     notFound();
   }
 
-  const posts = await getAllPosts({ journey: journey.id });
+  const posts = (await getAllPosts({ journey: journey.id })).filter(
+    (post) => post.category === "series" && post.series === "travel-diary",
+  );
 
   return (
     <div className="bg-background min-h-screen">

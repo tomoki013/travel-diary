@@ -1,14 +1,15 @@
 ---
 category: series
-title: 中国旅行記 第2回：中華とヨーロッパが交差した上海2日目
+title: 静安寺から予園の夜まで、中華と洋風が交差した上海
 dates:
   - "2025-11-30"
 excerpt: >-
-  【中国旅行記 第2回】Starbucks Reserve Roastery、静安寺、張園、田子坊、
-  そして夜の予園まで。中華とヨーロッパの空気が混ざり合う上海2日目を
-  たっぷり巡った1日を振り返ります。
+  Starbucks Reserve Roastery、静安寺、張園、田子坊、
+  そして夜の予園まで。中華とヨーロッパの空気が混ざり合う
+  上海の1日をまとめます。
 image: /images/China/yuen-garden-illuminated-at-night.jpg
-location: shanghai
+location:
+  - shanghai
 author: ともきち
 series: travel-diary
 tags:
@@ -18,13 +19,11 @@ journey: j-2025-11-29
 
 前日に外灘まで歩いた流れの続きで、この日は上海の街をもう少し深く見て回る日にしました。
 
-前回の初日から読むと流れがつながりやすいです。
+[3時間遅延でも南京東路と外灘まで駆け抜けた上海初日](./china1)
 
-[中国旅行記 第1回：遅延スタートでも大満喫した上海初日](./china1)
+南京路の派手さとは少し違う、中華と洋風が混ざった上海の顔が見えた日で、最後に入れなかった人気店まで含めて印象の強い1日でした。
 
-## 2日目
-
-2日目は、まさに「The中華」とヨーロッパの雰囲気を同時に体験した1日でした。
+## 朝は静安寺側から上海の整い方を見る
 
 ### Starbucks Reserve Roastery
 
@@ -53,7 +52,7 @@ journey: j-2025-11-29
 しかし思っていたのとは少し違ったため、中には入らずに戻ることに。
 ちなみにここはWechat Payのみだったので、中に入りたい方は事前にインストールしておくのがおすすめです。
 
-### Starbucks???
+### もう一度スターバックスに寄り道する
 
 その後向かったのは、またスターバックス。
 
@@ -72,6 +71,8 @@ journey: j-2025-11-29
 
 ![AMAM LONDON BAKERY](/images/China/amam-london-bakery.jpg)
 
+## 張園と田子坊で洋風の街並みに振れる
+
 ### 張園 (Zhangyuan)
 
 続いては張園 (Zhangyuan) へ。
@@ -88,6 +89,8 @@ journey: j-2025-11-29
 ここでは自分用のお土産に、青稚護手霜 (Qingzhi Hand Cream) のハンドクリームを購入しました。
 
 ![路地に店が並ぶ田子坊の街並み](/images/China/the-streets-of-tianzifang-lined-with-shops.jpg)
+
+## 予約なしでは入れない夜と、結果的によかった予園
 
 ### 成隆行蟹王府 (Chenglonghang) で夜ご飯、、、のはずが？
 
@@ -121,7 +124,7 @@ journey: j-2025-11-29
 
 ![夜にライトアップされた予園の建物群](/images/China/the-buildings-of-yuen-garden-illuminated-at-night.jpg)
 
-## おわり
+## 夜の予園まで含めて2日目がかなり強かった
 
 その後はCHAGEEを買ってホテルに戻り、デザート用に買ったパンを食べて就寝。
 
@@ -129,4 +132,4 @@ journey: j-2025-11-29
 
 CHAGEE にかなりハマった話は、別の記事でもまとめています。
 
-[上海でCHAGEEにハマりすぎた話。日本上陸前に飲んでおいてよかったと思った](./shanghai-chagee-addict)
+[上海で CHAGEE にかなりハマった話](./shanghai-chagee-addict)
