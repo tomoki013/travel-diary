@@ -1,10 +1,14 @@
 ---
-title: ヨーロッパ13泊15日の旅程と総費用を大公開！
+title: ヨーロッパ13泊15日ひとり旅の旅程と総費用まとめ
 dates:
   - "2025-02-13"
-excerpt: ヨーロッパ（フランス・スペイン）を巡る旅の旅程＆費用レポートを鋭意作成中です。しばらくお待ちください。
+excerpt: フランスとスペインを巡った13泊15日のひとり旅について、日ごとの動きと総費用をまとめました。都市間移動、宿泊費、現地交通、食費まで実額ベースで整理しています。
 image: /images/France/louvre-museum1.jpg
-location: "paris, barcelona, madrid, toledo"
+location:
+  - paris
+  - barcelona
+  - madrid
+  - toledo
 author: ともきち
 budget: 368509
 category: itinerary

@@ -242,14 +242,12 @@ const Client = ({
 
         <div className="mt-8 text-right">
           <p className="text-xs text-gray-400">
-            本記事の大部分の執筆および最終確認は執筆者が行っておりますが、一部執筆のサポートとしてAIを使用しています。
-            <br />
-            内容の正当性は執筆者が保証しますが、これは記事の内容によって生じた損害等の責任を負うものではありません。詳しくは
+            記事制作では一部に AI を補助的に活用する場合があります。執筆方針や情報確認の考え方については
             <Link
-              href="/privacy-policy"
+              href="/editorial-policy"
               className="underline hover:text-gray-600"
             >
-              プライバシーポリシー
+              執筆・編集ポリシー
             </Link>
             をご確認ください。
           </p>

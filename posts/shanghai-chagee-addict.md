@@ -1,17 +1,19 @@
 ---
 category: tourism
-title: 上海でCHAGEEにハマった話
+title: 上海で CHAGEE にかなりハマった話
 dates:
   - "2025-12-05"
 excerpt: >-
   上海旅行で毎日飲んだCHAGEEの魅力をまとめます。
   看板メニューとおすすめドリンク、味以外の推しポイントまで
   実体験ベースで紹介します。
-image: /images/
-location: shanghai
+image: /images/China/shanghai.jpg
+location:
+  - shanghai
 author: ともきち
 tags:
   - 海外旅行
+journey: j-2025-11-29
 ---
 
 先日3泊4日で上海に行ってきました。

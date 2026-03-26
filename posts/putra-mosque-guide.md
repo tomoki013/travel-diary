@@ -15,6 +15,7 @@ tags:
   - 交通情報
   - モスク
   - プトラジャヤ
+journey: j-2026-03-12
 travelTopics:
   - transport
   - money

@@ -1,25 +1,24 @@
 ---
 category: tourism
-title: インドのe-VISAの取り方を徹底解説！
+title: インドのe-VISA申請方法。必要書類と詰まりやすい点の整理
 dates:
   - '2024-09-20'
 excerpt: >-
   インドのe-VISA申請手順、必要書類、注意点、さらには利用可能な空港・港情報までを徹底解説。初めての方も安心して申請できる、実体験に基づくわかりやすいガイドです。
 image: /images/India/tajmahal.jpg
-location: india
+location:
+  - india
 author: ともきち
+journey: j-2024-09-21
 tags:
   - 海外旅行
 travelTopics:
   - visa
 ---
 
-## インドのe-VISAの取り方を解説
+インド旅行では、日本国籍でも事前のビザ取得が必要です。実際に申請してみると入力項目がかなり多く、途中保存や画像準備を知らないまま進めると詰まりやすいと感じました。
 
-インド旅行を計画中の皆さん、日本国籍の方は全員ビザを取得する必要があります。  
-このブログでは、インドのビザをスムーズに取得するための手順や注意点を詳しく解説します。
-
-**私自身、2024年9月にこの方法でビザを取得済みなので是非参考にしてください！**
+結論から言うと、短期の観光なら `e-TOURIST-VISA` が最も扱いやすいです。ここでは観光目的の人向けに、必要な判断だけを先に整理します。
 
 ### インドのビザの種類
 
@@ -115,8 +114,9 @@ travelTopics:
 - パスポートの顔写真の映っているページのPDF
 - クレジットカード（VISA or MASTERカード）またはPayPalアカウント
 
-これらのものが準備できている人は下記をクリックしていよいよ申請作業の開始です。  
-[https://indianvisaonline.gov.in/evisa/tvoa.html](https://indianvisaonline.gov.in/evisa/tvoa.html)
+これらのものが準備できていれば、あとは e-VISA の申請画面に進んで作業を開始します。申請条件や対応空港は変わる可能性があるので、申請前には公式案内も確認してください。
+
+- [インド e-VISA 公式申請ページ](https://indianvisaonline.gov.in/evisa/tvoa.html)
 
 ## １ページ目、e-Visa Application
 
