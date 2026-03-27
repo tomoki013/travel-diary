@@ -67,7 +67,7 @@ export const JOURNEY_DATA: JourneyItem[] = [
     description:
       "外灘の歴史的建築群と浦東の近未来的なスカイライン。小籠包の湯気と夜景に酔いしれる。",
     tags: ["City", "Food", "History"],
-    image: "/images/China/shanghai.jpg",
+    image: "/images/China/the-night-view-of-the-bund.jpg",
   },
   {
     id: "j-2026-03-12",
@@ -78,7 +78,7 @@ export const JOURNEY_DATA: JourneyItem[] = [
       "クアラルンプールの食べ歩きから始まり、シンガポールの定番観光、バリの街歩き、そしてジョグジャカルタへの移動まで。ローカル交通と食を詰め込んだ周遊旅。",
     tags: ["Food", "City", "Adventure"],
     image:
-      "/images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg",
+      "/images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg",
   },
 ];
 
