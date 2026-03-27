@@ -1,10 +1,94 @@
 [
   {
+    "fileName": "basabasi-nasi-goreng-and-samsam-goreng.jpg",
+    "title": "Basabasiで食べたナシゴレンとサムサムゴレン",
+    "description": "スミニャックの Basabasi で食べたナシゴレンとサムサムゴレンです。",
+    "location": "seminyak",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "basabasi.jpg",
+    "title": "Basabasiの店先",
+    "description": "スミニャックで夜ご飯に入った Basabasi の店先です。",
+    "location": "seminyak",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "branch-in-yogyakarta.jpg",
+    "title": "ジョグジャカルタで見かけた木の枝",
+    "description": "ジョグジャカルタで見かけた印象的な木の枝です。",
+    "location": "yogyakarta",
+    "categories": "景色"
+  },
+  {
+    "fileName": "gelato.jpg",
+    "title": "帰りに食べたジェラート",
+    "description": "スミニャックで帰り道に食べたジェラートです。",
+    "location": "seminyak",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "indonesia-rest-stop-meal-and-tea.jpg",
+    "title": "休憩所で食べたご飯とお茶",
+    "description": "インドネシアの休憩所で食べたご飯とお茶です。",
+    "location": "yogyakarta",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "kynd-acai-bowl.jpg",
+    "title": "KYNDで食べたアサイーボウル",
+    "description": "スミニャックの KYND で食べたアサイーボウルです。",
+    "location": "seminyak",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "long-distance-bus-in-front-of-the-mtrans-lounge.jpg",
+    "title": "MTransラウンジ前の長距離バス",
+    "description": "ジョグジャカルタで乗った長距離バスと MTrans ラウンジ前の様子です。",
+    "location": "yogyakarta",
+    "categories": "交通"
+  },
+  {
+    "fileName": "malioboro-street-food-sate-kambing.jpg",
+    "title": "マリオボロ通りで食べたサテカンビン",
+    "description": "ジョグジャカルタのマリオボロ通りで食べたサテカンビンです。",
+    "location": "yogyakarta",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "malioboro-street-food-spring-rolls.jpg",
+    "title": "マリオボロ通りで食べた春巻き",
+    "description": "ジョグジャカルタのマリオボロ通りで食べた春巻きです。",
+    "location": "yogyakarta",
+    "categories": "グルメ"
+  },
+  {
     "fileName": "malioboro-street.jpg",
     "title": "ジョグジャカルタのマリオボロ通り",
     "description": "ジョグジャカルタで歩いたマリオボロ通りの街並みです。",
     "location": "yogyakarta",
     "categories": "街並み"
+  },
+  {
+    "fileName": "seminyak-beach-at-night.jpg",
+    "title": "夜のスミニャックビーチ",
+    "description": "夜に歩いたスミニャックビーチの落ち着いた海辺です。",
+    "location": "seminyak",
+    "categories": "夜景"
+  },
+  {
+    "fileName": "sisterfields-breakfast.jpg",
+    "title": "Sisterfieldsで食べた朝食",
+    "description": "スミニャックの Sisterfields で食べた朝食です。",
+    "location": "seminyak",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "sisterfields.jpg",
+    "title": "Sisterfields",
+    "description": "スミニャックで立ち寄った Sisterfields の様子です。",
+    "location": "seminyak",
+    "categories": "グルメ"
   },
   {
     "fileName": "the-interior-design-of-a-spa-in-bali.jpg",
@@ -17,7 +101,14 @@
     "fileName": "the-rice-fields-of-bali-and-the-ocean-visible-in-the-distance.jpg",
     "title": "バリの棚田と遠くに見える海",
     "description": "バリで見た棚田と、その奥に広がる海の景色です。",
-    "location": "indonesia",
+    "location": "seminyak",
     "categories": "景色"
+  },
+  {
+    "fileName": "yogyakarta-airport-rail-ticket.jpg",
+    "title": "ジョグジャカルタ空港鉄道の切符",
+    "description": "ジョグジャカルタ空港鉄道で使った切符です。",
+    "location": "yogyakarta",
+    "categories": "交通"
   }
 ]

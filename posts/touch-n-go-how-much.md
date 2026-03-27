@@ -6,7 +6,7 @@ dates:
 excerpt: >-
   クアラルンプール観光で便利だったTouch'n Goカードについて、買い方・使い方・チャージ額の目安をまとめました。
   電車・市内バスでの使いどころ、KL中心部のバス事情、50RM入れすぎた失敗談、郊外で現金が必要だった点まで整理します。
-image: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
+image: /images/Malaysia/touch-n-go-card.jpg
 location:
   - kuala-lumpur
 author: ともきち
@@ -31,9 +31,7 @@ travelTopics:
 
 Touch'n Go はクアラルンプール観光ならかなり便利で、ほぼ必須に近いと思いました。
 
-[[photo]]
-![Touch'n Goカード本体](/images/_photo-placeholder/touch-n-go-card-and-gate.jpg)
-[[/photo]]
+![Touch'n Goカード本体](/images/Malaysia/touch-n-go-card.jpg)
 
 ただし、最初のチャージは **RM20〜30くらい** で十分だと思いました。市内観光だけなら思ったより一気には減りませんし、足りなければ後から足せます。
 

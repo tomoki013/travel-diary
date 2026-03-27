@@ -1,5 +1,12 @@
 [
   {
+    "fileName": "arab-lane-streetscape.jpg",
+    "title": "アラブストリート周辺の街並み",
+    "description": "シンガポールのアラブストリート周辺を歩いたときの街並みです。",
+    "location": "singapore-city",
+    "categories": "街並み"
+  },
+  {
     "fileName": "changi-international-airport-lounge-plaza-premium-lounge-meal.jpg",
     "title": "チャンギ国際空港のプラザプレミアムラウンジの食事",
     "description": "チャンギ国際空港のプラザプレミアムラウンジで食べた食事です。",
@@ -14,11 +21,67 @@
     "categories": "空港"
   },
   {
+    "fileName": "dineer-in-night-safari.jpg",
+    "title": "ナイトサファリで食べた夕食",
+    "description": "シンガポールのナイトサファリで食べた夕食です。",
+    "location": "singapore-city",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "harry-potter-visions-of-magic.jpg",
+    "title": "ハリー・ポッター Visions of Magic",
+    "description": "シンガポールで立ち寄った Harry Potter: Visions of Magic の展示です。",
+    "location": "sentosa",
+    "categories": "観光"
+  },
+  {
     "fileName": "jewel-and-chagee-at-changi-international-airport.jpg",
     "title": "チャンギ空港のJewelとCHAGEE",
     "description": "チャンギ空港で立ち寄ったJewelとCHAGEEです。",
     "location": "changi",
     "categories": "空港"
+  },
+  {
+    "fileName": "katong-laksa.jpg",
+    "title": "カトンラクサ",
+    "description": "シンガポールで食べたカトンラクサです。",
+    "location": "singapore-city",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "kaya-toast.jpg",
+    "title": "カヤトースト",
+    "description": "シンガポールで食べたカヤトーストです。",
+    "location": "singapore-city",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "lau-pa-sat-satay-and-hokkien-mee.jpg",
+    "title": "ラオパサで食べたサテーとホッケンミー",
+    "description": "ラオパサで食べたサテーとホッケンミーです。",
+    "location": "singapore-city",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "lau-pa-sat-satay.jpg",
+    "title": "ラオパサのサテー",
+    "description": "ラオパサで食べたサテーです。",
+    "location": "singapore-city",
+    "categories": "グルメ"
+  },
+  {
+    "fileName": "night-safari-entrance.jpg",
+    "title": "ナイトサファリの入口",
+    "description": "シンガポールのナイトサファリ入口の様子です。",
+    "location": "singapore-city",
+    "categories": "観光"
+  },
+  {
+    "fileName": "sentosa-luge-chairlift.jpg",
+    "title": "セントーサのリュージュとチェアリフト",
+    "description": "セントーサで乗ったリュージュとチェアリフトです。",
+    "location": "sentosa",
+    "categories": "観光"
   },
   {
     "fileName": "the-nighttime-view-of-gardens-by-the-bay.jpg",
@@ -28,7 +91,7 @@
     "categories": "夜景"
   },
   {
-    "fileName": "views-around-marina-bay-sands-and-the-merlion,jpg.jpg",
+    "fileName": "views-around-marina-bay-sands-and-the-merlion.jpg",
     "title": "マリーナベイサンズとマーライオン周辺の景色",
     "description": "マリーナベイサンズとマーライオン周辺を歩いたときの景色です。",
     "location": "singapore-city",
