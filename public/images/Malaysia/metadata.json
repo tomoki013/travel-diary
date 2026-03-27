@@ -1,5 +1,12 @@
 [
   {
+    "fileName": "central-market.jpg",
+    "title": "セントラルマーケット",
+    "description": "クアラルンプールのセントラルマーケットの様子です。",
+    "location": "kuala-lumpur",
+    "categories": "街並み"
+  },
+  {
     "fileName": "daytime-views-of-urban-areas-in-kuala-lumpur.jpg",
     "title": "昼のクアラルンプール市街地",
     "description": "昼に見たクアラルンプール市街地の景色です。",
@@ -26,6 +33,13 @@
     "description": "セントラルマーケットで食べたナシレマです。",
     "location": "kuala-lumpur",
     "categories": "グルメ"
+  },
+  {
+    "fileName": "pavilion.jpg",
+    "title": "パビリオン・クアラルンプール",
+    "description": "クアラルンプールのパビリオン周辺の様子です。",
+    "location": "kuala-lumpur",
+    "categories": "街並み"
   },
   {
     "fileName": "people-enjoying-the-food-stalls-along-arrow-street-at-night.jpg",
@@ -56,7 +70,7 @@
     "categories": "洞窟"
   },
   {
-    "fileName": "the-area-around-the-entrance-to-the-putra-mosque-as-seen-from-the-outside-during-non-opening-hours,jpg.jpg",
+    "fileName": "the-area-around-the-entrance-to-the-putra-mosque-as-seen-from-the-outside-during-non-opening-hours.jpg",
     "title": "見学時間外のプトラモスク入口周辺",
     "description": "見学時間外に外から見たプトラモスク入口周辺です。",
     "location": "putrajaya",
@@ -110,5 +124,12 @@
     "description": "クアラルンプール最終日に食べたロティです。",
     "location": "kuala-lumpur",
     "categories": "グルメ"
+  },
+  {
+    "fileName": "touch-n-go-card.jpg",
+    "title": "Touch 'n Go カード",
+    "description": "マレーシアで使った Touch 'n Go カードです。",
+    "location": "kuala-lumpur",
+    "categories": "交通"
   }
 ]
