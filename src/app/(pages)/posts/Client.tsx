@@ -370,105 +370,145 @@ const BlogClient = ({
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <section
           id="discovery-hub"
-          className="mb-10 space-y-6"
+          className="mb-12 rounded-[2rem] border border-border/40 bg-[#faf9f6] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:bg-card/40 relative overflow-hidden"
         >
-          {/* 検索バー */}
-          <div>
-            <SearchInput
-              initialValue={searchParam}
-              placeholder={searchPlaceholder}
-              onSearch={handleSearch}
-              onReset={handleResetSearch}
-            />
-          </div>
+          {/* Decorative faint background circle */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
-          {/* クイックスタートタグ */}
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-muted-foreground mr-2">
-                人気のタグ:
-              </span>
-              {[...PURPOSE_PRESETS, ...CITY_PRESETS].map((preset) => {
-                const isActive = activePreset?.id === preset.id;
-                return (
-                  <button
-                    key={preset.id}
-                    onClick={() => handlePresetSelect(preset)}
-                    className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${
-                      isActive
-                        ? "border-teal-500 bg-teal-50 text-teal-900 dark:border-teal-700 dark:bg-teal-950/40 dark:text-teal-100"
-                        : "border-border/70 bg-background text-foreground hover:border-teal-300"
-                    }`}
-                  >
-                    #{preset.label}
-                  </button>
-                );
-              })}
+          <div className="relative z-10 space-y-8">
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl font-bold text-foreground tracking-tight">
+                記事を探す
+              </h2>
             </div>
-          </div>
 
-          {/* 詳しく絞るアコーディオン */}
-          <details className="group border-b border-border/50 pb-4">
-            <summary className="cursor-pointer list-none text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-open:rotate-180"><path d="m6 9 6 6 6-6"/></svg>
-              詳しく絞り込む
-            </summary>
-            <div className="mt-4 grid gap-4 md:grid-cols-2 pt-2">
-              <CustomSelect
-                options={articleCategories}
-                value={categoryParam}
-                onChange={handleCategoryChange}
-                labelPrefix="記事カテゴリ"
-              />
-              <CustomSelect
-                options={travelTopicOptions}
-                value={topicParam}
-                onChange={handleTopicChange}
-                labelPrefix="実用ラベル"
+            {/* 検索バー */}
+            <div className="w-full">
+              <SearchInput
+                initialValue={searchParam}
+                placeholder={searchPlaceholder}
+                onSearch={handleSearch}
+                onReset={handleResetSearch}
               />
             </div>
-            {regionLabel && (
-              <p className="mt-3 text-xs text-muted-foreground">
-                いまは「{regionLabel}」の記事に絞っています。
+
+            {/* クイックスタートタグ */}
+            <div className="space-y-3">
+              <p className="text-sm font-semibold text-muted-foreground">
+                人気のタグから見つける
               </p>
-            )}
-          </details>
-
-          {/* 表示切り替えタブ・件数・リセット */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-4 border-t border-border/50">
-            <div className="flex flex-wrap gap-2">
-              {viewTabs.map((tab) => {
-                const isActive = tab.value === viewParam;
-                return (
-                  <button
-                    key={tab.value}
-                    onClick={() => handleViewChange(tab.value)}
-                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                      isActive
-                        ? "bg-foreground text-background"
-                        : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
+              <div className="flex flex-wrap items-center gap-2.5">
+                {[...PURPOSE_PRESETS, ...CITY_PRESETS].map((preset) => {
+                  const isActive = activePreset?.id === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      onClick={() => handlePresetSelect(preset)}
+                      className={`
+                        group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ease-out shadow-sm
+                        hover:-translate-y-[2px] hover:shadow-md
+                        ${
+                          isActive
+                            ? "bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2 dark:ring-offset-background"
+                            : "bg-white border border-border/60 text-foreground hover:border-amber-300 dark:bg-background"
+                        }
+                      `}
+                    >
+                      {/* Hover highlight effect */}
+                      {!isActive && (
+                        <div className="absolute inset-0 translate-y-full bg-amber-50/50 transition-transform duration-300 ease-out group-hover:translate-y-0" />
+                      )}
+                      <span className="relative z-10">#{preset.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="flex items-center gap-4 text-sm">
-              {totalPosts !== null && (
-                <span className="font-medium text-foreground">
-                  全 {totalPosts} 件
-                </span>
-              )}
-              {hasRefinements && (
-                <button
-                  onClick={handleClearAll}
-                  className="text-muted-foreground hover:text-foreground underline underline-offset-4"
-                >
-                  条件をクリア
-                </button>
-              )}
+            {/* 詳しく絞るアコーディオン */}
+            <div className="rounded-2xl border border-border/50 bg-white/50 p-1 backdrop-blur-sm dark:bg-background/50">
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl p-4 text-sm font-semibold text-foreground transition-colors hover:bg-black/5 dark:hover:bg-white/5">
+                  <div className="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span>さらに細かく条件を指定する</span>
+                  </div>
+                  <div className="rounded-full bg-black/5 p-1 transition-transform group-open:rotate-180 dark:bg-white/5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </div>
+                </summary>
+                <div className="p-4 pt-2">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <CustomSelect
+                      options={articleCategories}
+                      value={categoryParam}
+                      onChange={handleCategoryChange}
+                      labelPrefix="記事カテゴリ"
+                    />
+                    <CustomSelect
+                      options={travelTopicOptions}
+                      value={topicParam}
+                      onChange={handleTopicChange}
+                      labelPrefix="実用ラベル"
+                    />
+                  </div>
+                  {regionLabel && (
+                    <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                      「{regionLabel}」の記事に絞り込み中
+                    </p>
+                  )}
+                </div>
+              </details>
+            </div>
+
+            {/* 表示切り替えタブ・件数・リセット */}
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between pt-6 border-t border-border/50">
+              <div className="flex flex-wrap gap-2">
+                {viewTabs.map((tab) => {
+                  const isActive = tab.value === viewParam;
+                  return (
+                    <button
+                      key={tab.value}
+                      onClick={() => handleViewChange(tab.value)}
+                      className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-200
+                        ${
+                          isActive
+                            ? "text-teal-700 dark:text-teal-400"
+                            : "text-muted-foreground hover:text-foreground"
+                        }
+                      `}
+                    >
+                      {tab.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeTabUnderline"
+                          className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-teal-600 dark:bg-teal-400"
+                          initial={false}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center gap-4 text-sm font-medium">
+                {totalPosts !== null && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-white px-3 py-1 shadow-sm dark:bg-background">
+                    該当件数: <span className="text-amber-600 dark:text-amber-400 font-bold">{totalPosts}件</span>
+                  </span>
+                )}
+                {hasRefinements && (
+                  <button
+                    onClick={handleClearAll}
+                    className="flex items-center gap-1.5 text-muted-foreground transition hover:text-red-500"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    クリア
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </section>
