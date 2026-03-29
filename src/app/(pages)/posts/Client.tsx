@@ -310,13 +310,6 @@ const BlogClient = ({
     );
   });
 
-  const hasRefinements =
-    Boolean(searchParam) ||
-    categoryParam !== "all" ||
-    topicParam !== "all" ||
-    regionParam !== "all" ||
-    viewParam !== "recommended";
-
   const currentSummaryTitle =
     activePreset?.kind === "purpose"
       ? `${activePreset.label}から探す`
@@ -334,45 +327,14 @@ const BlogClient = ({
                   ? "旅行記から探す"
                   : "おすすめから探す";
 
-  const currentSummaryDescription =
-    activePreset?.kind === "purpose"
-      ? `${activePreset.label}の入口として読みやすい流れになっています。`
-      : activePreset?.kind === "city"
-        ? `${activePreset.label}に関する記事から、まず読みやすい順で見られます。`
-        : searchParam
-          ? "検索条件に近い記事から順に確認できます。"
-          : viewParam === "new"
-            ? "公開日の新しい記事から追えます。"
-            : viewParam === "practical"
-              ? "移動・予約・通信などの実用記事を先に見られます。"
-              : viewParam === "diary"
-                ? "旅程や体験ベースの記事を中心に追えます。"
-                : "最初の入口として読みやすい記事から見つけられます。";
+  const hasRefinements =
+    Boolean(searchParam) ||
+    categoryParam !== "all" ||
+    topicParam !== "all" ||
+    regionParam !== "all" ||
+    viewParam !== "recommended";
 
-  const searchPlaceholder =
-    activePreset?.kind === "purpose"
-      ? `${activePreset.label}の中から探す`
-      : activePreset?.kind === "city"
-        ? `${activePreset.label}の記事を探す`
-        : viewParam === "practical"
-          ? "交通・予約・通信などで検索"
-          : viewParam === "diary"
-            ? "旅行記の行き先や体験で検索"
-            : "キーワードで検索...";
-
-  const leadTitle =
-    activePreset?.kind === "purpose"
-      ? `${activePreset.label}から読むなら`
-      : activePreset?.kind === "city"
-        ? `${activePreset.label}でまず読む3本`
-        : searchParam
-          ? "検索結果から先に読む3本"
-          : "迷ったらこの3本";
-
-  const leadDescription =
-    activePreset || searchParam || regionParam !== "all"
-      ? "今の入口に合う3本を先に並べています。"
-      : "最初の一歩になりやすい3本から読み始められます。";
+  const searchPlaceholder = "キーワードで探す...";
 
   const viewTabs: Array<{
     value: BlogDiscoveryView;
@@ -405,157 +367,164 @@ const BlogClient = ({
         pageMessage="次に読みたい記事の入口を見つける"
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <section
           id="discovery-hub"
-          className="mb-14 rounded-[2rem] border border-border/70 bg-card/60 p-6 shadow-sm backdrop-blur-sm md:p-8"
+          className="mb-12 rounded-[2rem] border border-border/40 bg-[#faf9f6] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:bg-card/40 relative overflow-hidden"
         >
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-foreground md:text-3xl">
+          {/* Decorative faint background circle */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-8">
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl font-bold text-foreground tracking-tight">
                 記事を探す
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {currentSummaryDescription}
+            </div>
+
+            {/* 検索バー */}
+            <div className="w-full">
+              <SearchInput
+                initialValue={searchParam}
+                placeholder={searchPlaceholder}
+                onSearch={handleSearch}
+                onReset={handleResetSearch}
+              />
+            </div>
+
+            {/* クイックスタートタグ */}
+            <div className="space-y-3">
+              <p className="text-sm font-semibold text-muted-foreground">
+                人気のタグから見つける
               </p>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {[...PURPOSE_PRESETS, ...CITY_PRESETS].map((preset) => {
+                  const isActive = activePreset?.id === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      onClick={() => handlePresetSelect(preset)}
+                      className={`
+                        group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ease-out shadow-sm
+                        hover:-translate-y-[2px] hover:shadow-md
+                        ${
+                          isActive
+                            ? "bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2 dark:ring-offset-background"
+                            : "bg-white border border-border/60 text-foreground hover:border-amber-300 dark:bg-background"
+                        }
+                      `}
+                    >
+                      {/* Hover highlight effect */}
+                      {!isActive && (
+                        <div className="absolute inset-0 translate-y-full bg-amber-50/50 transition-transform duration-300 ease-out group-hover:translate-y-0" />
+                      )}
+                      <span className="relative z-10">#{preset.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-              {totalPosts !== null && (
-                <div className="inline-flex rounded-full border border-border px-4 py-2 font-semibold text-foreground">
-                  {currentSummaryTitle}・{totalPosts}件
+
+            {/* 詳しく絞るアコーディオン */}
+            <div className="rounded-2xl border border-border/50 bg-white/50 p-1 backdrop-blur-sm dark:bg-background/50">
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl p-4 text-sm font-semibold text-foreground transition-colors hover:bg-black/5 dark:hover:bg-white/5">
+                  <div className="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span>さらに細かく条件を指定する</span>
+                  </div>
+                  <div className="rounded-full bg-black/5 p-1 transition-transform group-open:rotate-180 dark:bg-white/5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </div>
+                </summary>
+                <div className="p-4 pt-2">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <CustomSelect
+                      options={articleCategories}
+                      value={categoryParam}
+                      onChange={handleCategoryChange}
+                      labelPrefix="記事カテゴリ"
+                    />
+                    <CustomSelect
+                      options={travelTopicOptions}
+                      value={topicParam}
+                      onChange={handleTopicChange}
+                      labelPrefix="実用ラベル"
+                    />
+                  </div>
+                  {regionLabel && (
+                    <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                      「{regionLabel}」の記事に絞り込み中
+                    </p>
+                  )}
                 </div>
-              )}
-              {hasRefinements && (
-                <button
-                  onClick={handleClearAll}
-                  className="inline-flex items-center justify-center rounded-full border border-border px-4 py-2 font-semibold text-foreground transition hover:bg-muted"
-                >
-                  リセット
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {viewTabs.map((tab) => {
-              const isActive = tab.value === viewParam;
-              return (
-                <button
-                  key={tab.value}
-                  onClick={() => handleViewChange(tab.value)}
-                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                    isActive
-                      ? "border-teal-500 bg-teal-50 text-teal-900 dark:border-teal-700 dark:bg-teal-950/40 dark:text-teal-100"
-                      : "border-border/70 bg-background text-foreground hover:border-orange-300"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 space-y-3">
-            <div className="flex flex-wrap gap-2">
-              {PURPOSE_PRESETS.map((preset) => {
-                const isActive = activePreset?.id === preset.id;
-                return (
-                  <button
-                    key={preset.id}
-                    onClick={() => handlePresetSelect(preset)}
-                    className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                      isActive
-                        ? "border-orange-400 bg-orange-50 text-orange-900 dark:border-orange-600 dark:bg-orange-950/40 dark:text-orange-100"
-                        : "border-border bg-background text-foreground hover:border-orange-300"
-                    }`}
-                  >
-                    {preset.label}
-                  </button>
-                );
-              })}
+              </details>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-medium text-muted-foreground">
-                都市
-              </span>
-              {CITY_PRESETS.map((preset) => {
-                const isActive = activePreset?.id === preset.id;
-                return (
-                  <button
-                    key={preset.id}
-                    onClick={() => handlePresetSelect(preset)}
-                    className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                      isActive
-                        ? "border-sky-400 bg-sky-50 text-sky-900 dark:border-sky-600 dark:bg-sky-950/40 dark:text-sky-100"
-                        : "border-border bg-background text-foreground hover:border-sky-300"
-                    }`}
-                  >
-                    {preset.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <SearchInput
-              initialValue={searchParam}
-              placeholder={searchPlaceholder}
-              onSearch={handleSearch}
-              onReset={handleResetSearch}
-            />
-            <p className="mt-3 text-xs text-muted-foreground">
-              入口を選んだあと、キーワードでさらに絞れます。
-            </p>
-          </div>
-
-          <details className="mt-5 rounded-2xl border border-border/60 bg-background/70 p-4">
-            <summary className="cursor-pointer list-none text-sm font-semibold text-foreground">
-              詳しく絞る
-            </summary>
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              <CustomSelect
-                options={articleCategories}
-                value={categoryParam}
-                onChange={handleCategoryChange}
-                labelPrefix="記事カテゴリ"
-              />
-              <CustomSelect
-                options={travelTopicOptions}
-                value={topicParam}
-                onChange={handleTopicChange}
-                labelPrefix="実用ラベル"
-              />
-            </div>
-            <p className="mt-3 text-sm text-muted-foreground">
-              カテゴリは記事の形式、実用ラベルは交通・予約・通信などのテーマです。
-              {regionLabel
-                ? ` いまは「${regionLabel}」の記事に絞っています。`
-                : ""}
-            </p>
-          </details>
-
-          {leadPicks.length > 0 && (
-            <div className="mt-8">
-              <div className="mb-5">
-                <h3 className="text-2xl font-bold text-foreground">
-                  {leadTitle}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {leadDescription}
-                </p>
+            {/* 表示切り替えタブ・件数・リセット */}
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between pt-6 border-t border-border/50">
+              <div className="flex flex-wrap gap-2">
+                {viewTabs.map((tab) => {
+                  const isActive = tab.value === viewParam;
+                  return (
+                    <button
+                      key={tab.value}
+                      onClick={() => handleViewChange(tab.value)}
+                      className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-200
+                        ${
+                          isActive
+                            ? "text-teal-700 dark:text-teal-400"
+                            : "text-muted-foreground hover:text-foreground"
+                        }
+                      `}
+                    >
+                      {tab.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeTabUnderline"
+                          className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-teal-600 dark:bg-teal-400"
+                          initial={false}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
-              <div className="grid gap-6 md:grid-cols-3">
-                {leadPicks.map((post) => (
-                  <PostCard key={post.slug} post={post} showDiscoveryNote />
-                ))}
+
+              <div className="flex items-center gap-4 text-sm font-medium">
+                {totalPosts !== null && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-white px-3 py-1 shadow-sm dark:bg-background">
+                    該当件数: <span className="text-amber-600 dark:text-amber-400 font-bold">{totalPosts}件</span>
+                  </span>
+                )}
+                {hasRefinements && (
+                  <button
+                    onClick={handleClearAll}
+                    className="flex items-center gap-1.5 text-muted-foreground transition hover:text-red-500"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    クリア
+                  </button>
+                )}
               </div>
             </div>
-          )}
+          </div>
         </section>
 
-        <h2 className="mb-8 text-2xl font-bold text-foreground">
+        {/* Lead Picks */}
+        {leadPicks.length > 0 && currentPage === 1 && (
+          <div className="mb-10">
+            <div className="grid gap-6 md:grid-cols-3">
+              {leadPicks.map((post) => (
+                <PostCard key={post.slug} post={post} showDiscoveryNote />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <h2 className="mb-6 text-xl font-bold text-foreground border-b border-border/50 pb-2">
           {currentSummaryTitle}
         </h2>
 
