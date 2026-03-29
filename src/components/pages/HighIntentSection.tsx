@@ -7,7 +7,17 @@ import { HIGH_INTENT_CATEGORIES } from "@/lib/revenue";
 
 type PostMetadata = Omit<Post, "content">;
 
-const HighIntentSection = ({ posts }: { posts: PostMetadata[] }) => {
+interface HighIntentSectionProps {
+  posts: PostMetadata[];
+  title?: string;
+  description?: string;
+}
+
+const HighIntentSection = ({
+  posts,
+  title = "実用カテゴリから探す",
+  description = "空港アクセス、予約、通信など、出発前や現地で役立つ記事をテーマ別にまとめました。",
+}: HighIntentSectionProps) => {
   const grouped = HIGH_INTENT_CATEGORIES.map((topic) => ({
     category: topic,
     label: travelTopicTitleMap[topic as TravelTopic],
@@ -22,9 +32,9 @@ const HighIntentSection = ({ posts }: { posts: PostMetadata[] }) => {
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-14">
-      <h2 className="text-center text-3xl font-bold">旅のインスピレーション</h2>
+      <h2 className="text-center text-3xl font-bold">{title}</h2>
       <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground leading-relaxed">
-        次の旅行に役立つ、おすすめの観光スポットや旅のヒントを厳選してお届けします。
+        {description}
       </p>
 
       <div className="mt-8 grid gap-8">
@@ -43,7 +53,7 @@ const HighIntentSection = ({ posts }: { posts: PostMetadata[] }) => {
 
             <div className="grid gap-4 md:grid-cols-2">
               {group.posts.map((post) => (
-                <PostCard key={post.slug} post={post} />
+                <PostCard key={post.slug} post={post} showDiscoveryNote />
               ))}
             </div>
           </div>

@@ -58,28 +58,13 @@ const NavigationLinks = ({
 const PostNavigation = ({
   previousPost,
   nextPost,
-  previousCategoryPost,
-  nextCategoryPost,
   previousSeriesPost,
   nextSeriesPost,
   series,
-  category,
 }: PostNavigationProps) => {
   const showSeriesNav = previousSeriesPost || nextSeriesPost;
-  const showCategoryNav =
-    (category === "itinerary" ||
-      category === "tourism" ||
-      category === "one-off") &&
-    (previousCategoryPost || nextCategoryPost);
 
   const seriesTitle = featuredSeries.find((s) => s.slug === series)?.title;
-
-  const categoryText =
-    category === "itinerary"
-      ? "旅程&費用レポート"
-      : category === "tourism"
-        ? "観光情報"
-        : "";
 
   return (
     <div className="mb-10 space-y-12">
@@ -95,22 +80,8 @@ const PostNavigation = ({
         </div>
       )}
 
-      {showCategoryNav && (
-        <div>
-          <h3 className="text-center font-semibold mb-4">
-            ▼ カテゴリ「{categoryText}」の続きを読む ▼
-          </h3>
-          <NavigationLinks
-            previousPost={previousCategoryPost}
-            nextPost={nextCategoryPost}
-          />
-        </div>
-      )}
-
       <div>
-        <h3 className="text-center font-semibold mb-4">
-          ▼ すべての記事から探す ▼
-        </h3>
+        <h3 className="text-center font-semibold mb-4">▼ 前後の記事を読む ▼</h3>
         <NavigationLinks previousPost={previousPost} nextPost={nextPost} />
       </div>
     </div>

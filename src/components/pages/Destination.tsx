@@ -63,7 +63,17 @@ const ResetIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const Destination = () => {
+interface DestinationProps {
+  title?: string;
+  description?: string;
+  buttonLabel?: string;
+}
+
+const Destination = ({
+  title = "世界地図から、旅先を探す",
+  description = "気になる国や都市から、現地で読める記事を探せます。",
+  buttonLabel = "地域別一覧を見る",
+}: DestinationProps) => {
   const worldMapRef = useRef<WorldMapHandle>(null);
   // すべての国名を小文字の配列として抽出
   const allCountryNames = regionData.flatMap((continent) =>
@@ -92,8 +102,11 @@ const Destination = () => {
     >
       <div className="text-center mb-16">
         <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-          世界地図から、旅先を探す
+          {title}
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+          {description}
+        </p>
         <div className="w-30 h-0.5 bg-secondary mx-auto mt-6" />
       </div>
       <div className="relative">
@@ -130,7 +143,7 @@ const Destination = () => {
           </button>
         </div>
       </div>
-      <Button href={`/destination`}>地域別一覧を見る</Button>
+      <Button href={`/destination`}>{buttonLabel}</Button>
     </motion.section>
   );
 };

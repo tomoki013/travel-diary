@@ -1,4 +1,5 @@
 import { Post, RevenueCategory, TravelTopic } from "@/types/types";
+import { getGeoRelationship } from "./post-discovery";
 
 type PostMetadata = Omit<Post, "content">;
 type RevenueInferenceSource = Pick<
@@ -102,10 +103,6 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
 
   const order = flow[current.revenueCategory || "guide"];
   const currentTopics = new Set(normalizeTravelTopics(current.travelTopics));
-  const currentLocations = new Set(
-    (current.location || []).map((location) => location.toLowerCase())
-  );
-
   return allPosts
     .filter(
       (post) => post.slug !== current.slug && (post.revenueCategory || "guide") !== "essay",
@@ -117,15 +114,14 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
         return null;
       }
 
-      const locationMatches = (post.location || []).filter((location) =>
-        currentLocations.has(location.toLowerCase())
-      ).length;
+      const geo = getGeoRelationship(current, post);
       const sharedTopics = normalizeTravelTopics(post.travelTopics).filter((topic) =>
         currentTopics.has(topic)
       ).length;
       const sameSeries = Boolean(current.series && post.series === current.series);
       const sameJourney = Boolean(current.journey && post.journey === current.journey);
-      const hasStrongContextMatch = sameJourney || locationMatches > 0;
+      const hasStrongContextMatch =
+        sameJourney || geo.sameSpecificLocation || geo.sameCountry;
 
       if (!hasStrongContextMatch) {
         return null;
@@ -135,7 +131,7 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
       score += (order.length - categoryIndex) * 12;
       score += sameJourney ? 30 : 0;
       score += sameSeries ? 8 : 0;
-      score += locationMatches * 22;
+      score += geo.score;
       score += sharedTopics * 12;
       score += post.category === "tourism" ? 6 : 0;
 

@@ -1,9 +1,7 @@
 import dynamic from "next/dynamic";
-import AIPlannerHero from "@/components/pages/AIPlannerHero";
 import Hero from "@/components/pages/Hero";
 import NewPosts from "@/components/pages/NewPosts";
 import FeaturedSeries from "@/components/pages/FeaturedSeries";
-import PopularPosts from "@/components/pages/PopularPosts";
 import Request from "@/components/pages/Request";
 import { getAllPosts } from "@/lib/post-metadata";
 import PostsLength from "@/components/pages/PostsLength";
@@ -12,10 +10,12 @@ import { getPhotos } from "@/lib/photo";
 import Affiliates from "@/components/pages/Affiliates";
 import HighIntentSection from "@/components/pages/HighIntentSection";
 import { getHighIntentPosts } from "@/lib/revenue";
-import JourneyTeaser from "@/components/features/about/JourneyTeaser";
 import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
+import EntryPostsSection from "@/components/pages/EntryPostsSection";
+import HomeUtilitySection from "@/components/pages/HomeUtilitySection";
+import HomeAboutSection from "@/components/pages/HomeAboutSection";
+import { getHomepageEntryPosts } from "@/lib/post-discovery";
 
-const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"));
 const Gallery = dynamic(() => import("@/components/pages/Gallery"));
 const Destination = dynamic(() => import("@/components/pages/Destination"));
 
@@ -24,19 +24,23 @@ export default async function HomePage() {
   const allPhotos = await getPhotos();
   const photoLength = allPhotos.length;
   const highIntentPosts = getHighIntentPosts(allPosts);
+  const entryPosts = getHomepageEntryPosts(allPosts);
 
   return (
     <>
       <Hero />
+      <EntryPostsSection posts={entryPosts} />
       <HighIntentSection posts={highIntentPosts} />
-      <JourneyTeaser />
-      <NewPosts posts={allPosts} />
+      <Destination
+        title="目的地から探す"
+        description="国や都市から記事をたどりたい人向けに、地域別の入口を用意しています。"
+        buttonLabel="地域別の記事を見る"
+      />
       <FeaturedSeries />
-      <PopularPosts posts={highIntentPosts.length ? highIntentPosts : allPosts} />
-      <AIPlannerHero />
-      <GlobePromo />
-      <Gallery />
-      <Destination />
+      <NewPosts posts={allPosts} />
+      <Gallery teaser />
+      <HomeUtilitySection />
+      <HomeAboutSection />
       <Affiliates />
       <Request />
       <PostsLength posts={allPosts} />

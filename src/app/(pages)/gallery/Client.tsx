@@ -8,6 +8,10 @@ import PhotoFilter from "@/components/features/gallery/PhotoFilter";
 import PhotoGrid from "@/components/features/gallery/PhotoGrid";
 import PhotoModal from "@/components/features/gallery/PhotoModal";
 import { categoryMappings } from "@/data/photoCategories";
+import {
+  buildGalleryPhotoEntries,
+  GalleryPhotoEntry,
+} from "@/lib/gallery-discovery";
 
 const filterList: string[] = ["すべて", ...Object.keys(categoryMappings)];
 
@@ -29,11 +33,15 @@ interface ClientProps {
 
 const Client = ({ posts, photos }: ClientProps) => {
   const [activeFilter, setActiveFilter] = useState("すべて");
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const [postSlug, setPostSlug] = useState<string | null>(null);
+  const [selectedEntry, setSelectedEntry] = useState<GalleryPhotoEntry | null>(null);
+
+  const photoEntries = useMemo(
+    () => buildGalleryPhotoEntries(photos, posts),
+    [photos, posts],
+  );
 
   useEffect(() => {
-    if (selectedPhoto) {
+    if (selectedEntry) {
       document.body.style.overflowY = "hidden";
     } else {
       document.body.style.overflowY = "auto";
@@ -41,43 +49,32 @@ const Client = ({ posts, photos }: ClientProps) => {
     return () => {
       document.body.style.overflowY = "auto";
     };
-  }, [selectedPhoto]);
+  }, [selectedEntry]);
 
   const filteredPhotos = useMemo(
     () =>
       activeFilter === "すべて"
-        ? photos
-        : photos.filter((p) =>
-            p.categories.some(
+        ? photoEntries
+        : photoEntries.filter(({ photo }) =>
+            photo.categories.some(
               (category) => getFilterCategory(category) === activeFilter
             )
           ),
-    [activeFilter, photos]
+    [activeFilter, photoEntries],
   );
 
-  const handleSelectPhoto = (photo: Photo) => {
-    setSelectedPhoto(photo);
-    const foundPostByImage = posts.find((post) => post.image === photo.path);
-    const foundPostByTitle = posts.find((post) =>
-      post.title.includes(photo.title)
-    );
-    if (foundPostByImage) {
-      setPostSlug(`/posts/${foundPostByImage.slug}`);
-    } else if (foundPostByTitle) {
-      setPostSlug(`/posts/${foundPostByTitle?.slug}`);
-    } else {
-      setPostSlug(null);
-    }
+  const handleSelectPhoto = (entry: GalleryPhotoEntry) => {
+    setSelectedEntry(entry);
   };
 
   const handleCloseModal = () => {
-    setSelectedPhoto(null);
+    setSelectedEntry(null);
   };
 
   const handleNext = () => {
-    if (selectedPhoto) {
+    if (selectedEntry) {
       const currentIndex = filteredPhotos.findIndex(
-        (p) => p.id === selectedPhoto.id
+        (entry) => entry.photo.id === selectedEntry.photo.id,
       );
       const nextIndex = (currentIndex + 1) % filteredPhotos.length;
       handleSelectPhoto(filteredPhotos[nextIndex]);
@@ -85,9 +82,9 @@ const Client = ({ posts, photos }: ClientProps) => {
   };
 
   const handlePrev = () => {
-    if (selectedPhoto) {
+    if (selectedEntry) {
       const currentIndex = filteredPhotos.findIndex(
-        (p) => p.id === selectedPhoto.id
+        (entry) => entry.photo.id === selectedEntry.photo.id,
       );
       const prevIndex =
         (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
@@ -101,7 +98,7 @@ const Client = ({ posts, photos }: ClientProps) => {
         src="/images/Turkey/balloons-in-cappadocia.jpg"
         alt="Gallery Hero Image"
         pageTitle="Gallery"
-        pageMessage="A Glimpse of My Journey"
+        pageMessage="気になった景色から、旅先の記事へ"
         textColor="text-foreground"
       />
 
@@ -115,12 +112,13 @@ const Client = ({ posts, photos }: ClientProps) => {
       </div>
 
       <PhotoModal
-        selectedPhoto={selectedPhoto}
-        postSlug={postSlug}
+        selectedEntry={selectedEntry}
         photoCount={filteredPhotos.length}
         photoIndex={
-          selectedPhoto
-            ? filteredPhotos.findIndex((p) => p.id === selectedPhoto.id)
+          selectedEntry
+            ? filteredPhotos.findIndex(
+                (entry) => entry.photo.id === selectedEntry.photo.id,
+              )
             : -1
         }
         onClose={handleCloseModal}

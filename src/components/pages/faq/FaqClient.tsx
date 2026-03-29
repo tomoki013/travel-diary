@@ -13,22 +13,10 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-type FaqItem = {
-  question: string;
-  answer: string;
-  category: string;
-  tags: string[];
-};
+import { FAQ_CATEGORIES, FaqItem } from "@/data/faq";
 
 type FaqClientProps = {
   distributionData: { name: string; value: number }[];
@@ -76,14 +64,6 @@ export default function FaqClient({
     return matchesCategory && matchesSearch;
   });
 
-  const categories = [
-    { id: "all", label: "すべて表示" },
-    { id: "destinations", label: "旅行先・エリア" },
-    { id: "hotels", label: "ホテル・宿泊" },
-    { id: "preparation", label: "準備・マイル" },
-    { id: "site-info", label: "サイト・ツール" },
-  ];
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -109,17 +89,17 @@ export default function FaqClient({
       <section className="bg-muted/30 py-12 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">
-            旅の準備とヒントを深掘りする
+            このサイトの使い方と、よくある質問
           </h2>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            ともきちの旅行日記のアーカイブを分析し、あなたの疑問に答えるためのガイドです。
+            記事の探し方、旅行記と実用記事の違い、Gallery や補助機能の役割などをまとめています。
             <br />
-            サイトマップ構造に基づき、よくある質問と回答を整理しました。
+            気になるキーワードから、そのまま読み方を見つけられる FAQ です。
           </p>
           <div className="relative max-w-xl mx-auto">
             <Input
               type="text"
-              placeholder="「ホテル」「マイル」「おすすめ」などで検索..."
+              placeholder="「初海外」「旅行記」「Gallery」「AI旅行プランナー」などで検索..."
               className="w-full px-6 py-6 rounded-full border-input shadow-sm text-lg transition pr-24 bg-background"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -141,14 +121,14 @@ export default function FaqClient({
           hasSearchInput ? "order-2" : "order-1"
         }`}
       >
-        <div className="mb-10 text-center md:text-left">
-          <h3 className="text-2xl font-bold text-foreground mb-2 font-heading">
-            サイトコンテンツ分析
-          </h3>
-          <p className="text-muted-foreground max-w-2xl">
-            このサイトがどのような情報を扱っているか、その全体像を可視化しました。旅行計画のどの段階でどの記事を読むべきかが一目でわかります。
-          </p>
-        </div>
+          <div className="mb-10 text-center md:text-left">
+            <h3 className="text-2xl font-bold text-foreground mb-2 font-heading">
+              サイトコンテンツ分析
+            </h3>
+            <p className="text-muted-foreground max-w-2xl">
+              このサイトにどんな記事があり、どのタイミングで読み始めると使いやすいかを俯瞰できます。
+            </p>
+          </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {/* Chart 1: Content Distribution */}
@@ -168,7 +148,7 @@ export default function FaqClient({
                     paddingAngle={5}
                     dataKey="value"
                   >
-                    {distributionData.map((entry, index) => (
+                    {distributionData.map((_, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={COLORS[index % COLORS.length]}
@@ -187,7 +167,7 @@ export default function FaqClient({
               </ResponsiveContainer>
             </div>
             <p className="mt-4 text-sm text-muted-foreground text-center">
-              ホテル宿泊記と旅行ガイドが中心コンテンツです。
+              旅行記、観光ガイド、モデルコースなどの構成をひと目で見られます。
             </p>
           </div>
 
@@ -235,7 +215,7 @@ export default function FaqClient({
               </ResponsiveContainer>
             </div>
             <p className="mt-4 text-sm text-muted-foreground text-center">
-              出発前の準備から当日の滞在記まで幅広くカバーしています。
+              行き先選びから現地移動まで、読むタイミングの目安を整理しています。
             </p>
           </div>
         </div>
@@ -254,12 +234,12 @@ export default function FaqClient({
               Q&A エクスプローラー
             </h3>
             <p className="text-muted-foreground mb-6">
-              カテゴリーを選択して、ともきちの旅行日記が提供する価値を探求してください。
+              気になる入口から絞り込みながら、このサイトの使い方を探せます。
             </p>
 
             {/* Category Filters */}
             <div className="flex flex-wrap gap-2 mb-8">
-              {categories.map((cat) => (
+              {FAQ_CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setCurrentCategory(cat.id)}
@@ -285,7 +265,7 @@ export default function FaqClient({
                 >
                   <div className="flex justify-between items-start mb-4">
                     <Badge variant="outline" className="capitalize">
-                      {categories.find((c) => c.id === item.category)?.label ||
+                      {FAQ_CATEGORIES.find((c) => c.id === item.category)?.label ||
                         "その他"}
                     </Badge>
                   </div>

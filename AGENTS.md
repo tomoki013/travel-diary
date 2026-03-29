@@ -24,3 +24,8 @@ All AI agents MUST adhere to the following rules for blog post creation, editing
 - **Drafts:** Markdown in `draft-posts/`
 - **Build Step:** Prebuild scripts generate caches from posts.
 - **Regions:** Valid locations must be defined in `src/data/region.ts`.
+
+## Documentation Maintenance
+- Development and operations docs live under `docs/` and are the source of truth for shared workflow and repository structure.
+- When architecture, workflow, page responsibilities, or content operations change, agents MUST update the relevant files in `docs/` in the same change.
+- If a change affects agent behavior or working rules, agents MUST also update `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` together in the same change.

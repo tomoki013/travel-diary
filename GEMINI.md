@@ -25,3 +25,8 @@ The following rules are foundational for all blog post creation, editing, and fo
 
 ## Workflow Mandates
 - When tasked with "cleaning up" or "writing" a blog post, Gemini must first read the rules in `draft-posts/rules/` to ensure full compliance.
+
+## Documentation Maintenance
+- Shared development and operations docs live in `docs/` and are the source of truth for repository workflow and structure.
+- When implementation changes architecture, workflow, page responsibilities, or content operations, Gemini must update the relevant files in `docs/` in the same change.
+- If the change affects AI behavior or working rules, Gemini must also update `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` together in the same change.

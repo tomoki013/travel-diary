@@ -2,91 +2,12 @@ import { Metadata } from "next";
 import { getAllPosts } from "@/lib/post-metadata";
 import FaqClient from "@/components/pages/faq/FaqClient";
 import { PRIMARY_SITE_URL } from "@/constants/site";
-
-// Existing FAQs from the old page, with added metadata for the new UI
-const FAQS = [
-  {
-    question: "このサイトについて",
-    answer:
-      "このサイトは旅行ブログとして、様々な観光地を紹介しています。また、AIが旅行プランを作成する「AIトラベルプランナー」も搭載しています。",
-    category: "site-info",
-    tags: ["ブログ", "AI", "概要"],
-  },
-  {
-    question: "おすすめの旅行先は？",
-    answer:
-      "このブログではヨーロッパ、アジア、アフリカなど、世界中の様々な国や地域の旅行記を掲載しています。「デスティネーション」ページから、興味のある国を探してみてください。きっとあなたにぴったりの旅行先が見つかります。",
-    category: "destinations",
-    tags: ["海外", "旅行先", "おすすめ"],
-  },
-  {
-    question: "旅行の予算はどれくらい必要ですか？",
-    answer:
-      "予算は旅行先の物価、滞在期間、旅行のスタイル（バックパッカー、豪華旅行など）によって大きく異なります。各旅行記には、かかった費用を参考に記載している場合もありますので、ぜひご覧ください。",
-    category: "preparation",
-    tags: ["予算", "費用"],
-  },
-  {
-    question: "海外旅行で気をつけるべきことは？",
-    answer:
-      "安全が第一です。外務省の海外安全情報を確認し、危険な地域には近づかないようにしましょう。また、スリや置き引きなどの軽犯罪にも注意が必要です。現地の文化や習慣を尊重することも大切です。",
-    category: "preparation",
-    tags: ["安全", "治安", "注意点"],
-  },
-  {
-    question: "ブログに掲載されている写真は自由に使っていいですか？",
-    answer:
-      "サイト内のすべてのコンテンツ（文章、写真など）の著作権は当サイトの管理者に帰属します。無断転載・使用は固くお断りします。",
-    category: "site-info",
-    tags: ["著作権", "写真", "ルール"],
-  },
-  {
-    question: "このサイトで航空券やホテルの予約はできますか？",
-    answer:
-      "現在、予約サービスは提供しておりません。旅の計画に役立つ情報や旅行プランを提供しています。",
-    category: "hotels",
-    tags: ["予約", "ホテル", "航空券"],
-  },
-  {
-    question: "ブログの更新頻度は？",
-    answer:
-      "不定期ですが、新しい旅行体験や役立つ情報を随時更新していきます。SNSで更新情報をお知らせしていますので、ぜひフォローしてください。",
-    category: "site-info",
-    tags: ["更新", "SNS"],
-  },
-  {
-    question: "掲載されている情報が古い場合はどうすればいいですか？",
-    answer:
-      "情報の正確性には万全を期していますが、万が一古い情報を見つけた場合は、お問い合わせフォームからご連絡いただけると幸いです。",
-    category: "site-info",
-    tags: ["情報", "連絡"],
-  },
-  {
-    question: "お問い合わせ方法は？",
-    answer:
-      "フッターの「お問い合わせ」リンクから専用フォームをご利用ください。記事の感想やご質問、お仕事のご依頼など、お気軽にご連絡ください。",
-    category: "site-info",
-    tags: ["連絡", "お問い合わせ"],
-  },
-  {
-    question: "記事の寄稿やコラボレーションは可能ですか？",
-    answer:
-      "はい、歓迎いたします！具体的な内容や条件について相談させていただきますので、お問い合わせフォームよりご連絡ください。",
-    category: "site-info",
-    tags: ["寄稿", "コラボ", "仕事"],
-  },
-  {
-    question: "撮影機材は何を使っていますか？",
-    answer:
-      "最後の使用機材ですが、iphoneの標準のカメラのみです。",
-    category: "site-info",
-    tags: ["カメラ", "機材", "写真"],
-  },
-];
+import { FAQS } from "@/data/faq";
 
 export const metadata: Metadata = {
   title: "FAQ | ともきちの旅行日記",
-  description: "ともきちの旅行日記に関するよくある質問と回答を掲載しています。",
+  description:
+    "記事の探し方、旅行記と実用記事の違い、Gallery や補助機能の使い方など、ともきちの旅行日記に関するよくある質問をまとめています。",
   alternates: {
     canonical: new URL("/faq", PRIMARY_SITE_URL),
   },

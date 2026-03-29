@@ -136,6 +136,17 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
             </section>
           </div>
 
+          {post.category === "tourism" && post.excerpt && (
+            <section className="mb-8 rounded-2xl border border-teal-200/70 bg-teal-50/70 p-5 dark:border-teal-900/70 dark:bg-teal-950/20">
+              <p className="text-xs font-semibold tracking-[0.18em] text-teal-700 dark:text-teal-300">
+                この記事の入口
+              </p>
+              <p className="mt-2 leading-relaxed text-foreground">
+                {post.excerpt}
+              </p>
+            </section>
+          )}
+
           {post.image && (
             <Image
               src={post.image}

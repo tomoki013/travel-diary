@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { LoadingAnimation } from "../features/LoadingAnimation/LoadingAnimation";
 import { allRegions } from "@/lib/regionUtil";
 import WorldMap from "../features/worldMap/WorldMap";
