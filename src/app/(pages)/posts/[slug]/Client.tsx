@@ -203,7 +203,7 @@ const Client = ({
         layout
         transition={FOCUS_SECTION_TRANSITION}
         className={cn(
-          "relative z-40 mx-auto w-full px-4 py-12 transition-[max-width] duration-700 sm:px-6 lg:px-8",
+          "relative z-40 mx-auto w-full px-4 py-16 transition-[max-width] duration-700 sm:px-6 lg:px-8",
           isFocusActive ? "max-w-[1180px]" : "max-w-4xl"
         )}
       >
@@ -218,7 +218,9 @@ const Client = ({
         )}
 
         <FocusSection show={!isMinimalOrHigher}>
-          <TableOfContent />
+          <div className="my-12">
+            <TableOfContent />
+          </div>
         </FocusSection>
 
         <motion.div
@@ -228,19 +230,21 @@ const Client = ({
         >
           <article className="max-w-none">{childrenWithFocusMode}</article>
           <FocusSection show={!isStandardOrHigher}>
-            <ArticleCTASection
-              currentPost={post}
-              nextActionPosts={nextActionPosts}
-            />
+            <div className="mt-16">
+              <ArticleCTASection
+                currentPost={post}
+                nextActionPosts={nextActionPosts}
+              />
+            </div>
           </FocusSection>
         </motion.div>
 
-        <div className="mt-8 text-right">
-          <p className="text-xs text-gray-400">
+        <div className="mt-12 text-right">
+          <p className="text-xs text-stone-400 dark:text-stone-500">
             記事制作では一部に AI を補助的に活用する場合があります。執筆方針や情報確認の考え方については
             <Link
               href="/editorial-policy"
-              className="underline hover:text-gray-600"
+              className="underline hover:text-stone-600 dark:hover:text-stone-300 ml-1 transition-colors"
             >
               執筆・編集ポリシー
             </Link>
@@ -249,11 +253,11 @@ const Client = ({
         </div>
 
         {post.isPromotion && post.promotionPG && (
-          <FocusSection show={!isStandardOrHigher} className="my-12">
-            <h2 className="mb-6 text-center text-2xl font-bold">
+          <FocusSection show={!isStandardOrHigher} className="my-16">
+            <h2 className="mb-8 text-center font-heading text-2xl font-bold tracking-wide text-stone-800 dark:text-stone-200">
               この記事で紹介したサービス
             </h2>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {affiliates
                 .filter(
                   (affiliate) =>
@@ -272,17 +276,19 @@ const Client = ({
         )}
 
         <motion.footer
-          className="mt-16"
+          className="mt-20"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={slideFadeIn()}
         >
           <FocusSection show={!isStandardOrHigher}>
-            <ShareButtons post={post} />
+            <div className="mb-16">
+              <ShareButtons post={post} />
+            </div>
           </FocusSection>
 
-          <div className="mt-10 grid gap-8 md:gap-12">
+          <div className="grid gap-16 md:gap-20">
             <FocusSection
               show={!isStandardOrHigher}
               className="order-2 md:order-1"
@@ -301,73 +307,83 @@ const Client = ({
 
             <FocusSection
               show={!isStandardOrHigher}
-              className="order-1 space-y-8 md:order-2"
+              className="order-1 space-y-12 md:order-2"
             >
-              <div className="flex items-center gap-6 rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
-                <Image
-                  src={author?.image || "/favicon.ico"}
-                  alt={author?.name || "ともきちの旅行日記"}
-                  width={80}
-                  height={80}
-                  className="rounded-full"
-                />
-                <div>
-                  <h3 className="text-lg font-bold">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 rounded-2xl bg-stone-50 dark:bg-stone-900/40 p-8 border border-stone-200 dark:border-stone-800 shadow-sm transition-all hover:shadow-md">
+                <div className="shrink-0">
+                  <Image
+                    src={author?.image || "/favicon.ico"}
+                    alt={author?.name || "ともきちの旅行日記"}
+                    width={96}
+                    height={96}
+                    className="rounded-full ring-4 ring-white dark:ring-stone-800 shadow-sm"
+                  />
+                </div>
+                <div className="text-center sm:text-left flex-1">
+                  <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">
                     {author?.name || "ともきちの旅行日記"}
                   </h3>
                   {author?.description && (
-                    <p className="mb-2 text-gray-600 dark:text-gray-400">
+                    <p className="mb-4 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
                       {author.description}
                     </p>
                   )}
                   <Link
                     href="/about"
-                    className="font-semibold text-teal-600 hover:text-teal-700"
+                    className="inline-flex items-center text-sm font-bold text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition-colors group"
                   >
-                    プロフィール詳細へ →
+                    プロフィール詳細を見る
+                    <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </Link>
                 </div>
               </div>
-              {regionRelatedPosts && (
-                <RelatedPosts posts={regionRelatedPosts} />
-              )}
-              <GlobePromo
-                compact
-                className="px-0 py-4"
-                queryParams={queryParams}
-              />
+
+              <div className="space-y-12">
+                {regionRelatedPosts && (
+                  <RelatedPosts posts={regionRelatedPosts} />
+                )}
+                <GlobePromo
+                  compact
+                  className="px-0"
+                  queryParams={queryParams}
+                />
+              </div>
             </FocusSection>
 
-            <div className="order-3 text-center md:order-3">
-              <Button href={`/posts`}>ブログ一覧へ</Button>
+            <div className="order-3 text-center md:order-3 pt-4">
+              <Button href={`/posts`} className="bg-stone-800 text-stone-50 border-stone-800 hover:text-stone-800 hover:bg-transparent dark:bg-stone-200 dark:text-stone-900 dark:border-stone-200 dark:hover:text-stone-200 dark:hover:bg-transparent">
+                ブログ一覧へ戻る
+              </Button>
             </div>
           </div>
         </motion.footer>
 
         <FocusSection
           show={!isStandardOrHigher}
-          className="mt-12 border-t border-dashed border-gray-200 pt-12 dark:border-gray-700"
+          className="mt-20 border-t border-stone-200 dark:border-stone-800 pt-16"
         >
-          <AffiliateSection
-            title="おすすめの航空券予約"
-            category="flight"
-            description="お得な航空券を見つけて、旅の準備を始めましょう。"
-          />
-          <AffiliateSection
-            title="おすすめのホテル予約"
-            category="hotel"
-            description="快適な滞在先を予約して、リラックスした時間を。"
-          />
-          <AffiliateSection
-            title="おすすめの現地ツアー・アクティビティ"
-            category="activity"
-            description="ユニークな体験で、旅をもっと特別なものに。"
-          />
-          <AffiliateSection
-            title="旅行に便利なサービス"
-            category="esim"
-            description="eSIMやWi-Fiなど、旅を快適にするアイテム。"
-          />
+          <div className="space-y-8">
+            <AffiliateSection
+              title="おすすめの航空券予約"
+              category="flight"
+              description="お得な航空券を見つけて、旅の準備を始めましょう。"
+            />
+            <AffiliateSection
+              title="おすすめのホテル予約"
+              category="hotel"
+              description="快適な滞在先を予約して、リラックスした時間を。"
+            />
+            <AffiliateSection
+              title="おすすめの現地ツアー・アクティビティ"
+              category="activity"
+              description="ユニークな体験で、旅をもっと特別なものに。"
+            />
+            <AffiliateSection
+              title="旅行に便利なサービス"
+              category="esim"
+              description="eSIMやWi-Fiなど、旅を快適にするアイテム。"
+            />
+          </div>
         </FocusSection>
       </motion.div>
     </div>

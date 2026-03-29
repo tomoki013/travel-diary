@@ -215,51 +215,49 @@ const Header = () => {
             </Link>
 
             {/* Utility Icons */}
-            <div
-              className={cn(
-                "flex items-center gap-1 rounded-full p-1 transition-colors duration-300 ml-2",
-                isTransparent
-                  ? "bg-black/20 backdrop-blur-md border border-white/10"
-                  : "bg-secondary/50 border border-border/50",
-              )}
-            >
+            <div className="flex items-center gap-3 ml-2">
               <button
                 onClick={openSearch}
                 className={cn(
-                  "p-2 rounded-full transition-all hover:scale-110",
+                  "flex items-center gap-2 px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm border-2",
                   isTransparent
-                    ? "text-white hover:bg-white/20"
-                    : "text-foreground hover:bg-background shadow-sm",
+                    ? "bg-black/20 backdrop-blur-md border-white/30 text-white hover:bg-white/20 hover:border-white/50"
+                    : "bg-background/80 border-border/80 text-foreground hover:border-primary/50 hover:bg-background",
                 )}
                 aria-label="Search"
               >
                 <SearchIcon className="h-4 w-4" />
+                <span className="text-xs font-bold tracking-wider uppercase hidden lg:inline-block">Search</span>
               </button>
-              <div className={cn(isTransparent && "text-white")}>
+              <div className={cn("transition-opacity", isTransparent && "opacity-90")}>
                 <ModeToggle />
               </div>
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-3 md:hidden">
             <button
               onClick={openSearch}
               className={cn(
-                "p-2 rounded-full transition-all",
+                "flex items-center justify-center p-2 rounded-full transition-all border-2 shadow-sm",
                 isTransparent && !isMenuOpen
-                  ? "text-white hover:bg-white/20"
-                  : "text-foreground hover:bg-background shadow-sm",
+                  ? "bg-black/20 backdrop-blur-md border-white/30 text-white hover:bg-white/20"
+                  : "bg-background/80 border-border/80 text-foreground hover:border-primary/50",
               )}
+              aria-label="Search"
             >
-              <SearchIcon className="h-5 w-5" />
+              <SearchIcon className="h-4 w-4" />
             </button>
+            <div className={cn("transition-opacity scale-90", isTransparent && !isMenuOpen && "opacity-90")}>
+                <ModeToggle />
+            </div>
             <button
               onClick={toggleMenu}
               className={cn(
                 "relative z-50 p-2 rounded-full transition-colors",
                 isMenuOpen
-                  ? "text-foreground"
+                  ? "text-foreground bg-accent"
                   : isTransparent
                     ? "text-white hover:bg-white/10"
                     : "text-foreground hover:bg-accent",
@@ -325,12 +323,6 @@ const Header = () => {
                 className="flex flex-col items-center gap-y-4 w-full max-w-sm mx-auto"
               >
                 <div className="w-full h-px bg-border/50" />
-                <div className="flex w-full items-center justify-between px-4">
-                  <span className="text-sm font-bold text-muted-foreground">
-                    Theme
-                  </span>
-                  <ModeToggle />
-                </div>
                 <Link
                   href={AI_PLANNER_PATH}
                   onClick={closeMenu}
