@@ -7,12 +7,14 @@ import { SearchIcon } from "lucide-react";
 
 interface SearchInputProps {
   initialValue?: string;
+  placeholder?: string;
   onSearch: (query: string) => void;
   onReset: () => void;
 }
 
 export const SearchInput = ({
   initialValue = "",
+  placeholder = "キーワードで検索...",
   onSearch,
   onReset,
 }: SearchInputProps) => {
@@ -40,7 +42,7 @@ export const SearchInput = ({
         <Input
           ref={inputRef} // Add this line
           type="search"
-          placeholder="キーワードで検索..."
+          placeholder={placeholder}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="pl-10 bg-white/80 text-gray-800"

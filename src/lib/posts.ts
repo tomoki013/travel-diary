@@ -1,10 +1,10 @@
 import { cache } from "react";
 import * as postFilters from "./post-filters";
 import { Post, PostMetadata } from "@/types/types";
-import { calculateScores } from "@/lib/search";
 import { getNextActionPosts } from "@/lib/revenue";
 import { getAllPosts } from "./post-metadata";
 import { getPublishedPostBySlug } from "./post-content";
+import { getContextualRelatedPosts } from "./post-discovery";
 
 export { getAllPosts } from "./post-metadata";
 
@@ -97,42 +97,7 @@ export async function processPostNavigation(
   const previousPostData = postFilters.getPreviousPost(slug, navigationPosts);
   const nextPostData = postFilters.getNextPost(slug, navigationPosts);
 
-  let regionRelatedPosts: PostMetadata[] = [];
-  if (post.location && post.location.length > 0) {
-    // Related posts always come from actual posts
-    const regionPosts = await getAllPosts({ region: post.location });
-    // Exclude the current post itself (only if it's not a draft, but for simplicity we filter by slug)
-    const filteredRegionPosts = regionPosts.filter((p) => p.slug !== post.slug);
-
-    const query = [
-      post.title,
-      post.excerpt,
-      post.category,
-      ...(post.tags || []),
-    ]
-      .join(" ")
-      .toLowerCase();
-
-    const weights = {
-      tags: 10,
-      title: 5,
-      excerpt: 2,
-      category: 2,
-    };
-
-    const scoredPosts = calculateScores(filteredRegionPosts, query, weights, [
-      "title",
-      "excerpt",
-      "category",
-      "tags",
-    ]);
-
-    regionRelatedPosts = scoredPosts
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 3)
-      .map((sp) => sp.post);
-  }
-
+  const contextualRelatedPosts = getContextualRelatedPosts(post, allPosts);
 
   const nextActionPosts = getNextActionPosts(post, allPosts);
 
@@ -155,7 +120,7 @@ export async function processPostNavigation(
     post,
     previousPost,
     nextPost,
-    regionRelatedPosts,
+    regionRelatedPosts: contextualRelatedPosts,
     allPosts, // For use in CustomLink component
     previousCategoryPost,
     nextCategoryPost,

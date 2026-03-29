@@ -1,30 +1,53 @@
-import { CtaItem } from "@/constants/revenue";
 import { Post } from "@/types/types";
-import { ComparisonTable, ReviewCardGroup } from "./RevenueComponents";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { getGeoRelationship } from "@/lib/post-discovery";
+import { getTravelTopicTitle } from "@/data/categories";
+import { getRegionBySlug } from "@/lib/regionUtil";
 
 type PostMetadata = Omit<Post, "content">;
 
-const buildPostCtaItems = (posts: PostMetadata[]): CtaItem[] =>
-  posts.slice(0, 2).map((post, index) => ({
-    title: post.title,
-    description:
-      post.excerpt || "次の準備に進む前に、要点だけ先にチェックしておきましょう。",
-    serviceName: `STEP ${index + 1}`,
-    comparePoints: [
-      post.category === "itinerary" ? "旅程の流れ" : "準備の手順",
-      post.location?.[0] ? `対象: ${post.location[0]}` : "同じ文脈の記事",
-      "この記事の次に読む候補",
-    ],
-    buttonText: "この記事を読む",
-    href: `/posts/${post.slug}`,
-    destinationLabel: `${post.title} 記事`,
-    eventName: "cta_next_article_click",
-  }));
+const getReasonText = (currentPost: PostMetadata, post: PostMetadata) => {
+  const geo = getGeoRelationship(currentPost, post);
+  const sharedTopic = (post.travelTopics || []).find((topic) =>
+    currentPost.travelTopics?.includes(topic)
+  );
+  const primaryLocation = post.location?.[0];
+  const locationName = primaryLocation
+    ? getRegionBySlug(primaryLocation)?.name || primaryLocation
+    : null;
 
-const ArticleCTASection = ({ nextActionPosts = [] }: { nextActionPosts?: PostMetadata[] }) => {
-  const items = buildPostCtaItems(nextActionPosts);
+  if (geo.sameSpecificLocation && locationName) {
+    return `${locationName}の流れで続けて読めます`;
+  }
 
-  if (items.length === 0) {
+  if (geo.sameCountry && locationName) {
+    return `${locationName}周辺の文脈でつながる記事です`;
+  }
+
+  if (sharedTopic) {
+    return `${getTravelTopicTitle(sharedTopic)}の準備を続けて進められます`;
+  }
+
+  if (currentPost.series && currentPost.series === post.series) {
+    return "同じシリーズの流れで読めます";
+  }
+
+  if (currentPost.category === post.category) {
+    return "同じタイプの記事として読み進めやすい内容です";
+  }
+
+  return "今の文脈から次に読みやすい記事です";
+};
+
+const ArticleCTASection = ({
+  currentPost,
+  nextActionPosts = [],
+}: {
+  currentPost: PostMetadata;
+  nextActionPosts?: PostMetadata[];
+}) => {
+  if (nextActionPosts.length === 0) {
     return null;
   }
 
@@ -38,14 +61,34 @@ const ArticleCTASection = ({ nextActionPosts = [] }: { nextActionPosts?: PostMet
       </div>
 
       <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-        今読んだ内容と旅程や地域の文脈がつながる記事だけを、次の行動順で表示しています。
+        今読んだ内容と旅程や地域の文脈がつながる記事だけを、次の一歩として絞って出しています。
       </p>
-      <ReviewCardGroup items={items} />
-      <div className="mt-6 rounded-2xl border border-dashed border-teal-300/80 bg-background/70 p-3 dark:border-teal-800">
-        <p className="mb-2 text-xs font-semibold text-teal-700 dark:text-teal-300">
-          比較ポイント一覧
-        </p>
-        <ComparisonTable items={items} />
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {nextActionPosts.slice(0, 3).map((post, index) => (
+          <Link
+            key={post.slug}
+            href={`/posts/${post.slug}`}
+            className="group rounded-2xl border border-teal-200/70 bg-background/90 p-5 transition hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-sm dark:border-teal-900"
+          >
+            <p className="text-xs font-semibold uppercase tracking-wide text-teal-700 dark:text-teal-300">
+              Step {index + 1}
+            </p>
+            <h3 className="mt-2 text-lg font-bold leading-snug text-foreground">
+              {post.title}
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {post.excerpt || "次に読む価値がある記事です。"}
+            </p>
+            <p className="mt-4 text-xs font-medium text-teal-700 dark:text-teal-300">
+              {getReasonText(currentPost, post)}
+            </p>
+            <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-teal-700 dark:text-teal-300">
+              この記事を読む
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+        ))}
       </div>
     </section>
   );

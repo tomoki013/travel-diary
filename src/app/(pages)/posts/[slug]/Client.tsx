@@ -17,7 +17,6 @@ import { affiliates } from "@/constants/affiliates";
 import AffiliateSection from "@/components/features/affiliates/AffiliateSection";
 import React from "react";
 import ArticleCTASection from "@/components/features/revenue/ArticleCTASection";
-import { NextStepLinks } from "@/components/features/revenue/RevenueComponents";
 import CostBreakdown from "@/components/features/article/CostBreakdown";
 import GlobePromo from "@/components/features/promo/GlobePromo";
 import { cn } from "@/lib/utils";
@@ -218,12 +217,6 @@ const Client = ({
           </FocusSection>
         )}
 
-        {post.category === "itinerary" && (
-          <FocusSection show={!isMaximum}>
-            <GlobePromo className="py-8 px-0" queryParams={queryParams} />
-          </FocusSection>
-        )}
-
         <FocusSection show={!isMinimalOrHigher}>
           <TableOfContent />
         </FocusSection>
@@ -235,8 +228,10 @@ const Client = ({
         >
           <article className="max-w-none">{childrenWithFocusMode}</article>
           <FocusSection show={!isStandardOrHigher}>
-            <ArticleCTASection nextActionPosts={nextActionPosts} />
-            <NextStepLinks posts={nextActionPosts} />
+            <ArticleCTASection
+              currentPost={post}
+              nextActionPosts={nextActionPosts}
+            />
           </FocusSection>
         </motion.div>
 
@@ -320,9 +315,11 @@ const Client = ({
                   <h3 className="text-lg font-bold">
                     {author?.name || "ともきちの旅行日記"}
                   </h3>
-                  <p className="mb-2 text-gray-600 dark:text-gray-400">
-                    {author?.description || ""}
-                  </p>
+                  {author?.description && (
+                    <p className="mb-2 text-gray-600 dark:text-gray-400">
+                      {author.description}
+                    </p>
+                  )}
                   <Link
                     href="/about"
                     className="font-semibold text-teal-600 hover:text-teal-700"
@@ -331,12 +328,14 @@ const Client = ({
                   </Link>
                 </div>
               </div>
-              {post.category !== "itinerary" && (
-                <GlobePromo className="px-0 py-4" queryParams={queryParams} />
-              )}
               {regionRelatedPosts && (
                 <RelatedPosts posts={regionRelatedPosts} />
               )}
+              <GlobePromo
+                compact
+                className="px-0 py-4"
+                queryParams={queryParams}
+              />
             </FocusSection>
 
             <div className="order-3 text-center md:order-3">

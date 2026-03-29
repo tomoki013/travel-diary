@@ -108,15 +108,21 @@ const photos = [
   },
 ];
 
-const Gallery = () => {
+interface GalleryProps {
+  teaser?: boolean;
+}
+
+const Gallery = ({ teaser = false }: GalleryProps) => {
   // 変更点 3: ギャラリーデータを上段用（偶数インデックス）と下段用（奇数インデックス）に分割
   const topRowGallery = photos.filter((_, index) => index % 2 === 0);
   const bottomRowGallery = photos.filter((_, index) => index % 2 !== 0);
+  const visibleTopGallery = teaser ? topRowGallery.slice(0, 12) : topRowGallery;
+  const visibleBottomGallery = teaser ? bottomRowGallery.slice(0, 12) : bottomRowGallery;
 
   return (
     <motion.section
       id="gallery"
-      className="py-24"
+      className={teaser ? "py-16" : "py-24"}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
@@ -125,8 +131,13 @@ const Gallery = () => {
       {/* セクションタイトル */}
       <div className="text-center mb-16 px-6 md:px-8">
         <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-          Gallery
+          {teaser ? "写真から旅先を見つける" : "Gallery"}
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+          {teaser
+            ? "気になる景色が見つかったら、そのまま地域の記事や旅行記へ入っていけます。"
+            : "これまでの旅で撮った写真から、気になる地域の記事や旅行記へつながれるギャラリーです。"}
+        </p>
         <div className="w-30 h-0.5 bg-secondary mx-auto mt-6" />
       </div>
 
@@ -167,7 +178,7 @@ const Gallery = () => {
             },
           }}
         >
-          {topRowGallery.map((item) => (
+          {visibleTopGallery.map((item) => (
             <SwiperSlide key={item.path}>
               <motion.div
                 className="overflow-hidden rounded-md h-full"
@@ -180,69 +191,71 @@ const Gallery = () => {
                   width={400}
                   height={300}
                   className="w-full h-full object-cover"
-                  priority={topRowGallery.indexOf(item) < 3}
+                  priority={visibleTopGallery.indexOf(item) < 3}
                 />
               </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* --- 下の段のスライダー (左から右へ) --- */}
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          // こちらは通常方向のまま
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          speed={1500}
-          slidesPerView={3}
-          slidesPerGroup={3}
-          spaceBetween={24}
-          grabCursor={true}
-          className="w-full h-[268px]"
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-              slidesPerGroup: 1,
-              spaceBetween: 16,
-            },
-            768: {
-              slidesPerView: 2,
-              slidesPerGroup: 2,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,
-              slidesPerGroup: 3,
-              spaceBetween: 24,
-            },
-          }}
-        >
-          {bottomRowGallery.map((item) => (
-            <SwiperSlide key={item.path}>
-              <motion.div
-                className="overflow-hidden rounded-md h-full"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <Image
-                  src={item.path}
-                  alt={item.title}
-                  width={400}
-                  height={300}
-                  className="w-full h-full object-cover"
-                  priority={bottomRowGallery.indexOf(item) < 3}
-                />
-              </motion.div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {!teaser && (
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            speed={1500}
+            slidesPerView={3}
+            slidesPerGroup={3}
+            spaceBetween={24}
+            grabCursor={true}
+            className="w-full h-[268px]"
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                slidesPerGroup: 1,
+                spaceBetween: 16,
+              },
+              768: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+                spaceBetween: 24,
+              },
+            }}
+          >
+            {visibleBottomGallery.map((item) => (
+              <SwiperSlide key={item.path}>
+                <motion.div
+                  className="overflow-hidden rounded-md h-full"
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <Image
+                    src={item.path}
+                    alt={item.title}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover"
+                    priority={visibleBottomGallery.indexOf(item) < 3}
+                  />
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
 
       {/* ボタン */}
-      <Button href={`/gallery`}>ギャラリーをもっと見る</Button>
+      <Button href={`/gallery`}>
+        {teaser ? "写真から記事を探す" : "写真から旅先の記事を探す"}
+      </Button>
     </motion.section>
   );
 };

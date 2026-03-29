@@ -88,6 +88,19 @@ NEXT_PUBLIC_SITE_URL=https://tomokichidiary.com
 
 ---
 
+## 📚 開発ドキュメント
+
+開発・運用・コンテンツ制作の内部ドキュメントは `docs/` に整理しています。
+
+- `docs/README.md`: 全体の入口
+- `docs/architecture.md`: 構成とデータの流れ
+- `docs/development-workflow.md`: 日常の開発手順
+- `docs/content-operations.md`: 記事運用
+- `docs/page-map.md`: ページ責務
+- `docs/ai-maintenance.md`: AI 向け同期ルール
+
+---
+
 ## 📁 ディレクトリ構成
 
 プロジェクトの主要なディレクトリ構成です。

@@ -27,9 +27,12 @@ const RelatedPosts = ({ posts }: RelatedPostsProps) => {
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
     >
-      <h2 className="text-2xl font-bold mb-6 text-center sm:text-left text-foreground">
-        この地域の他の記事
+      <h2 className="text-2xl font-bold mb-2 text-center sm:text-left text-foreground">
+        次に読むなら
       </h2>
+      <p className="mb-6 text-sm text-muted-foreground text-center sm:text-left">
+        同じ都市や国、近い準備フェーズの記事を優先して並べています。
+      </p>
       <motion.div
         initial="hidden"
         whileInView="visible"

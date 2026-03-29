@@ -3,14 +3,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { X, ArrowLeft, ArrowRight, MapPin } from "lucide-react";
+import { X, ArrowLeft, ArrowRight, MapPin, BookOpenText } from "lucide-react";
 import { modal } from "@/components/common/animation";
-import { Photo } from "@/types/types";
+import { GalleryPhotoEntry } from "@/lib/gallery-discovery";
 import { getRegionBySlug } from "@/lib/regionUtil";
 
 interface PhotoModalProps {
-  selectedPhoto: Photo | null;
-  postSlug: string | null;
+  selectedEntry: GalleryPhotoEntry | null;
   photoCount: number;
   photoIndex: number;
   onClose: () => void;
@@ -19,14 +18,16 @@ interface PhotoModalProps {
 }
 
 const PhotoModal = ({
-  selectedPhoto,
-  postSlug,
+  selectedEntry,
   photoCount,
   photoIndex,
   onClose,
   onNext,
   onPrev,
 }: PhotoModalProps) => {
+  const selectedPhoto = selectedEntry?.photo;
+  const relatedPost = selectedEntry?.relatedPost;
+  const destinationHref = selectedEntry?.destinationHref;
   let location;
   if (selectedPhoto) location = getRegionBySlug(selectedPhoto.location);
   return (
@@ -84,13 +85,73 @@ const PhotoModal = ({
               </div>
 
               {/* Related Article Link */}
-              {postSlug && (
+              {(relatedPost || destinationHref) && (
+                <div className="mt-auto rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-700">
+                    <BookOpenText size={16} />
+                    {relatedPost
+                      ? "この写真から読める記事"
+                      : "この地域の記事へ進む"}
+                  </div>
+                  {relatedPost ? (
+                    <>
+                      <p className="text-base font-bold text-gray-900">
+                        {relatedPost.title}
+                      </p>
+                      {relatedPost.excerpt && (
+                        <p className="mt-2 text-sm leading-relaxed text-gray-600 line-clamp-3">
+                          {relatedPost.excerpt}
+                        </p>
+                      )}
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <Link
+                          href={`/posts/${relatedPost.slug}`}
+                          className="group inline-flex items-center rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-700"
+                        >
+                          記事を読む
+                          <ArrowRight
+                            className="ml-2 transition-transform group-hover:translate-x-1"
+                            size={16}
+                          />
+                        </Link>
+                        {destinationHref && location && (
+                          <Link
+                            href={destinationHref}
+                            className="inline-flex items-center rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white"
+                          >
+                            {location.name}の記事を見る
+                          </Link>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm leading-relaxed text-gray-600">
+                        この写真に対応する個別記事はまだ紐づいていませんが、
+                        {location?.name || "この地域"}の記事一覧から旅先の情報を見られます。
+                      </p>
+                      <Link
+                        href={destinationHref || "/destination"}
+                        className="group mt-4 inline-flex items-center text-teal-600 font-semibold"
+                      >
+                        {location?.name || "地域"}の記事を見る
+                        <ArrowRight
+                          className="inline-block ml-2 transition-transform group-hover:translate-x-1"
+                          size={18}
+                        />
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {!relatedPost && !destinationHref && (
                 <div className="mt-auto pt-4 border-t border-gray-200">
                   <Link
-                    href={postSlug}
+                    href="/posts"
                     className="group inline-flex items-center text-teal-600 font-semibold"
                   >
-                    この写真に関連する記事を読む
+                    Blog 一覧から記事を探す
                     <ArrowRight
                       className="inline-block ml-2 transition-transform group-hover:translate-x-1"
                       size={18}

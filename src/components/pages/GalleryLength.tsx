@@ -32,7 +32,7 @@ const GalleryLength = ({ galleryLength }: GalleryLengthProps) => {
           <span className="ml-2 text-xl text-muted-foreground font-normal">枚</span>
         </p>
       </div>
-      <Button href={`/gallery`}>すべての写真を見る</Button>
+      <Button href={`/gallery`}>写真から記事を探す</Button>
     </motion.section>
   );
 };

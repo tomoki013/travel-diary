@@ -45,6 +45,10 @@ export default async function JourneyDetailsPage({ params }: PageProps) {
 
   const posts = (await getAllPosts({ journey: journey.id })).filter(
     (post) => post.category === "series" && post.series === "travel-diary",
+  ).sort(
+    (left, right) =>
+      new Date(left.dates[0] || "1970-01-01").getTime() -
+      new Date(right.dates[0] || "1970-01-01").getTime(),
   );
 
   return (

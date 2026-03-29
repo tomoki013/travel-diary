@@ -8,6 +8,7 @@ import { MAP_URL } from "@/constants/site";
 
 interface GlobePromoProps {
   className?: string;
+  compact?: boolean;
   queryParams?: {
     country?: string;
     region?: string;
@@ -16,7 +17,11 @@ interface GlobePromoProps {
   };
 }
 
-const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
+const GlobePromo = ({
+  className,
+  compact = false,
+  queryParams,
+}: GlobePromoProps) => {
   const getMapUrl = () => {
     const baseUrl = `${MAP_URL}/`;
     if (!queryParams) return baseUrl;
@@ -34,8 +39,8 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
   const mapUrl = getMapUrl();
 
   return (
-    <section className={cn("w-full py-8 md:py-12 px-4", className)}>
-      <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 shadow-2xl">
+    <section className={cn(`w-full px-4 ${compact ? "py-6 md:py-8" : "py-8 md:py-12"}`, className)}>
+      <div className={`relative mx-auto overflow-hidden rounded-3xl bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 shadow-2xl ${compact ? "max-w-3xl" : "max-w-4xl"}`}>
         {/* Animated Background Particles/Stars */}
         <div className="absolute inset-0 opacity-30">
           <div
@@ -56,7 +61,7 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
           />
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 md:gap-12 p-8 md:p-12 items-center relative z-10">
+        <div className={`grid items-center gap-8 relative z-10 ${compact ? "p-6 md:grid-cols-[1.2fr_0.8fr] md:gap-8 md:p-8" : "p-8 md:grid-cols-2 md:gap-12 md:p-12"}`}>
           {/* Text Content */}
           <div className="space-y-6 text-center md:text-left">
             <motion.div
@@ -67,15 +72,21 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
             >
               <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/20 px-3 py-1 text-xs font-medium text-amber-200 backdrop-blur-sm border border-amber-500/30 mb-4">
                 <MapIcon className="h-3 w-3" />
-                <span>New App Release</span>
+                <span>{compact ? "Map Utility" : "New App Release"}</span>
               </div>
-              <h2 className="text-3xl font-bold tracking-tight text-amber-50 md:text-4xl lg:text-5xl font-heading leading-tight">
-                Tomokichi Globe
+              <h2 className={`font-heading font-bold leading-tight tracking-tight text-amber-50 ${compact ? "text-2xl md:text-3xl" : "text-3xl md:text-4xl lg:text-5xl"}`}>
+                {compact ? "地図で旅先を俯瞰する" : "Tomokichi Globe"}
               </h2>
-              <p className="mt-4 text-lg text-stone-300 leading-relaxed">
-                ともきちが訪れた場所を、美しい3D地球儀の上で振り返りませんか？
-                <br className="hidden md:block" />
-                旅の軌跡を地球儀で確認してみましょう。
+              <p className={`mt-4 leading-relaxed text-stone-300 ${compact ? "text-base" : "text-lg"}`}>
+                {compact ? (
+                  "記事で気になった場所を、地図や3D地球儀で位置関係ごと確認したいときに使える補助機能です。"
+                ) : (
+                  <>
+                    ともきちが訪れた場所を、美しい3D地球儀の上で振り返りませんか？
+                    <br className="hidden md:block" />
+                    旅の軌跡を地球儀で確認してみましょう。
+                  </>
+                )}
               </p>
             </motion.div>
 
@@ -89,9 +100,11 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
                 href={mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 text-base font-semibold text-stone-900 shadow-lg shadow-stone-900/20 transition-all hover:bg-amber-50 hover:scale-105 active:scale-95"
+                className={`group inline-flex items-center gap-2 rounded-full bg-white font-semibold text-stone-900 shadow-lg shadow-stone-900/20 transition-all hover:bg-amber-50 hover:scale-105 active:scale-95 ${
+                  compact ? "px-6 py-3 text-sm" : "px-8 py-3 text-base"
+                }`}
               >
-                <span>地球儀を見る</span>
+                <span>{compact ? "地図と地球儀で見る" : "地球儀を見る"}</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 <ExternalLink className="h-3 w-3 opacity-50 ml-1" />
               </Link>
@@ -99,7 +112,7 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
           </div>
 
           {/* Graphic/Visual */}
-          <div className="relative flex items-center justify-center min-h-[250px] md:min-h-[300px]">
+          <div className={`relative flex items-center justify-center ${compact ? "min-h-[200px] md:min-h-[240px]" : "min-h-[250px] md:min-h-[300px]"}`}>
             {/* Spinning Globe Representation */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -112,7 +125,7 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
               <div className="absolute inset-0 bg-amber-500/30 blur-3xl rounded-full" />
 
               {/* Globe Icon Wrapper */}
-              <div className="relative h-48 w-48 md:h-64 md:w-64">
+              <div className={`relative ${compact ? "h-40 w-40 md:h-48 md:w-48" : "h-48 w-48 md:h-64 md:w-64"}`}>
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{
@@ -158,7 +171,7 @@ const GlobePromo = ({ className, queryParams }: GlobePromoProps) => {
                     }}
                   >
                     <Globe
-                      className="h-24 w-24 md:h-32 md:w-32 text-amber-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                      className={`text-amber-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] ${compact ? "h-20 w-20 md:h-24 md:w-24" : "h-24 w-24 md:h-32 md:w-32"}`}
                       strokeWidth={1}
                     />
                   </motion.div>

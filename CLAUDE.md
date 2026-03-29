@@ -10,6 +10,7 @@ A Japanese travel diary blog ("ともきちの旅行日記") built with Next.js 
 
 ```bash
 pnpm dev           # Start dev server (webpack mode)
+pnpm prebuild      # Generate image/post caches manually
 pnpm build         # Full build (generates caches, builds Next.js, generates sitemap)
 pnpm lint          # Run ESLint
 pnpm start         # Start production server
@@ -80,7 +81,7 @@ All AI agents MUST adhere to the following rules for blog post creation, editing
 ### Rule Source
 - **Primary Rules:** `draft-posts/rules/*.md`
 - Agents MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
-- Specifically, follow `draft-posts/rules/EDITORIAL_RULES.md` for formatting and content cleanup.
+- Specifically, use `draft-posts/rules/EDITORIAL_BASELINE.md` as the general editorial baseline, apply `draft-posts/rules/CONTENT_STRATEGY.md` for category intent, and apply `draft-posts/rules/TRAVEL_DIARY_RULES.md` whenever working on `series: travel-diary`.
 
 ### Core Principles
 - **Style Consistency:** Match the existing patterns in the `posts/` directory.
@@ -106,3 +107,9 @@ Core types defined in `src/types/types.ts`:
 ## Path Aliases
 
 - `@/` maps to `src/`
+
+## Documentation Maintenance
+
+- Shared development and operations docs live in `docs/`. Treat them as the source of truth for repository workflow and structure.
+- When implementation changes architecture, workflow, page responsibilities, or content operations, update the relevant files in `docs/` in the same change.
+- If the change affects AI behavior or collaboration rules, update `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` together in the same change.
