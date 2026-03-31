@@ -24,16 +24,6 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const FOOTER_CONTENTS_LIST: FooterContent[] = [
-  {
-    name: "AI旅行プランナー",
-    pass: AI_PLANNER_PATH,
-    isNew: true,
-  },
-  {
-    name: "Tomokichi Globe",
-    pass: MAP_PATH,
-    isNew: true,
-  },
   { name: "旅の軌跡", pass: "/journey" },
   { name: "地域別一覧", pass: "/destination" },
   { name: "シリーズ一覧", pass: "/series" },

@@ -103,6 +103,14 @@ const Client = ({ posts, photos }: ClientProps) => {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section className="mb-10 text-center text-muted-foreground space-y-4 max-w-3xl mx-auto">
+          <p>
+            これまでの旅先で撮影した風景や日常のワンシーンをまとめた写真ギャラリーです。アジアの熱気ある街並みからヨーロッパの歴史的な建築、自然が織りなす絶景まで、世界各地の様子を記録しています。
+          </p>
+          <p>
+            気になる写真を見つけたら、クリックして詳細をご覧ください。その写真が撮影された場所の旅行記や、現地のアクセス・観光情報などの関連記事へ直接アクセスすることができます。次の旅行先探しのインスピレーションとしてぜひご活用ください。
+          </p>
+        </section>
         <PhotoFilter
           filterList={filterList}
           activeFilter={activeFilter}

@@ -114,7 +114,7 @@ const Header = () => {
             ? "fixed py-6 border-transparent"
             : "sticky py-2 border-b border-border/40 shadow-sm bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
           isFocusActive &&
-            "max-h-0 py-0 opacity-0 -translate-y-6 pointer-events-none border-transparent shadow-none"
+            "max-h-0 py-0 opacity-0 -translate-y-6 pointer-events-none border-transparent shadow-none",
         )}
         style={{
           background: isHomePage ? headerBg : undefined,
@@ -182,38 +182,6 @@ const Header = () => {
 
           {/* Desktop Icons & Actions */}
           <div className="hidden md:flex items-center gap-3">
-            {/* AI Planner Button */}
-            <Link
-              href={AI_PLANNER_PATH}
-              className={cn(
-                "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
-                isTransparent
-                  ? "bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
-                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md",
-              )}
-            >
-              <Sparkles className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
-              <span>AI PLANNER</span>
-              <ExternalLink className="h-3 w-3 opacity-70 ml-0.5" />
-            </Link>
-
-            {/* Tomokichi Globe Button */}
-            <Link
-              href={MAP_PATH}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-1.5 text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95",
-                isTransparent
-                  ? "bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
-                  : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md",
-              )}
-            >
-              <Globe className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
-              <span>GLOBE</span>
-              <ExternalLink className="h-3 w-3 opacity-70 ml-0.5" />
-            </Link>
-
             {/* Utility Icons */}
             <div className="flex items-center gap-3 ml-2">
               <button
@@ -227,9 +195,16 @@ const Header = () => {
                 aria-label="Search"
               >
                 <SearchIcon className="h-4 w-4" />
-                <span className="text-xs font-bold tracking-wider uppercase hidden lg:inline-block">Search</span>
+                <span className="text-xs font-bold tracking-wider uppercase hidden lg:inline-block">
+                  Search
+                </span>
               </button>
-              <div className={cn("transition-opacity", isTransparent && "opacity-90")}>
+              <div
+                className={cn(
+                  "transition-opacity",
+                  isTransparent && "opacity-90",
+                )}
+              >
                 <ModeToggle />
               </div>
             </div>
@@ -249,8 +224,13 @@ const Header = () => {
             >
               <SearchIcon className="h-4 w-4" />
             </button>
-            <div className={cn("transition-opacity scale-90", isTransparent && !isMenuOpen && "opacity-90")}>
-                <ModeToggle />
+            <div
+              className={cn(
+                "transition-opacity scale-90",
+                isTransparent && !isMenuOpen && "opacity-90",
+              )}
+            >
+              <ModeToggle />
             </div>
             <button
               onClick={toggleMenu}
@@ -323,25 +303,12 @@ const Header = () => {
                 className="flex flex-col items-center gap-y-4 w-full max-w-sm mx-auto"
               >
                 <div className="w-full h-px bg-border/50" />
-                <Link
-                  href={AI_PLANNER_PATH}
-                  onClick={closeMenu}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-primary-foreground shadow-lg transition-all hover:scale-[1.02] hover:bg-primary/90"
-                >
-                  <Sparkles className="h-5 w-5" />
-                  AIプランナーを使う
-                </Link>
-                <Link
-                  href={MAP_PATH}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-primary-foreground shadow-lg transition-all hover:scale-[1.02] hover:bg-primary/90"
-                >
-                  <Globe className="h-5 w-5" />
-                  Tomokichi Globe
-                  <ExternalLink className="h-4 w-4 opacity-70 ml-1" />
-                </Link>
+                <div className="flex w-full items-center justify-between px-4">
+                  <span className="text-sm font-bold text-muted-foreground">
+                    Theme
+                  </span>
+                  <ModeToggle />
+                </div>
               </motion.div>
             </div>
           </motion.div>

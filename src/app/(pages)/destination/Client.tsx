@@ -36,6 +36,15 @@ const Client = ({ regionData }: AllDestinationProps) => {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+        <section className="text-center text-muted-foreground space-y-4 max-w-3xl mx-auto -mb-10">
+          <p>
+            当ブログでこれまでに訪れた国や地域別の旅行記・実用情報の一覧です。アジア、ヨーロッパ、中東など、実際に現地へ足を運んで得た体験談や、ビザ・交通機関などのアクセス情報を地域ごとにまとめています。
+          </p>
+          <p>
+            旅行の計画を立てる際や、特定の都市に関する具体的な情報をお探しの場合は、以下の地図または地域リストから目的の国を選択して記事をご覧ください。現地でのリアルな空気感や役立つ知識をお届けします。
+          </p>
+        </section>
+
         {/* ==================== インタラクティブな世界地図 ==================== */}
         <Destination />
 
