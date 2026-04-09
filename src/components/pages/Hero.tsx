@@ -38,9 +38,9 @@ const Hero = () => {
             <p className="mb-4 font-code text-sm tracking-[0.3em] text-amber-200/80 uppercase">Destinations</p>
             <LoadingAnimation
               variant="splitFlap"
-              className="flex items-center justify-center md:justify-start"
+              className="flex items-center justify-center md:justify-start text-amber-400 font-code tracking-[0.3em] text-sm uppercase"
               words={shuffleArray(allRegions.map((region) => region.slug.toUpperCase()))}
-              flapBG="bg-stone-800/80 backdrop-blur-sm border border-stone-600/50"
+              flapBG="bg-transparent"
             />
           </div>
         </div>

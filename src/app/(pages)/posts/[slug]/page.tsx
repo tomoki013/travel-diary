@@ -5,6 +5,7 @@ import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 import ArticleContent from "@/components/features/article/Article";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { PRIMARY_SITE_URL } from "@/constants/site";
 
 export const dynamicParams = false;
 
@@ -27,6 +28,9 @@ export async function generateMetadata(props: {
     return {
       title: post.title,
       description: post.excerpt,
+      alternates: {
+        canonical: `/posts/${post.slug}`,
+      },
       authors: post.author ? [{ name: post.author }] : [],
       openGraph: {
         title: post.title,
@@ -76,27 +80,79 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       nextActionPosts,
     } = await getPostData(slug);
 
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      image: post.image ? [post.image] : [],
+      datePublished: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
+      dateModified: post.dates?.[post.dates.length - 1] ? new Date(post.dates[post.dates.length - 1]).toISOString() : undefined,
+      author: [
+        {
+          "@type": "Person",
+          name: post.author || "ともきち",
+          url: PRIMARY_SITE_URL,
+        },
+      ],
+      description: post.excerpt,
+    };
+
+    const breadcrumbJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: PRIMARY_SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Posts",
+          item: `${PRIMARY_SITE_URL}/posts`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+          item: `${PRIMARY_SITE_URL}/posts/${post.slug}`,
+        },
+      ],
+    };
+
     return (
-      <Client
-        post={post}
-        previousPost={previousPost}
-        nextPost={nextPost}
-        regionRelatedPosts={regionRelatedPosts}
-        previousCategoryPost={previousCategoryPost}
-        nextCategoryPost={nextCategoryPost}
-        previousSeriesPost={previousSeriesPost}
-        nextSeriesPost={nextSeriesPost}
-        nextActionPosts={nextActionPosts}
-      >
-        <ArticleContent
-          content={post.content}
-          currentPostCategory={post.category}
-          allPosts={allPosts}
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="flex justify-center py-10">
-          <InstallPWAButton />
-        </div>
-      </Client>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <Client
+          post={post}
+          previousPost={previousPost}
+          nextPost={nextPost}
+          regionRelatedPosts={regionRelatedPosts}
+          previousCategoryPost={previousCategoryPost}
+          nextCategoryPost={nextCategoryPost}
+          previousSeriesPost={previousSeriesPost}
+          nextSeriesPost={nextSeriesPost}
+          nextActionPosts={nextActionPosts}
+        >
+          <ArticleContent
+            content={post.content}
+            currentPostCategory={post.category}
+            allPosts={allPosts}
+          />
+          <div className="flex justify-center py-10">
+            <InstallPWAButton />
+          </div>
+        </Client>
+      </>
     );
   } catch (e) {
     // エラーの内容をサーバーコンソールに出力する

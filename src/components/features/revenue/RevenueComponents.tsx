@@ -5,10 +5,14 @@ import { ArrowRight, CheckCircle2, ExternalLink, MapPin } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { CtaItem } from "@/constants/revenue";
 import { Post } from "@/types/types";
+import { ENABLE_AFFILIATES } from "@/constants/site";
 
 type PostMetadata = Omit<Post, "content">;
 
-export const OfferCard = ({ item }: { item: CtaItem }) => (
+export const OfferCard = ({ item }: { item: CtaItem }) => {
+  if (!ENABLE_AFFILIATES) return null;
+
+  return (
   <article className="group rounded-2xl border border-teal-200/70 bg-white/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-teal-900 dark:bg-slate-950/70">
     <div className="flex items-center justify-between gap-3">
       <p className="text-xs font-semibold tracking-wide text-teal-700 uppercase dark:text-teal-300">
@@ -52,16 +56,24 @@ export const OfferCard = ({ item }: { item: CtaItem }) => (
     </Link>
   </article>
 );
+};
 
-export const ReviewCardGroup = ({ items }: { items: CtaItem[] }) => (
+export const ReviewCardGroup = ({ items }: { items: CtaItem[] }) => {
+  if (!ENABLE_AFFILIATES) return null;
+
+  return (
   <div className="grid gap-4 md:grid-cols-2">
     {items.map((item) => (
       <OfferCard key={item.title} item={item} />
     ))}
   </div>
 );
+};
 
-export const ComparisonTable = ({ items }: { items: CtaItem[] }) => (
+export const ComparisonTable = ({ items }: { items: CtaItem[] }) => {
+  if (!ENABLE_AFFILIATES) return null;
+
+  return (
   <div className="grid gap-3 md:grid-cols-2">
     {items.map((item) => (
       <article key={item.title} className="rounded-2xl border bg-card p-4">
@@ -102,6 +114,7 @@ export const ComparisonTable = ({ items }: { items: CtaItem[] }) => (
     ))}
   </div>
 );
+};
 
 export const NextStepLinks = ({ posts }: { posts: PostMetadata[] }) => (
   posts.length === 0 ? null : (

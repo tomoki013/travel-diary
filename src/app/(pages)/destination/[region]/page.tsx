@@ -3,6 +3,7 @@ import Client from "./Client";
 import { notFound } from "next/navigation";
 import { regionData } from "@/data/region";
 import { getAllPosts } from "@/lib/post-metadata";
+import { Metadata } from "next";
 
 export const dynamicParams = false;
 
@@ -12,6 +13,22 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({
     region: slug,
   }));
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
+  const regionSlug = params.region;
+  const currentRegion = getRegionBySlug(regionSlug);
+
+  return {
+    title: currentRegion ? `${currentRegion.name}の旅行記` : "地域別一覧",
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
 }
 
 // 2. Pageコンポーネント

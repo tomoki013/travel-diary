@@ -112,17 +112,6 @@ export default function RootLayout({
           data-gyg-partner-id="GTNOM0E"
         ></Script>
 
-        {/* Google Adsense */}
-        <meta name="google-adsense-account" content="ca-pub-8687520805381056" />
-
-        {/* Google Adsense 自動広告 */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687520805381056"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        ></Script>
-
         {/* Google tag (gtag.js) */}
         <Script
           async

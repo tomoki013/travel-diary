@@ -26,6 +26,10 @@ export const metadata: Metadata = {
       "ともきちの旅行日記の写真ギャラリーでは、気になる景色から地域の記事や旅行記へ入れます。世界各地の写真を眺めながら、次に読みたい旅先を見つけられるページです。",
     images: ["/images/Spain/toledo-view.jpg"],
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const GalleryPage = async () => {
