@@ -2,6 +2,7 @@ import { featuredSeries } from "@/data/series";
 import { getAllPosts } from "@/lib/post-metadata";
 import Client from "./Client";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export const dynamicParams = false;
 
@@ -9,6 +10,22 @@ export function generateStaticParams() {
   return featuredSeries.map((series) => ({
     slug: series.slug,
   }));
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
+  const slug = params.slug;
+  const series = featuredSeries.find((s) => s.slug === slug);
+
+  return {
+    title: series ? `Series: ${series.title}` : "Series",
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
 }
 
 const eachSeries = async (props: {

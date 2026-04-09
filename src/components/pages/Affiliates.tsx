@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { sectionVariants, staggerContainer } from "../common/animation";
 import { affiliates } from "@/constants/affiliates";
 import AffiliateCard from "../common/AffiliateCard";
+import { ENABLE_AFFILIATES } from "@/constants/site";
 
 const Affiliates = () => {
+  if (!ENABLE_AFFILIATES) return null;
+
   const appsToShow = affiliates.filter((aff) => aff.status === "ready");
 
   return (

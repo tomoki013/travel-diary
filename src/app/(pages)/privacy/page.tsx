@@ -100,7 +100,19 @@ const PrivacyPage = () => {
           <Separator className="my-8" />
 
           <h2 className="text-2xl font-bold">
-            6. アフィリエイトプログラムについて
+            6. 広告の配信について
+          </h2>
+          <p>
+            当サイトは、第三者配信の広告サービス（Google AdSense等）を利用しています。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」（氏名、住所、メール アドレス、電話番号は含まれません）を使用することがあります。
+          </p>
+          <p>
+            また、Google AdSenseに関して、このプロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、<a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-secondary">Googleポリシーと規約</a>をご覧ください。
+          </p>
+
+          <Separator className="my-8" />
+
+          <h2 className="text-2xl font-bold">
+            7. アフィリエイトプログラムについて
           </h2>
           <p>当サイトは、アフィリエイトプログラム参加者です。</p>
           <p>
@@ -119,7 +131,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">7. 免責事項</h2>
+          <h2 className="text-2xl font-bold">8. 免責事項</h2>
           <p>
             当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。当サイトからリンクやバナーなどによって他のサイトに移動した場合、移動先サイトで提供される情報、サービス等についても一切の責任を負いません。
           </p>
@@ -129,7 +141,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">8. お問い合わせ</h2>
+          <h2 className="text-2xl font-bold">9. お問い合わせ</h2>
           <p>
             本プライバシーポリシーに関するお問い合わせは、
             <Link
@@ -143,7 +155,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">9. プライバシーポリシーの変更</h2>
+          <h2 className="text-2xl font-bold">10. プライバシーポリシーの変更</h2>
           <p>
             当サイトは、法令の変更やサービスの改善に伴い、本プライバシーポリシーを事前の予告なく変更することがあります。変更後のプライバシーポリシーは、当サイトに掲載したときから効力を生じるものとします。
           </p>

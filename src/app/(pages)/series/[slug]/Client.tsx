@@ -15,7 +15,7 @@ interface SeriesPageProps {
   series: Series;
 }
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 6;
 
 const Client = ({ allPosts, series }: SeriesPageProps) => {
   // URLパラメータからページ番号を取得
@@ -87,16 +87,28 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
         pageMessage={series.description}
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        {/* ==================== Series Description ==================== */}
+        <div className="mb-12 text-center text-muted-foreground space-y-4 max-w-3xl mx-auto">
+          <p className="text-lg text-foreground font-medium">
+            {series.description}
+          </p>
+          <p className="text-sm md:text-base leading-relaxed">
+            このシリーズでは、特定のテーマに沿って「ともきちの旅行日記」の記事をピックアップしています。
+            一つの視点から旅を深掘りすることで、新しい発見やインスピレーションが見つかるかもしれません。
+          </p>
+          <div className="w-20 h-0.5 bg-primary/30 mx-auto mt-6" />
+        </div>
+
         {/* ==================== Article List ==================== */}
         <motion.section
           key={currentPage}
           variants={staggerContainer()}
-          className="space-y-16"
+          className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
         >
-          {paginatedPosts.map((post, index) => {
+          {paginatedPosts.map((post) => {
             const motionProps =
-              index === 0
+              currentPage === 1
                 ? {
                     initial: { opacity: 0, y: 30 },
                     animate: { opacity: 1, y: 0 },
@@ -116,8 +128,8 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
               >
                 <PostCard
                   post={post}
-                  isReversed={index % 2 !== 0}
-                  showMetadata={true}
+                  showDiscoveryNote={true}
+                  size="compact"
                 />
               </motion.div>
             );
