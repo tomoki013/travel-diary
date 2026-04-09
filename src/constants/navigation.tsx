@@ -1,5 +1,5 @@
 import { FaGithub, FaPenSquare, FaTiktok, FaYoutube } from "react-icons/fa";
-import { AI_PLANNER_PATH, MAP_PATH, SITE_STATUS_PATH } from "./site";
+import { AI_PLANNER_PATH, MAP_PATH } from "./site";
 
 export interface NavLink {
   href: string;
@@ -25,6 +25,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const FOOTER_CONTENTS_LIST: FooterContent[] = [
   { name: "旅の軌跡", pass: "/journey" },
+  { name: "Tomokichi Globe", pass: MAP_PATH },
   { name: "地域別一覧", pass: "/destination" },
   { name: "シリーズ一覧", pass: "/series" },
   { name: "ブログ一覧", pass: "/posts" },
@@ -34,10 +35,6 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
   { name: "更新情報・ロードマップ", pass: "/roadmap" },
-  {
-    name: "サイトステータス",
-    pass: SITE_STATUS_PATH,
-  },
   { name: "サイトマップ", pass: "/sitemap" },
 ];
 

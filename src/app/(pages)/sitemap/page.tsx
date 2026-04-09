@@ -7,7 +7,7 @@ import HeroSection from "@/components/pages/HeroSection";
 import { featuredSeries } from "@/data/series";
 import { regionData } from "@/data/region";
 import AllDestination from "@/components/features/destination/allDestination";
-import { AI_PLANNER_PATH, MAP_PATH, SITE_STATUS_PATH } from "@/constants/site";
+import { MAP_PATH } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "サイトマップ",
@@ -54,7 +54,6 @@ const mainList = [
   { pass: "/destination", name: "地域別" },
   { pass: "/gallery", name: "写真ギャラリー" },
   { pass: "/social", name: "SNSページ" },
-  { pass: AI_PLANNER_PATH, name: "AI旅行プランナー" },
   { pass: "/faq", name: "FAQ" },
   { pass: "/request", name: "記事テーマ募集ページ" },
   { pass: "/contact", name: "お問い合わせページ" },
@@ -65,7 +64,6 @@ const mainList = [
   { pass: "/journey", name: "旅の軌跡" },
   { pass: "/roadmap", name: "ロードマップ" },
   { pass: MAP_PATH, name: "Tomokichi Globe" },
-  { pass: SITE_STATUS_PATH, name: "サイトステータス" },
 ];
 
 // --- Page Component ---
