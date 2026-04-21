@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { featuredSeries } from "@/data/series";
+import { ChevronLeft, ChevronRight, ListOrdered } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PostLink {
   href: string;
@@ -19,39 +21,35 @@ interface PostNavigationProps {
   category?: string;
 }
 
-const NavigationLinks = ({
-  previousPost,
-  nextPost,
+const NavigationCard = ({
+  post,
+  direction,
+  label,
+  className,
 }: {
-  previousPost?: PostLink;
-  nextPost?: PostLink;
+  post: PostLink;
+  direction: "prev" | "next";
+  label: string;
+  className?: string;
 }) => {
-  // Per user request: Previous on the left, Next on the right.
+  const isNext = direction === "next";
   return (
-    <div className="flex justify-between border-y border-gray-200 py-6">
-      {previousPost ? (
-        <Link
-          href={previousPost.href}
-          className="text-foreground hover:text-secondary max-w-[45%]"
-        >
-          <span className="text-sm">« 前の記事へ</span>
-          <p className="font-semibold truncate">{previousPost.title}</p>
-        </Link>
-      ) : (
-        <div />
+    <Link
+      href={post.href}
+      className={cn(
+        "group relative flex flex-1 flex-col justify-center gap-2 overflow-hidden rounded-2xl border border-stone-200 bg-white p-6 transition-all hover:border-amber-500 hover:shadow-lg dark:border-stone-800 dark:bg-stone-900/40 dark:hover:border-amber-500",
+        isNext ? "text-right items-end" : "text-left items-start",
+        className
       )}
-      {nextPost ? (
-        <Link
-          href={nextPost.href}
-          className="text-foreground hover:text-secondary max-w-[45%] text-right"
-        >
-          <span className="text-sm">次の記事へ »</span>
-          <p className="font-semibold truncate">{nextPost.title}</p>
-        </Link>
-      ) : (
-        <div />
-      )}
-    </div>
+    >
+      <div className={cn("flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-stone-400 transition-colors group-hover:text-amber-600", isNext && "flex-row-reverse")}>
+        {isNext ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
+        <span>{label}</span>
+      </div>
+      <p className="line-clamp-2 text-sm font-bold leading-relaxed text-stone-800 transition-colors group-hover:text-stone-900 dark:text-stone-200 dark:group-hover:text-white md:text-base">
+        {post.title}
+      </p>
+    </Link>
   );
 };
 
@@ -62,28 +60,50 @@ const PostNavigation = ({
   nextSeriesPost,
   series,
 }: PostNavigationProps) => {
-  const showSeriesNav = previousSeriesPost || nextSeriesPost;
-
   const seriesTitle = featuredSeries.find((s) => s.slug === series)?.title;
 
   return (
-    <div className="mb-10 space-y-12">
-      {showSeriesNav && (
-        <div>
-          <h3 className="text-center font-semibold mb-4">
-            ▼ シリーズ「{seriesTitle}」の続きを読む ▼
-          </h3>
-          <NavigationLinks
-            previousPost={previousSeriesPost}
-            nextPost={nextSeriesPost}
-          />
+    <div className="space-y-6">
+      {/* Series Navigation (Prioritized if exists) */}
+      {(previousSeriesPost || nextSeriesPost) && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 px-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-500">
+              <ListOrdered className="h-4 w-4" />
+            </div>
+            <h3 className="text-sm font-bold tracking-tight text-stone-500 dark:text-stone-400">
+              シリーズ「<span className="text-stone-900 dark:text-stone-200">{seriesTitle}</span>」の続き
+            </h3>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {previousSeriesPost ? (
+              <NavigationCard post={previousSeriesPost} direction="prev" label="Previous Part" />
+            ) : <div className="hidden sm:block" />}
+            {nextSeriesPost && (
+              <NavigationCard post={nextSeriesPost} direction="next" label="Next Part" className="border-amber-200 bg-amber-50/30 dark:border-amber-900/30 dark:bg-amber-900/10" />
+            )}
+          </div>
         </div>
       )}
 
-      <div>
-        <h3 className="text-center font-semibold mb-4">▼ 前後の記事を読む ▼</h3>
-        <NavigationLinks previousPost={previousPost} nextPost={nextPost} />
-      </div>
+      {/* General Navigation */}
+      {(previousPost || nextPost) && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 px-2">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400">
+              Related Reads
+            </h3>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {previousPost ? (
+              <NavigationCard post={previousPost} direction="prev" label="Prev Post" />
+            ) : <div className="hidden sm:block" />}
+            {nextPost ? (
+              <NavigationCard post={nextPost} direction="next" label="Next Post" />
+            ) : <div className="hidden sm:block" />}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

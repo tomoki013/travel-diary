@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Series } from "@/types/types";
 import { ArrowRight } from "lucide-react";
 
@@ -14,17 +14,11 @@ const SeriesCard = ({ series }: SeriesCardProps) => {
     <Link href={`/series/${series.slug}`} className="block group">
       <div className="relative overflow-hidden rounded-2xl aspect-square mb-6 shadow-sm">
         <div className="w-full h-full relative">
-          {/* Using a standard img tag as requested in the prompt for simplicity, 
-              but keeping next/image optimization if possible. 
-              The prompt used img, but next/image is better. 
-              However, the prompt specifically asked to "change to this style".
-              I'll use next/image but style it to match.
-           */}
-          {/* Actually, let's stick to the prompt's structure as much as possible but use next/image for best practice */}
           <div className="w-full h-full relative">
-            <img
+            <Image
               src={series.imageUrl}
               alt={series.title}
+              fill
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
           </div>

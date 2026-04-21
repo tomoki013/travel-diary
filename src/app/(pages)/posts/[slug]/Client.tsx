@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { slideFadeIn } from "@/components/common/animation";
 import { members } from "@/data/member";
 import { Post } from "@/types/types";
@@ -15,16 +15,10 @@ import ShareButtons from "@/components/features/article/ShareButtons";
 import AffiliateCard from "@/components/common/AffiliateCard";
 import { affiliates } from "@/constants/affiliates";
 import AffiliateSection from "@/components/features/affiliates/AffiliateSection";
-import React from "react";
 import ArticleCTASection from "@/components/features/revenue/ArticleCTASection";
 import CostBreakdown from "@/components/features/article/CostBreakdown";
 import GlobePromo from "@/components/features/promo/GlobePromo";
-import { cn } from "@/lib/utils";
-import FocusModeToggle from "@/components/features/article/focus-mode/FocusModeToggle";
-import {
-  FocusMode,
-  useFocusMode,
-} from "@/components/features/article/focus-mode/FocusModeContext";
+import { AlertCircle, Calendar, CheckCircle, Info, ArrowRight, ChevronRight } from "lucide-react";
 
 interface ClientProps {
   children: React.ReactNode;
@@ -39,70 +33,12 @@ interface ClientProps {
   nextActionPosts?: Omit<Post, "content">[];
 }
 
-const ITINERARY_SLUG_MAP: Record<string, string> = {
-  "europe-itinerary": "europe-trip-2025",
-  "thai-itinerary": "bangkok-trip-2024",
-};
-
-const TRIP_ID_MAP: Record<string, string> = {
-  "europe-trip": "europe-trip-2025",
-  "bangkok-trip": "bangkok-trip-2024",
-};
-
 const FOCUS_SECTION_TRANSITION = {
   type: "spring",
   stiffness: 210,
   damping: 32,
   mass: 1,
 } as const;
-
-type FocusSectionProps = {
-  show: boolean;
-  children: React.ReactNode;
-  className?: string;
-};
-
-const FocusSection = ({ show, children, className }: FocusSectionProps) => (
-  <AnimatePresence initial={false}>
-    {show ? (
-      <motion.div
-        layout
-        initial={{ opacity: 0, height: 0, y: 12 }}
-        animate={{ opacity: 1, height: "auto", y: 0 }}
-        exit={{ opacity: 0, height: 0, y: 12 }}
-        transition={FOCUS_SECTION_TRANSITION}
-        className={cn("overflow-hidden", className)}
-      >
-        {children}
-      </motion.div>
-    ) : null}
-  </AnimatePresence>
-);
-
-const isArticleContentElement = (
-  node: React.ReactNode,
-): node is React.ReactElement<{
-  focusMode?: FocusMode;
-  content: string;
-  allPosts: unknown;
-  currentPostCategory: unknown;
-}> => {
-  if (!React.isValidElement(node)) {
-    return false;
-  }
-
-  const props = node.props as {
-    content?: unknown;
-    allPosts?: unknown;
-    currentPostCategory?: unknown;
-  };
-
-  return (
-    props.content !== undefined &&
-    props.allPosts !== undefined &&
-    props.currentPostCategory !== undefined
-  );
-};
 
 const Client = ({
   children,
@@ -117,143 +53,40 @@ const Client = ({
   nextActionPosts = [],
 }: ClientProps) => {
   const author = members.find((m) => m.name === post.author);
-  const { focusMode, isFocusActive } = useFocusMode();
-  const isMinimalOrHigher = focusMode !== "off";
-  const isStandardOrHigher =
-    focusMode === "standard" || focusMode === "maximum";
-  const isMaximum = focusMode === "maximum";
 
-  let queryParams:
-    | { trip?: string; country?: string; region?: string }
-    | undefined = undefined;
-
-  if (post.category === "itinerary") {
-    if (ITINERARY_SLUG_MAP[post.slug]) {
-      queryParams = { trip: ITINERARY_SLUG_MAP[post.slug] };
-    } else if (post.series && TRIP_ID_MAP[post.series]) {
-      queryParams = { trip: TRIP_ID_MAP[post.series] };
-    }
-  } else if (post.location && post.location.length > 0) {
-    for (const loc of post.location) {
-      const normalizedLoc = loc.toLowerCase().trim();
-      const LOCATION_MAP: Record<
-        string,
-        { country?: string; region?: string }
-      > = {
-        paris: { region: "paris" },
-        france: { country: "france" },
-        bangkok: { region: "bangkok" },
-        thai: { country: "thailand" },
-        thailand: { country: "thailand" },
-        spain: { country: "spain" },
-        barcelona: { region: "barcelona" },
-        madrid: { region: "madrid" },
-        toledo: { region: "toledo" },
-        italy: { country: "italy" },
-        roma: { region: "rome" },
-        rome: { region: "rome" },
-        greece: { country: "greece" },
-        athens: { region: "athens" },
-        santorini: { region: "santorini" },
-        japan: { country: "japan" },
-        hokkaido: { region: "hokkaido" },
-        kyoto: { region: "kyoto" },
-        tokyo: { region: "tokyo" },
-        vietnam: { country: "vietnam" },
-        india: { country: "india" },
-        delhi: { region: "new-delhi" },
-        seoul: { region: "seoul" },
-        soul: { region: "seoul" },
-        "south-korea": { country: "south-korea" },
-        varanasi: { region: "varanasi" },
-        europe: { region: "europe" },
-      };
-
-      if (LOCATION_MAP[normalizedLoc]) {
-        queryParams = LOCATION_MAP[normalizedLoc];
-        break;
-      }
-    }
-  }
-
-  const childrenWithFocusMode = React.Children.map(children, (child) => {
-    if (isArticleContentElement(child)) {
-      return React.cloneElement(child, { focusMode });
-    }
-    return child;
-  });
+  // Use location data for map query params if available
+  const queryParams = post.location && post.location.length > 0
+    ? { region: post.location[0] }
+    : undefined;
 
   return (
     <div className="relative">
-      <FocusModeToggle />
-
-      <AnimatePresence initial={false}>
-        {isFocusActive && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-none fixed inset-0 z-30 bg-black/12"
-          />
-        )}
-      </AnimatePresence>
-
       <motion.div
-        layout
         transition={FOCUS_SECTION_TRANSITION}
-        className={cn(
-          "relative z-40 mx-auto w-full px-4 py-16 transition-[max-width] duration-700 sm:px-6 lg:px-8",
-          isFocusActive ? "max-w-[1180px]" : "max-w-4xl"
-        )}
+        className="relative z-40 mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8"
       >
-        <motion.div layout transition={FOCUS_SECTION_TRANSITION}>
-          <PostHeader post={post} variant={isMaximum ? "titleOnly" : "full"} />
-        </motion.div>
+        <PostHeader post={post} variant="full" />
 
         {post.costs && (
-          <FocusSection show={!isMaximum}>
-            <CostBreakdown costs={post.costs} />
-          </FocusSection>
+          <CostBreakdown costs={post.costs} />
         )}
 
-        <FocusSection show={!isMinimalOrHigher}>
-          <div className="my-12">
-            <TableOfContent />
+        <div className="my-12">
+          <TableOfContent />
+        </div>
+
+        <div className="mt-12 w-full">
+          <article className="max-w-none">{children}</article>
+          <div className="mt-16">
+            <ArticleCTASection
+              currentPost={post}
+              nextActionPosts={nextActionPosts}
+            />
           </div>
-        </FocusSection>
-
-        <motion.div
-          layout
-          transition={FOCUS_SECTION_TRANSITION}
-          className="mt-12 w-full"
-        >
-          <article className="max-w-none">{childrenWithFocusMode}</article>
-          <FocusSection show={!isStandardOrHigher}>
-            <div className="mt-16">
-              <ArticleCTASection
-                currentPost={post}
-                nextActionPosts={nextActionPosts}
-              />
-            </div>
-          </FocusSection>
-        </motion.div>
-
-        <div className="mt-12 text-right">
-          <p className="text-xs text-stone-400 dark:text-stone-500">
-            記事制作では一部に AI を補助的に活用する場合があります。執筆方針や情報確認の考え方については
-            <Link
-              href="/editorial-policy"
-              className="underline hover:text-stone-600 dark:hover:text-stone-300 ml-1 transition-colors"
-            >
-              執筆・編集ポリシー
-            </Link>
-            をご確認ください。
-          </p>
         </div>
 
         {post.isPromotion && post.promotionPG && (
-          <FocusSection show={!isStandardOrHigher} className="my-16">
+          <div className="my-16">
             <h2 className="mb-8 text-center font-heading text-2xl font-bold tracking-wide text-stone-800 dark:text-stone-200">
               この記事で紹介したサービス
             </h2>
@@ -272,119 +105,168 @@ const Client = ({
                   />
                 ))}
             </div>
-          </FocusSection>
+          </div>
         )}
 
         <motion.footer
-          className="mt-20"
+          className="mt-24 space-y-24"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.05 }}
           variants={slideFadeIn()}
         >
-          <FocusSection show={!isStandardOrHigher}>
-            <div className="mb-16">
-              <ShareButtons post={post} />
-            </div>
-          </FocusSection>
-
-          <div className="grid gap-16 md:gap-20">
-            <FocusSection
-              show={!isStandardOrHigher}
-              className="order-2 md:order-1"
-            >
-              <PostNavigation
-                previousPost={previousPost}
-                nextPost={nextPost}
-                previousCategoryPost={previousCategoryPost}
-                nextCategoryPost={nextCategoryPost}
-                previousSeriesPost={previousSeriesPost}
-                nextSeriesPost={nextSeriesPost}
-                series={post.series}
-                category={post.category}
-              />
-            </FocusSection>
-
-            <FocusSection
-              show={!isStandardOrHigher}
-              className="order-1 space-y-12 md:order-2"
-            >
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 rounded-2xl bg-stone-50 dark:bg-stone-900/40 p-8 border border-stone-200 dark:border-stone-800 shadow-sm transition-all hover:shadow-md">
-                <div className="shrink-0">
-                  <Image
-                    src={author?.image || "/favicon.ico"}
-                    alt={author?.name || "ともきちの旅行日記"}
-                    width={96}
-                    height={96}
-                    className="rounded-full ring-4 ring-white dark:ring-stone-800 shadow-sm"
-                  />
-                </div>
-                <div className="text-center sm:text-left flex-1">
-                  <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">
-                    {author?.name || "ともきちの旅行日記"}
-                  </h3>
-                  {author?.description && (
-                    <p className="mb-4 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-                      {author.description}
-                    </p>
-                  )}
-                  <Link
-                    href="/about"
-                    className="inline-flex items-center text-sm font-bold text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition-colors group"
-                  >
-                    プロフィール詳細を見る
-                    <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                  </Link>
-                </div>
+          {/* Section 1: Next Journeys - Single Column Focused Flow */}
+          <div className="relative">
+            <div className="absolute inset-0 -mx-4 rounded-[3rem] bg-stone-50/50 dark:bg-stone-900/20 sm:-mx-8 lg:-mx-12" />
+            <div className="relative space-y-20 px-4 py-16 sm:px-8 lg:px-12">
+              <div className="space-y-3 text-center">
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-amber-600 dark:text-amber-500">Next Step</span>
+                <h2 className="font-heading text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
+                  旅の続きへ
+                </h2>
               </div>
 
-              <div className="space-y-12">
-                {regionRelatedPosts && (
-                  <RelatedPosts posts={regionRelatedPosts} />
-                )}
-                <GlobePromo
-                  compact
-                  className="px-0"
-                  queryParams={queryParams}
+              {/* 1. Primary Navigation (Next/Prev/Series) */}
+              <div className="mx-auto max-w-3xl">
+                <PostNavigation
+                  previousPost={previousPost}
+                  nextPost={nextPost}
+                  previousCategoryPost={previousCategoryPost}
+                  nextCategoryPost={nextCategoryPost}
+                  previousSeriesPost={previousSeriesPost}
+                  nextSeriesPost={nextSeriesPost}
+                  series={post.series}
+                  category={post.category}
                 />
               </div>
-            </FocusSection>
 
-            <div className="order-3 text-center md:order-3 pt-4">
-              <Button href={`/posts`} className="bg-stone-800 text-stone-50 border-stone-800 hover:text-stone-800 hover:bg-transparent dark:bg-stone-200 dark:text-stone-900 dark:border-stone-200 dark:hover:text-stone-200 dark:hover:bg-transparent">
-                ブログ一覧へ戻る
-              </Button>
+              {/* 2. Related Discovery (Visual Cards) */}
+              {regionRelatedPosts && (
+                <div className="space-y-10">
+                  <div className="flex items-center gap-4">
+                    <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400">
+                      More to Explore
+                    </h3>
+                    <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+                  </div>
+                  <RelatedPosts posts={regionRelatedPosts} />
+                </div>
+              )}
+
+              <div className="flex justify-center pt-8">
+                <Button
+                  href="/posts"
+                  className="group h-12 rounded-full bg-white px-8 text-sm font-bold text-stone-900 shadow-sm ring-1 ring-stone-200 transition-all hover:bg-stone-50 hover:shadow-md dark:bg-stone-950 dark:text-stone-200 dark:ring-stone-800"
+                >
+                  すべての旅の記録を見る
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2: Globe Utility */}
+          <div className="overflow-hidden rounded-[2.5rem]">
+            <GlobePromo
+              compact
+              className="px-0 py-0"
+              queryParams={queryParams}
+            />
+          </div>
+
+          {/* Section 3: Travel Essentials - Compacted */}
+          <div className="space-y-10">
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+              <h2 className="font-heading text-xl font-bold tracking-tight text-stone-400">
+                Travel Essentials
+              </h2>
+              <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+            </div>
+            
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { title: "航空券", cat: "flight" as const },
+                { title: "ホテル", cat: "hotel" as const },
+                { title: "ツアー", cat: "activity" as const },
+                { title: "通信・eSIM", cat: "esim" as const },
+              ].map((item) => (
+                <div key={item.cat} className="group relative overflow-hidden rounded-2xl border border-stone-100 bg-white p-6 transition-all hover:border-amber-200 hover:shadow-md dark:border-stone-800 dark:bg-stone-950/40">
+                  <h3 className="mb-2 text-sm font-bold">{item.title}</h3>
+                  <p className="mb-4 text-xs text-stone-500">おすすめの予約サービス</p>
+                  <Link
+                    href={`/affiliates?category=${item.cat}`}
+                    className="inline-flex items-center text-xs font-bold text-amber-600 transition-colors group-hover:text-amber-700"
+                  >
+                    詳細を見る
+                    <ChevronRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 4: Post Script - Author, Share, and Meta Info */}
+          <div className="rounded-[3rem] border border-stone-200 bg-stone-50/30 px-6 py-12 dark:border-stone-800 dark:bg-[#0c0c0c]/50 sm:px-12">
+            <div className="grid gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-7">
+                <div className="flex flex-col gap-8 md:flex-row md:items-start">
+                  <Image
+                    src={author?.image || "/favicon.ico"}
+                    alt={author?.name || "ともきち"}
+                    width={80}
+                    height={80}
+                    className="rounded-full grayscale transition-all hover:grayscale-0"
+                  />
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Written by</span>
+                      <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100">{author?.name}</h3>
+                    </div>
+                    <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+                      {author?.description}
+                    </p>
+                    <div className="flex flex-wrap gap-6 pt-2">
+                      <div className="flex items-center gap-2 text-xs text-stone-400">
+                        <Calendar className="h-3.5 w-3.5" />
+                        Visited: <span className="font-bold text-stone-600 dark:text-stone-300">{post.dates[0]}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-stone-400">
+                        <CheckCircle className="h-3.5 w-3.5 text-teal-600" />
+                        Verified: <span className="font-bold text-stone-600 dark:text-stone-300">記事公開時</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="lg:col-span-5">
+                <div className="space-y-6 rounded-2xl bg-white/50 p-6 dark:bg-stone-900/40">
+                  <h4 className="text-center text-xs font-bold uppercase tracking-widest text-stone-400">Share this journey</h4>
+                  <ShareButtons post={post} />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 grid gap-6 border-t border-stone-200 pt-12 dark:border-stone-800 md:grid-cols-2">
+              <div className="flex gap-4">
+                <AlertCircle className="h-5 w-5 shrink-0 text-amber-600/50" />
+                <p className="text-[11px] leading-relaxed text-stone-400">
+                  当ブログは実体験に基づいて執筆していますが、価格や営業時間などの情報は変動する可能性があります。旅行の際は最新の公式情報も併せてご確認ください。
+                </p>
+              </div>
+              <div className="flex gap-4">
+                <Info className="h-5 w-5 shrink-0 text-stone-400/50" />
+                <p className="text-[11px] leading-relaxed text-stone-400">
+                  記事制作では一部に AI を補助的に活用する場合があります。執筆方針や情報確認については
+                  <Link href="/editorial-policy" className="font-bold text-stone-500 hover:text-amber-600">執筆・編集ポリシー</Link>
+                  をご確認ください。
+                </p>
+              </div>
             </div>
           </div>
         </motion.footer>
-
-        <FocusSection
-          show={!isStandardOrHigher}
-          className="mt-20 border-t border-stone-200 dark:border-stone-800 pt-16"
-        >
-          <div className="space-y-8">
-            <AffiliateSection
-              title="おすすめの航空券予約"
-              category="flight"
-              description="お得な航空券を見つけて、旅の準備を始めましょう。"
-            />
-            <AffiliateSection
-              title="おすすめのホテル予約"
-              category="hotel"
-              description="快適な滞在先を予約して、リラックスした時間を。"
-            />
-            <AffiliateSection
-              title="おすすめの現地ツアー・アクティビティ"
-              category="activity"
-              description="ユニークな体験で、旅をもっと特別なものに。"
-            />
-            <AffiliateSection
-              title="旅行に便利なサービス"
-              category="esim"
-              description="eSIMやWi-Fiなど、旅を快適にするアイテム。"
-            />
-          </div>
-        </FocusSection>
       </motion.div>
     </div>
   );

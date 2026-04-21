@@ -1,29 +1,29 @@
 "use client";
 import { useTheme } from "next-themes";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
+import { useHydrated } from "@/hooks/useHydrated";
 
 const Background = () => {
-  const [mounted, setMounted] = useState(false);
+  const hydrated = useHydrated();
   const { theme } = useTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const particleColor = useMemo(() => {
-    if (!mounted) {
+    if (!hydrated) {
       return "#ffffff"; // SSR/initial fallback
     }
     return theme === "dark" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
-  }, [mounted, theme]);
+  }, [hydrated, theme]);
 
   const particles = useMemo(() => {
     return Array.from({ length: 50 }).map((_, i) => {
-      const size = Math.random() * 2 + 1;
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      const duration = Math.random() * 10 + 10;
-      const delay = Math.random() * -20;
+      const seed = i + 1;
+      const size = 1 + (seed % 3);
+      const x = (seed * 17) % 100;
+      const y = (seed * 29) % 100;
+      const duration = 10 + (seed % 11);
+      const delay = -((seed * 7) % 20);
+      const xEnd = (seed * 37) % 100;
+      const yEnd = (seed * 53) % 100;
       return {
         id: i,
         size,
@@ -31,11 +31,13 @@ const Background = () => {
         y,
         duration,
         delay,
+        xEnd,
+        yEnd,
       };
     });
   }, []);
 
-  if (!mounted) {
+  if (!hydrated) {
     return null;
   }
 
@@ -68,8 +70,8 @@ const Background = () => {
                 "--delay": `${p.delay}s`,
                 "--x-start": `${p.x}%`,
                 "--y-start": `${p.y}%`,
-                "--x-end": `${Math.random() * 100}%`,
-                "--y-end": `${Math.random() * 100}%`,
+                "--x-end": `${p.xEnd}%`,
+                "--y-end": `${p.yEnd}%`,
               } as React.CSSProperties
             }
             filter="url(#blur-filter)"

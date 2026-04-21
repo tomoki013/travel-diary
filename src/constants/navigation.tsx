@@ -1,5 +1,5 @@
 import { FaGithub, FaPenSquare, FaTiktok, FaYoutube } from "react-icons/fa";
-import { AI_PLANNER_PATH, MAP_PATH } from "./site";
+import { MAP_PATH, SITE_STATUS_PATH } from "./site";
 
 export interface NavLink {
   href: string;
@@ -35,6 +35,10 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
   { name: "更新情報・ロードマップ", pass: "/roadmap" },
+  {
+    name: "サイトステータス",
+    pass: SITE_STATUS_PATH,
+  },
   { name: "サイトマップ", pass: "/sitemap" },
 ];
 

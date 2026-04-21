@@ -38,7 +38,7 @@ tags:
 
 その後 Grab で MTrans Lounge へ。ニュピ前のパレードで道が封鎖されるかもしれないと言われて少し不安でしたが、無事に到着してチェックインも終わりました。
 
-![MTrans Lounge前に集まる長距離バス](/image/Indonesia/long-distance-bus-in-front-of-the-mtrans-lounge.jpg)
+![MTrans Lounge前に集まる長距離バス](/images/Indonesia/long-distance-bus-in-front-of-the-mtrans-lounge.jpg)
 
 事前情報では食事がないと書かれていたので、近くのコンビニで軽食と水を買っておきます。こういうときは、最悪何もなくてもいいように先に備えておく方が安心です。
 
@@ -50,7 +50,7 @@ tags:
 
 そのあと深夜にレストランへ着くと、食事はないと聞いていたのに普通にありました。しかもちゃんと美味しい。甘い紅茶みたいな飲み物も良くて、ローカル感の強い休憩としてかなり印象に残りました。
 
-![深夜の休憩所で出た食事と甘い紅茶](/images/_photo-placeholder/indonesia-rest-stop-meal-and-tea.jpg)
+![深夜の休憩所で出た食事と甘い紅茶](/images/Indonesia/indonesia-rest-stop-meal-and-tea.jpg)
 
 一方で、バスの中は終始かなり寒かったです。快適さと引き換えに体温を持っていかれる感じがあって、ここは完全に油断していました。長袖と長ズボンは本当に持っていった方がいいです。
 

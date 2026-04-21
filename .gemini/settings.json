@@ -1,0 +1,88 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "agent-game-companion-session-start",
+            "type": "command",
+            "command": "node \"C:/Users/tomoki_ttttt/Next.js/TOMOKICHI/travel-diary/.agent-game-companion/hooks/gemini-cli-bridge.mjs\"",
+            "timeout": 5000,
+            "description": "Emit Agent Game Companion lifecycle events without reading prompt or code content."
+          }
+        ]
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "agent-game-companion-before-agent",
+            "type": "command",
+            "command": "node \"C:/Users/tomoki_ttttt/Next.js/TOMOKICHI/travel-diary/.agent-game-companion/hooks/gemini-cli-bridge.mjs\"",
+            "timeout": 5000,
+            "description": "Emit Agent Game Companion lifecycle events without reading prompt or code content."
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "name": "agent-game-companion-before-tool",
+            "type": "command",
+            "command": "node \"C:/Users/tomoki_ttttt/Next.js/TOMOKICHI/travel-diary/.agent-game-companion/hooks/gemini-cli-bridge.mjs\"",
+            "timeout": 5000,
+            "description": "Emit Agent Game Companion lifecycle events without reading prompt or code content."
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "agent-game-companion-after-agent",
+            "type": "command",
+            "command": "node \"C:/Users/tomoki_ttttt/Next.js/TOMOKICHI/travel-diary/.agent-game-companion/hooks/gemini-cli-bridge.mjs\"",
+            "timeout": 5000,
+            "description": "Emit Agent Game Companion lifecycle events without reading prompt or code content."
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "ToolPermission",
+        "hooks": [
+          {
+            "name": "agent-game-companion-tool-permission",
+            "type": "command",
+            "command": "node \"C:/Users/tomoki_ttttt/Next.js/TOMOKICHI/travel-diary/.agent-game-companion/hooks/gemini-cli-bridge.mjs\"",
+            "timeout": 5000,
+            "description": "Emit Agent Game Companion lifecycle events without reading prompt or code content."
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "agent-game-companion-session-end",
+            "type": "command",
+            "command": "node \"C:/Users/tomoki_ttttt/Next.js/TOMOKICHI/travel-diary/.agent-game-companion/hooks/gemini-cli-bridge.mjs\"",
+            "timeout": 5000,
+            "description": "Emit Agent Game Companion lifecycle events without reading prompt or code content."
+          }
+        ]
+      }
+    ]
+  }
+}

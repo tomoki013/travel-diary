@@ -1,23 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Cookie, CheckCircle } from "lucide-react"; // CookieとCheckCircleアイコンをインポート
 
 const CookieBanner = () => {
-  const [showBanner, setShowBanner] = useState(false);
-  const [isAgreed, setIsAgreed] = useState(false); // 同意状態を管理
+  const [showBanner, setShowBanner] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
 
-  useEffect(() => {
     const consent = localStorage.getItem("cookie_consent");
     const dismissed = sessionStorage.getItem("cookie_dismissed");
 
-    if (consent !== "true" && dismissed !== "true") {
-      setShowBanner(true);
-    }
-  }, []);
+    return consent !== "true" && dismissed !== "true";
+  });
+  const [isAgreed, setIsAgreed] = useState(false); // 同意状態を管理
 
   // 「同意する」ボタンの処理
   const handleAccept = () => {

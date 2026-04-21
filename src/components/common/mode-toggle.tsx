@@ -1,21 +1,17 @@
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "./Icons";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useHydrated } from "@/hooks/useHydrated";
 
 const ModeToggle = () => {
-  const [mounted, setMounted] = useState(false);
+  const hydrated = useHydrated();
   const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  if (!mounted) return <button className="w-14 h-8" />;
+  if (!hydrated) return <button className="w-14 h-8" />;
 
   return (
     <button

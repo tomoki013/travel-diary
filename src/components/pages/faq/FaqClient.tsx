@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FAQ_CATEGORIES, FaqItem } from "@/data/faq";
+import { useHydrated } from "@/hooks/useHydrated";
 
 type FaqClientProps = {
   distributionData: { name: string; value: number }[];
@@ -38,6 +39,7 @@ export default function FaqClient({
   phaseData,
   faqs,
 }: FaqClientProps) {
+  const hydrated = useHydrated();
   const [currentCategory, setCurrentCategory] = useState("all");
   const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -137,7 +139,8 @@ export default function FaqClient({
               記事カテゴリーの割合
             </h4>
             <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
+              {hydrated ? (
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={300}>
                 <PieChart>
                   <Pie
                     data={distributionData}
@@ -165,6 +168,7 @@ export default function FaqClient({
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
+              ) : null}
             </div>
             <p className="mt-4 text-sm text-muted-foreground text-center">
               旅行記、観光ガイド、モデルコースなどの構成をひと目で見られます。
@@ -177,7 +181,8 @@ export default function FaqClient({
               旅行フェーズ別おすすめ記事
             </h4>
             <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
+              {hydrated ? (
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={300}>
                 <BarChart
                   layout="vertical"
                   data={phaseData}
@@ -213,6 +218,7 @@ export default function FaqClient({
                   />
                 </BarChart>
               </ResponsiveContainer>
+              ) : null}
             </div>
             <p className="mt-4 text-sm text-muted-foreground text-center">
               行き先選びから現地移動まで、読むタイミングの目安を整理しています。

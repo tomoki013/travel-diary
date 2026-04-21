@@ -6,7 +6,7 @@ import { LoadingAnimation } from "@/components/features/LoadingAnimation/Loading
 import { POSTS_PER_PAGE } from "@/constants/constants";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { TravelTopic } from "@/types/types";
-import { BlogDiscoveryView, getPostsForView, getRecommendedPosts } from "@/lib/post-discovery";
+import { BlogDiscoveryView, getPostsForView } from "@/lib/post-discovery";
 
 export const metadata: Metadata = {
   title: "全記事一覧 - Blog ",
@@ -88,10 +88,6 @@ const PostsPage = async (props: {
     processedPosts = getPostsForView(processedPosts, view);
   }
 
-  const leadPicks = searchQuery
-    ? processedPosts.slice(0, 3)
-    : getRecommendedPosts(processedPosts).slice(0, 3);
-
   const totalPosts = processedPosts.length;
   const totalPages = Math.max(1, Math.ceil(totalPosts / POSTS_PER_PAGE));
   const safePage = Math.min(Math.max(page, 1), totalPages);
@@ -105,7 +101,6 @@ const PostsPage = async (props: {
   return (
     <Suspense fallback={<LoadingAnimation variant="mapRoute" />}>
       <BlogClient
-        leadPicks={leadPicks}
         posts={paginatedPosts}
         totalPages={totalPages}
         currentPage={safePage}

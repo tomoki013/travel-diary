@@ -15,7 +15,6 @@ import {
   Thead,
   Tr,
 } from "./CustomMarkdown";
-import type { FocusMode } from "./focus-mode/FocusModeContext";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -23,13 +22,11 @@ export interface ArticleContentProps {
   content: string;
   currentPostCategory: Post["category"];
   allPosts: PostMetadata[];
-  focusMode?: FocusMode;
 }
 
 const ArticleContent = ({
   content,
   allPosts,
-  focusMode = "off",
 }: ArticleContentProps) => {
   const markdownComponents: Components = {
     p: (props) => {
@@ -93,14 +90,7 @@ const ArticleContent = ({
   };
 
   return (
-    <div
-      className={cn(
-        "prose max-w-none dark:prose-invert transition-[font-size,line-height] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-        focusMode === "off"
-          ? "prose-lg"
-          : "prose-xl md:prose-2xl prose-p:leading-8 prose-li:leading-8 md:prose-p:leading-9 md:prose-li:leading-9"
-      )}
-    >
+    <div className={cn("prose prose-lg max-w-none dark:prose-invert")}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkToc]}
         components={markdownComponents}

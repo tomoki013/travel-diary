@@ -38,11 +38,18 @@ const TableOfContent = ({
         level: heading.tagName === "H2" ? 2 : 3,
       };
     });
-    setHeadings(extractedHeadings);
+    const frameId = window.requestAnimationFrame(() => {
+      setHeadings(extractedHeadings);
+
+      if (!isScrollSyncEnabled) {
+        setActiveId("");
+      }
+    });
 
     if (!isScrollSyncEnabled) {
-      setActiveId("");
-      return;
+      return () => {
+        window.cancelAnimationFrame(frameId);
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -71,6 +78,7 @@ const TableOfContent = ({
     headingElements.forEach((heading) => observer.observe(heading));
 
     return () => {
+      window.cancelAnimationFrame(frameId);
       headingElements.forEach((heading) => observer.unobserve(heading));
     };
   }, [isScrollSyncEnabled]);
@@ -89,68 +97,86 @@ const TableOfContent = ({
   }
 
   return (
-    <details className="group bg-muted rounded-lg p-6 my-6 border-l-4 border-secondary">
-      <summary className="flex cursor-pointer items-center list-none transition-opacity hover:opacity-80">
-        <div className="h-5 w-5 text-foreground transition-transform duration-300 group-open:rotate-90">
+    <details
+      open
+      className="group my-8 overflow-hidden rounded-3xl border border-stone-200/60 bg-white shadow-sm transition-all duration-300 hover:shadow-md dark:border-stone-800/60 dark:bg-stone-950/20"
+    >
+      <summary className="flex list-none cursor-pointer items-center justify-between gap-4 px-6 py-5 transition-colors hover:bg-stone-50/50 dark:hover:bg-stone-900/20">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 shadow-inner dark:bg-amber-950/20 dark:text-amber-500">
+            <MapPin className="h-6 w-6" strokeWidth={2.5} />
+          </div>
+          <div className="flex flex-col">
+            <h3 className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
+              今回の旅程 (目次)
+            </h3>
+            <p className="text-xs font-medium text-stone-500 dark:text-stone-400">
+              タップして各セクションへ移動
+            </p>
+          </div>
+        </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-stone-50 text-stone-400 transition-all duration-500 group-open:rotate-180 group-open:bg-amber-50 group-open:text-amber-600 dark:bg-stone-900 dark:text-stone-500 dark:group-open:bg-amber-900/20 dark:group-open:text-amber-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={2.5}
+            strokeWidth={3}
             stroke="currentColor"
-            className="h-full w-full"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
             />
           </svg>
         </div>
-        <div className="flex items-center gap-2 ml-4">
-          <MapPin className="h-5 w-5 text-foreground" />
-          <h3 className="text-lg font-bold text-foreground">
-            今回の旅程 (目次)
-          </h3>
-        </div>
       </summary>
 
-      {/* タイムライン形式のナビゲーション (開くと表示される部分) */}
-      <nav ref={navRef} className="relative pl-3 pt-4">
-        {/* タイムラインの縦線 */}
-        <div className="absolute left-3 top-2 bottom-2 w-0.5 bg-background" />
-
-        {headings.map((heading) => (
-          <li key={heading.id} className="list-none my-4">
-            <Link
-              href={`#${heading.id}`}
-              className={cn(
-                "group relative flex items-center py-1 text-sm transition-colors",
-                activeId === heading.id
-                  ? "font-bold text-teal-600"
-                  : "font-medium text-foreground hover:text-secondary"
-              )}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick(heading.id);
-              }}
-            >
-              {/* マーカー（● や ○） */}
-              <div
+      <nav
+        ref={navRef}
+        className="border-t border-stone-100/80 bg-stone-50/30 px-4 py-6 dark:border-stone-800/50 dark:bg-transparent"
+      >
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:gap-3">
+          {headings.map((heading) => (
+            <li key={heading.id} className="list-none">
+              <Link
+                href={`#${heading.id}`}
                 className={cn(
-                  "absolute -left-[18.5px] bg-white border-2 rounded-full transition-colors",
-                  heading.level === 2
-                    ? "w-4 h-4 border-secondary"
-                    : "w-3 h-3 border-secondary ml-[2px]",
-                  activeId === heading.id && "border-secondary bg-teal-600"
+                  "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition-all duration-200",
+                  activeId === heading.id
+                    ? "bg-white text-amber-600 shadow-sm ring-1 ring-stone-200/50 dark:bg-stone-900 dark:text-amber-500 dark:ring-stone-700/50"
+                    : "text-stone-600 hover:bg-white/80 hover:text-foreground hover:shadow-sm dark:text-stone-400 dark:hover:bg-stone-900/50"
                 )}
-              />
-              <span className={cn(heading.level === 3 && "pl-5")}>
-                {heading.text}
-              </span>
-            </Link>
-          </li>
-        ))}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClick(heading.id);
+                }}
+              >
+                <div
+                  className={cn(
+                    "flex shrink-0 items-center justify-center rounded-full transition-all duration-300",
+                    heading.level === 2
+                      ? "h-2 w-2 ring-4 ring-stone-100 dark:ring-stone-800"
+                      : "ml-2 h-1.5 w-1.5 ring-2 ring-stone-100 dark:ring-stone-800",
+                    activeId === heading.id
+                      ? "bg-amber-500 ring-amber-100 dark:ring-amber-900/30"
+                      : "bg-stone-300 dark:bg-stone-600 group-hover:bg-stone-400"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "line-clamp-1 flex-1 leading-snug",
+                    heading.level === 2 ? "font-bold" : "font-medium",
+                    activeId === heading.id ? "text-amber-900 dark:text-amber-100" : ""
+                  )}
+                >
+                  {heading.text}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
     </details>
   );

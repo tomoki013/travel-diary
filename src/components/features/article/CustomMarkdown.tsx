@@ -52,6 +52,7 @@ export const createCustomHeading = ({ level }: createCustomHeadingProps) => {
 };
 
 export const CustomImg = ({ src, alt }: CustomImgProps) => {
+  const fallbackSrc = "/images/Introduce/introduce.jpg";
   // 画像のパスが外部URL（http/https）であるか、または空であるかを確認
   if (src.startsWith("http") || src.startsWith("https") || !src) {
     // 外部リンクや無効なsrcの場合は、デフォルトのサイズで表示
@@ -77,10 +78,7 @@ export const CustomImg = ({ src, alt }: CustomImgProps) => {
 
     return <Image src={src} alt={alt} width={width} height={height} />;
   } else {
-    // ファイルが存在しない場合は、代替テキストと共にメッセージを表示するか、
-    // デフォルトの画像やサイズを使用
-    console.warn(`Image not found at path: ${imagePath}`);
-    return <Image src={src} alt={alt} width={700} height={400} />;
+    return <Image src={fallbackSrc} alt={alt} width={700} height={400} />;
   }
 };
 

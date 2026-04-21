@@ -12,6 +12,14 @@ interface LinkCardProps {
   variant: "standard" | "analog" | "minimal";
 }
 
+const getAnalogRotation = (value: string) => {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash * 31 + value.charCodeAt(i)) % 2000;
+  }
+  return hash / 1000 - 1;
+};
+
 export const LinkCard = ({
   href,
   title,
@@ -64,7 +72,7 @@ export const LinkCard = ({
       <Link
         href={href}
         className="group block my-8 hover:!rotate-0 transition-transform duration-300"
-        style={{ transform: `rotate(${Math.random() * 2 - 1}deg)` }}
+        style={{ transform: `rotate(${getAnalogRotation(href)}deg)` }}
       >
         <p className="bg-white p-3 pb-8 rounded-md shadow-lg relative">
           {imageUrl && (

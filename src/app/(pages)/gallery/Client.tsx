@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Photo, Post } from "@/types/types";
 type PostMetadata = Omit<Post, "content">;
 import HeroSection from "@/components/pages/HeroSection";
@@ -12,6 +12,7 @@ import {
   buildGalleryPhotoEntries,
   GalleryPhotoEntry,
 } from "@/lib/gallery-discovery";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 const filterList: string[] = ["すべて", ...Object.keys(categoryMappings)];
 
@@ -40,16 +41,7 @@ const Client = ({ posts, photos }: ClientProps) => {
     [photos, posts],
   );
 
-  useEffect(() => {
-    if (selectedEntry) {
-      document.body.style.overflowY = "hidden";
-    } else {
-      document.body.style.overflowY = "auto";
-    }
-    return () => {
-      document.body.style.overflowY = "auto";
-    };
-  }, [selectedEntry]);
+  useBodyScrollLock(selectedEntry !== null);
 
   const filteredPhotos = useMemo(
     () =>

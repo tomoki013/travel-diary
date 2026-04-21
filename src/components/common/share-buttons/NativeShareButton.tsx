@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FiShare } from "react-icons/fi";
+import { useHydrated } from "@/hooks/useHydrated";
 
 interface Props {
   url: string;
@@ -10,13 +10,9 @@ interface Props {
 }
 
 const NativeShareButton = ({ url, title, text }: Props) => {
-  const [isSupported, setIsSupported] = useState(false);
-
-  useEffect(() => {
-    if (typeof navigator !== "undefined" && "share" in navigator) {
-      setIsSupported(true);
-    }
-  }, []);
+  const hydrated = useHydrated();
+  const isSupported =
+    hydrated && typeof navigator !== "undefined" && "share" in navigator;
 
   const handleShare = async () => {
     if (navigator.share) {
