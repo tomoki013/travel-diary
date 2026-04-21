@@ -36,7 +36,6 @@ const StatusBadge = ({ status }: { status: RoadmapItem["status"] }) => {
 };
 
 export default function RoadmapTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
 

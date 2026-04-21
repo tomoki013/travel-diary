@@ -3,8 +3,7 @@
 import { motion } from "framer-motion";
 import { JOURNEY_DATA, JourneyItem } from "@/data/journey";
 import { cn } from "@/lib/utils";
-import { MapPin, Calendar, Tag } from "lucide-react";
-import { useRef } from "react";
+import { MapPin, Tag } from "lucide-react";
 import Link from "next/link";
 
 const JourneyCard = ({ item, index }: { item: JourneyItem; index: number }) => {
@@ -99,13 +98,8 @@ const JourneyCard = ({ item, index }: { item: JourneyItem; index: number }) => {
 };
 
 const JourneyTimeline = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div
-      ref={containerRef}
-      className="relative py-20 px-4 md:px-8 overflow-hidden"
-    >
+    <div className="relative py-20 px-4 md:px-8 overflow-hidden">
       {/* Central Line */}
       <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent md:-translate-x-1/2">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-transparent w-[2px] -ml-[0.5px]" />

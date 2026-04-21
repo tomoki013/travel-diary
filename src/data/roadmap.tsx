@@ -1,9 +1,6 @@
 import { 
   Rocket, 
-  MapPin, 
   Globe, 
-  Languages, 
-  Laptop, 
   Search, 
   Layout, 
   Wifi, 

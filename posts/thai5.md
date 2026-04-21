@@ -36,7 +36,7 @@ tags:
 旅の序盤とはいえ、長時間のフライトと歩き回った疲れがしっかりと癒やされました。
 
 [[photo]]
-![ワット・ポー境内のマッサージ受付周辺](/images/_photo-placeholder/thai5-wat-pho-massage.jpg)
+![ワット・ポー境内のマッサージ受付周辺](/images/Thai/wat-pho-massage.jpg)
 [[/photo]]
 
 ワット・ポーやマッサージ体験については別の記事にもまとめています。
@@ -58,7 +58,7 @@ tags:
 また、タイ旅行の定番アイテム「タイパンツ」もここで調達。最初は200バーツと言われましたが、交渉して100バーツまで値切りました。カオサン周辺でのタイパンツの相場はだいたい100バーツなので、言い値で買わずに笑顔で交渉してみましょう。
 
 [[photo]]
-![夜のカオサン通りと屋台のにぎわい](/images/_photo-placeholder/thai5-khao-san.jpg)
+![夜のカオサン通りと屋台のにぎわい](/images/Thai/khao-san-street-at-night.jpg)
 [[/photo]]
 
 ## バンコク随一の夜の街「RCA」へ
@@ -74,7 +74,7 @@ tags:
 現地の若者や観光客で熱気に溢れており、バンコクの圧倒的なエネルギーを感じることができました。
 
 [[photo]]
-![RCAのRoute66周辺の夜の雰囲気](/images/_photo-placeholder/thai5-rca-route66.jpg)
+![RCAのRoute66周辺の夜の雰囲気](/images/Thai/route66.jpg)
 [[/photo]]
 
 ## 終バスの罠と深夜の徒歩帰宅
@@ -88,7 +88,7 @@ tags:
 時刻は深夜2時。ついに諦めた私たちは、そこから**1時間かけて夜のバンコクを歩いて帰る**ことになりました。途中のセブンイレブンで水とパン（15バーツ）を買い、ホテルに到着したのは深夜3時前。
 
 [[photo]]
-![深夜のバンコクで徒歩帰宅した道中の街並み](/images/_photo-placeholder/thai5-midnight-walk.jpg)
+![深夜のバンコクで徒歩帰宅した道中の街並み](/images/Thai/thai-streetscape.jpg)
 [[/photo]]
 
 ローカルバスは安くて便利ですが、深夜帯は時刻表通りに来ない・突然ルートが変わるなどのリスクが非常に高いため、夜遅い時間は素直にGrabなどの配車アプリを使うべきだと身をもって学びました。

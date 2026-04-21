@@ -1,0 +1,4 @@
+{"version":1,"provider":"gemini-cli","sessionId":"gemini-demo","state":"running","timestampMs":1776058824266}
+{"version":1,"provider":"gemini-cli","sessionId":"gemini-demo","state":"error","timestampMs":1776058831975,"requiresAttention":true,"errorCode":"exit_42"}
+{"version":1,"provider":"gemini-cli","sessionId":"gemini-demo","state":"running","timestampMs":1776059432345}
+{"version":1,"provider":"gemini-cli","sessionId":"gemini-demo","state":"error","timestampMs":1776059443662,"requiresAttention":true,"errorCode":"exit_42"}

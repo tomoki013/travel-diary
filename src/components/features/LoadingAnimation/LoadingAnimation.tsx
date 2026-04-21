@@ -87,18 +87,22 @@ const SplitFlapCharacter = ({
   const [prevChar, setPrevChar] = useState(" ");
   const [isFlipping, setIsFlipping] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const currentCharRef = useRef(" ");
 
   useEffect(() => {
     setIsFlipping(true);
     let i = 0;
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      setPrevChar(currentChar);
-      setCurrentChar(chars[Math.floor(Math.random() * chars.length)]);
+      const nextChar = chars[Math.floor(Math.random() * chars.length)];
+      setPrevChar(currentCharRef.current);
+      currentCharRef.current = nextChar;
+      setCurrentChar(nextChar);
       i++;
       if (i > 5) {
         if (intervalRef.current) clearInterval(intervalRef.current);
-        setPrevChar(currentChar);
+        setPrevChar(currentCharRef.current);
+        currentCharRef.current = char;
         setCurrentChar(char);
         setTimeout(() => setIsFlipping(false), 400);
       }
@@ -144,7 +148,8 @@ export const LoadingAnimation = ({
       }, 3000);
       return () => clearInterval(wordInterval);
     }
-  }, [variant]);
+    return;
+  }, [variant, words]);
 
   // prettier-ignore
   switch (variant) {

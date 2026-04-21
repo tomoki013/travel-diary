@@ -3,13 +3,9 @@
 import { MenuIcon, XIcon } from "@/components/common/Icons";
 import { NAV_LINKS } from "@/constants/navigation";
 import { useMobileMenu } from "@/hooks/useMobileMenu";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useUI } from "@/context/UIContext";
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   SearchIcon,
   Sparkles,
@@ -19,8 +15,6 @@ import {
   Image as ImageIcon,
   Mail,
   Info,
-  Globe,
-  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -28,55 +22,48 @@ import ModeToggle from "../common/mode-toggle";
 import SearchOverlay from "../features/search/SearchOverlay";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { AI_PLANNER_PATH, MAP_PATH } from "@/constants/site";
-import { useFocusMode } from "../features/article/focus-mode/FocusModeContext";
 
 const Header = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
   const { isSearchOpen, openSearch, closeSearch } = useUI();
-  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const { isFocusActive } = useFocusMode();
+  const [isScrolled, setIsScrolled] = useState(() => !isHomePage);
 
-  // スムーズなスクロールベースのアニメーション用
-  const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 200], [isHomePage ? 0 : 1, 1]);
-  const blurAmount = useTransform(scrollY, [0, 200], [isHomePage ? 0 : 16, 16]);
-
-  // 背景色のアニメーション（ライト/ダークモード対応）
-  const headerBg = useTransform(bgOpacity, (opacity) => {
-    if (opacity === 0) {
-      return "linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3), transparent)";
-    }
-    // ダークモードとライトモードで背景色を切り替え
-    return `rgba(var(--background), ${opacity * 0.8})`;
-  });
-
-  const backdropBlur = useTransform(blurAmount, (blur) => `blur(${blur}px)`);
+  useBodyScrollLock(isSearchOpen || isMenuOpen);
 
   useEffect(() => {
+    if (!isHomePage) {
+      return;
+    }
+
+    let ticking = false;
+
+    const updateScrolledState = () => {
+      ticking = false;
+      const nextIsScrolled = window.scrollY > 24;
+      setIsScrolled((current) =>
+        current === nextIsScrolled ? current : nextIsScrolled
+      );
+    };
+
     const handleScroll = () => {
-      // スクロール検知の閾値を少し深めに設定し、Hero画像内での体験を安定させる
-      setIsScrolled(window.scrollY > 50);
+      if (ticking) {
+        return;
+      }
+
+      ticking = true;
+      window.requestAnimationFrame(updateScrolledState);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    updateScrolledState();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  // ... (スクロールロックやクリック外判定のuseEffectは変更なし) ...
-  useEffect(() => {
-    if (isSearchOpen || isMenuOpen) {
-      document.body.style.overflowY = "hidden";
-    } else {
-      document.body.style.overflowY = "auto";
-    }
     return () => {
-      document.body.style.overflowY = "auto";
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [isSearchOpen, isMenuOpen]);
+  }, [isHomePage]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -92,8 +79,8 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen, closeMenu]);
 
-  // 透過状態かどうか
-  const isTransparent = isHomePage && !isScrolled;
+  const isTransparent =
+    isHomePage && !isScrolled && !isMenuOpen && !isSearchOpen;
 
   // Icon mapping for mobile menu
   const NAV_ICONS: Record<string, React.ElementType> = {
@@ -107,20 +94,14 @@ const Header = () => {
 
   return (
     <>
-      <motion.header
+      <header
         className={cn(
-          "top-0 z-[100] w-full max-h-40 overflow-hidden transition-[max-height,opacity,transform,padding,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "top-0 z-[100] w-full border-b transition-[background-color,border-color,box-shadow,padding,backdrop-filter] duration-300 ease-out",
+          isHomePage ? "fixed" : "sticky",
           isTransparent
-            ? "fixed py-6 border-transparent"
-            : "sticky py-2 border-b border-border/40 shadow-sm bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
-          isFocusActive &&
-            "max-h-0 py-0 opacity-0 -translate-y-6 pointer-events-none border-transparent shadow-none",
+            ? "border-transparent bg-transparent py-6"
+            : "border-border/40 bg-background/95 py-2 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
         )}
-        style={{
-          background: isHomePage ? headerBg : undefined,
-          backdropFilter: isHomePage ? backdropBlur : undefined,
-          WebkitBackdropFilter: isHomePage ? backdropBlur : undefined,
-        }}
       >
         <div className="container mx-auto flex h-12 items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo Area */}
@@ -252,7 +233,7 @@ const Header = () => {
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>

@@ -12,8 +12,14 @@
 
 - `src/app/`: ルート、Server Component、Client Component
 - `src/components/`: UI、共通部品、機能別コンポーネント
+- `src/hooks/`: UI制御、debounce、検索オーバレイ等のカスタムフック
+- `src/context/`: `UIContext` などのグローバルな状態管理
+- `src/constants/`: 固定値、設定、ナビゲーション、収益化カテゴリ定義
+- `src/services/`: 外部API（お問い合わせ送信等）との連携サービス層
+- `src/types/`: アプリ全体で共有される TypeScript 型定義
 - `src/data/`: 地域、カテゴリ、シリーズ、FAQ などの静的データ
 - `src/lib/`: 記事取得、地域判定、関連記事、補助ロジック
+- `src/proxy.ts`: 外部 API 通信を制御するプロキシ定義
 - `posts/`: 公開記事
 - `draft-posts/`: 下書き記事
 - `public/images/`: 写真アセットと各ディレクトリの `index.json`

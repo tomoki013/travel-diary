@@ -105,7 +105,7 @@ export default function ErrorDisplay({ reset }: ErrorDisplayProps) {
       {/* Footer Decoration */}
       <div className="absolute bottom-8 left-0 right-0 text-center">
         <p className="text-xs font-light tracking-[0.2em] text-slate-500 uppercase">
-          Tomokichi's Travel Diary
+          Tomokichi&apos;s Travel Diary
         </p>
       </div>
 

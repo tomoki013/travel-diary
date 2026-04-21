@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -10,6 +11,8 @@ interface FeedbackModalProps {
 }
 
 export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
+  useBodyScrollLock(isOpen);
+
   if (!isOpen) {
     return null;
   }

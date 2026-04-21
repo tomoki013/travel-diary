@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Post } from "@/types/types";
 import XButton from "@/components/common/share-buttons/XButton";
 import FacebookButton from "@/components/common/share-buttons/FacebookButton";
@@ -14,18 +13,15 @@ interface Props {
 }
 
 const ShareButtons = ({ post, url }: Props) => {
-  const [currentUrl, setCurrentUrl] = useState("");
-
-  useEffect(() => {
-    setCurrentUrl(url || window.location.href);
-  }, [url]);
+  const currentUrl =
+    url || (typeof window !== "undefined" ? window.location.href : "");
 
   if (!currentUrl) {
-    return null; // Or a loading state
+    return null;
   }
 
   return (
-    <div className="flex items-center justify-center gap-4 mb-10">
+    <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
       <span className="font-semibold">Share:</span>
       <XButton url={currentUrl} title={post.title} />
       <FacebookButton url={currentUrl} />
