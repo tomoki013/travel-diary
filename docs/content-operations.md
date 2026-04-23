@@ -31,6 +31,8 @@
 - 地域指定は `src/data/region.ts` にある slug に合わせます。
 - 記事一覧や関連記事は frontmatter を前提に構築されているため、空欄や不整合を作らないことを優先します。
 - 記事編集時は `draft-posts/rules/` を先に確認します。
+- 旅行予約・準備の導線は `/travel-essentials` に集約し、アフィリエイト方針の説明は `/affiliates` に分離します。
+- `/travel-essentials` では `status: "ready"` の予約サービスだけを掲載し、未準備やリンク未設定の候補は表示しません。
 
 ## ビルドとの関係
 

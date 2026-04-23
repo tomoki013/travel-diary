@@ -10,13 +10,15 @@
 - `/journey/[id]`: 1 回の旅を時系列で追う
 - `/series/[slug]`: まとまりで読む
 - `/faq`: サイトの使い方と、よくある質問を整理する
+- `/travel-essentials`: 旅行前の予約・準備導線をカテゴリ別に整理する
+- `/affiliates`: アフィリエイトポリシーを説明する
 
 ## 情報設計の優先順位
 
 1. ブログ記事
 2. 記事の探し方
 3. シリーズ・地域・旅のまとまり
-4. Gallery / Globe などの補助機能
+4. Travel Essentials / Gallery / Globe などの補助機能
 
 ## 変更時に見るべき観点
 

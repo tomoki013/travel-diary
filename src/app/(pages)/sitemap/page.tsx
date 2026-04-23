@@ -57,6 +57,7 @@ const mainList = [
   { pass: "/faq", name: "FAQ" },
   { pass: "/request", name: "記事テーマ募集ページ" },
   { pass: "/contact", name: "お問い合わせページ" },
+  { pass: "/travel-essentials", name: "旅行予約・準備" },
   { pass: "/privacy", name: "プライバシーポリシー/免責事項" },
   { pass: "/terms", name: "利用規約/免責事項" },
   { pass: "/affiliates", name: "アフィリエイトポリシー" },

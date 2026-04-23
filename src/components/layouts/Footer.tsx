@@ -34,7 +34,9 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-col gap-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-stone-400">Follow Journey</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-stone-400">
+                Follow Journey
+              </span>
               <div className="flex gap-4">
                 {SOCIAL_LIST.map((sns) => (
                   <Link
@@ -55,7 +57,9 @@ const Footer = () => {
           {/* Links Grid */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-8">
             <div className="space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500">Explore</h3>
+              <h3 className="text-sm font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500">
+                Explore
+              </h3>
               <ul className="space-y-3">
                 {FOOTER_CONTENTS_LIST.map((content) => (
                   <li key={content.name}>
@@ -77,26 +81,32 @@ const Footer = () => {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400">Resources</h3>
+              <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400">
+                Resources
+              </h3>
               <ul className="space-y-3">
-                {[...FOOTER_ABOUT_LIST, ...FOOTER_COMMUNITY_LIST].map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.pass}
-                      className="group flex items-center gap-1 text-sm text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-                    >
-                      {link.name}
-                      {link.target === "_blank" && (
-                        <ExternalLink className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
-                      )}
-                    </Link>
-                  </li>
-                ))}
+                {[...FOOTER_ABOUT_LIST, ...FOOTER_COMMUNITY_LIST].map(
+                  (link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.pass}
+                        className="group flex items-center gap-1 text-sm text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+                      >
+                        {link.name}
+                        {link.target === "_blank" && (
+                          <ExternalLink className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
+                        )}
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
 
             <div className="space-y-6 col-span-2 sm:col-span-1">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400">Legal</h3>
+              <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400">
+                Legal
+              </h3>
               <ul className="space-y-3">
                 {FOOTER_LEGAL_LIST.map((link) => (
                   <li key={link.name}>
@@ -119,7 +129,9 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
                 <Heart className="h-4 w-4 fill-current" />
-                <span className="text-xs font-bold uppercase tracking-widest">Support our work</span>
+                <span className="text-xs font-bold uppercase tracking-widest">
+                  Support our work
+                </span>
               </div>
               <p className="max-w-2xl text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                 当サイトはアフィリエイト広告を利用しています。掲載する商品・サービスは運営者が実際に試し、自信を持っておすすめできるものに限定しています。
@@ -138,7 +150,8 @@ const Footer = () => {
         {/* Bottom Section: Copyright */}
         <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-stone-200 pt-8 dark:border-stone-800 sm:flex-row">
           <p className="text-xs text-stone-500 dark:text-stone-400">
-            &copy; {new Date().getFullYear()} ともきちの旅行日記. All rights reserved.
+            &copy; 2024-{new Date().getFullYear()} ともきちの旅行日記. All
+            rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <p className="flex items-center gap-1.5 text-xs text-stone-400">
@@ -152,4 +165,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
