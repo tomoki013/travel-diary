@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaYoutube, FaTiktok, FaGithub, FaPenNib } from "react-icons/fa";
+import { FaYoutube, FaTiktok, FaGithub, FaPenNib, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { SiZenn, SiQiita } from "react-icons/si";
+import { ConnpassIcon } from "@/components/common/icons/ConnpassIcon";
 import { sectionVariants } from "@/components/common/animation";
 import HeroSection from "@/components/pages/HeroSection";
 
@@ -47,6 +50,56 @@ const socialAccounts = [
     description:
       "このブログサイト（tomokichidiary）のソースコードを公開しています。Next.jsやWeb制作の技術的な側面に興味がある方向けです。サイトの改善提案やコントリビュートもお待ちしています。",
     ctaText: "GitHubでコードを見る",
+  },
+  {
+    name: "X (Twitter)",
+    url: "https://x.com/tomokichi178694",
+    IconComponent: FaXTwitter,
+    iconColor: "text-black",
+    conceptTitle: "日々のつぶやき・最新情報",
+    description:
+      "ブログの更新情報や、開発の進捗、日常のちょっとした気づきなどをリアルタイムで発信しています。気軽に交流できる場として活用しています。",
+    ctaText: "Xでフォローする",
+  },
+  {
+    name: "Qiita",
+    url: "https://qiita.com/tomokichidiary",
+    IconComponent: SiQiita,
+    iconColor: "text-green-500",
+    conceptTitle: "技術的なTipsと知見",
+    description:
+      "Web開発で得た技術的な知見やTips、つまづいたポイントとその解決策などを記事としてまとめています。同じ技術スタックを学ぶ方の参考になれば幸いです。",
+    ctaText: "Qiitaで記事を読む",
+  },
+  {
+    name: "Zenn",
+    url: "https://zenn.dev/tomoki013",
+    IconComponent: SiZenn,
+    iconColor: "text-blue-500",
+    conceptTitle: "技術記事・考察",
+    description:
+      "フロントエンド技術を中心とした、より体系的な技術記事や、開発に関する深い考察を発信しています。",
+    ctaText: "Zennで記事を読む",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/tomoki-takagi-5b08a738b",
+    IconComponent: FaLinkedin,
+    iconColor: "text-blue-700",
+    conceptTitle: "プロフェッショナルネットワーク",
+    description:
+      "職務経歴やスキルセット、これまでのプロジェクト経験を公開しています。ビジネスや技術的な繋がり、キャリアに関するご相談はこちらからお願いします。",
+    ctaText: "LinkedInで繋がる",
+  },
+  {
+    name: "connpass",
+    url: "https://connpass.com/user/tomoki013/",
+    IconComponent: ConnpassIcon,
+    iconColor: "text-red-700",
+    conceptTitle: "IT勉強会・イベント参加",
+    description:
+      "参加した、または登壇したIT勉強会や技術イベントの記録です。オフライン・オンライン問わず、技術コミュニティでの活動履歴を確認できます。",
+    ctaText: "connpassを見る",
   },
 ];
 
@@ -98,8 +151,8 @@ export default function Client() {
                   {account.description}
                 </p>
 
-                {/* GitHub以外は動画埋め込みエリアを表示 */}
-                {account.name !== "GitHub" && (
+                {/* 動画系SNSのみ埋め込みエリアを表示 */}
+                {["YouTube", "TikTok"].includes(account.name) && (
                   <>
                     <h4 className="font-bold mb-2">最近の投稿</h4>
                     <div className="w-full aspect-video bg-gray-200 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
