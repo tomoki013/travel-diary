@@ -1,22 +1,40 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { MapPin } from "lucide-react"; // ▼ アイコンを変更
+import { useState, useEffect, useRef, type RefObject } from "react";
+import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+
+export type ArticleHeading = { id: string; text: string; level: number };
 
 type TableOfContentProps = {
   isScrollSyncEnabled?: boolean;
 };
 
-const TableOfContent = ({
-  isScrollSyncEnabled = false,
-}: TableOfContentProps) => {
-  const [headings, setHeadings] = useState<
-    { id: string; text: string; level: number }[]
-  >([]);
+type TableOfContentNavProps = {
+  headings: ArticleHeading[];
+  activeId: string;
+  navRef: RefObject<HTMLDivElement | null>;
+  onHeadingClick?: () => void;
+  className?: string;
+  listClassName?: string;
+};
+
+export const scrollToArticleHeading = (id: string) => {
+  const escapedId = CSS.escape(id);
+  document.querySelector(`#${escapedId}`)?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+    inline: "nearest",
+  });
+};
+
+export const useArticleHeadings = (
+  isScrollSyncEnabled: boolean = false,
+  navRef?: RefObject<HTMLDivElement | null>
+) => {
+  const [headings, setHeadings] = useState<ArticleHeading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
-  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const articleElement = document.querySelector("article");
@@ -57,7 +75,7 @@ const TableOfContent = ({
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveId(entry.target.id);
-            const activeLink = navRef.current?.querySelector(
+            const activeLink = navRef?.current?.querySelector(
               `a[href="#${entry.target.id}"]`
             );
             if (activeLink) {
@@ -81,16 +99,93 @@ const TableOfContent = ({
       window.cancelAnimationFrame(frameId);
       headingElements.forEach((heading) => observer.unobserve(heading));
     };
-  }, [isScrollSyncEnabled]);
+  }, [isScrollSyncEnabled, navRef]);
 
-  const handleClick = (id: string) => {
-    const escapedId = CSS.escape(id);
-    document.querySelector(`#${escapedId}`)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
-  };
+  return { headings, activeId };
+};
+
+export const TableOfContentNav = ({
+  headings,
+  activeId,
+  navRef,
+  onHeadingClick,
+  className,
+  listClassName,
+}: TableOfContentNavProps) => (
+  <nav
+    ref={navRef}
+    className={cn(
+      "border-t border-stone-100/80 bg-stone-50/20 px-5 py-5 dark:border-stone-800/50 dark:bg-transparent",
+      className
+    )}
+  >
+    <ul className={cn("grid grid-cols-1 gap-x-8 sm:grid-cols-2", listClassName)}>
+      {headings.map((heading, index) => (
+        <li
+          key={heading.id}
+          className="list-none border-b border-stone-200/70 last:border-b-0 dark:border-stone-800/70 sm:last:border-b sm:[&:nth-last-child(-n+2)]:border-b-0"
+        >
+          <Link
+            href={`#${heading.id}`}
+            aria-current={activeId === heading.id ? "true" : undefined}
+            className={cn(
+              "group/toc-link relative flex items-start gap-3 py-3.5 text-sm transition-colors duration-200",
+              heading.level === 3 ? "pl-5" : "",
+              activeId === heading.id
+                ? "text-amber-700 dark:text-amber-300"
+                : "text-stone-700 hover:text-amber-700 dark:text-stone-300 dark:hover:text-amber-300"
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToArticleHeading(heading.id);
+              onHeadingClick?.();
+            }}
+          >
+            <span
+              className={cn(
+                "absolute left-0 top-3.5 h-[calc(100%-1.75rem)] w-px bg-stone-200 transition-colors duration-200 dark:bg-stone-800",
+                activeId === heading.id
+                  ? "bg-amber-500 dark:bg-amber-400"
+                  : "group-hover/toc-link:bg-amber-400"
+              )}
+            />
+            <div
+              className={cn(
+                "mt-0.5 flex h-5 min-w-5 shrink-0 items-center justify-center rounded-full border text-[10px] font-bold tabular-nums transition-colors duration-200",
+                heading.level === 3 ? "h-4 min-w-4 text-[9px]" : "",
+                activeId === heading.id
+                  ? "border-amber-500 bg-amber-50 text-amber-700 dark:border-amber-400 dark:bg-amber-950/30 dark:text-amber-200"
+                  : "border-stone-300 bg-white text-stone-500 group-hover/toc-link:border-amber-400 group-hover/toc-link:text-amber-700 dark:border-stone-700 dark:bg-stone-950/60 dark:text-stone-400 dark:group-hover/toc-link:border-amber-500 dark:group-hover/toc-link:text-amber-300"
+              )}
+            >
+              {index + 1}
+            </div>
+            <span
+              className={cn(
+                "line-clamp-2 flex-1 leading-snug underline-offset-4 transition-[text-decoration-color] duration-200 group-hover/toc-link:underline",
+                heading.level === 2 ? "font-bold" : "font-medium",
+                activeId === heading.id
+                  ? "text-amber-900 underline decoration-amber-300 dark:text-amber-100 dark:decoration-amber-500/70"
+                  : "decoration-amber-300/80 dark:decoration-amber-500/70"
+              )}
+            >
+              {heading.text}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </nav>
+);
+
+const TableOfContent = ({
+  isScrollSyncEnabled = false,
+}: TableOfContentProps) => {
+  const navRef = useRef<HTMLDivElement>(null);
+  const { headings, activeId } = useArticleHeadings(
+    isScrollSyncEnabled,
+    navRef
+  );
 
   if (headings.length === 0) {
     return null;
@@ -133,51 +228,11 @@ const TableOfContent = ({
         </div>
       </summary>
 
-      <nav
-        ref={navRef}
-        className="border-t border-stone-100/80 bg-stone-50/30 px-4 py-6 dark:border-stone-800/50 dark:bg-transparent"
-      >
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:gap-3">
-          {headings.map((heading) => (
-            <li key={heading.id} className="list-none">
-              <Link
-                href={`#${heading.id}`}
-                className={cn(
-                  "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition-all duration-200",
-                  activeId === heading.id
-                    ? "bg-white text-amber-600 shadow-sm ring-1 ring-stone-200/50 dark:bg-stone-900 dark:text-amber-500 dark:ring-stone-700/50"
-                    : "text-stone-600 hover:bg-white/80 hover:text-foreground hover:shadow-sm dark:text-stone-400 dark:hover:bg-stone-900/50"
-                )}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleClick(heading.id);
-                }}
-              >
-                <div
-                  className={cn(
-                    "flex shrink-0 items-center justify-center rounded-full transition-all duration-300",
-                    heading.level === 2
-                      ? "h-2 w-2 ring-4 ring-stone-100 dark:ring-stone-800"
-                      : "ml-2 h-1.5 w-1.5 ring-2 ring-stone-100 dark:ring-stone-800",
-                    activeId === heading.id
-                      ? "bg-amber-500 ring-amber-100 dark:ring-amber-900/30"
-                      : "bg-stone-300 dark:bg-stone-600 group-hover:bg-stone-400"
-                  )}
-                />
-                <span
-                  className={cn(
-                    "line-clamp-1 flex-1 leading-snug",
-                    heading.level === 2 ? "font-bold" : "font-medium",
-                    activeId === heading.id ? "text-amber-900 dark:text-amber-100" : ""
-                  )}
-                >
-                  {heading.text}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <TableOfContentNav
+        headings={headings}
+        activeId={activeId}
+        navRef={navRef}
+      />
     </details>
   );
 };
