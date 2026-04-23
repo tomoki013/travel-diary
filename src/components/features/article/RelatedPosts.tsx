@@ -38,7 +38,7 @@ const RelatedPosts = ({ posts }: RelatedPostsProps) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={staggerContainer()}
-        className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-5"
       >
         {posts.map((post) => (
           <motion.div
@@ -48,7 +48,7 @@ const RelatedPosts = ({ posts }: RelatedPostsProps) => {
             viewport={{ once: true, amount: 0.1 }}
             variants={fadeIn()}
           >
-            <PostCard post={post} variant="relate" />
+            <PostCard post={post} variant="relate" layout="horizontal" />
           </motion.div>
         ))}
       </motion.div>

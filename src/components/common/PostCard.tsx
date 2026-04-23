@@ -18,6 +18,7 @@ interface PostCardProps {
   variant?: "default" | "relate";
   showDiscoveryNote?: boolean;
   size?: "default" | "compact";
+  layout?: "vertical" | "horizontal";
 }
 
 const PostCard = ({
@@ -25,12 +26,14 @@ const PostCard = ({
   variant = "default",
   showDiscoveryNote = false,
   size = "default",
+  layout = "vertical",
 }: PostCardProps) => {
   if (variant === "relate") {
     // Keep existing relate variant or update if needed.
   }
 
   const isCompact = size === "compact";
+  const isHorizontal = layout === "horizontal";
   const categoryTitle = getCategoryTitle(post.category);
   const isTourismPost = post.category === "tourism";
   const topicTitles = (isTourismPost ? post.travelTopics || [] : [])
@@ -46,7 +49,9 @@ const PostCard = ({
   return (
     <Link href={`/posts/${post.slug}`} className="block group h-full">
       <article
-        className={`relative flex h-full flex-col overflow-hidden transition-all duration-500 ${
+        className={`relative flex h-full overflow-hidden transition-all duration-500 ${
+          isHorizontal ? "flex-col sm:flex-row" : "flex-col"
+        } ${
           isCompact
             ? "rounded-2xl border border-border/70 bg-card p-4 shadow-sm hover:-translate-y-1 hover:shadow-lg"
             : "rounded-3xl p-5 shadow-md hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl"
@@ -66,10 +71,16 @@ const PostCard = ({
           </>
         )}
 
-        <div className="relative z-10 flex flex-col h-full">
+        <div
+          className={`relative z-10 flex h-full ${
+            isHorizontal ? "flex-col gap-4 sm:flex-row" : "flex-col"
+          }`}
+        >
           <div
-            className={`relative mb-4 overflow-hidden ${
-              isCompact
+            className={`relative overflow-hidden ${
+              isHorizontal
+                ? "mb-0 aspect-[16/10] shrink-0 rounded-2xl ring-1 ring-orange-200/20 transition-all duration-500 group-hover:ring-amber-200/30 dark:ring-orange-700/20 dark:group-hover:ring-amber-600/30 sm:w-64 md:w-72"
+                : isCompact
                 ? "aspect-[16/9] rounded-xl ring-1 ring-border/60"
                 : "aspect-[16/10] rounded-2xl shadow-lg ring-1 ring-orange-200/20 dark:ring-orange-700/20 group-hover:ring-amber-200/30 dark:group-hover:ring-amber-600/30 transition-all duration-500"
             }`}
