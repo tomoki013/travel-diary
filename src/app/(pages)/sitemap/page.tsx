@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "サイトマップ",
   description:
     "サイトの全コンテンツ一覧。主要ページ、シリーズ、国・地域、全記事へのリンクをまとめています。目的のページを素早く見つけるためにご活用ください。",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 // 記事を「年 > 月」の形式にグループ分けしてソートする関数
