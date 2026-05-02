@@ -151,18 +151,6 @@ export default function Client() {
                   {account.description}
                 </p>
 
-                {/* 動画系SNSのみ埋め込みエリアを表示 */}
-                {["YouTube", "TikTok"].includes(account.name) && (
-                  <>
-                    <h4 className="font-bold mb-2">最近の投稿</h4>
-                    <div className="w-full aspect-video bg-gray-200 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
-                      <p className="text-gray-500">
-                        （ここに最新の投稿が埋め込まれます）
-                      </p>
-                    </div>
-                  </>
-                )}
-
                 <Link
                   href={account.url}
                   target="_blank"
