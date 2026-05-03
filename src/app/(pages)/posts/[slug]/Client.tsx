@@ -15,7 +15,6 @@ import Button from "@/components/common/Button";
 import ShareButtons from "@/components/features/article/ShareButtons";
 import AffiliateCard from "@/components/common/AffiliateCard";
 import { affiliates } from "@/constants/affiliates";
-import ArticleCTASection from "@/components/features/revenue/ArticleCTASection";
 import CostBreakdown from "@/components/features/article/CostBreakdown";
 import GlobePromo from "@/components/features/promo/GlobePromo";
 import {
@@ -37,7 +36,6 @@ interface ClientProps {
   nextCategoryPost?: { href: string; title: string };
   previousSeriesPost?: { href: string; title: string };
   nextSeriesPost?: { href: string; title: string };
-  nextActionPosts?: Omit<Post, "content">[];
 }
 
 const FOCUS_SECTION_TRANSITION = {
@@ -57,9 +55,57 @@ const Client = ({
   nextCategoryPost,
   previousSeriesPost,
   nextSeriesPost,
-  nextActionPosts = [],
 }: ClientProps) => {
   const author = members.find((m) => m.name === post.author);
+
+  // Filter relevant travel essentials based on post topics and promotions
+  const getRelevantEssentials = () => {
+    const allEssentials = [
+      { title: "航空券", cat: "flight" as const },
+      { title: "ホテル", cat: "hotel" as const },
+      { title: "ツアー", cat: "activity" as const },
+      { title: "移動", cat: "transport" as const },
+      { title: "通信・eSIM", cat: "esim" as const },
+    ];
+
+    const relevantCats = new Set<string>();
+
+    // 1. From travelTopics
+    if (post.travelTopics) {
+      post.travelTopics.forEach((topic) => {
+        if (topic === "booking") {
+          relevantCats.add("flight");
+          relevantCats.add("hotel");
+          relevantCats.add("activity");
+        }
+        if (topic === "transport") relevantCats.add("transport");
+        if (topic === "sim") relevantCats.add("esim");
+      });
+    }
+
+    // 2. From promotionPG (mapping services to categories)
+    if (post.promotionPG) {
+      post.promotionPG.forEach((pg) => {
+        const affiliate = affiliates.find((a) => a.name === pg);
+        if (affiliate?.categories) {
+          affiliate.categories.forEach((cat) => {
+            if (cat === "train") relevantCats.add("transport");
+            else relevantCats.add(cat);
+          });
+        }
+      });
+    }
+
+    // If no specific relevance found, but it's a tourism post, show all as default
+    if (relevantCats.size === 0) {
+      if (post.category === "tourism") return allEssentials;
+      return [];
+    }
+
+    return allEssentials.filter((item) => relevantCats.has(item.cat));
+  };
+
+  const relevantEssentials = getRelevantEssentials();
 
   // Use location data for map query params if available
   const queryParams =
@@ -84,12 +130,6 @@ const Client = ({
 
         <div className="mt-12 w-full">
           <article className="max-w-none">{children}</article>
-          <div className="mt-16">
-            <ArticleCTASection
-              currentPost={post}
-              nextActionPosts={nextActionPosts}
-            />
-          </div>
         </div>
 
         {post.isPromotion && post.promotionPG && (
@@ -185,42 +225,48 @@ const Client = ({
           </div>
 
           {/* Section 3: Travel Essentials - Compacted */}
-          <div className="space-y-10">
-            <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
-              <h2 className="font-heading text-xl font-bold tracking-tight text-stone-400">
-                Travel Essentials
-              </h2>
-              <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
-            </div>
+          {relevantEssentials.length > 0 && (
+            <div className="space-y-10">
+              <div className="flex items-center gap-4">
+                <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+                <h2 className="font-heading text-xl font-bold tracking-tight text-stone-400">
+                  Travel Essentials
+                </h2>
+                <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+              </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { title: "航空券", cat: "flight" as const },
-                { title: "ホテル", cat: "hotel" as const },
-                { title: "ツアー", cat: "activity" as const },
-                { title: "移動", cat: "transport" as const },
-                { title: "通信・eSIM", cat: "esim" as const },
-              ].map((item) => (
-                <div
-                  key={item.cat}
-                  className="group relative overflow-hidden rounded-2xl border border-stone-100 bg-white p-6 transition-all hover:border-amber-200 hover:shadow-md dark:border-stone-800 dark:bg-stone-950/40"
-                >
-                  <h3 className="mb-2 text-sm font-bold">{item.title}</h3>
-                  <p className="mb-4 text-xs text-stone-500">
-                    おすすめの予約サービス
-                  </p>
-                  <Link
-                    href={`/travel-essentials?category=${item.cat}`}
-                    className="inline-flex items-center text-xs font-bold text-amber-600 transition-colors group-hover:text-amber-700"
+              <div
+                className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${
+                  relevantEssentials.length === 1
+                    ? "lg:grid-cols-1 max-w-sm mx-auto"
+                    : relevantEssentials.length === 2
+                      ? "lg:grid-cols-2"
+                      : relevantEssentials.length === 3
+                        ? "lg:grid-cols-3"
+                        : "lg:grid-cols-4"
+                }`}
+              >
+                {relevantEssentials.map((item) => (
+                  <div
+                    key={item.cat}
+                    className="group relative overflow-hidden rounded-2xl border border-stone-100 bg-white p-6 transition-all hover:border-amber-200 hover:shadow-md dark:border-stone-800 dark:bg-stone-950/40"
                   >
-                    詳細を見る
-                    <ChevronRight className="ml-1 h-3 w-3" />
-                  </Link>
-                </div>
-              ))}
+                    <h3 className="mb-2 text-sm font-bold">{item.title}</h3>
+                    <p className="mb-4 text-xs text-stone-500">
+                      おすすめの予約サービス
+                    </p>
+                    <Link
+                      href={`/travel-essentials?category=${item.cat}`}
+                      className="inline-flex items-center text-xs font-bold text-amber-600 transition-colors group-hover:text-amber-700"
+                    >
+                      詳細を見る
+                      <ChevronRight className="ml-1 h-3 w-3" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Section 4: Post Script - Author, Share, and Meta Info */}
           <div className="rounded-[3rem] border border-stone-200 bg-stone-50/30 px-6 py-12 dark:border-stone-800 dark:bg-[#0c0c0c]/50 sm:px-12">

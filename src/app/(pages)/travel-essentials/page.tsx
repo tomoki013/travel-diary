@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: "Travel Essentials | 旅行予約・準備ガイド",
   description:
     "航空券、ホテル、現地ツアー、移動、通信など、旅行前に確認したい予約・準備の導線をまとめたページです。",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const travelEssentialCategories = [
