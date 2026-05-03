@@ -67,7 +67,6 @@ const mainList = [
   { pass: "/affiliates", name: "アフィリエイトポリシー" },
   { pass: "/editorial-policy", name: "執筆・編集ポリシー" },
   { pass: "/journey", name: "旅の軌跡" },
-  { pass: "/roadmap", name: "ロードマップ" },
   { pass: MAP_PATH, name: "Tomokichi Globe" },
 ];
 

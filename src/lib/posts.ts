@@ -1,7 +1,6 @@
 import { cache } from "react";
 import * as postFilters from "./post-filters";
 import { Post, PostMetadata } from "@/types/types";
-import { getNextActionPosts } from "@/lib/revenue";
 import { getAllPosts } from "./post-metadata";
 import { getPublishedPostBySlug } from "./post-content";
 import { getContextualRelatedPosts } from "./post-discovery";
@@ -99,8 +98,6 @@ export async function processPostNavigation(
 
   const contextualRelatedPosts = getContextualRelatedPosts(post, allPosts);
 
-  const nextActionPosts = getNextActionPosts(post, allPosts);
-
   // Format the next/previous post data to match the expected structure in the component
   const previousPost = previousPostData
     ? {
@@ -126,6 +123,5 @@ export async function processPostNavigation(
     nextCategoryPost,
     previousSeriesPost,
     nextSeriesPost,
-    nextActionPosts,
   };
 }

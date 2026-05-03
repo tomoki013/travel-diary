@@ -77,7 +77,6 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       nextCategoryPost,
       previousSeriesPost,
       nextSeriesPost,
-      nextActionPosts,
     } = await getPostData(slug);
 
     const jsonLd = {
@@ -141,7 +140,6 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
           nextCategoryPost={nextCategoryPost}
           previousSeriesPost={previousSeriesPost}
           nextSeriesPost={nextSeriesPost}
-          nextActionPosts={nextActionPosts}
         >
           <ArticleContent
             content={post.content}

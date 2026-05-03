@@ -65,10 +65,15 @@ const Footer = () => {
                   <li key={content.name}>
                     <Link
                       href={content.pass}
+                      target={content.target}
+                      rel={content.target === "_blank" ? "noopener noreferrer" : undefined}
                       className="group flex items-center gap-2 text-sm text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-stone-200 transition-all group-hover:w-3 group-hover:bg-amber-500 dark:bg-stone-800" />
                       {content.name}
+                      {content.target === "_blank" && (
+                        <ExternalLink className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
+                      )}
                       {content.isNew && (
                         <span className="ml-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
                           NEW
@@ -90,6 +95,8 @@ const Footer = () => {
                     <li key={link.name}>
                       <Link
                         href={link.pass}
+                        target={link.target}
+                        rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
                         className="group flex items-center gap-1 text-sm text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
                       >
                         {link.name}
@@ -155,7 +162,7 @@ const Footer = () => {
           </p>
           <div className="flex items-center gap-6">
             <p className="flex items-center gap-1.5 text-xs text-stone-400">
-              Made with <Heart className="h-3 w-3 text-red-500" /> in Japan
+              Made with <Heart className="h-3 w-3 text-red-500" /> by Tomokichi
             </p>
           </div>
         </div>
