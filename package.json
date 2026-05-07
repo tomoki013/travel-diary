@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "pnpm run prebuild && next dev --webpack",
-    "prebuild": "node scripts/generate-image-index.js && node scripts/generate-post-cache.js && node scripts/generate-post-metadata.js",
+    "prebuild": "node scripts/generate-image-index.js && node scripts/generate-post-cache.js && node scripts/generate-post-metadata.js && node scripts/generate-blog-index.js",
     "build": "next build --webpack",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
