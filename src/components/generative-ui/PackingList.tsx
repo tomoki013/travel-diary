@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Briefcase, Wind, Umbrella, ThermometerSnowflake } from "lucide-react";
+import { Briefcase, ThermometerSnowflake } from "lucide-react";
 
 interface PackingItem {
   item: string;
