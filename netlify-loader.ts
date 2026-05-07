@@ -17,8 +17,13 @@ export default function netlifyLoader({
 }: ImageLoaderProps): string {
   // ImageLoaderPropsからqualityも受け取れますが、
   // Netlifyの基本的な画像変換では使わないため、ここでは含めていません。
+  
+  // Next.js requires the loader to handle/mention the width parameter.
   if (isProduction) {
     return `/.netlify/images?url=${src}&w=${width}`;
   }
-  return src;
+  
+  // In development, we return the original src but append width as a dummy param 
+  // to avoid "loader does not implement width" console warnings.
+  return `${src}?w=${width}`;
 }

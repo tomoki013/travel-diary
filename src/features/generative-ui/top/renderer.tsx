@@ -4,6 +4,13 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { PrimitiveNode, GeneratedTopPage } from "./schema";
+import { AirportAnxietyMap } from "@/components/generative-ui/AirportAnxietyMap";
+import { BudgetSimulator } from "@/components/generative-ui/BudgetSimulator";
+import { DestinationComparisonBoard } from "@/components/generative-ui/DestinationComparisonBoard";
+import { ItineraryDisplay } from "@/components/generative-ui/ItineraryDisplay";
+import { PackingList } from "@/components/generative-ui/PackingList";
+import { PhotoOppsComparison } from "@/components/generative-ui/PhotoOppsComparison";
+import { ArticleEmbedder } from "@/components/generative-ui/ArticleEmbedder";
 
 // ─────────────────────────────────────────────
 // Article index lookup (resolved client-side from page props)
@@ -91,6 +98,21 @@ function NodeRenderer({
       return <TimelinePrimitive node={node} ctx={ctx} />;
     case "next_action":
       return <NextActionPrimitive node={node} ctx={ctx} />;
+    // Rich interactive components
+    case "airport_anxiety_map":
+      return <AirportAnxietyMapPrimitive node={node} />;
+    case "budget_simulator":
+      return <BudgetSimulatorPrimitive node={node} />;
+    case "destination_comparison":
+      return <DestinationComparisonPrimitive node={node} />;
+    case "itinerary_display":
+      return <ItineraryDisplayPrimitive node={node} />;
+    case "packing_list":
+      return <PackingListPrimitive node={node} />;
+    case "photo_spots":
+      return <PhotoSpotsPrimitive node={node} />;
+    case "article_embedder":
+      return <ArticleEmbedderPrimitive node={node} ctx={ctx} />;
     default:
       return null;
   }
@@ -332,6 +354,144 @@ function ImageGalleryPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Render
       ))}
     </div>
   );
+}
+
+// ─────────────────────────────────────────────
+// Rich interactive primitives (using local trusted components)
+// Props are validated before passing — AI cannot inject arbitrary code
+// ─────────────────────────────────────────────
+
+function AirportAnxietyMapPrimitive({ node }: { node: PrimitiveNode }) {
+  const airportName = safeString(node.props.airportName);
+  const destinationName = safeString(node.props.destinationName);
+  const overallAnxietyLevel = safeNumber(node.props.overallAnxietyLevel, 50, 0, 100);
+  const options = safeArray<Record<string, unknown>>(node.props.options)
+    .slice(0, 6)
+    .map((o) => ({
+      mode: safeString(o.mode),
+      time: safeString(o.time),
+      cost: safeString(o.cost),
+      difficulty: safeEnum<"Easy" | "Medium" | "Hard">(o.difficulty, ["Easy", "Medium", "Hard"], "Medium"),
+      description: safeString(o.description),
+    }))
+    .filter((o) => o.mode);
+  if (!airportName || !options.length) return null;
+  return (
+    <AirportAnxietyMap
+      airportName={airportName}
+      destinationName={destinationName}
+      options={options}
+      overallAnxietyLevel={overallAnxietyLevel}
+    />
+  );
+}
+
+function BudgetSimulatorPrimitive({ node }: { node: PrimitiveNode }) {
+  const destination = safeString(node.props.destination);
+  const currency = safeString(node.props.currency) || "円";
+  const tiers = safeArray<Record<string, unknown>>(node.props.tiers)
+    .slice(0, 5)
+    .map((t) => ({
+      label: safeString(t.label),
+      dailyCost: safeNumber(t.dailyCost, 0, 0, 9999999),
+      satisfaction: safeNumber(t.satisfaction, 70, 0, 100),
+      description: safeString(t.description),
+    }))
+    .filter((t) => t.label);
+  if (!destination || !tiers.length) return null;
+  return <BudgetSimulator destination={destination} currency={currency} tiers={tiers} />;
+}
+
+function DestinationComparisonPrimitive({ node }: { node: PrimitiveNode }) {
+  const destinationA = safeString(node.props.destinationA);
+  const destinationB = safeString(node.props.destinationB);
+  const verdict = safeString(node.props.verdict);
+  const categories = safeArray<Record<string, unknown>>(node.props.categories)
+    .slice(0, 8)
+    .map((c) => ({
+      name: safeString(c.name),
+      ratingA: safeNumber(c.ratingA, 3, 0, 5),
+      ratingB: safeNumber(c.ratingB, 3, 0, 5),
+      comment: safeString(c.comment),
+    }))
+    .filter((c) => c.name);
+  if (!destinationA || !destinationB || !categories.length) return null;
+  return (
+    <DestinationComparisonBoard
+      destinationA={destinationA}
+      destinationB={destinationB}
+      categories={categories}
+      verdict={verdict}
+    />
+  );
+}
+
+function ItineraryDisplayPrimitive({ node }: { node: PrimitiveNode }) {
+  const title = safeString(node.props.title);
+  const destination = safeString(node.props.destination);
+  const duration = safeString(node.props.duration);
+  const days = safeArray<Record<string, unknown>>(node.props.days)
+    .slice(0, 10)
+    .map((d) => ({
+      day: safeNumber(d.day, 1, 1, 30),
+      title: safeString(d.title),
+      schedule: safeArray<Record<string, unknown>>(d.schedule)
+        .slice(0, 10)
+        .map((s) => ({
+          time: safeString(s.time),
+          activity: safeString(s.activity),
+          description: safeString(s.description),
+          location: safeString(s.location) || undefined,
+        }))
+        .filter((s) => s.activity),
+    }))
+    .filter((d) => d.title);
+  if (!title || !days.length) return null;
+  return <ItineraryDisplay title={title} destination={destination} duration={duration} days={days} />;
+}
+
+function PackingListPrimitive({ node }: { node: PrimitiveNode }) {
+  const destination = safeString(node.props.destination);
+  const season = safeString(node.props.season);
+  const items = safeArray<Record<string, unknown>>(node.props.items)
+    .slice(0, 30)
+    .map((i) => ({
+      item: safeString(i.item),
+      category: safeString(i.category),
+      reason: safeString(i.reason),
+      essential: Boolean(i.essential),
+    }))
+    .filter((i) => i.item && i.category);
+  if (!destination || !items.length) return null;
+  return <PackingList destination={destination} season={season} items={items} />;
+}
+
+function PhotoSpotsPrimitive({ node }: { node: PrimitiveNode }) {
+  const destination = safeString(node.props.destination);
+  const spots = safeArray<Record<string, unknown>>(node.props.spots)
+    .slice(0, 8)
+    .map((s) => ({
+      name: safeString(s.name),
+      theme: safeString(s.theme),
+      bestTime: safeString(s.bestTime),
+      instagrammability: safeNumber(s.instagrammability, 3, 0, 5),
+    }))
+    .filter((s) => s.name);
+  if (!destination || !spots.length) return null;
+  return <PhotoOppsComparison destination={destination} spots={spots} />;
+}
+
+function ArticleEmbedderPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const articleIds = safeArray<string>(node.props.articleIds).slice(0, 6);
+  const articles = articleIds
+    .map((id) => {
+      const a = ctx.articleIndex[id];
+      if (!a) return null;
+      return { title: a.title, slug: a.slug, summary: a.summaryForAI };
+    })
+    .filter((a): a is { title: string; slug: string; summary: string } => a !== null);
+  if (!articles.length) return null;
+  return <ArticleEmbedder articles={articles} />;
 }
 
 // src がブログ自身の /images/ パスであることを確認するホワイトリスト検証

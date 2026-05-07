@@ -24,6 +24,14 @@ export const ALLOWED_PRIMITIVE_TYPES = [
   "accordion",
   "timeline",
   "next_action",
+  // Rich interactive components
+  "airport_anxiety_map",
+  "budget_simulator",
+  "destination_comparison",
+  "itinerary_display",
+  "packing_list",
+  "photo_spots",
+  "article_embedder",
 ] as const;
 
 export const PrimitiveTypeSchema = z.enum(ALLOWED_PRIMITIVE_TYPES);
