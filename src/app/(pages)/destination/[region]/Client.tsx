@@ -143,10 +143,21 @@ const Client = ({
               viewport={{ once: true, amount: 0.1 }}
               variants={sectionVariants}
             >
-              <p className="text-lg text-center text-foreground leading-relaxed">
-                {region.name}
-                の旅で役立つ情報や、旅の記録をまとめました。あなたの次の冒険の参考にしてください。
-              </p>
+              <div className="max-w-3xl mx-auto text-center space-y-4">
+                <p className="text-xl md:text-2xl font-medium text-foreground">
+                  {region.name}の旅行ガイド・記
+                </p>
+                {region.description ? (
+                  <p className="text-lg text-foreground leading-relaxed whitespace-pre-wrap">
+                    {region.description}
+                  </p>
+                ) : (
+                  <p className="text-lg text-foreground leading-relaxed">
+                    {region.name}
+                    の旅で役立つ情報や、旅の記録をまとめました。あなたの次の冒険の参考にしてください。
+                  </p>
+                )}
+              </div>
             </motion.section>
 
             {/* ==================== 関連シリーズセクション ==================== */}

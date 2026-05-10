@@ -75,8 +75,8 @@ yarn dev
 
 本番で使う正規ドメインは `NEXT_PUBLIC_SITE_URL` で切り替えできます。
 
+- 以前の値: `https://travel.tomokichidiary.com`
 - 現在の既定値: `https://tomokichidiary.com`
-- 以前の値へ戻す場合: `https://travel.tomokichidiary.com`
 
 例（Netlify/環境変数）:
 

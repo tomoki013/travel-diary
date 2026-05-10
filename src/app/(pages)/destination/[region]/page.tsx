@@ -24,10 +24,6 @@ export async function generateMetadata(props: {
 
   return {
     title: currentRegion ? `${currentRegion.name}の旅行記` : "地域別一覧",
-    robots: {
-      index: false,
-      follow: true,
-    },
   };
 }
 

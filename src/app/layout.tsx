@@ -72,6 +72,9 @@ export const metadata: Metadata = {
     images: ["favicon.ico"],
   },
   metadataBase: new URL(PRIMARY_SITE_URL),
+  alternates: {
+    canonical: "/",
+  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
