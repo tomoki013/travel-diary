@@ -13,7 +13,7 @@
 ### リダイレクト運用
 
 - `netlify.toml` の `[[redirects]]` セクションで、以下のリダイレクトを管理しています。
-    - ドメイン正規化 (`tomokichidiary.netlify.app` -> `travel.tomokichidiary.com`)
+    - ドメイン正規化 (`tomokichidiary.netlify.app` -> `tomokichidiary.com`)
     - 旧パス構造の正規化 (`/diary/*`, `/tourism/*`, `/itinerary/*` -> `/posts/*`)
     - 廃止されたツール・ページからトップページへの転送
 

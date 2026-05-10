@@ -58,12 +58,14 @@ export interface City {
   slug: string;
   name: string;
   imageURL: string;
+  description?: string;
 }
 
 export interface Country {
   slug: string;
   name: string;
   imageURL: string;
+  description?: string;
   children?: City[];
 }
 
@@ -77,6 +79,7 @@ export interface Region {
   slug: string;
   name: string;
   imageURL: string;
+  description?: string;
   children?: Region[];
 }
 

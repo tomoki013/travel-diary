@@ -70,11 +70,13 @@ export const regionData: ContinentData[] = [
         slug: "thailand",
         name: "タイ",
         imageURL: "/images/Thai/emotional-wat-arun.jpg",
+        description: "微笑みの国タイ。活気あふれるバンコクの寺院巡りから、美味しい屋台グルメ、美しいビーチまで、多彩な魅力が詰まった人気の旅行先です。",
         children: [
           {
             slug: "bangkok",
             name: "バンコク",
             imageURL: "/images/Thai/ceiling-at-wat-pak-nam.jpg",
+            description: "タイの首都バンコク。三大寺院などの歴史的建造物と、近代的なショッピングモール、熱気あふれるマーケットが共存するエネルギッシュな都市です。",
           },
         ],
       },
@@ -174,11 +176,13 @@ export const regionData: ContinentData[] = [
         slug: "france",
         name: "フランス",
         imageURL: "/images/France/eiffel-tower-and-sunset.jpg",
+        description: "芸術と美食の国フランス。華やかなパリの街並みや世界遺産のモン・サン・ミッシェルなど、一度は訪れたい憧れのスポットが満載です。",
         children: [
           {
             slug: "paris",
             name: "パリ",
             imageURL: "/images/France/louvre-museum1.jpg",
+            description: "花の都パリ。エッフェル塔やルーブル美術館などのランドマークに加え、お洒落なカフェやブティックが並ぶ、世界中から愛される都市です。",
           },
         ],
       },
@@ -186,21 +190,25 @@ export const regionData: ContinentData[] = [
         slug: "spain",
         name: "スペイン",
         imageURL: "/images/Spain/las-ventas-bullring.jpg",
+        description: "情熱の国スペイン。ガウディの建築美に触れるバルセロナや、歴史あるマドリード、絶景の古都トレドなど、地域ごとに異なる魅力が楽しめます。",
         children: [
           {
             slug: "barcelona",
             name: "バルセロナ",
             imageURL: "/images/Spain/sagrada-familia.jpg",
+            description: "地中海に面した芸術都市バルセロナ。サグラダ・ファミリアをはじめとするガウディの名建築巡りや、美味しいタパスを楽しめます。",
           },
           {
             slug: "madrid",
             name: "マドリード",
             imageURL: "/images/Spain/plaza-de-mayor.jpg",
+            description: "スペインの首都マドリード。王宮やプラド美術館などの文化施設に加え、活気ある市場や広場で現地の生活を感じることができます。",
           },
           {
             slug: "toledo",
             name: "トレド",
             imageURL: "/images/Spain/toledo-view.jpg",
+            description: "「16世紀で歩みが止まった街」と称される世界遺産の古都。迷路のような路地や、展望台からの荘厳なパノラマは必見です。",
           },
         ],
       },
