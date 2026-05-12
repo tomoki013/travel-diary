@@ -27,7 +27,7 @@ generationIdは新しい値に変更してください。
 export function buildPatchUserPayload(
   instruction: string,
   currentSchema: GeneratedTopPage,
-  candidateArticles: SafeArticleContext[]
+  candidateArticles: SafeArticleContext[],
 ): string {
   const sanitizedInstruction = instruction.slice(0, 300).replace(/```/g, "").trim();
 

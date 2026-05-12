@@ -22,14 +22,14 @@ export function LoadingSteps() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center py-16 gap-8">
-      <div className="relative w-12 h-12">
+    <div className="flex flex-col items-center gap-8 py-16">
+      <div className="relative h-12 w-12">
         <div className="absolute inset-0 rounded-full border-2 border-zinc-200 dark:border-zinc-700" />
-        <div className="absolute inset-0 rounded-full border-2 border-t-zinc-900 dark:border-t-zinc-100 animate-spin" />
+        <div className="absolute inset-0 animate-spin rounded-full border-2 border-t-zinc-900 dark:border-t-zinc-100" />
       </div>
 
-      <div className="space-y-2 w-full max-w-xs">
-        <p className="text-center text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-4">
+      <div className="w-full max-w-xs space-y-2">
+        <p className="mb-4 text-center text-sm font-medium text-zinc-600 dark:text-zinc-400">
           トップページを設計しています
         </p>
         {STEPS.map((step, i) => {
@@ -42,13 +42,13 @@ export function LoadingSteps() {
                 isDone || isActive ? "opacity-100" : "opacity-30"
               }`}
             >
-              <span className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
+              <span className="flex h-4 w-4 flex-shrink-0 items-center justify-center">
                 {isDone ? (
                   <span className="text-emerald-500">✓</span>
                 ) : isActive ? (
-                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-pulse" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-400" />
                 ) : (
-                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-200 dark:bg-zinc-700" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-200 dark:bg-zinc-700" />
                 )}
               </span>
               <span
@@ -56,8 +56,8 @@ export function LoadingSteps() {
                   isDone
                     ? "text-zinc-400 dark:text-zinc-500"
                     : isActive
-                    ? "text-zinc-900 dark:text-zinc-100 font-medium"
-                    : "text-zinc-400 dark:text-zinc-600"
+                      ? "font-medium text-zinc-900 dark:text-zinc-100"
+                      : "text-zinc-400 dark:text-zinc-600"
                 }
               >
                 {step}

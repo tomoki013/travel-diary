@@ -59,7 +59,7 @@ function healNode(node: any, fallbackId: string): any {
     healedNode.children = node.children
       .map((child: any, index: number) => healNode(child, `${healedNode.id}-c${index}`))
       .filter((c: any) => c !== null);
-    
+
     if (healedNode.children.length === 0) {
       delete healedNode.children;
     }

@@ -1,15 +1,6 @@
 export type PostType = "tourism" | "itinerary" | "series" | "one-off";
-export type TravelTopic =
-  | "money"
-  | "visa"
-  | "transport"
-  | "booking"
-  | "sim"
-  | "insurance";
-export type RevenueCategory =
-  | TravelTopic
-  | "guide"
-  | "essay";
+export type TravelTopic = "money" | "visa" | "transport" | "booking" | "sim" | "insurance";
+export type RevenueCategory = TravelTopic | "guide" | "essay";
 
 export interface Post {
   slug: string;

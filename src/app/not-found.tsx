@@ -22,12 +22,12 @@ export default function NotFound() {
       {/* メインコンテンツエリア */}
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center px-6 text-center md:px-12">
         {/* 巨大な404タイポグラフィ - 背景に溶け込ませる */}
-        <h1 className="select-none text-[12rem] font-bold leading-none tracking-tighter text-white/10 mix-blend-overlay blur-[2px] md:text-[20rem]">
+        <h1 className="text-[12rem] leading-none font-bold tracking-tighter text-white/10 mix-blend-overlay blur-[2px] select-none md:text-[20rem]">
           404
         </h1>
 
         {/* メッセージカード - グラスモーフィズム */}
-        <div className="-mt-20 max-w-lg rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md shadow-2xl md:-mt-32 md:p-12">
+        <div className="-mt-20 max-w-lg rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md md:-mt-32 md:p-12">
           <div className="mb-6 flex justify-center">
             {/* コンパスのアイコン装飾 */}
             <div className="rounded-full bg-white/10 p-3 ring-1 ring-white/20">
@@ -41,7 +41,7 @@ export default function NotFound() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-sky-200 animate-spin"
+                className="animate-spin text-sky-200"
                 style={{ animationDuration: "4s" }}
               >
                 <circle cx="12" cy="12" r="10" />
@@ -64,7 +64,7 @@ export default function NotFound() {
             {/* ホームに戻るボタン */}
             <Link
               href="/"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-8 py-3 text-sm font-medium text-slate-900 transition-all hover:bg-sky-50 hover:text-sky-900 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-8 py-3 text-sm font-medium text-slate-900 transition-all hover:bg-sky-50 hover:text-sky-900 focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none"
             >
               <span>トップページへ戻る</span>
               <svg
@@ -94,7 +94,7 @@ export default function NotFound() {
       </div>
 
       {/* フッター装飾 */}
-      <div className="absolute bottom-8 left-0 right-0 text-center">
+      <div className="absolute right-0 bottom-8 left-0 text-center">
         <p className="text-xs font-light tracking-[0.2em] text-slate-500 uppercase">
           Tomokichi&apos;s Travel Diary
         </p>

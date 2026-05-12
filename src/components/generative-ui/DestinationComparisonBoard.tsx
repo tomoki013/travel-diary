@@ -30,18 +30,22 @@ export const DestinationComparisonBoard: React.FC<DestinationComparisonBoardProp
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full max-w-2xl space-y-4 my-4"
+      className="my-4 w-full max-w-2xl space-y-4"
     >
-      <Card className="border-2 border-primary/20">
+      <Card className="border-primary/20 border-2">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xl flex justify-between items-center">
-            <span>{destinationA} <span className="text-muted-foreground text-sm font-normal mx-2">vs</span> {destinationB}</span>
+          <CardTitle className="flex items-center justify-between text-xl">
+            <span>
+              {destinationA}{" "}
+              <span className="text-muted-foreground mx-2 text-sm font-normal">vs</span>{" "}
+              {destinationB}
+            </span>
             <Badge variant="outline">比較ボード</Badge>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
-            <div className="grid grid-cols-7 text-xs font-medium text-muted-foreground mb-2">
+            <div className="text-muted-foreground mb-2 grid grid-cols-7 text-xs font-medium">
               <div className="col-span-2 text-left">{destinationA}</div>
               <div className="col-span-3 text-center">カテゴリ</div>
               <div className="col-span-2 text-right">{destinationB}</div>
@@ -54,31 +58,31 @@ export const DestinationComparisonBoard: React.FC<DestinationComparisonBoardProp
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`w-3 h-3 ${i < cat.ratingA ? "fill-yellow-400 text-yellow-400" : "text-muted"}`}
+                        className={`h-3 w-3 ${i < cat.ratingA ? "fill-yellow-400 text-yellow-400" : "text-muted"}`}
                       />
                     ))}
                   </div>
-                  <div className="col-span-3 text-center text-sm font-bold bg-muted/50 py-1 rounded">
+                  <div className="bg-muted/50 col-span-3 rounded py-1 text-center text-sm font-bold">
                     {cat.name}
                   </div>
                   <div className="col-span-2 flex justify-end">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`w-3 h-3 ${i < cat.ratingB ? "fill-yellow-400 text-yellow-400" : "text-muted"}`}
+                        className={`h-3 w-3 ${i < cat.ratingB ? "fill-yellow-400 text-yellow-400" : "text-muted"}`}
                       />
                     ))}
                   </div>
                 </div>
-                <p className="text-xs text-center text-muted-foreground italic px-4">
+                <p className="text-muted-foreground px-4 text-center text-xs italic">
                   {cat.comment}
                 </p>
               </div>
             ))}
 
-            <div className="pt-4 border-t border-dashed">
-              <h4 className="text-sm font-bold mb-1">結論</h4>
-              <p className="text-sm bg-primary/5 p-3 rounded-lg border border-primary/10">
+            <div className="border-t border-dashed pt-4">
+              <h4 className="mb-1 text-sm font-bold">結論</h4>
+              <p className="bg-primary/5 border-primary/10 rounded-lg border p-3 text-sm">
                 {verdict}
               </p>
             </div>

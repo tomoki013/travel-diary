@@ -8,7 +8,10 @@ import { members } from "@/data/member";
 import { Post } from "@/types/types";
 import RelatedPosts from "@/components/features/article/RelatedPosts";
 import FloatingTableOfContent from "@/components/features/article/FloatingTableOfContent";
-import TableOfContent from "@/components/features/article/TableOfContent";
+import TableOfContent, {
+  useHeadings,
+  useScrollSync,
+} from "@/components/features/article/TableOfContent";
 import PostHeader from "@/components/features/article/PostHeader";
 import PostNavigation from "@/components/features/article/PostNavigation";
 import Button from "@/components/common/Button";
@@ -16,19 +19,14 @@ import ShareButtons from "@/components/features/article/ShareButtons";
 import AffiliateCard from "@/components/common/AffiliateCard";
 import { affiliates } from "@/constants/affiliates";
 import CostBreakdown from "@/components/features/article/CostBreakdown";
-import GlobePromo from "@/components/features/promo/GlobePromo";
-import {
-  AlertCircle,
-  Calendar,
-  CheckCircle,
-  Info,
-  ArrowRight,
-  ChevronRight,
-} from "lucide-react";
+import dynamic from "next/dynamic";
+import { AlertCircle, Calendar, CheckCircle, Info, ArrowRight, ChevronRight } from "lucide-react";
+
+type ClientPost = Omit<Post, "content">;
 
 interface ClientProps {
   children: React.ReactNode;
-  post: Post;
+  post: ClientPost;
   previousPost?: { href: string; title: string };
   nextPost?: { href: string; title: string };
   regionRelatedPosts?: Omit<Post, "content">[];
@@ -45,6 +43,13 @@ const FOCUS_SECTION_TRANSITION = {
   mass: 1,
 } as const;
 
+const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-64 animate-pulse rounded-[2.5rem] bg-stone-100 dark:bg-stone-900" />
+  ),
+});
+
 const Client = ({
   children,
   post,
@@ -56,6 +61,8 @@ const Client = ({
   previousSeriesPost,
   nextSeriesPost,
 }: ClientProps) => {
+  const headings = useHeadings();
+  const activeId = useScrollSync(headings, true);
   const author = members.find((m) => m.name === post.author);
 
   // Filter relevant travel essentials based on post topics and promotions
@@ -109,13 +116,11 @@ const Client = ({
 
   // Use location data for map query params if available
   const queryParams =
-    post.location && post.location.length > 0
-      ? { region: post.location[0] }
-      : undefined;
+    post.location && post.location.length > 0 ? { region: post.location[0] } : undefined;
 
   return (
     <div className="relative">
-      <FloatingTableOfContent />
+      <FloatingTableOfContent headings={headings} activeId={activeId} />
       <motion.div
         transition={FOCUS_SECTION_TRANSITION}
         className="relative z-40 mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8"
@@ -125,7 +130,7 @@ const Client = ({
         {post.costs && <CostBreakdown costs={post.costs} />}
 
         <div className="my-12">
-          <TableOfContent />
+          <TableOfContent headings={headings} activeId={activeId} isScrollSyncEnabled />
         </div>
 
         <div className="mt-12 w-full">
@@ -134,22 +139,17 @@ const Client = ({
 
         {post.isPromotion && post.promotionPG && (
           <div className="my-16">
-            <h2 className="mb-8 text-center font-heading text-2xl font-bold tracking-wide text-stone-800 dark:text-stone-200">
+            <h2 className="font-heading mb-8 text-center text-2xl font-bold tracking-wide text-stone-800 dark:text-stone-200">
               この記事で紹介したサービス
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {affiliates
                 .filter(
                   (affiliate) =>
-                    post.promotionPG?.includes(affiliate.name) &&
-                    affiliate.status === "ready",
+                    post.promotionPG?.includes(affiliate.name) && affiliate.status === "ready",
                 )
                 .map((affiliate) => (
-                  <AffiliateCard
-                    key={affiliate.name}
-                    affiliate={affiliate}
-                    type={affiliate.type}
-                  />
+                  <AffiliateCard key={affiliate.name} affiliate={affiliate} type={affiliate.type} />
                 ))}
             </div>
           </div>
@@ -164,10 +164,10 @@ const Client = ({
         >
           {/* Section 1: Next Journeys - Single Column Focused Flow */}
           <div className="relative">
-            <div className="absolute inset-0 -mx-4 rounded-[3rem] bg-stone-50/50 dark:bg-stone-900/20 sm:-mx-8 lg:-mx-12" />
+            <div className="absolute inset-0 -mx-4 rounded-[3rem] bg-stone-50/50 sm:-mx-8 lg:-mx-12 dark:bg-stone-900/20" />
             <div className="relative space-y-20 px-4 py-16 sm:px-8 lg:px-12">
               <div className="space-y-3 text-center">
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-amber-600 dark:text-amber-500">
+                <span className="text-xs font-bold tracking-[0.3em] text-amber-600 uppercase dark:text-amber-500">
                   Next Step
                 </span>
                 <h2 className="font-heading text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
@@ -194,7 +194,7 @@ const Client = ({
                 <div className="space-y-10">
                   <div className="flex items-center gap-4">
                     <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400">
+                    <h3 className="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase">
                       More to Explore
                     </h3>
                     <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
@@ -217,11 +217,7 @@ const Client = ({
 
           {/* Section 2: Globe Utility */}
           <div className="overflow-hidden rounded-[2.5rem]">
-            <GlobePromo
-              compact
-              className="px-0 py-0"
-              queryParams={queryParams}
-            />
+            <GlobePromo compact className="px-0 py-0" queryParams={queryParams} />
           </div>
 
           {/* Section 3: Travel Essentials - Compacted */}
@@ -238,7 +234,7 @@ const Client = ({
               <div
                 className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${
                   relevantEssentials.length === 1
-                    ? "lg:grid-cols-1 max-w-sm mx-auto"
+                    ? "mx-auto max-w-sm lg:grid-cols-1"
                     : relevantEssentials.length === 2
                       ? "lg:grid-cols-2"
                       : relevantEssentials.length === 3
@@ -252,9 +248,7 @@ const Client = ({
                     className="group relative overflow-hidden rounded-2xl border border-stone-100 bg-white p-6 transition-all hover:border-amber-200 hover:shadow-md dark:border-stone-800 dark:bg-stone-950/40"
                   >
                     <h3 className="mb-2 text-sm font-bold">{item.title}</h3>
-                    <p className="mb-4 text-xs text-stone-500">
-                      おすすめの予約サービス
-                    </p>
+                    <p className="mb-4 text-xs text-stone-500">おすすめの予約サービス</p>
                     <Link
                       href={`/travel-essentials?category=${item.cat}`}
                       className="inline-flex items-center text-xs font-bold text-amber-600 transition-colors group-hover:text-amber-700"
@@ -269,7 +263,7 @@ const Client = ({
           )}
 
           {/* Section 4: Post Script - Author, Share, and Meta Info */}
-          <div className="rounded-[3rem] border border-stone-200 bg-stone-50/30 px-6 py-12 dark:border-stone-800 dark:bg-[#0c0c0c]/50 sm:px-12">
+          <div className="rounded-[3rem] border border-stone-200 bg-stone-50/30 px-6 py-12 sm:px-12 dark:border-stone-800 dark:bg-[#0c0c0c]/50">
             <div className="grid gap-12 lg:grid-cols-12">
               <div className="lg:col-span-7">
                 <div className="flex flex-col gap-8 md:flex-row md:items-start">
@@ -282,7 +276,7 @@ const Client = ({
                   />
                   <div className="space-y-4">
                     <div className="space-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
+                      <span className="text-[10px] font-bold tracking-widest text-stone-400 uppercase">
                         Written by
                       </span>
                       <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -314,7 +308,7 @@ const Client = ({
 
               <div className="lg:col-span-5">
                 <div className="space-y-6 rounded-2xl bg-white/50 p-6 dark:bg-stone-900/40">
-                  <h4 className="text-center text-xs font-bold uppercase tracking-widest text-stone-400">
+                  <h4 className="text-center text-xs font-bold tracking-widest text-stone-400 uppercase">
                     Share this journey
                   </h4>
                   <ShareButtons post={post} />
@@ -322,7 +316,7 @@ const Client = ({
               </div>
             </div>
 
-            <div className="mt-12 grid gap-6 border-t border-stone-200 pt-12 dark:border-stone-800 md:grid-cols-2">
+            <div className="mt-12 grid gap-6 border-t border-stone-200 pt-12 md:grid-cols-2 dark:border-stone-800">
               <div className="flex gap-4">
                 <AlertCircle className="h-5 w-5 shrink-0 text-amber-600/50" />
                 <p className="text-[11px] leading-relaxed text-stone-400">

@@ -11,8 +11,7 @@ interface Props {
 
 const NativeShareButton = ({ url, title, text }: Props) => {
   const hydrated = useHydrated();
-  const isSupported =
-    hydrated && typeof navigator !== "undefined" && "share" in navigator;
+  const isSupported = hydrated && typeof navigator !== "undefined" && "share" in navigator;
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -35,7 +34,7 @@ const NativeShareButton = ({ url, title, text }: Props) => {
   return (
     <button
       onClick={handleShare}
-      className="p-3 rounded-full text-foreground bg-primary-foreground hover:bg-gray-200 transition-colors"
+      className="text-foreground bg-primary-foreground rounded-full p-3 transition-colors hover:bg-gray-200"
       aria-label="Share"
     >
       <FiShare size={20} />

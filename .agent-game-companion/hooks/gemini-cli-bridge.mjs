@@ -28,17 +28,22 @@ function parsePayload(raw) {
 function mapClaude(payload) {
   const hookEventName = asString(payload.hook_event_name);
   const notificationType = asString(payload.notification_type);
-  const sessionId = process.env[agcSessionIdEnv] ?? asString(payload.session_id) ?? process.env.CLAUDE_SESSION_ID;
+  const sessionId =
+    process.env[agcSessionIdEnv] ?? asString(payload.session_id) ?? process.env.CLAUDE_SESSION_ID;
   switch (hookEventName) {
     case "SessionStart":
     case "UserPromptSubmit":
     case "PreToolUse":
       return sessionId ? { sessionId, state: "running" } : undefined;
     case "PermissionRequest":
-      return sessionId ? { sessionId, state: "approval_required", requiresAttention: true } : undefined;
+      return sessionId
+        ? { sessionId, state: "approval_required", requiresAttention: true }
+        : undefined;
     case "Notification":
       if (notificationType === "permission_prompt") {
-        return sessionId ? { sessionId, state: "approval_required", requiresAttention: true } : undefined;
+        return sessionId
+          ? { sessionId, state: "approval_required", requiresAttention: true }
+          : undefined;
       }
       if (notificationType === "idle_prompt") {
         return sessionId ? { sessionId, state: "waiting" } : undefined;
@@ -48,7 +53,12 @@ function mapClaude(payload) {
       return sessionId ? { sessionId, state: "waiting" } : undefined;
     case "StopFailure":
       return sessionId
-        ? { sessionId, state: "error", requiresAttention: true, errorCode: asString(payload.error_type) ?? "stop_failure" }
+        ? {
+            sessionId,
+            state: "error",
+            requiresAttention: true,
+            errorCode: asString(payload.error_type) ?? "stop_failure",
+          }
         : undefined;
     case "SessionEnd":
       return sessionId ? { sessionId, state: "done" } : undefined;
@@ -59,7 +69,8 @@ function mapClaude(payload) {
 
 function mapGemini(payload) {
   const hookEventName = asString(payload.hookEventName) ?? asString(payload.hook_event_name);
-  const notificationType = asString(payload.notificationType) ?? asString(payload.notification_type);
+  const notificationType =
+    asString(payload.notificationType) ?? asString(payload.notification_type);
   const sessionId =
     process.env[agcSessionIdEnv] ??
     asString(payload.sessionId) ??

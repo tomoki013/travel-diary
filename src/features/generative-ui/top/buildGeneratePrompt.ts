@@ -2,8 +2,9 @@ import type { SafeArticleContext, IntentAnalysis } from "./schema";
 import { COMPONENT_CATALOG } from "../registry/catalog";
 
 export function buildGenerateSystemPrompt(intent: IntentAnalysis): string {
-  const catalogText = COMPONENT_CATALOG.map(c => 
-    `- **${c.type}**: ${c.description} (用途: ${c.bestUsedFor})\n  Props例: ${JSON.stringify(c.propsExample)}`
+  const catalogText = COMPONENT_CATALOG.map(
+    (c) =>
+      `- **${c.type}**: ${c.description} (用途: ${c.bestUsedFor})\n  Props例: ${JSON.stringify(c.propsExample)}`,
   ).join("\n");
 
   const prompt = [
@@ -47,7 +48,7 @@ export function buildGenerateSystemPrompt(intent: IntentAnalysis): string {
     `  "sections": [/* PrimitiveNodeの配列 */],`,
     `  "usedArticleIds": [...],`,
     `  "warnings": []`,
-    `}`
+    `}`,
   ].join("\n");
 
   return prompt;
@@ -57,7 +58,7 @@ export function buildGenerateUserPayload(
   userInput: string,
   candidateArticles: SafeArticleContext[],
   device: string,
-  intent: IntentAnalysis
+  intent: IntentAnalysis,
 ): string {
   const sanitizedInput = sanitizeUserInput(userInput);
 

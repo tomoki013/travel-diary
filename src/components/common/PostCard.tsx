@@ -47,27 +47,27 @@ const PostCard = ({
     : undefined;
 
   return (
-    <Link href={`/posts/${post.slug}`} className="block group h-full">
+    <Link href={`/posts/${post.slug}`} className="group block h-full">
       <article
         className={`relative flex h-full overflow-hidden transition-all duration-500 ${
           isHorizontal ? "flex-col sm:flex-row" : "flex-col"
         } ${
           isCompact
-            ? "rounded-2xl border border-border/70 bg-card p-4 shadow-sm hover:-translate-y-1 hover:shadow-lg"
+            ? "border-border/70 bg-card rounded-2xl border p-4 shadow-sm hover:-translate-y-1 hover:shadow-lg"
             : "rounded-3xl p-5 shadow-md hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl"
         }`}
       >
         {isCompact ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-background via-orange-50/45 to-amber-50/55 dark:from-background dark:via-orange-950/20 dark:to-amber-950/20" />
-            <div className="absolute inset-0 rounded-2xl border border-orange-200/50 dark:border-orange-700/40 group-hover:border-orange-300/70 dark:group-hover:border-orange-600/60 transition-colors duration-300" />
+            <div className="from-background dark:from-background absolute inset-0 bg-gradient-to-br via-orange-50/45 to-amber-50/55 dark:via-orange-950/20 dark:to-amber-950/20" />
+            <div className="absolute inset-0 rounded-2xl border border-orange-200/50 transition-colors duration-300 group-hover:border-orange-300/70 dark:border-orange-700/40 dark:group-hover:border-orange-600/60" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 via-amber-50/50 to-rose-50/60 dark:from-orange-950/30 dark:via-rose-950/25 dark:to-pink-950/30 backdrop-blur-xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-amber-100/20 to-orange-100/25 dark:via-amber-900/10 dark:to-orange-900/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute inset-0 rounded-3xl border-2 border-orange-200/60 dark:border-orange-700/50 group-hover:border-amber-300/80 dark:group-hover:border-amber-600/60 transition-colors duration-500" />
-            <div className="absolute -inset-0.5 bg-gradient-to-br from-amber-300/20 via-orange-300/12 to-rose-300/20 dark:from-amber-600/20 dark:via-orange-600/12 dark:to-rose-600/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 via-amber-50/50 to-rose-50/60 backdrop-blur-xl dark:from-orange-950/30 dark:via-rose-950/25 dark:to-pink-950/30" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-amber-100/20 to-orange-100/25 opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:via-amber-900/10 dark:to-orange-900/15" />
+            <div className="absolute inset-0 rounded-3xl border-2 border-orange-200/60 transition-colors duration-500 group-hover:border-amber-300/80 dark:border-orange-700/50 dark:group-hover:border-amber-600/60" />
+            <div className="absolute -inset-0.5 -z-10 rounded-3xl bg-gradient-to-br from-amber-300/20 via-orange-300/12 to-rose-300/20 opacity-60 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-amber-600/20 dark:via-orange-600/12 dark:to-rose-600/20" />
           </>
         )}
 
@@ -79,10 +79,10 @@ const PostCard = ({
           <div
             className={`relative overflow-hidden ${
               isHorizontal
-                ? "mb-0 aspect-[16/10] shrink-0 rounded-2xl ring-1 ring-orange-200/20 transition-all duration-500 group-hover:ring-amber-200/30 dark:ring-orange-700/20 dark:group-hover:ring-amber-600/30 sm:w-64 md:w-72"
+                ? "mb-0 aspect-[16/10] shrink-0 rounded-2xl ring-1 ring-orange-200/20 transition-all duration-500 group-hover:ring-amber-200/30 sm:w-64 md:w-72 dark:ring-orange-700/20 dark:group-hover:ring-amber-600/30"
                 : isCompact
-                ? "aspect-[16/9] rounded-xl ring-1 ring-border/60"
-                : "aspect-[16/10] rounded-2xl shadow-lg ring-1 ring-orange-200/20 dark:ring-orange-700/20 group-hover:ring-amber-200/30 dark:group-hover:ring-amber-600/30 transition-all duration-500"
+                  ? "ring-border/60 aspect-[16/9] rounded-xl ring-1"
+                  : "aspect-[16/10] rounded-2xl shadow-lg ring-1 ring-orange-200/20 transition-all duration-500 group-hover:ring-amber-200/30 dark:ring-orange-700/20 dark:group-hover:ring-amber-600/30"
             }`}
           >
             {post.image && (
@@ -108,7 +108,7 @@ const PostCard = ({
             )}
             {isTourismPost && categoryTitle && (
               <div
-                className={`absolute left-3 top-3 rounded-full text-white ring-1 ring-white/20 transition-transform duration-300 ${
+                className={`absolute top-3 left-3 rounded-full text-white ring-1 ring-white/20 transition-transform duration-300 ${
                   isCompact
                     ? "bg-black/60 px-3 py-1 text-[11px] font-semibold backdrop-blur-sm"
                     : "bg-gradient-to-r from-orange-400/90 to-amber-400/90 px-4 py-1.5 text-xs font-bold shadow-lg group-hover:scale-105 dark:from-orange-500/90 dark:to-amber-500/90"
@@ -119,7 +119,7 @@ const PostCard = ({
             )}
           </div>
 
-          <div className="flex flex-col flex-grow">
+          <div className="flex flex-grow flex-col">
             {discoveryNote && (
               <p
                 className={`mb-2 font-semibold text-orange-600 dark:text-amber-300 ${
@@ -147,7 +147,7 @@ const PostCard = ({
 
             {!isTourismPost && categoryTitle && (
               <p
-                className={`mb-2 font-semibold uppercase text-muted-foreground/80 ${
+                className={`text-muted-foreground/80 mb-2 font-semibold uppercase ${
                   isCompact ? "text-[11px] tracking-[0.2em]" : "text-xs tracking-[0.24em]"
                 }`}
               >
@@ -156,7 +156,7 @@ const PostCard = ({
             )}
 
             <h3
-              className={`font-bold leading-snug text-foreground transition-colors duration-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 ${
+              className={`text-foreground leading-snug font-bold transition-colors duration-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 ${
                 isCompact ? "mb-2 text-lg" : "mb-3 text-xl"
               }`}
             >
@@ -175,13 +175,19 @@ const PostCard = ({
                 isCompact ? "border-t pt-3" : "border-t pt-4"
               }`}
             >
-              <div className={`font-medium text-muted-foreground ${isCompact ? "text-[11px]" : "text-xs"}`}>
+              <div
+                className={`text-muted-foreground font-medium ${isCompact ? "text-[11px]" : "text-xs"}`}
+              >
                 <span className="flex items-center gap-1">
-                  <span className={`inline-block rounded-full bg-orange-400/70 dark:bg-amber-500/70 ${isCompact ? "h-1 w-1" : "h-1 w-1"}`} />
+                  <span
+                    className={`inline-block rounded-full bg-orange-400/70 dark:bg-amber-500/70 ${isCompact ? "h-1 w-1" : "h-1 w-1"}`}
+                  />
                   {post.dates.join(" ~ ")}
                 </span>
                 {primaryLocationLabel && (
-                  <span className={`mt-1 flex items-center gap-1 ${isCompact ? "text-[11px]" : ""}`}>
+                  <span
+                    className={`mt-1 flex items-center gap-1 ${isCompact ? "text-[11px]" : ""}`}
+                  >
                     <MapPin size={isCompact ? 11 : 12} />
                     {primaryLocationLabel}
                   </span>
@@ -195,7 +201,7 @@ const PostCard = ({
                 続きを読む{" "}
                 <ChevronRight
                   size={isCompact ? 13 : 14}
-                  className="group-hover:translate-x-1 transition-transform duration-300"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
                 />
               </span>
             </div>

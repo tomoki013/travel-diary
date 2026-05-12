@@ -19,9 +19,9 @@ const HomeAboutSection = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
-      className="py-20 px-6 md:px-8 max-w-4xl mx-auto"
+      className="mx-auto max-w-4xl px-6 py-20 md:px-8"
     >
-      <div className="rounded-3xl border border-border/60 bg-card/60 p-8 shadow-sm backdrop-blur-sm md:p-10">
+      <div className="border-border/60 bg-card/60 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:p-10">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
           <Image
             src={author.image}
@@ -31,13 +31,11 @@ const HomeAboutSection = () => {
             className="rounded-full object-cover"
           />
           <div className="text-center md:text-left">
-            <p className="text-sm font-semibold tracking-[0.24em] text-muted-foreground">
+            <p className="text-muted-foreground text-sm font-semibold tracking-[0.24em]">
               ABOUT THIS BLOG
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-foreground">
-              ともきちの旅行日記について
-            </h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
+            <h2 className="text-foreground mt-2 text-3xl font-bold">ともきちの旅行日記について</h2>
+            <p className="text-muted-foreground mt-4 leading-relaxed">
               {author.description}
               旅先での空気感だけでなく、移動や予約でつまずきやすかった点まで、
               次に行く人が読みやすい形に整理して残しています。
@@ -45,13 +43,13 @@ const HomeAboutSection = () => {
             <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
               <Link
                 href="/about"
-                className="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-full px-5 py-2.5 text-sm font-semibold transition"
               >
                 プロフィールを見る
               </Link>
               <Link
                 href="/journey"
-                className="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                className="border-border text-foreground hover:bg-muted inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
               >
                 旅の軌跡を見る
               </Link>

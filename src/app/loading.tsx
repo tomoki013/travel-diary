@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
+    <div className="bg-background/80 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
       <div className="loader-container">
         <svg className="paper-plane" viewBox="0 0 24 24">
           <path
@@ -21,7 +21,7 @@ export default function Loading() {
         </svg>
         <div className="trail"></div>
       </div>
-      <p className="mt-6 text-lg font-semibold text-primary animate-pulse">
+      <p className="text-primary mt-6 animate-pulse text-lg font-semibold">
         最高の旅を計画しています...
       </p>
     </div>

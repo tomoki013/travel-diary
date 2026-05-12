@@ -17,22 +17,19 @@ const PopularPosts = ({ posts }: PopularPostsProps) => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
-      className="py-24 px-6 md:px-8 max-w-5xl mx-auto"
+      className="mx-auto max-w-5xl px-6 py-24 md:px-8"
     >
       {/* セクションタイトル */}
-      <div className="text-center mb-16">
-        <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
+      <div className="mb-16 text-center">
+        <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">
           Popular Posts
         </h2>
         {/* タイトル下のアクセントライン */}
-        <div className="w-30 h-0.5 bg-secondary mx-auto mt-6"></div>
+        <div className="bg-secondary mx-auto mt-6 h-0.5 w-30"></div>
       </div>
 
       {/* 記事一覧 */}
-      <motion.div
-        className="flex flex-col gap-16 md:gap-20"
-        variants={staggerContainer()}
-      >
+      <motion.div className="flex flex-col gap-16 md:gap-20" variants={staggerContainer()}>
         {posts.slice(0, 2).map((post, index) => (
           <motion.div
             key={post.slug}

@@ -15,7 +15,7 @@ const FacebookButton = ({ url }: Props) => {
   return (
     <button
       onClick={shareOnFacebook}
-      className="p-3 rounded-full text-foreground bg-primary-foreground hover:bg-gray-200 transition-colors"
+      className="text-foreground bg-primary-foreground rounded-full p-3 transition-colors hover:bg-gray-200"
       aria-label="Share on Facebook"
     >
       <FaFacebook size={20} />

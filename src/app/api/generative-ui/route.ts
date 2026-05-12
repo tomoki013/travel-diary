@@ -26,35 +26,66 @@ export async function POST(req: Request) {
   const messages = convertToModelMessages(uiMessages);
   const cache = await loadCache();
 
-  const lastUserMessage = [...uiMessages].reverse().find(m => m.role === 'user')
-    ?.parts.find(p => p.type === 'text')?.text || "";
-  
+  const lastUserMessage =
+    [...uiMessages]
+      .reverse()
+      .find((m) => m.role === "user")
+      ?.parts.find((p) => p.type === "text")?.text || "";
+
   let relevantArticles: { title: string; slug: string; summary: string }[] = [];
-  
+
   if (cache && lastUserMessage) {
-    const commonKeywords = ["アテネ", "サントリーニ", "ギリシャ", "空港", "予算", "写真", "バンコク", "タイ", "インド", "エジプト", "フランス", "スペイン", "マレーシア", "シンガポール", "インドネシア", "ベトナム", "トルコ", "持ち物", "パッキング", "移動", "バス", "鉄道", "地下鉄", "ホテル", "グルメ", "レストラン"];
-    const extractedKeywords = commonKeywords.filter(k => lastUserMessage.includes(k));
-    
+    const commonKeywords = [
+      "アテネ",
+      "サントリーニ",
+      "ギリシャ",
+      "空港",
+      "予算",
+      "写真",
+      "バンコク",
+      "タイ",
+      "インド",
+      "エジプト",
+      "フランス",
+      "スペイン",
+      "マレーシア",
+      "シンガポール",
+      "インドネシア",
+      "ベトナム",
+      "トルコ",
+      "持ち物",
+      "パッキング",
+      "移動",
+      "バス",
+      "鉄道",
+      "地下鉄",
+      "ホテル",
+      "グルメ",
+      "レストラン",
+    ];
+    const extractedKeywords = commonKeywords.filter((k) => lastUserMessage.includes(k));
+
     if (extractedKeywords.length > 0) {
       const scoredArticles = Object.entries(cache)
         .map(([slug, content]) => {
           let score = 0;
-          extractedKeywords.forEach(k => {
+          extractedKeywords.forEach((k) => {
             if (slug.includes(k.toLowerCase())) score += 10;
-            const regex = new RegExp(k, 'g');
+            const regex = new RegExp(k, "g");
             const matches = content.match(regex);
             if (matches) score += matches.length;
           });
           return { slug, content, score };
         })
-        .filter(a => a.score > 0)
+        .filter((a) => a.score > 0)
         .sort((a, b) => b.score - a.score)
         .slice(0, 4);
 
       relevantArticles = scoredArticles.map(({ slug, content }) => {
         const titleMatch = content.match(/^Title: (.*)/m);
         const title = titleMatch ? titleMatch[1] : slug;
-        const summary = content.split('\n').slice(1, 4).join(' ').replace(/[#*`]/g, "").substring(0, 120) + "...";
+        const summary =
+          content.split("\n").slice(1, 4).join(" ").replace(/[#*`]/g, "").substring(0, 120) + "...";
         return { title, slug, summary };
       });
     }
@@ -96,13 +127,15 @@ ${relevantArticles.length > 0 ? JSON.stringify(relevantArticles, null, 2) : "関
         inputSchema: z.object({
           destinationA: z.string(),
           destinationB: z.string(),
-          categories: z.array(z.object({
-            name: z.string(),
-            ratingA: z.number().min(1).max(5),
-            ratingB: z.number().min(1).max(5),
-            comment: z.string()
-          })),
-          verdict: z.string()
+          categories: z.array(
+            z.object({
+              name: z.string(),
+              ratingA: z.number().min(1).max(5),
+              ratingB: z.number().min(1).max(5),
+              comment: z.string(),
+            }),
+          ),
+          verdict: z.string(),
         }),
       }),
       showAirportAnxiety: tool({
@@ -110,14 +143,16 @@ ${relevantArticles.length > 0 ? JSON.stringify(relevantArticles, null, 2) : "関
         inputSchema: z.object({
           airportName: z.string(),
           destinationName: z.string(),
-          options: z.array(z.object({
-            mode: z.string(),
-            time: z.string(),
-            cost: z.string(),
-            difficulty: z.enum(["Easy", "Medium", "Hard"]),
-            description: z.string()
-          })),
-          overallAnxietyLevel: z.number().min(1).max(100)
+          options: z.array(
+            z.object({
+              mode: z.string(),
+              time: z.string(),
+              cost: z.string(),
+              difficulty: z.enum(["Easy", "Medium", "Hard"]),
+              description: z.string(),
+            }),
+          ),
+          overallAnxietyLevel: z.number().min(1).max(100),
         }),
       }),
       showItinerary: tool({
@@ -126,16 +161,20 @@ ${relevantArticles.length > 0 ? JSON.stringify(relevantArticles, null, 2) : "関
           title: z.string(),
           destination: z.string(),
           duration: z.string(),
-          days: z.array(z.object({
-            day: z.number(),
-            title: z.string(),
-            schedule: z.array(z.object({
-              time: z.string(),
-              activity: z.string(),
-              description: z.string(),
-              location: z.string().optional()
-            }))
-          }))
+          days: z.array(
+            z.object({
+              day: z.number(),
+              title: z.string(),
+              schedule: z.array(
+                z.object({
+                  time: z.string(),
+                  activity: z.string(),
+                  description: z.string(),
+                  location: z.string().optional(),
+                }),
+              ),
+            }),
+          ),
         }),
       }),
       simulateBudget: tool({
@@ -143,24 +182,28 @@ ${relevantArticles.length > 0 ? JSON.stringify(relevantArticles, null, 2) : "関
         inputSchema: z.object({
           destination: z.string(),
           currency: z.string(),
-          tiers: z.array(z.object({
-            label: z.string(),
-            dailyCost: z.number(),
-            satisfaction: z.number().min(1).max(100),
-            description: z.string()
-          }))
+          tiers: z.array(
+            z.object({
+              label: z.string(),
+              dailyCost: z.number(),
+              satisfaction: z.number().min(1).max(100),
+              description: z.string(),
+            }),
+          ),
         }),
       }),
       showPhotoSpots: tool({
         description: "Show iconic photo spots for a destination.",
         inputSchema: z.object({
           destination: z.string(),
-          spots: z.array(z.object({
-            name: z.string(),
-            theme: z.string(),
-            bestTime: z.string(),
-            instagrammability: z.number().min(1).max(5)
-          }))
+          spots: z.array(
+            z.object({
+              name: z.string(),
+              theme: z.string(),
+              bestTime: z.string(),
+              instagrammability: z.number().min(1).max(5),
+            }),
+          ),
         }),
       }),
       showPackingList: tool({
@@ -168,23 +211,27 @@ ${relevantArticles.length > 0 ? JSON.stringify(relevantArticles, null, 2) : "関
         inputSchema: z.object({
           destination: z.string(),
           season: z.string(),
-          items: z.array(z.object({
-            item: z.string(),
-            category: z.string().describe("e.g. Clothing, Tech, Documents"),
-            reason: z.string(),
-            essential: z.boolean()
-          }))
+          items: z.array(
+            z.object({
+              item: z.string(),
+              category: z.string().describe("e.g. Clothing, Tech, Documents"),
+              reason: z.string(),
+              essential: z.boolean(),
+            }),
+          ),
         }),
       }),
       embedArticles: tool({
         description: "Embed relevant blog articles.",
         inputSchema: z.object({
-          articles: z.array(z.object({
-            title: z.string(),
-            slug: z.string(),
-            summary: z.string(),
-            category: z.string().optional()
-          }))
+          articles: z.array(
+            z.object({
+              title: z.string(),
+              slug: z.string(),
+              summary: z.string(),
+              category: z.string().optional(),
+            }),
+          ),
         }),
       }),
     },

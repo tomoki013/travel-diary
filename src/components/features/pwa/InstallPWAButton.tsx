@@ -14,8 +14,7 @@ interface InstallPWAButtonProps {
 }
 
 export default function InstallPWAButton({ className }: InstallPWAButtonProps) {
-  const [promptEvent, setPromptEvent] =
-    useState<BeforeInstallPromptEvent | null>(null);
+  const [promptEvent, setPromptEvent] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -35,7 +34,7 @@ export default function InstallPWAButton({ className }: InstallPWAButtonProps) {
   return (
     <Button
       variant="outline"
-      className={cn("gap-2 shadow-sm font-code font-bold", className)}
+      className={cn("font-code gap-2 font-bold shadow-sm", className)}
       onClick={() => {
         promptEvent.prompt();
       }}

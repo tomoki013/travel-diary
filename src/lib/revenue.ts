@@ -7,14 +7,7 @@ type RevenueInferenceSource = Pick<
   "title" | "excerpt" | "category" | "tags" | "travelTopics" | "revenueCategory"
 >;
 
-const HIGH_INTENT: TravelTopic[] = [
-  "money",
-  "visa",
-  "transport",
-  "booking",
-  "sim",
-  "insurance",
-];
+const HIGH_INTENT: TravelTopic[] = ["money", "visa", "transport", "booking", "sim", "insurance"];
 
 const PRACTICAL_TOPICS: TravelTopic[] = [
   "money",
@@ -26,10 +19,45 @@ const PRACTICAL_TOPICS: TravelTopic[] = [
 ];
 
 const KEYWORDS: Record<RevenueCategory, string[]> = {
-  money: ["両替", "クレカ", "カード", "alipay", "wechat", "currency", "exchange", "支払い", "決済", "現金"],
+  money: [
+    "両替",
+    "クレカ",
+    "カード",
+    "alipay",
+    "wechat",
+    "currency",
+    "exchange",
+    "支払い",
+    "決済",
+    "現金",
+  ],
   visa: ["visa", "ビザ", "e-visa", "入国", "申請"],
-  transport: ["鉄道", "train", "空港", "アクセス", "バス", "交通", "metro", "subway", "地下鉄", "列車", "移動", "transit"],
-  booking: ["予約", "booking", "hotel", "flight", "航空券", "omio", "agoda", "trip.com", "チケット", "ツアー"],
+  transport: [
+    "鉄道",
+    "train",
+    "空港",
+    "アクセス",
+    "バス",
+    "交通",
+    "metro",
+    "subway",
+    "地下鉄",
+    "列車",
+    "移動",
+    "transit",
+  ],
+  booking: [
+    "予約",
+    "booking",
+    "hotel",
+    "flight",
+    "航空券",
+    "omio",
+    "agoda",
+    "trip.com",
+    "チケット",
+    "ツアー",
+  ],
   sim: ["sim", "esim", "wifi", "通信"],
   insurance: ["保険", "insurance"],
   guide: ["観光", "ガイド", "おすすめ", "how", "tips"],
@@ -40,14 +68,10 @@ const dedupeTopics = (topics: TravelTopic[]) => [...new Set(topics)];
 
 const normalizeTravelTopics = (topics?: TravelTopic[]) =>
   dedupeTopics(
-    (topics || []).filter((topic): topic is TravelTopic =>
-      PRACTICAL_TOPICS.includes(topic),
-    ),
+    (topics || []).filter((topic): topic is TravelTopic => PRACTICAL_TOPICS.includes(topic)),
   );
 
-export const inferRevenueCategory = (
-  post: RevenueInferenceSource,
-): RevenueCategory => {
+export const inferRevenueCategory = (post: RevenueInferenceSource): RevenueCategory => {
   const corpus = [post.title, post.excerpt, post.category, ...(post.tags || [])]
     .join(" ")
     .toLowerCase();
@@ -71,23 +95,25 @@ export const inferTravelTopics = (post: RevenueInferenceSource): TravelTopic[] =
   return normalizeTravelTopics(post.travelTopics);
 };
 
-export const enrichPostRevenueCategory = <T extends {
-  title: string;
-  excerpt?: string;
-  category: string;
-  tags?: string[];
-  revenueCategory?: RevenueCategory;
-  travelTopics?: TravelTopic[];
-}>(post: T): T & { revenueCategory: RevenueCategory; travelTopics: TravelTopic[] } => ({
+export const enrichPostRevenueCategory = <
+  T extends {
+    title: string;
+    excerpt?: string;
+    category: string;
+    tags?: string[];
+    revenueCategory?: RevenueCategory;
+    travelTopics?: TravelTopic[];
+  },
+>(
+  post: T,
+): T & { revenueCategory: RevenueCategory; travelTopics: TravelTopic[] } => ({
   ...post,
   revenueCategory: post.revenueCategory || inferRevenueCategory(post),
   travelTopics: inferTravelTopics(post),
 });
 
 export const getHighIntentPosts = (posts: PostMetadata[]) =>
-  posts.filter(
-    (post) => post.category === "tourism" && (post.travelTopics?.length || 0) > 0,
-  );
+  posts.filter((post) => post.category === "tourism" && (post.travelTopics?.length || 0) > 0);
 
 export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata[]) => {
   const flow: Record<RevenueCategory, RevenueCategory[]> = {
@@ -104,9 +130,7 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
   const order = flow[current.revenueCategory || "guide"];
   const currentTopics = new Set(normalizeTravelTopics(current.travelTopics));
   return allPosts
-    .filter(
-      (post) => post.slug !== current.slug && (post.revenueCategory || "guide") !== "essay",
-    )
+    .filter((post) => post.slug !== current.slug && (post.revenueCategory || "guide") !== "essay")
     .map((post) => {
       const postCategory = post.revenueCategory || "guide";
       const categoryIndex = order.indexOf(postCategory);
@@ -116,12 +140,11 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
 
       const geo = getGeoRelationship(current, post);
       const sharedTopics = normalizeTravelTopics(post.travelTopics).filter((topic) =>
-        currentTopics.has(topic)
+        currentTopics.has(topic),
       ).length;
       const sameSeries = Boolean(current.series && post.series === current.series);
       const sameJourney = Boolean(current.journey && post.journey === current.journey);
-      const hasStrongContextMatch =
-        sameJourney || geo.sameSpecificLocation || geo.sameCountry;
+      const hasStrongContextMatch = sameJourney || geo.sameSpecificLocation || geo.sameCountry;
 
       if (!hasStrongContextMatch) {
         return null;

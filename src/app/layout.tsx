@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Caveat,
-  Montserrat,
-  Playfair_Display,
-  Noto_Sans_JP,
-} from "next/font/google";
+import { Caveat, Montserrat, Playfair_Display, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import Header from "@/components/layouts/Header";
@@ -111,16 +106,16 @@ export default function RootLayout({
           defer
           src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
           data-gyg-partner-id="GTNOM0E"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
         {/* Google Analytics */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-BZJ1EDMYTZ"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -137,7 +132,7 @@ export default function RootLayout({
         >
           <UIProvider>
             <Background />
-            <div className="flex flex-col min-h-screen">
+            <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex-1 text-sm md:text-base">{children}</main>
               <Footer />

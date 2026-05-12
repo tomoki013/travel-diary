@@ -17,7 +17,7 @@ const CopyLinkButton = ({ url }: Props) => {
   return (
     <button
       onClick={copyUrlToClipboard}
-      className="p-3 rounded-full text-foreground bg-primary-foreground hover:bg-gray-200 transition-colors relative"
+      className="text-foreground bg-primary-foreground relative rounded-full p-3 transition-colors hover:bg-gray-200"
       aria-label="Copy link"
     >
       <Copy size={20} />

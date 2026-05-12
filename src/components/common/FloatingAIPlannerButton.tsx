@@ -17,11 +17,11 @@ const FloatingAIPlannerButton = () => {
         delay: 1,
       }}
       whileHover={{ scale: 1.1 }}
-      className="fixed bottom-6 right-6 z-50"
+      className="fixed right-6 bottom-6 z-50"
     >
       <Link
         href={AI_PLANNER_PATH}
-        className="flex items-center justify-center w-16 h-16 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-colors"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors"
         aria-label="AI Planner"
       >
         <Bot size={32} />

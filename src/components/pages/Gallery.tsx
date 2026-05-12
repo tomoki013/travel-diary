@@ -129,21 +129,21 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
       variants={sectionVariants}
     >
       {/* セクションタイトル */}
-      <div className="text-center mb-16 px-6 md:px-8">
-        <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
+      <div className="mb-16 px-6 text-center md:px-8">
+        <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">
           {teaser ? "写真から旅先を見つける" : "Gallery"}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground mx-auto mt-4 max-w-2xl leading-relaxed">
           {teaser
             ? "気になる景色が見つかったら、そのまま地域の記事や旅行記へ入っていけます。"
             : "これまでの旅で撮った写真から、気になる地域の記事や旅行記へつながれるギャラリーです。"}
         </p>
-        <div className="w-30 h-0.5 bg-secondary mx-auto mt-6" />
+        <div className="bg-secondary mx-auto mt-6 h-0.5 w-30" />
       </div>
 
       {/* スライダー全体の幅を制御するためのコンテナ */}
       {/* 変更点 4: 2つのスライダーを縦に並べるためのコンテナを追加 */}
-      <div className="max-w-6xl mx-auto px-4 flex flex-col space-y-6">
+      <div className="mx-auto flex max-w-6xl flex-col space-y-6 px-4">
         {/* --- 上の段のスライダー (右から左へ) --- */}
         <Swiper
           modules={[Autoplay]}
@@ -159,7 +159,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
           slidesPerGroup={3}
           spaceBetween={24}
           grabCursor={true}
-          className="w-full h-[268px]"
+          className="h-[268px] w-full"
           breakpoints={{
             320: {
               slidesPerView: 1,
@@ -181,7 +181,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
           {visibleTopGallery.map((item) => (
             <SwiperSlide key={item.path}>
               <motion.div
-                className="overflow-hidden rounded-md h-full"
+                className="h-full overflow-hidden rounded-md"
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               >
@@ -190,7 +190,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
                   alt={item.title}
                   width={400}
                   height={300}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                   priority={visibleTopGallery.indexOf(item) < 3}
                 />
               </motion.div>
@@ -211,7 +211,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
             slidesPerGroup={3}
             spaceBetween={24}
             grabCursor={true}
-            className="w-full h-[268px]"
+            className="h-[268px] w-full"
             breakpoints={{
               320: {
                 slidesPerView: 1,
@@ -233,7 +233,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
             {visibleBottomGallery.map((item) => (
               <SwiperSlide key={item.path}>
                 <motion.div
-                  className="overflow-hidden rounded-md h-full"
+                  className="h-full overflow-hidden rounded-md"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
@@ -242,7 +242,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
                     alt={item.title}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                     priority={visibleBottomGallery.indexOf(item) < 3}
                   />
                 </motion.div>

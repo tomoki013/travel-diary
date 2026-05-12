@@ -25,9 +25,7 @@ async function generatePostsMetadata() {
     const entries = await fs.readdir(postsDirectory, { withFileTypes: true });
     const postFiles = entries
       .filter(
-        (entry) =>
-          entry.isFile() &&
-          (entry.name.endsWith(".md") || entry.name.endsWith(".mdx"))
+        (entry) => entry.isFile() && (entry.name.endsWith(".md") || entry.name.endsWith(".mdx")),
       )
       .map((entry) => entry.name);
 

@@ -58,5 +58,5 @@ export const getAllPosts = cache(
     }
 
     return sortedPosts;
-  }
+  },
 );

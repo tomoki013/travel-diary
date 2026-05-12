@@ -1,6 +1,7 @@
-const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://tomokichidiary.com"
-).replace(/\/+$/, "");
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://tomokichidiary.com").replace(
+  /\/+$/,
+  "",
+);
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {

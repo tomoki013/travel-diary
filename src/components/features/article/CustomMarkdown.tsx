@@ -138,11 +138,9 @@ export const CustomTable = ({ children }: CustomTableProps) => {
   return (
     <div className="my-6">
       <div className="w-full overflow-x-auto rounded-lg border border-slate-200 p-2">
-        <table className="w-full text-sm text-left text-foreground">
-          {children}
-        </table>
+        <table className="text-foreground w-full text-left text-sm">{children}</table>
       </div>
-      <div className="mt-2 flex items-center justify-end text-sm text-muted-foreground">
+      <div className="text-muted-foreground mt-2 flex items-center justify-end text-sm">
         <MoveHorizontal className="mr-2 h-4 w-4" />
         <span>横にスクロールできます</span>
       </div>
@@ -152,9 +150,7 @@ export const CustomTable = ({ children }: CustomTableProps) => {
 
 // テーブルの各要素にもスタイルを適用するため、関連コンポーネントも定義しておくと便利です
 export const Thead = ({ children }: CustomTableProps) => (
-  <thead className="text-xs text-foreground uppercase bg-background">
-    {children}
-  </thead>
+  <thead className="text-foreground bg-background text-xs uppercase">{children}</thead>
 );
 
 export const Tbody = ({ children }: CustomTableProps) => (
@@ -163,7 +159,7 @@ export const Tbody = ({ children }: CustomTableProps) => (
 
 export const Tr = ({ children }: CustomTableProps) => (
   // 奇数行と偶数行で背景色を変える（ゼブラストライピング）
-  <tr className="border-b border-slate-200 last:border-b-0 odd:bg-muted even:bg-background">
+  <tr className="odd:bg-muted even:bg-background border-b border-slate-200 last:border-b-0">
     {children}
   </tr>
 );

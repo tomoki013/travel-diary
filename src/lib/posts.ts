@@ -33,26 +33,16 @@ export async function processPostNavigation(
   post: Post,
   allPosts: PostMetadata[],
   isPreview: boolean = false,
-  allDrafts: PostMetadata[] = []
+  allDrafts: PostMetadata[] = [],
 ) {
   const navigationPosts = isPreview ? allDrafts : allPosts;
   const baseUrl = isPreview ? "/preview" : "/posts";
 
   // --- Category-specific navigation ---
   let previousCategoryPost, nextCategoryPost;
-  if (
-    post.category === "itinerary" ||
-    post.category === "tourism" ||
-    post.category === "one-off"
-  ) {
-    const categoryPosts = postFilters.filterByCategory(
-      navigationPosts,
-      post.category
-    );
-    const previousCategoryPostData = postFilters.getPreviousPost(
-      slug,
-      categoryPosts
-    );
+  if (post.category === "itinerary" || post.category === "tourism" || post.category === "one-off") {
+    const categoryPosts = postFilters.filterByCategory(navigationPosts, post.category);
+    const previousCategoryPostData = postFilters.getPreviousPost(slug, categoryPosts);
     const nextCategoryPostData = postFilters.getNextPost(slug, categoryPosts);
 
     if (previousCategoryPostData) {
@@ -73,10 +63,7 @@ export async function processPostNavigation(
   let previousSeriesPost, nextSeriesPost;
   if (post.series) {
     const seriesPosts = navigationPosts.filter((p) => p.series === post.series);
-    const previousSeriesPostData = postFilters.getPreviousPost(
-      slug,
-      seriesPosts
-    );
+    const previousSeriesPostData = postFilters.getPreviousPost(slug, seriesPosts);
     const nextSeriesPostData = postFilters.getNextPost(slug, seriesPosts);
 
     if (previousSeriesPostData) {

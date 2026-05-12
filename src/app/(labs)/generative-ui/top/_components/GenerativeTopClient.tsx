@@ -2,7 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { GeneratedTopPage } from "@/features/generative-ui/top/schema";
-import { GenerateTopResponseSchema, PatchTopResponseSchema } from "@/features/generative-ui/top/schema";
+import {
+  GenerateTopResponseSchema,
+  PatchTopResponseSchema,
+} from "@/features/generative-ui/top/schema";
 import type { ArticleIndex } from "@/features/generative-ui/top/renderer";
 import {
   saveGeneratedTop,
@@ -18,13 +21,15 @@ import { SessionStorageNotice } from "./SessionStorageNotice";
 type UIState =
   | { phase: "input" }
   | { phase: "loading" }
-  | { phase: "result"; schema: GeneratedTopPage; expiresAt?: number; restored?: boolean; userInputPreview?: string };
+  | {
+      phase: "result";
+      schema: GeneratedTopPage;
+      expiresAt?: number;
+      restored?: boolean;
+      userInputPreview?: string;
+    };
 
-export function GenerativeTopClient({
-  articleIndex,
-}: {
-  articleIndex: ArticleIndex;
-}) {
+export function GenerativeTopClient({ articleIndex }: { articleIndex: ArticleIndex }) {
   const [ui, setUi] = useState<UIState>({ phase: "input" });
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -71,7 +76,11 @@ export function GenerativeTopClient({
       const parsed = GenerateTopResponseSchema.safeParse(data);
       const schema = parsed.success ? parsed.data.schema : buildFallbackSchema();
 
-      saveGeneratedTop(schema, inputValue.trim(), parsed.success ? parsed.data.meta.articleIndexVersion : undefined);
+      saveGeneratedTop(
+        schema,
+        inputValue.trim(),
+        parsed.success ? parsed.data.meta.articleIndexVersion : undefined,
+      );
 
       const stored = loadGeneratedTop();
       setUi({
@@ -117,7 +126,7 @@ export function GenerativeTopClient({
         userInputPreview: ui.userInputPreview,
       });
     },
-    [ui]
+    [ui],
   );
 
   const handleClear = useCallback(() => {
@@ -135,7 +144,7 @@ export function GenerativeTopClient({
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6 px-4 py-10">
       {ui.phase === "input" && (
         <PromptInput
           value={inputValue}
@@ -166,9 +175,7 @@ export function GenerativeTopClient({
         </>
       )}
 
-      {error && (
-        <p className="text-sm text-red-500 dark:text-red-400 text-center">{error}</p>
-      )}
+      {error && <p className="text-center text-sm text-red-500 dark:text-red-400">{error}</p>}
     </div>
   );
 }

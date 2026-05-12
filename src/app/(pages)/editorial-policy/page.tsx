@@ -27,7 +27,7 @@ const EditorialPolicyPage = () => {
     <div className="container py-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:mx-8">
         <h1 className="mb-8 text-4xl font-bold">執筆・編集ポリシー</h1>
-        <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose prose-lg dark:prose-invert max-w-none">
           <p>
             当サイト「ともきちの旅行日記」では、旅の体験そのものを伝える記事と、現地で役立つ実用記事を同じ書き方で扱わないようにしています。このページでは、記事をどのような考え方で書き、更新しているかを公開向けに整理しています。
           </p>
@@ -87,13 +87,17 @@ const EditorialPolicyPage = () => {
 
           <h2 className="text-2xl font-bold">5. AI の利用について</h2>
           <p>
-            当サイトでは、記事制作や運営の一部に AI を活用することがあります。たとえば、情報整理、構成の下書き、更新作業の補助、表記ゆれの確認などで AI を使う場合があります。
+            当サイトでは、記事制作や運営の一部に AI
+            を活用することがあります。たとえば、情報整理、構成の下書き、更新作業の補助、表記ゆれの確認などで
+            AI を使う場合があります。
           </p>
           <p>
-            ただし、公開する記事の内容は、最終的に執筆者が確認し、必要に応じて修正したうえで掲載します。現地での体験や判断、掲載可否の最終決定を AI に委ねることはありません。
+            ただし、公開する記事の内容は、最終的に執筆者が確認し、必要に応じて修正したうえで掲載します。現地での体験や判断、掲載可否の最終決定を
+            AI に委ねることはありません。
           </p>
           <p>
-            体験談の中核や、実際に見たこと・感じたこと・確認したことは、執筆者自身の責任で扱います。AI はあくまで補助的なツールとして利用します。
+            体験談の中核や、実際に見たこと・感じたこと・確認したことは、執筆者自身の責任で扱います。AI
+            はあくまで補助的なツールとして利用します。
           </p>
 
           <Separator className="my-8" />
@@ -104,10 +108,7 @@ const EditorialPolicyPage = () => {
           </p>
           <p>
             詳しい基準については
-            <Link
-              href="/affiliates"
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href="/affiliates" className="text-primary hover:text-secondary underline">
               アフィリエイトポリシー
             </Link>
             をご確認ください。
@@ -129,30 +130,21 @@ const EditorialPolicyPage = () => {
           <ul className="list-disc pl-6">
             <li>
               個人情報や免責事項については
-              <Link
-                href="/privacy"
-                className="text-primary underline hover:text-secondary"
-              >
+              <Link href="/privacy" className="text-primary hover:text-secondary underline">
                 プライバシーポリシー
               </Link>
               をご確認ください。
             </li>
             <li>
               サイト利用条件については
-              <Link
-                href="/terms"
-                className="text-primary underline hover:text-secondary"
-              >
+              <Link href="/terms" className="text-primary hover:text-secondary underline">
                 利用規約
               </Link>
               をご確認ください。
             </li>
             <li>
               Cookie の取り扱いについては
-              <Link
-                href="/cookie-policy"
-                className="text-primary underline hover:text-secondary"
-              >
+              <Link href="/cookie-policy" className="text-primary hover:text-secondary underline">
                 クッキーポリシー
               </Link>
               をご確認ください。
@@ -164,10 +156,7 @@ const EditorialPolicyPage = () => {
           <h2 className="text-2xl font-bold">9. お問い合わせ</h2>
           <p>
             このページの内容や、記事の記載方針についてのお問い合わせは、
-            <Link
-              href="/contact"
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href="/contact" className="text-primary hover:text-secondary underline">
               お問い合わせフォーム
             </Link>
             よりご連絡ください。
@@ -175,7 +164,7 @@ const EditorialPolicyPage = () => {
 
           <Separator className="my-8" />
 
-          <p className="text-sm text-muted-foreground">最終更新日：2026年3月26日</p>
+          <p className="text-muted-foreground text-sm">最終更新日：2026年3月26日</p>
         </div>
       </div>
     </div>

@@ -50,13 +50,13 @@ export function GeneratedTopView({
     <div className="space-y-8">
       {/* Page title + reason */}
       <div className="space-y-3">
-        <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
+        <h1 className="text-2xl leading-tight font-bold text-zinc-900 sm:text-3xl dark:text-zinc-100">
           {schema.pageTitle}
         </h1>
         {schema.designReason && (
-          <div className="flex gap-2 items-start p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700">
-            <span className="text-xs text-zinc-400 flex-shrink-0 mt-0.5">💭</span>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          <div className="flex items-start gap-2 rounded-xl border border-zinc-100 bg-zinc-50 p-3 dark:border-zinc-700 dark:bg-zinc-800">
+            <span className="mt-0.5 flex-shrink-0 text-xs text-zinc-400">💭</span>
+            <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
               {schema.designReason}
             </p>
           </div>
@@ -67,7 +67,7 @@ export function GeneratedTopView({
       <PrimitiveRenderer schema={schema} articleIndex={articleIndex} />
 
       {/* Patch form */}
-      <section className="space-y-4 pt-6 border-t border-zinc-100 dark:border-zinc-800">
+      <section className="space-y-4 border-t border-zinc-100 pt-6 dark:border-zinc-800">
         <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
           このトップをどう変えますか？
         </h2>
@@ -78,7 +78,7 @@ export function GeneratedTopView({
               key={s}
               type="button"
               onClick={() => setPatchInput(s)}
-              className="text-xs px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 transition"
+              className="rounded-full border border-zinc-200 px-3 py-1.5 text-xs text-zinc-600 transition hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-400"
             >
               {s}
             </button>
@@ -99,21 +99,19 @@ export function GeneratedTopView({
             placeholder="例：もっと写真重視にして"
             maxLength={300}
             disabled={isPatching}
-            className="flex-1 min-w-0 text-sm px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300 dark:focus:ring-zinc-600 disabled:opacity-50"
+            className="min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:ring-2 focus:ring-zinc-300 focus:outline-none disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:ring-zinc-600"
           />
           <button
             type="button"
             onClick={() => handlePatch(patchInput)}
             disabled={!patchInput.trim() || isPatching}
-            className="px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-sm font-medium disabled:opacity-40 hover:opacity-80 transition flex-shrink-0"
+            className="flex-shrink-0 rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-80 disabled:opacity-40 dark:bg-zinc-100 dark:text-zinc-900"
           >
             {isPatching ? "更新中…" : "更新する"}
           </button>
         </div>
 
-        {patchError && (
-          <p className="text-xs text-red-500 dark:text-red-400">{patchError}</p>
-        )}
+        {patchError && <p className="text-xs text-red-500 dark:text-red-400">{patchError}</p>}
       </section>
 
       {/* Footer actions */}

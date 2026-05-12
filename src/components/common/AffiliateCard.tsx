@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AffiliatesProps } from "@/types/types";
+import LazyAffiliateBanner from "./LazyAffiliateBanner";
 
 type AffiliateCardProps = {
   affiliate: AffiliatesProps;
@@ -10,8 +11,7 @@ type AffiliateCardProps = {
 };
 
 const AffiliateCard = ({ affiliate, type = "link" }: AffiliateCardProps) => {
-  const { affiliateUrl, name, description, icon, image, bannerHtml } =
-    affiliate;
+  const { affiliateUrl, name, description, icon, image, bannerHtml } = affiliate;
 
   const renderContent = () => {
     switch (type) {
@@ -32,9 +32,9 @@ const AffiliateCard = ({ affiliate, type = "link" }: AffiliateCardProps) => {
             href={affiliateUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group bg-card p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 h-full flex flex-col items-center text-center"
+            className="group bg-card flex h-full transform flex-col items-center rounded-lg p-6 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
           >
-            <div className="mb-4 h-12 w-12 flex items-center justify-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center">
               {image ? (
                 <Image
                   src={image}
@@ -47,18 +47,13 @@ const AffiliateCard = ({ affiliate, type = "link" }: AffiliateCardProps) => {
                 icon
               )}
             </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">{name}</h3>
+            <h3 className="text-foreground mb-2 text-lg font-bold">{name}</h3>
             <p className="text-muted-foreground flex-grow">{description}</p>
           </Link>
         );
       case "banner":
         if (!bannerHtml) return null;
-        return (
-          <div
-            className="w-full"
-            dangerouslySetInnerHTML={{ __html: bannerHtml }}
-          />
-        );
+        return <LazyAffiliateBanner bannerHtml={bannerHtml} name={name} />;
       default:
         return null;
     }

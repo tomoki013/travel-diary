@@ -151,17 +151,14 @@ const BlogClient = ({
   const rawCategoryParam = searchParams.get("category") || "all";
   const rawTopicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
-  const viewParam =
-    (searchParams.get("view") as BlogDiscoveryView | null) || activeView;
+  const viewParam = (searchParams.get("view") as BlogDiscoveryView | null) || activeView;
   const regionParam = searchParams.get("region") || "all";
   const { category: categoryParam, topic: topicParam } = normalizeFilters(
     rawCategoryParam,
     rawTopicParam,
   );
   const regionLabel =
-    regionParam !== "all"
-      ? getRegionBySlug(regionParam)?.name || regionParam
-      : null;
+    regionParam !== "all" ? getRegionBySlug(regionParam)?.name || regionParam : null;
 
   const navigate = (
     page: number,
@@ -359,17 +356,15 @@ const BlogClient = ({
         pageMessage="次に読みたい記事の入口を見つける"
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
         <section
           id="discovery-hub"
-          className="mb-10 rounded-[2rem] border border-border/40 bg-card/70 p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
+          className="border-border/40 bg-card/70 relative mb-10 overflow-hidden rounded-[2rem] border p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-8"
         >
           <div className="relative z-10 space-y-8">
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-bold text-foreground tracking-tight">
-                記事を探す
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <h2 className="text-foreground text-2xl font-bold tracking-tight">記事を探す</h2>
+              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
                 キーワードやタグ、カテゴリから読みたい記事だけを絞り込めます。
               </p>
             </div>
@@ -386,9 +381,7 @@ const BlogClient = ({
 
             {/* クイックスタートタグ */}
             <div className="space-y-3">
-              <p className="text-sm font-semibold text-muted-foreground">
-                人気のタグから見つける
-              </p>
+              <p className="text-muted-foreground text-sm font-semibold">人気のタグから見つける</p>
               <div className="flex flex-wrap items-center gap-2.5">
                 {[...PURPOSE_PRESETS, ...CITY_PRESETS].map((preset) => {
                   const isActive = activePreset?.id === preset.id;
@@ -396,15 +389,11 @@ const BlogClient = ({
                     <button
                       key={preset.id}
                       onClick={() => handlePresetSelect(preset)}
-                      className={`
-                        group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ease-out shadow-sm
-                        hover:-translate-y-[2px] hover:shadow-md
-                        ${
-                          isActive
-                            ? "bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2 dark:ring-offset-background"
-                            : "bg-white border border-border/60 text-foreground hover:border-amber-300 dark:bg-background"
-                        }
-                      `}
+                      className={`group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium shadow-sm transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-md ${
+                        isActive
+                          ? "dark:ring-offset-background bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2"
+                          : "border-border/60 text-foreground dark:bg-background border bg-white hover:border-amber-300"
+                      } `}
                     >
                       {/* Hover highlight effect */}
                       {!isActive && (
@@ -417,12 +406,23 @@ const BlogClient = ({
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/50 bg-background/70 p-5 backdrop-blur-sm">
+            <div className="border-border/50 bg-background/70 rounded-2xl border p-5 backdrop-blur-sm">
               <div className="mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-                <h3 className="text-sm font-semibold text-foreground">
-                  絞り込み
-                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-muted-foreground"
+                >
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                </svg>
+                <h3 className="text-foreground text-sm font-semibold">絞り込み</h3>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 <CustomSelect
@@ -440,25 +440,54 @@ const BlogClient = ({
               </div>
               {regionLabel && (
                 <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
                   「{regionLabel}」の記事に絞り込み中
                 </p>
               )}
             </div>
 
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between pt-2">
+            <div className="flex flex-col gap-5 pt-2 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4 text-sm font-medium">
                 {totalPosts !== null && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-background px-3 py-1 shadow-sm">
-                    該当件数: <span className="text-amber-600 dark:text-amber-400 font-bold">{totalPosts}件</span>
+                  <span className="border-border/50 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-1 shadow-sm">
+                    該当件数:{" "}
+                    <span className="font-bold text-amber-600 dark:text-amber-400">
+                      {totalPosts}件
+                    </span>
                   </span>
                 )}
                 {hasRefinements && (
                   <button
                     onClick={handleClearAll}
-                    className="flex items-center gap-1.5 text-muted-foreground transition hover:text-red-500"
+                    className="text-muted-foreground flex items-center gap-1.5 transition hover:text-red-500"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
                     クリア
                   </button>
                 )}
@@ -467,11 +496,11 @@ const BlogClient = ({
           </div>
         </section>
 
-        <div className="mb-8 rounded-[1.75rem] border border-border/40 bg-card/60 p-6 shadow-[0_8px_24px_rgb(0,0,0,0.03)]">
+        <div className="border-border/40 bg-card/60 mb-8 rounded-[1.75rem] border p-6 shadow-[0_8px_24px_rgb(0,0,0,0.03)]">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-lg font-bold text-foreground">並び替え</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <h2 className="text-foreground text-lg font-bold">並び替え</h2>
+              <p className="text-muted-foreground mt-1 text-sm">
                 表示順だけを切り替えて、同じ条件のまま見やすい順に並べ替えます。
               </p>
             </div>
@@ -485,7 +514,7 @@ const BlogClient = ({
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 ${
                       isActive
                         ? "bg-stone-900 text-stone-50 shadow-sm dark:bg-stone-100 dark:text-stone-900"
-                        : "border border-border/60 bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground"
+                        : "border-border/60 bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground border"
                     }`}
                   >
                     {tab.label}
@@ -496,7 +525,7 @@ const BlogClient = ({
           </div>
         </div>
 
-        <h2 className="mb-6 text-xl font-bold text-foreground border-b border-border/50 pb-2">
+        <h2 className="text-foreground border-border/50 mb-6 border-b pb-2 text-xl font-bold">
           {currentSummaryTitle}
         </h2>
 
@@ -521,38 +550,25 @@ const BlogClient = ({
                       transition: { duration: 0.8 },
                     };
               return (
-                <motion.div
-                  key={post.slug}
-                  {...motionProps}
-                  variants={sectionVariants}
-                >
-                  <PostCard
-                    post={post}
-                    showDiscoveryNote
-                    size="compact"
-                  />
+                <motion.div key={post.slug} {...motionProps} variants={sectionVariants}>
+                  <PostCard post={post} showDiscoveryNote size="compact" />
                 </motion.div>
               );
             })}
           </motion.section>
         ) : (
-          <div className="rounded-2xl border bg-card px-6 py-16 text-center">
-            <p className="text-xl text-foreground">
-              該当する記事が見つかりませんでした。
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
+          <div className="bg-card rounded-2xl border px-6 py-16 text-center">
+            <p className="text-foreground text-xl">該当する記事が見つかりませんでした。</p>
+            <p className="text-muted-foreground mt-2 text-sm">
               検索条件またはカテゴリ・ラベルを変更してお試しください。
             </p>
           </div>
         )}
 
         {totalPages > 1 && (
-          <section className="mt-16 flex flex-wrap justify-center items-center gap-2">
+          <section className="mt-16 flex flex-wrap items-center justify-center gap-2">
             {currentPage > 1 && (
-              <button
-                onClick={handlePrev}
-                className="px-4 py-2 rounded-lg bg-gray-200 text-black"
-              >
+              <button onClick={handlePrev} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
                 Prev
               </button>
             )}
@@ -566,10 +582,8 @@ const BlogClient = ({
                 <button
                   key={page}
                   onClick={() => handlePageChange(page as number)}
-                  className={`px-4 py-2 rounded-lg ${
-                    currentPage === page
-                      ? "bg-teal-600 text-white"
-                      : "bg-gray-200 text-black"
+                  className={`rounded-lg px-4 py-2 ${
+                    currentPage === page ? "bg-teal-600 text-white" : "bg-gray-200 text-black"
                   }`}
                 >
                   {page}
@@ -578,10 +592,7 @@ const BlogClient = ({
             )}
 
             {currentPage < totalPages && (
-              <button
-                onClick={handleNext}
-                className="px-4 py-2 rounded-lg bg-gray-200 text-black"
-              >
+              <button onClick={handleNext} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
                 Next
               </button>
             )}

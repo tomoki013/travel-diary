@@ -38,15 +38,20 @@ const NavigationCard = ({
       href={post.href}
       className={cn(
         "group relative flex flex-1 flex-col justify-center gap-2 overflow-hidden rounded-2xl border border-stone-200 bg-white p-6 transition-all hover:border-amber-500 hover:shadow-lg dark:border-stone-800 dark:bg-stone-900/40 dark:hover:border-amber-500",
-        isNext ? "text-right items-end" : "text-left items-start",
-        className
+        isNext ? "items-end text-right" : "items-start text-left",
+        className,
       )}
     >
-      <div className={cn("flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-stone-400 transition-colors group-hover:text-amber-600", isNext && "flex-row-reverse")}>
+      <div
+        className={cn(
+          "flex items-center gap-2 text-[10px] font-bold tracking-widest text-stone-400 uppercase transition-colors group-hover:text-amber-600",
+          isNext && "flex-row-reverse",
+        )}
+      >
         {isNext ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
         <span>{label}</span>
       </div>
-      <p className="line-clamp-2 text-sm font-bold leading-relaxed text-stone-800 transition-colors group-hover:text-stone-900 dark:text-stone-200 dark:group-hover:text-white md:text-base">
+      <p className="line-clamp-2 text-sm leading-relaxed font-bold text-stone-800 transition-colors group-hover:text-stone-900 md:text-base dark:text-stone-200 dark:group-hover:text-white">
         {post.title}
       </p>
     </Link>
@@ -72,15 +77,23 @@ const PostNavigation = ({
               <ListOrdered className="h-4 w-4" />
             </div>
             <h3 className="text-sm font-bold tracking-tight text-stone-500 dark:text-stone-400">
-              シリーズ「<span className="text-stone-900 dark:text-stone-200">{seriesTitle}</span>」の続き
+              シリーズ「<span className="text-stone-900 dark:text-stone-200">{seriesTitle}</span>
+              」の続き
             </h3>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {previousSeriesPost ? (
               <NavigationCard post={previousSeriesPost} direction="prev" label="Previous Part" />
-            ) : <div className="hidden sm:block" />}
+            ) : (
+              <div className="hidden sm:block" />
+            )}
             {nextSeriesPost && (
-              <NavigationCard post={nextSeriesPost} direction="next" label="Next Part" className="border-amber-200 bg-amber-50/30 dark:border-amber-900/30 dark:bg-amber-900/10" />
+              <NavigationCard
+                post={nextSeriesPost}
+                direction="next"
+                label="Next Part"
+                className="border-amber-200 bg-amber-50/30 dark:border-amber-900/30 dark:bg-amber-900/10"
+              />
             )}
           </div>
         </div>
@@ -90,17 +103,21 @@ const PostNavigation = ({
       {(previousPost || nextPost) && (
         <div className="space-y-4">
           <div className="flex items-center gap-3 px-2">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400">
+            <h3 className="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase">
               Related Reads
             </h3>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {previousPost ? (
               <NavigationCard post={previousPost} direction="prev" label="Prev Post" />
-            ) : <div className="hidden sm:block" />}
+            ) : (
+              <div className="hidden sm:block" />
+            )}
             {nextPost ? (
               <NavigationCard post={nextPost} direction="next" label="Next Post" />
-            ) : <div className="hidden sm:block" />}
+            ) : (
+              <div className="hidden sm:block" />
+            )}
           </div>
         </div>
       )}

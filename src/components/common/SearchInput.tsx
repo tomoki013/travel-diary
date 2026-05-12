@@ -45,9 +45,9 @@ export const SearchInput = ({
           placeholder={placeholder}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="pl-10 bg-white/80 text-gray-800"
+          className="bg-white/80 pl-10 text-gray-800"
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <SearchIcon className="h-5 w-5 text-gray-400" />
         </div>
       </div>

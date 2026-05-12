@@ -36,48 +36,53 @@ export const ItineraryDisplay: React.FC<ItineraryDisplayProps> = ({
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="w-full max-w-3xl my-6"
+      className="my-6 w-full max-w-3xl"
     >
-      <Card className="overflow-hidden border-none shadow-2xl bg-gradient-to-br from-card to-accent/5">
-        <CardHeader className="bg-primary/5 border-b border-primary/10 pb-6">
-          <div className="flex justify-between items-start mb-2">
-            <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-none">
-              <CalendarDays className="w-3 h-3 mr-1" />
+      <Card className="from-card to-accent/5 overflow-hidden border-none bg-gradient-to-br shadow-2xl">
+        <CardHeader className="bg-primary/5 border-primary/10 border-b pb-6">
+          <div className="mb-2 flex items-start justify-between">
+            <Badge
+              variant="secondary"
+              className="bg-primary/10 text-primary hover:bg-primary/20 border-none"
+            >
+              <CalendarDays className="mr-1 h-3 w-3" />
               {duration} プラン
             </Badge>
           </div>
           <CardTitle className="text-2xl font-black tracking-tight">{title}</CardTitle>
-          <div className="flex items-center text-sm text-muted-foreground mt-1 font-medium">
-            <MapPin className="w-4 h-4 mr-1 text-primary" />
+          <div className="text-muted-foreground mt-1 flex items-center text-sm font-medium">
+            <MapPin className="text-primary mr-1 h-4 w-4" />
             {destination}
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="divide-y divide-border/40">
+          <div className="divide-border/40 divide-y">
             {days.map((day) => (
-              <div key={day.day} className="p-6 space-y-4">
-                <h3 className="text-lg font-bold flex items-center gap-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-xs font-black">
+              <div key={day.day} className="space-y-4 p-6">
+                <h3 className="flex items-center gap-3 text-lg font-bold">
+                  <span className="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full text-xs font-black">
                     {day.day}
                   </span>
                   {day.title}
                 </h3>
-                <div className="space-y-6 ml-4 border-l-2 border-primary/10 pl-6 py-2">
+                <div className="border-primary/10 ml-4 space-y-6 border-l-2 py-2 pl-6">
                   {day.schedule.map((item, idx) => (
-                    <div key={idx} className="relative group">
-                      <div className="absolute -left-[33px] top-1.5 w-3 h-3 rounded-full bg-primary ring-4 ring-background group-hover:scale-125 transition-transform" />
+                    <div key={idx} className="group relative">
+                      <div className="bg-primary ring-background absolute top-1.5 -left-[33px] h-3 w-3 rounded-full ring-4 transition-transform group-hover:scale-125" />
                       <div className="flex flex-col space-y-1">
-                        <div className="flex items-center text-[10px] font-black uppercase tracking-widest text-primary/60">
-                          <Clock className="w-3 h-3 mr-1" />
+                        <div className="text-primary/60 flex items-center text-[10px] font-black tracking-widest uppercase">
+                          <Clock className="mr-1 h-3 w-3" />
                           {item.time}
                         </div>
-                        <h4 className="font-bold text-sm text-foreground leading-snug">{item.activity}</h4>
-                        <p className="text-xs text-muted-foreground leading-relaxed max-w-md">
+                        <h4 className="text-foreground text-sm leading-snug font-bold">
+                          {item.activity}
+                        </h4>
+                        <p className="text-muted-foreground max-w-md text-xs leading-relaxed">
                           {item.description}
                         </p>
                         {item.location && (
-                          <div className="text-[10px] flex items-center text-muted-foreground/70 italic mt-1">
-                            <MapPin className="w-3 h-3 mr-1" />
+                          <div className="text-muted-foreground/70 mt-1 flex items-center text-[10px] italic">
+                            <MapPin className="mr-1 h-3 w-3" />
                             {item.location}
                           </div>
                         )}

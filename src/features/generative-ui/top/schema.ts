@@ -58,6 +58,13 @@ export const ALLOWED_PRIMITIVE_TYPES = [
   "packing_list",
   "photo_spots",
   "article_embedder",
+  // Aliases / Legacy
+  "heading",
+  "text",
+  "button",
+  "badge",
+  "callout",
+  "next_action",
 ] as const;
 
 export const PrimitiveTypeSchema = z.enum(ALLOWED_PRIMITIVE_TYPES);
@@ -93,7 +100,7 @@ export const PrimitiveNodeSchema: z.ZodType<PrimitiveNode> = z.lazy(() =>
     props: z.record(z.string(), z.unknown()).default({}),
     reason: z.string().max(200).optional(),
     children: z.array(PrimitiveNodeSchema).max(20).optional(),
-  })
+  }),
 );
 
 // ────────────────────────────────────────────

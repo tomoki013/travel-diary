@@ -18,9 +18,7 @@ function getRawDataFromDirectory(directory: string): PostMetadata[] {
 
   const fileNames = fs
     .readdirSync(directory)
-    .filter(
-      (fileName) => fileName.endsWith(".md") || fileName.endsWith(".mdx"),
-    );
+    .filter((fileName) => fileName.endsWith(".md") || fileName.endsWith(".mdx"));
 
   const allPostsData = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();

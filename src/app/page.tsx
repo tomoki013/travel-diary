@@ -45,7 +45,7 @@ export default async function HomePage() {
       <Request />
       <PostsLength posts={allPosts} />
       <GalleryLength galleryLength={photoLength} />
-      <div className="flex justify-center pb-20 mt-10">
+      <div className="mt-10 flex justify-center pb-20">
         <InstallPWAButton />
       </div>
     </>

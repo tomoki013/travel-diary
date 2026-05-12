@@ -11,41 +11,47 @@ const Hero = () => {
   );
 
   return (
-    <section className="relative flex min-h-[90vh] md:h-[85vh] flex-col items-center justify-center px-4 pt-32 pb-16 text-center text-stone-50 md:flex-row md:px-8 md:pt-40 md:pb-20 overflow-hidden">
+    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 pt-32 pb-16 text-center text-stone-50 md:h-[85vh] md:flex-row md:px-8 md:pt-40 md:pb-20">
       <Image
         src="/images/Turkey/balloons-in-cappadocia.jpg"
         alt="Hot air balloons in Cappadocia"
         fill
-        className="object-cover -z-10"
+        className="-z-10 object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-stone-900/40 to-stone-900/70 -z-10" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-stone-900/60 via-stone-900/40 to-stone-900/70" />
 
       <div className="relative z-10 flex w-full max-w-7xl flex-col items-center justify-between gap-12 md:flex-row md:gap-8">
-        <div className="flex w-full max-w-2xl flex-col items-center md:items-start text-center md:text-left drop-shadow-lg">
-          <h1 className="mb-6 font-heading text-5xl font-bold leading-tight tracking-tight text-white md:text-7xl lg:text-8xl">
-            次の冒険は、<br className="hidden md:block" />どこへ？
+        <div className="flex w-full max-w-2xl flex-col items-center text-center drop-shadow-lg md:items-start md:text-left">
+          <h1 className="font-heading mb-6 text-5xl leading-tight font-bold tracking-tight text-white md:text-7xl lg:text-8xl">
+            次の冒険は、
+            <br className="hidden md:block" />
+            どこへ？
           </h1>
           <p className="mb-6 text-lg font-medium tracking-wide text-amber-50/90 md:text-xl lg:text-2xl">
-            世界を旅した記憶と体験、<br className="md:hidden" />そして次の旅のインスピレーションを。
+            世界を旅した記憶と体験、
+            <br className="md:hidden" />
+            そして次の旅のインスピレーションを。
           </p>
           <p className="max-w-xl text-sm leading-relaxed text-stone-200 md:text-base">
             息を呑むような絶景、その土地ならではの文化、そして旅先での小さな発見。
             まだ見ぬ世界への扉を開き、あなただけの物語を見つけにいきませんか。
           </p>
 
-          <div className="mt-10 md:mt-16 w-full max-w-sm">
-            <p className="mb-4 font-code text-sm tracking-[0.3em] text-amber-200/80 uppercase">Destinations</p>
+          <div className="mt-10 w-full max-w-sm md:mt-16">
+            <p className="font-code mb-4 text-sm tracking-[0.3em] text-amber-200/80 uppercase">
+              Destinations
+            </p>
             <LoadingAnimation
               variant="splitFlap"
-              className="flex items-center justify-center md:justify-start text-amber-400 font-code tracking-[0.3em] text-sm uppercase"
+              className="font-code flex items-center justify-center text-sm tracking-[0.3em] text-amber-400 uppercase md:justify-start"
               words={shuffleArray(allRegions.map((region) => region.slug.toUpperCase()))}
               flapBG="bg-transparent"
             />
           </div>
         </div>
 
-        <div className="relative w-full max-w-xl flex-shrink-0 md:w-1/2 drop-shadow-2xl">
+        <div className="relative w-full max-w-xl flex-shrink-0 drop-shadow-2xl md:w-1/2">
           <WorldMap highlightedRegions={allCountryNames} isClickable={false} />
         </div>
       </div>

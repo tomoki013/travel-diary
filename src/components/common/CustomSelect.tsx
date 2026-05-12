@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  RefObject,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import { useState, useRef, useEffect, RefObject, useCallback, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Check } from "lucide-react";
@@ -25,16 +18,11 @@ interface CustomSelectProps {
 }
 
 // コンポーネント外クリックを検知するカスタムフック (変更なし)
-const useOutsideClick = (
-  refs: Array<RefObject<HTMLElement | null>>,
-  callback: () => void
-) => {
+const useOutsideClick = (refs: Array<RefObject<HTMLElement | null>>, callback: () => void) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-      const clickedInside = refs.some(
-        (ref) => ref.current && ref.current.contains(target),
-      );
+      const clickedInside = refs.some((ref) => ref.current && ref.current.contains(target));
 
       if (!clickedInside) {
         callback();
@@ -77,12 +65,7 @@ const itemVariants = {
   closed: { opacity: 0, y: -15, transition: { duration: 0.2 } },
 } as const;
 
-export const CustomSelect = ({
-  options,
-  value,
-  onChange,
-  labelPrefix,
-}: CustomSelectProps) => {
+export const CustomSelect = ({ options, value, onChange, labelPrefix }: CustomSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState<{
     top: number;
@@ -125,20 +108,18 @@ export const CustomSelect = ({
   }, [isOpen, updateMenuPosition]);
 
   return (
-    <div ref={wrapperRef} className="relative z-40 w-full font-sans isolate">
+    <div ref={wrapperRef} className="relative isolate z-40 w-full font-sans">
       <motion.button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="relative z-10 w-full flex items-center justify-between text-left p-4 bg-white/80 border border-gray-200/80 rounded-xl shadow-sm hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all duration-300"
+        className="focus:ring-secondary relative z-10 flex w-full items-center justify-between rounded-xl border border-gray-200/80 bg-white/80 p-4 text-left shadow-sm transition-all duration-300 hover:border-gray-300 focus:ring-2 focus:ring-offset-2 focus:outline-none"
         whileTap={{ scale: 0.98 }}
       >
         <div className="flex flex-col">
-          <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <span className="text-xs font-medium tracking-wider text-gray-500 uppercase">
             {labelPrefix}
           </span>
-          <span className="text-lg font-semibold text-gray-800">
-            {selectedOption?.title}
-          </span>
+          <span className="text-lg font-semibold text-gray-800">{selectedOption?.title}</span>
         </div>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
@@ -158,7 +139,7 @@ export const CustomSelect = ({
                 initial="closed"
                 animate="open"
                 exit="closed"
-                className="fixed z-[220] origin-top bg-white/95 text-gray-800 backdrop-blur-lg rounded-xl shadow-2xl ring-1 ring-secondary overflow-hidden"
+                className="ring-secondary fixed z-[220] origin-top overflow-hidden rounded-xl bg-white/95 text-gray-800 shadow-2xl ring-1 backdrop-blur-lg"
                 style={{
                   top: menuPosition.top,
                   left: menuPosition.left,
@@ -173,15 +154,9 @@ export const CustomSelect = ({
                       onChange(option.slug);
                       setIsOpen(false);
                     }}
-                    className="flex items-center justify-between px-5 py-3 cursor-pointer hover:bg-sky-100/70"
+                    className="flex cursor-pointer items-center justify-between px-5 py-3 hover:bg-sky-100/70"
                   >
-                    <span
-                      className={
-                        value === option.slug
-                          ? "font-semibold text-secondary"
-                          : ""
-                      }
-                    >
+                    <span className={value === option.slug ? "text-secondary font-semibold" : ""}>
                       {option.title}
                     </span>
                     {value === option.slug && (

@@ -44,10 +44,7 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   const [totalResults, setTotalResults] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const debouncedSearchTerm = useDebounce(
-    searchTerm,
-    SEARCH_CONFIG.DEBOUNCE_DELAY,
-  );
+  const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_CONFIG.DEBOUNCE_DELAY);
 
   const fetchSuggestions = useCallback(
     async (query: string, category: string | null, topic: TravelTopic | null) => {

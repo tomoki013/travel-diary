@@ -16,7 +16,7 @@ const loadPostsContent = cache(async (): Promise<Record<string, Post>> => {
   const data = await fs.readFile(postsContentPath, "utf8");
   const parsed = JSON.parse(data) as Record<string, Post>;
   cachedPostsBySlug = Object.fromEntries(
-    Object.entries(parsed).map(([slug, post]) => [slug, enrichPostRevenueCategory(post)])
+    Object.entries(parsed).map(([slug, post]) => [slug, enrichPostRevenueCategory(post)]),
   );
 
   return cachedPostsBySlug;

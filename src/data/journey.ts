@@ -77,8 +77,7 @@ export const JOURNEY_DATA: JourneyItem[] = [
     description:
       "クアラルンプールの食べ歩きから始まり、シンガポールの定番観光、バリの街歩き、そしてジョグジャカルタへの移動まで。ローカル交通と食を詰め込んだ周遊旅。",
     tags: ["Food", "City", "Adventure"],
-    image:
-      "/images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg",
+    image: "/images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg",
   },
 ];
 

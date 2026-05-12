@@ -81,9 +81,7 @@
   --primary: oklch(0.4 0.09 35.84); /* secondaryを濃くした色 */
   --primary-foreground: oklch(0.985 0 0); /* 明るい背景色に近づけた白 */
 
-  --secondary-foreground: oklch(
-    0.25 0.05 35.84
-  ); /* secondaryの上でも読める濃い茶色 */
+  --secondary-foreground: oklch(0.25 0.05 35.84); /* secondaryの上でも読める濃い茶色 */
 
   --muted: oklch(0.96 0.015 89.53); /* backgroundより少し濃い色 */
   --muted-foreground: oklch(0.55 0.03 89.53); /* mutedの上でも読める中間色 */
@@ -128,12 +126,8 @@
   --popover: oklch(0.22 0.025 89.53);
   --popover-foreground: var(--foreground);
 
-  --primary: oklch(
-    0.736 0.078 35.84
-  ); /* 明るく目立つプライマリ色 (ライト版のsecondary) */
-  --primary-foreground: oklch(
-    0.25 0.05 35.84
-  ); /* primaryの上でも読める濃い茶色 */
+  --primary: oklch(0.736 0.078 35.84); /* 明るく目立つプライマリ色 (ライト版のsecondary) */
+  --primary-foreground: oklch(0.25 0.05 35.84); /* primaryの上でも読める濃い茶色 */
 
   --secondary-foreground: oklch(0.98 0.01 89.53);
 

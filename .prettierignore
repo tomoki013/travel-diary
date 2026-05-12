@@ -1,0 +1,8 @@
+.next
+.netlify
+node_modules
+public/sw.js
+public/generated
+coverage
+dist
+pnpm-lock.yaml

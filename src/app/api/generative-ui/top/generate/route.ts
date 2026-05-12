@@ -4,7 +4,10 @@ import { google } from "@ai-sdk/google";
 import fs from "fs/promises";
 import path from "path";
 
-import { GenerateTopRequestSchema, IntentAnalysisSchema } from "@/features/generative-ui/top/schema";
+import {
+  GenerateTopRequestSchema,
+  IntentAnalysisSchema,
+} from "@/features/generative-ui/top/schema";
 import { selectCandidateArticles } from "@/features/generative-ui/top/selectCandidateArticles";
 import {
   buildIntentSystemPrompt,
@@ -49,7 +52,7 @@ export async function POST(req: NextRequest) {
   if (!bodyResult.success) {
     return NextResponse.json(
       { error: "Invalid request: " + bodyResult.error.issues.map((i) => i.message).join(", ") },
-      { status: 400, headers: NO_STORE }
+      { status: 400, headers: NO_STORE },
     );
   }
 
@@ -60,14 +63,17 @@ export async function POST(req: NextRequest) {
   if (!index) {
     console.error("[generative-ui/generate] Blog index unavailable");
     return NextResponse.json(
-      { schema: buildFallbackSchema("記事インデックスが読み込めませんでした"), meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS } },
-      { headers: NO_STORE }
+      {
+        schema: buildFallbackSchema("記事インデックスが読み込めませんでした"),
+        meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS },
+      },
+      { headers: NO_STORE },
     );
   }
 
   const candidates = selectCandidateArticles(
     index.articles as Parameters<typeof selectCandidateArticles>[0],
-    userInput
+    userInput,
   );
 
   const validArticleIds = new Set(candidates.map((a) => a.id));
@@ -78,7 +84,7 @@ export async function POST(req: NextRequest) {
 
   const modelFlashName = process.env.GEMINI_MODEL_NAME_FLASH || "gemini-flash-latest";
   const modelProName = process.env.GEMINI_MODEL_NAME_PRO || "gemini-pro-latest";
-  
+
   const modelFlash = google(modelFlashName);
   const modelPro = google(modelProName);
 
@@ -105,7 +111,7 @@ export async function POST(req: NextRequest) {
       primaryGoal: userInput,
       keyConcerns: [],
       recommendedTone: "neutral",
-      suggestedLayoutStrategy: "シンプルなリスト形式で表示する"
+      suggestedLayoutStrategy: "シンプルなリスト形式で表示する",
     };
   }
 
@@ -129,21 +135,25 @@ export async function POST(req: NextRequest) {
     console.error("[generative-ui/generate] Step 2 failed:", (e as Error).message);
     return NextResponse.json(
       { schema: buildFallbackSchema(), meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS } },
-      { headers: NO_STORE }
+      { headers: NO_STORE },
     );
   }
 
   // Parse JSON from AI response
   let rawSchema: unknown;
   try {
-    const jsonMatch = aiText.match(/```json\n([\s\S]*?)\n```/) ?? aiText.match(/```\n([\s\S]*?)\n```/);
+    const jsonMatch =
+      aiText.match(/```json\n([\s\S]*?)\n```/) ?? aiText.match(/```\n([\s\S]*?)\n```/);
     const jsonStr = jsonMatch ? jsonMatch[1] : aiText.trim();
     rawSchema = JSON.parse(jsonStr);
   } catch {
     console.error("[generative-ui/generate] JSON parse failed");
     return NextResponse.json(
-      { schema: buildFallbackSchema("生成されたUIの解析に失敗しました"), meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS } },
-      { headers: NO_STORE }
+      {
+        schema: buildFallbackSchema("生成されたUIの解析に失敗しました"),
+        meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS },
+      },
+      { headers: NO_STORE },
     );
   }
 
@@ -153,8 +163,11 @@ export async function POST(req: NextRequest) {
   if (!validation.success) {
     console.error("[generative-ui/generate] Schema validation failed:", validation.error);
     return NextResponse.json(
-      { schema: buildFallbackSchema("生成されたUIを安全に表示できませんでした"), meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS } },
-      { headers: NO_STORE }
+      {
+        schema: buildFallbackSchema("生成されたUIを安全に表示できませんでした"),
+        meta: { generatedAt: Date.now(), ttlSeconds: TTL_SECONDS },
+      },
+      { headers: NO_STORE },
     );
   }
 
@@ -171,6 +184,6 @@ export async function POST(req: NextRequest) {
         articleIndexVersion: index.version,
       },
     },
-    { headers: NO_STORE }
+    { headers: NO_STORE },
   );
 }

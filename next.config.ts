@@ -59,8 +59,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/map/:path*",
-        destination:
-          "https://travel-map-for-tomokichidiary.netlify.app/map/:path*",
+        destination: "https://travel-map-for-tomokichidiary.netlify.app/map/:path*",
       },
     ];
   },

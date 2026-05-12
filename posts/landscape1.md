@@ -46,7 +46,6 @@ tags:
 
 ---
 
-
 ### 2.スペインの古都・トレド旧市街（スペイン）
 
 ![トレド旧市街](/images/Spain/toledo-view.jpg)

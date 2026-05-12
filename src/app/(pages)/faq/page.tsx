@@ -36,11 +36,11 @@ export default async function FaqPage() {
   // --- Calculate Planning Timeline (Bar Chart) ---
   // Heuristic mapping based on categories/content
   const phaseCounts = {
-    "検討段階": 0,
+    検討段階: 0,
     "予約・手配": 0,
-    "出発直前": 0,
-    "旅行中": 0,
-    "帰国後": 0,
+    出発直前: 0,
+    旅行中: 0,
+    帰国後: 0,
   };
 
   allPosts.forEach((post) => {
@@ -65,11 +65,11 @@ export default async function FaqPage() {
   });
 
   const phaseTips = {
-    "検討段階": "「モデルコース」や「旅行記」で行き先イメージを膨らませる",
+    検討段階: "「モデルコース」や「旅行記」で行き先イメージを膨らませる",
     "予約・手配": "「準備」タグやホテル情報でお得に予約",
-    "出発直前": "パッキングや空港アクセス情報を確認",
-    "旅行中": "現地の観光スポット情報を活用",
-    "帰国後": "自分の体験と重ねて旅行記を楽しむ",
+    出発直前: "パッキングや空港アクセス情報を確認",
+    旅行中: "現地の観光スポット情報を活用",
+    帰国後: "自分の体験と重ねて旅行記を楽しむ",
   };
 
   const phaseData = Object.entries(phaseCounts).map(([name, value]) => ({
@@ -78,11 +78,5 @@ export default async function FaqPage() {
     tips: phaseTips[name as keyof typeof phaseTips],
   }));
 
-  return (
-    <FaqClient
-      distributionData={distributionData}
-      phaseData={phaseData}
-      faqs={FAQS}
-    />
-  );
+  return <FaqClient distributionData={distributionData} phaseData={phaseData} faqs={FAQS} />;
 }

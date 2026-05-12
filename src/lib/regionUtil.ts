@@ -75,26 +75,16 @@ export const getValidRegionsBySlugs = (slugs: string[]): Region[] => {
  * @returns {Region[]} パンくずリスト用の地域情報の配列
  */
 export const getRegionPath = (slug: string): Region[] => {
-  const findPath = (
-    targetSlug: string,
-    continents: ContinentData[]
-  ): Region[] | null => {
+  const findPath = (targetSlug: string, continents: ContinentData[]): Region[] | null => {
     for (const continent of continents) {
       for (const country of continent.countries) {
         if (country.slug === targetSlug) {
-          return [
-            { slug: continent.slug, name: continent.name, imageURL: "" },
-            country,
-          ];
+          return [{ slug: continent.slug, name: continent.name, imageURL: "" }, country];
         }
         if (country.children) {
           for (const city of country.children) {
             if (city.slug === targetSlug) {
-              return [
-                { slug: continent.slug, name: continent.name, imageURL: "" },
-                country,
-                city,
-              ];
+              return [{ slug: continent.slug, name: continent.name, imageURL: "" }, country, city];
             }
           }
         }

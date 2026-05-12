@@ -28,9 +28,7 @@ export async function generateMetadata(props: {
 }
 
 // 2. Pageコンポーネント
-const DestinationPage = async (props: {
-  params: Promise<{ region: string }>;
-}) => {
+const DestinationPage = async (props: { params: Promise<{ region: string }> }) => {
   const params = await props.params;
   const regionSlug = params.region;
   const currentRegion = getRegionBySlug(regionSlug);

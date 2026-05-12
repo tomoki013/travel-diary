@@ -8,26 +8,21 @@ interface ContinentSectionProps {
   countryStyle?: string;
 }
 
-const ContinentSection = ({
-  continent,
-  countryStyle,
-}: ContinentSectionProps) => {
+const ContinentSection = ({ continent, countryStyle }: ContinentSectionProps) => {
   return (
     <div key={continent.slug}>
-      <h3 className={`text-2xl font-bold pb-2 mb-4 ${countryStyle}`}>
-        {continent.name}
-      </h3>
+      <h3 className={`mb-4 pb-2 text-2xl font-bold ${countryStyle}`}>{continent.name}</h3>
       <ul className="space-y-2">
         {continent.countries.map((country) => (
           <li key={country.slug}>
             <Link
               href={`/destination/${country.slug}`}
-              className="font-semibold text-foreground hover:text-secondary"
+              className="text-foreground hover:text-secondary font-semibold"
             >
               ・{country.name}
             </Link>
             {country.children && country.children.length > 0 && (
-              <ul className="ml-6 mt-1 space-y-1">
+              <ul className="mt-1 ml-6 space-y-1">
                 {country.children.map((city) => (
                   <li key={city.slug}>
                     <Link

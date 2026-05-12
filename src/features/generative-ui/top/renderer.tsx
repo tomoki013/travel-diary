@@ -12,12 +12,12 @@ import { PackingList } from "@/components/generative-ui/PackingList";
 import { PhotoOppsComparison } from "@/components/generative-ui/PhotoOppsComparison";
 import { ArticleEmbedder } from "@/components/generative-ui/ArticleEmbedder";
 import { cn } from "@/lib/utils";
-import { 
-  Info, 
-  AlertTriangle, 
-  CheckCircle2, 
-  XCircle, 
-  Lightbulb, 
+import {
+  Info,
+  AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  Lightbulb,
   HelpCircle,
   ExternalLink,
   ChevronRight,
@@ -27,7 +27,7 @@ import {
   Clock,
   CircleDollarSign,
   Quote,
-  Sparkles
+  Sparkles,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -54,7 +54,7 @@ export function PrimitiveRenderer({
 }) {
   const ctx: RendererContext = { articleIndex };
   return (
-    <div className="space-y-12 animate-in fade-in duration-1000">
+    <div className="animate-in fade-in space-y-12 duration-1000">
       {schema.sections.map((node) => (
         <NodeRenderer key={node.id} node={node} ctx={ctx} depth={0} />
       ))}
@@ -75,7 +75,7 @@ function NodeRenderer({
   depth: number;
 }) {
   if (depth > 12) return null;
-  
+
   switch (node.type) {
     // --- Layout ---
     case "section":
@@ -203,7 +203,15 @@ function NodeRenderer({
   }
 }
 
-function Children({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function Children({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   if (!node.children?.length) return null;
   return (
     <>
@@ -218,27 +226,51 @@ function Children({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererCont
 // Primitives: Layout
 // ─────────────────────────────────────────────
 
-function SectionPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function SectionPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   return (
-    <section 
-      className="rounded-[2.5rem] bg-white dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/60 p-8 md:p-12 space-y-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none backdrop-blur-xl relative overflow-hidden"
+    <section
+      className="relative space-y-10 overflow-hidden rounded-[2.5rem] border border-zinc-200/60 bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl md:p-12 dark:border-zinc-800/60 dark:bg-zinc-900/60 dark:shadow-none"
       data-reason={node.reason}
     >
-      <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-amber-400 to-orange-500 opacity-80" />
+      <div className="absolute top-0 left-0 h-full w-2 bg-gradient-to-b from-amber-400 to-orange-500 opacity-80" />
       <Children node={node} ctx={ctx} depth={depth} />
     </section>
   );
 }
 
-function ContainerPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function ContainerPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   return (
-    <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
+    <div className="animate-in fade-in slide-in-from-bottom-4 w-full duration-700 ease-out">
       <Children node={node} ctx={ctx} depth={depth} />
     </div>
   );
 }
 
-function FlexColPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function FlexColPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   const gap = safeNumber(node.props.gap, 6, 0, 16);
   return (
     <div className={cn("flex flex-col")} style={{ gap: `${gap * 0.25}rem` }}>
@@ -247,17 +279,36 @@ function FlexColPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: Rend
   );
 }
 
-function FlexRowPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function FlexRowPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   const gap = safeNumber(node.props.gap, 4, 0, 12);
   const wrap = node.props.wrap !== false;
   return (
-    <div className={cn("flex items-center", wrap && "flex-wrap")} style={{ gap: `${gap * 0.25}rem` }}>
+    <div
+      className={cn("flex items-center", wrap && "flex-wrap")}
+      style={{ gap: `${gap * 0.25}rem` }}
+    >
       <Children node={node} ctx={ctx} depth={depth} />
     </div>
   );
 }
 
-function GridPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function GridPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   const cols = safeNumber(node.props.cols, 2, 1, 4);
   const gap = safeNumber(node.props.gap, 6, 0, 16);
   const gridCols = {
@@ -265,7 +316,7 @@ function GridPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: Rendere
     2: "grid-cols-1 sm:grid-cols-2",
     3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
     4: "grid-cols-2 lg:grid-cols-4",
-  }[cols as 1|2|3|4];
+  }[cols as 1 | 2 | 3 | 4];
 
   return (
     <div className={cn("grid", gridCols)} style={{ gap: `${gap * 0.25}rem` }}>
@@ -274,21 +325,33 @@ function GridPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: Rendere
   );
 }
 
-function CardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function CardPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   const padding = safeEnum(node.props.padding, ["small", "medium", "large"], "medium");
   const pClass = { small: "p-4", medium: "p-6", large: "p-10" }[padding];
   return (
-    <div className={cn(
-      "rounded-3xl border border-zinc-100 dark:border-zinc-800 bg-white/50 dark:bg-zinc-800/40 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500", 
-      pClass
-    )}>
+    <div
+      className={cn(
+        "rounded-3xl border border-zinc-100 bg-white/50 shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:border-zinc-800 dark:bg-zinc-800/40",
+        pClass,
+      )}
+    >
       <Children node={node} ctx={ctx} depth={depth} />
     </div>
   );
 }
 
 function DividerPrimitive() {
-  return <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-200 dark:via-zinc-800 to-transparent my-6" />;
+  return (
+    <div className="my-6 h-px w-full bg-gradient-to-r from-transparent via-zinc-200 to-transparent dark:via-zinc-800" />
+  );
 }
 
 function SpacerPrimitive({ node }: { node: PrimitiveNode }) {
@@ -305,32 +368,55 @@ function HeadingPrimitive({ node, level }: { node: PrimitiveNode; level: number 
   const text = safeString(node.props.text);
   if (!text) return null;
   const baseCls = "font-bold tracking-tight font-heading leading-tight";
-  
-  if (level === 1) return (
-    <h1 className={cn("text-4xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-200 dark:to-zinc-400 pb-2", baseCls)}>
-      {text}
-    </h1>
+
+  if (level === 1)
+    return (
+      <h1
+        className={cn(
+          "bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-600 bg-clip-text pb-2 text-4xl text-transparent md:text-5xl lg:text-6xl dark:from-white dark:via-zinc-200 dark:to-zinc-400",
+          baseCls,
+        )}
+      >
+        {text}
+      </h1>
+    );
+  if (level === 2)
+    return (
+      <h2
+        className={cn(
+          "flex items-center gap-3 text-2xl text-zinc-900 md:text-3xl dark:text-zinc-100",
+          baseCls,
+        )}
+      >
+        <span className="h-8 w-1.5 rounded-full bg-amber-500" />
+        {text}
+      </h2>
+    );
+  if (level === 3)
+    return (
+      <h3 className={cn("text-xl text-zinc-800 md:text-2xl dark:text-zinc-200", baseCls)}>
+        {text}
+      </h3>
+    );
+  return (
+    <h4 className={cn("text-base text-zinc-700 md:text-lg dark:text-zinc-300", baseCls)}>{text}</h4>
   );
-  if (level === 2) return (
-    <h2 className={cn("text-2xl md:text-3xl text-zinc-900 dark:text-zinc-100 flex items-center gap-3", baseCls)}>
-      <span className="h-8 w-1.5 rounded-full bg-amber-500" />
-      {text}
-    </h2>
-  );
-  if (level === 3) return <h3 className={cn("text-xl md:text-2xl text-zinc-800 dark:text-zinc-200", baseCls)}>{text}</h3>;
-  return <h4 className={cn("text-base md:text-lg text-zinc-700 dark:text-zinc-300", baseCls)}>{text}</h4>;
 }
 
 function TextPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   if (!text) return null;
-  return <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">{text}</p>;
+  return (
+    <p className="text-base leading-relaxed font-medium text-zinc-600 md:text-lg dark:text-zinc-400">
+      {text}
+    </p>
+  );
 }
 
 function CaptionPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   if (!text) return null;
-  return <p className="text-xs text-zinc-500 dark:text-zinc-500 italic">{text}</p>;
+  return <p className="text-xs text-zinc-500 italic dark:text-zinc-500">{text}</p>;
 }
 
 function QuotePrimitive({ node }: { node: PrimitiveNode }) {
@@ -338,9 +424,9 @@ function QuotePrimitive({ node }: { node: PrimitiveNode }) {
   const author = safeString(node.props.author);
   if (!text) return null;
   return (
-    <blockquote className="border-l-4 border-zinc-200 dark:border-zinc-700 pl-6 py-2 space-y-2">
-      <Quote className="h-6 w-6 text-zinc-300 dark:text-zinc-600 mb-2" />
-      <p className="text-lg font-medium text-zinc-800 dark:text-zinc-200 italic leading-relaxed">
+    <blockquote className="space-y-2 border-l-4 border-zinc-200 py-2 pl-6 dark:border-zinc-700">
+      <Quote className="mb-2 h-6 w-6 text-zinc-300 dark:text-zinc-600" />
+      <p className="text-lg leading-relaxed font-medium text-zinc-800 italic dark:text-zinc-200">
         {text}
       </p>
       {author && <cite className="block text-sm text-zinc-500 not-italic">— {author}</cite>}
@@ -358,18 +444,14 @@ function HighlightPrimitive({ node }: { node: PrimitiveNode }) {
     rose: "bg-rose-100 dark:bg-rose-900/30 text-rose-900 dark:text-rose-200",
   };
   if (!text) return null;
-  return (
-    <span className={cn("px-1.5 py-0.5 rounded font-medium", colors[color])}>
-      {text}
-    </span>
-  );
+  return <span className={cn("rounded px-1.5 py-0.5 font-medium", colors[color])}>{text}</span>;
 }
 
 function GradientTextPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   const from = safeEnum(node.props.from, ["amber", "emerald", "blue", "rose", "indigo"], "amber");
   const to = safeEnum(node.props.to, ["amber", "emerald", "blue", "rose", "orange"], "rose");
-  
+
   const gradients = {
     amber: "from-amber-500",
     emerald: "from-emerald-500",
@@ -380,11 +462,13 @@ function GradientTextPrimitive({ node }: { node: PrimitiveNode }) {
   };
 
   return (
-    <span className={cn(
-      "bg-clip-text text-transparent bg-gradient-to-r font-bold",
-      gradients[from as keyof typeof gradients],
-      gradients[to as keyof typeof gradients]
-    )}>
+    <span
+      className={cn(
+        "bg-gradient-to-r bg-clip-text font-bold text-transparent",
+        gradients[from as keyof typeof gradients],
+        gradients[to as keyof typeof gradients],
+      )}
+    >
       {text}
     </span>
   );
@@ -400,11 +484,14 @@ function DataTablePrimitive({ node }: { node: PrimitiveNode }) {
   if (!columns.length || !rows.length) return null;
   return (
     <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
-      <table className="w-full text-sm border-collapse">
+      <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="bg-zinc-50 dark:bg-zinc-800/50">
             {columns.map((col, i) => (
-              <th key={i} className="px-4 py-3 text-left font-bold text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800">
+              <th
+                key={i}
+                className="border-b border-zinc-200 px-4 py-3 text-left font-bold text-zinc-900 dark:border-zinc-800 dark:text-zinc-100"
+              >
                 {safeString(col)}
               </th>
             ))}
@@ -412,7 +499,10 @@ function DataTablePrimitive({ node }: { node: PrimitiveNode }) {
         </thead>
         <tbody>
           {rows.map((row, ri) => (
-            <tr key={ri} className="border-b border-zinc-100 dark:border-zinc-800/50 last:border-0 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+            <tr
+              key={ri}
+              className="border-b border-zinc-100 transition-colors last:border-0 hover:bg-zinc-50/50 dark:border-zinc-800/50 dark:hover:bg-zinc-800/30"
+            >
               {safeArray<string>(row).map((cell, ci) => (
                 <td key={ci} className="px-4 py-3 text-zinc-700 dark:text-zinc-300">
                   {safeString(cell)}
@@ -432,9 +522,16 @@ function KeyValueListPrimitive({ node }: { node: PrimitiveNode }) {
   return (
     <dl className="space-y-2">
       {items.map((item, i) => (
-        <div key={i} className="flex justify-between items-baseline gap-4 py-1.5 border-b border-zinc-100 dark:border-zinc-800 last:border-0">
-          <dt className="text-xs font-bold text-zinc-500 dark:text-zinc-500 uppercase tracking-wider">{safeString(item.label)}</dt>
-          <dd className="text-sm font-medium text-zinc-900 dark:text-zinc-100 text-right">{safeString(item.value)}</dd>
+        <div
+          key={i}
+          className="flex items-baseline justify-between gap-4 border-b border-zinc-100 py-1.5 last:border-0 dark:border-zinc-800"
+        >
+          <dt className="text-xs font-bold tracking-wider text-zinc-500 uppercase dark:text-zinc-500">
+            {safeString(item.label)}
+          </dt>
+          <dd className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-100">
+            {safeString(item.value)}
+          </dd>
         </div>
       ))}
     </dl>
@@ -453,12 +550,12 @@ function ProgressBarPrimitive({ node }: { node: PrimitiveNode }) {
   };
   return (
     <div className="space-y-1.5">
-      <div className="flex justify-between items-center text-xs">
+      <div className="flex items-center justify-between text-xs">
         <span className="font-bold text-zinc-700 dark:text-zinc-300">{label}</span>
         <span className="font-mono text-zinc-500">{value}%</span>
       </div>
-      <div className="h-2 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-        <div 
+      <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+        <div
           className={cn("h-full transition-all duration-1000", barColors[color])}
           style={{ width: `${value}%` }}
         />
@@ -475,16 +572,16 @@ function RatingStarsPrimitive({ node }: { node: PrimitiveNode }) {
       {label && <span className="text-sm font-bold text-zinc-700 dark:text-zinc-300">{label}</span>}
       <div className="flex gap-0.5">
         {[1, 2, 3, 4, 5].map((s) => (
-          <Star 
-            key={s} 
+          <Star
+            key={s}
             className={cn(
               "h-4 w-4",
-              s <= rating 
-                ? "fill-amber-400 text-amber-400" 
-                : s - 0.5 <= rating 
-                  ? "fill-amber-400/50 text-amber-400" 
-                  : "text-zinc-200 dark:text-zinc-700"
-            )} 
+              s <= rating
+                ? "fill-amber-400 text-amber-400"
+                : s - 0.5 <= rating
+                  ? "fill-amber-400/50 text-amber-400"
+                  : "text-zinc-200 dark:text-zinc-700",
+            )}
           />
         ))}
       </div>
@@ -499,7 +596,10 @@ function TagListPrimitive({ node, propsTags }: { node: PrimitiveNode; propsTags?
   return (
     <div className="flex flex-wrap gap-1.5">
       {tags.map((tag, i) => (
-        <span key={i} className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+        <span
+          key={i}
+          className="rounded-full border border-zinc-200 bg-zinc-100 px-2 py-0.5 text-[10px] font-bold tracking-widest text-zinc-600 uppercase dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400"
+        >
           {safeString(tag)}
         </span>
       ))}
@@ -513,30 +613,30 @@ function ComparisonColumnsPrimitive({ node }: { node: PrimitiveNode }) {
   if (!left || !right) return null;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 p-5">
-        <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-3 flex items-center gap-2">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="rounded-2xl border border-zinc-100 bg-zinc-50/50 p-5 dark:border-zinc-800 dark:bg-zinc-800/30">
+        <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-zinc-900 dark:text-zinc-100">
           <ChevronRight className="h-4 w-4 text-emerald-500" />
           {safeString(left.title)}
         </h4>
         <ul className="space-y-2">
           {safeArray<string>(left.items).map((item, i) => (
-            <li key={i} className="text-xs text-zinc-600 dark:text-zinc-400 flex items-start gap-2">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+            <li key={i} className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-400">
+              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
               {safeString(item)}
             </li>
           ))}
         </ul>
       </div>
-      <div className="rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 p-5">
-        <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-3 flex items-center gap-2">
+      <div className="rounded-2xl border border-zinc-100 bg-zinc-50/50 p-5 dark:border-zinc-800 dark:bg-zinc-800/30">
+        <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-zinc-900 dark:text-zinc-100">
           <ChevronRight className="h-4 w-4 text-amber-500" />
           {safeString(right.title)}
         </h4>
         <ul className="space-y-2">
           {safeArray<string>(right.items).map((item, i) => (
-            <li key={i} className="text-xs text-zinc-600 dark:text-zinc-400 flex items-start gap-2">
-              <Info className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+            <li key={i} className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-400">
+              <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-500" />
               {safeString(item)}
             </li>
           ))}
@@ -556,39 +656,45 @@ function AlertBoxPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
 
   const styles = {
-    info: { 
-      bg: "bg-blue-50 dark:bg-blue-900/20", 
-      border: "border-blue-200 dark:border-blue-800", 
+    info: {
+      bg: "bg-blue-50 dark:bg-blue-900/20",
+      border: "border-blue-200 dark:border-blue-800",
       text: "text-blue-900 dark:text-blue-200",
-      icon: <Info className="h-5 w-5 text-blue-500" />
+      icon: <Info className="h-5 w-5 text-blue-500" />,
     },
-    success: { 
-      bg: "bg-emerald-50 dark:bg-emerald-900/20", 
-      border: "border-emerald-200 dark:border-emerald-800", 
+    success: {
+      bg: "bg-emerald-50 dark:bg-emerald-900/20",
+      border: "border-emerald-200 dark:border-emerald-800",
       text: "text-emerald-900 dark:text-emerald-200",
-      icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+      icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
     },
-    warning: { 
-      bg: "bg-amber-50 dark:bg-amber-900/20", 
-      border: "border-amber-200 dark:border-amber-800", 
+    warning: {
+      bg: "bg-amber-50 dark:bg-amber-900/20",
+      border: "border-amber-200 dark:border-amber-800",
       text: "text-amber-900 dark:text-amber-200",
-      icon: <AlertTriangle className="h-5 w-5 text-amber-500" />
+      icon: <AlertTriangle className="h-5 w-5 text-amber-500" />,
     },
-    error: { 
-      bg: "bg-rose-50 dark:bg-rose-900/20", 
-      border: "border-rose-200 dark:border-rose-800", 
+    error: {
+      bg: "bg-rose-50 dark:bg-rose-900/20",
+      border: "border-rose-200 dark:border-rose-800",
       text: "text-rose-900 dark:text-rose-200",
-      icon: <XCircle className="h-5 w-5 text-rose-500" />
+      icon: <XCircle className="h-5 w-5 text-rose-500" />,
     },
   };
 
   const style = styles[variant];
 
   return (
-    <div className={cn("rounded-2xl border p-5 flex gap-4 animate-in zoom-in-95 duration-500", style.bg, style.border)}>
+    <div
+      className={cn(
+        "animate-in zoom-in-95 flex gap-4 rounded-2xl border p-5 duration-500",
+        style.bg,
+        style.border,
+      )}
+    >
       <div className="shrink-0">{style.icon}</div>
       <div className="space-y-1">
-        {title && <p className={cn("font-bold text-sm", style.text)}>{title}</p>}
+        {title && <p className={cn("text-sm font-bold", style.text)}>{title}</p>}
         {text && <p className={cn("text-sm opacity-90", style.text)}>{text}</p>}
       </div>
     </div>
@@ -599,13 +705,13 @@ function TipCalloutPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   if (!text) return null;
   return (
-    <div className="rounded-2xl bg-amber-500 text-white p-5 flex gap-4 shadow-md shadow-amber-500/20">
-      <div className="shrink-0 bg-white/20 p-2 rounded-full h-fit">
+    <div className="flex gap-4 rounded-2xl bg-amber-500 p-5 text-white shadow-md shadow-amber-500/20">
+      <div className="h-fit shrink-0 rounded-full bg-white/20 p-2">
         <Lightbulb className="h-5 w-5" />
       </div>
       <div className="space-y-1">
-        <p className="font-bold text-xs uppercase tracking-widest opacity-80">Pro Tip</p>
-        <p className="text-sm font-medium leading-relaxed">{text}</p>
+        <p className="text-xs font-bold tracking-widest uppercase opacity-80">Pro Tip</p>
+        <p className="text-sm leading-relaxed font-medium">{text}</p>
       </div>
     </div>
   );
@@ -616,14 +722,12 @@ function DidYouKnowPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   if (!text) return null;
   return (
-    <div className="rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 p-6 space-y-3">
+    <div className="space-y-3 rounded-2xl border-2 border-dashed border-zinc-200 p-6 dark:border-zinc-800">
       <div className="flex items-center gap-2 text-zinc-400">
         <HelpCircle className="h-5 w-5" />
-        <span className="text-xs font-bold uppercase tracking-widest">{title}</span>
+        <span className="text-xs font-bold tracking-widest uppercase">{title}</span>
       </div>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed italic">
-        {text}
-      </p>
+      <p className="text-sm leading-relaxed text-zinc-600 italic dark:text-zinc-400">{text}</p>
     </div>
   );
 }
@@ -632,23 +736,26 @@ function DidYouKnowPrimitive({ node }: { node: PrimitiveNode }) {
 // Primitives: Navigation & Action
 // ─────────────────────────────────────────────
 
-function ButtonPrimitive({ 
-  node, 
-  ctx, 
-  variant = "primary" 
-}: { 
-  node: PrimitiveNode; 
-  ctx: RendererContext; 
-  variant?: "primary" | "secondary" 
+function ButtonPrimitive({
+  node,
+  ctx,
+  variant = "primary",
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  variant?: "primary" | "secondary";
 }) {
   const label = safeString(node.props.label || node.props.text);
   const articleId = safeString(node.props.articleId);
   if (!label) return null;
 
-  const baseCls = "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all active:scale-95";
+  const baseCls =
+    "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all active:scale-95";
   const variants = {
-    primary: "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-lg shadow-zinc-900/20 dark:shadow-none hover:opacity-90",
-    secondary: "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800",
+    primary:
+      "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-lg shadow-zinc-900/20 dark:shadow-none hover:opacity-90",
+    secondary:
+      "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800",
   };
 
   const article = articleId ? ctx.articleIndex[articleId] : null;
@@ -678,9 +785,9 @@ function TextLinkPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererCo
 
   if (article) {
     return (
-      <Link 
-        href={`/posts/${article.slug}`} 
-        className="inline-flex items-center gap-1 text-sm font-bold text-amber-600 dark:text-amber-500 hover:underline underline-offset-4 decoration-2"
+      <Link
+        href={`/posts/${article.slug}`}
+        className="inline-flex items-center gap-1 text-sm font-bold text-amber-600 decoration-2 underline-offset-4 hover:underline dark:text-amber-500"
       >
         {label}
         <ExternalLink className="h-3.5 w-3.5" />
@@ -691,20 +798,32 @@ function TextLinkPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererCo
   return <span className="text-sm font-bold text-zinc-400">{label}</span>;
 }
 
-function ActionCardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function ActionCardPrimitive({
+  node,
+  ctx,
+  depth,
+}: {
+  node: PrimitiveNode;
+  ctx: RendererContext;
+  depth: number;
+}) {
   const title = safeString(node.props.title);
   const description = safeString(node.props.description);
   const articleId = safeString(node.props.articleId);
-  
+
   const article = articleId ? ctx.articleIndex[articleId] : null;
   const content = (
     <div className="flex items-center justify-between gap-4 p-5">
       <div className="space-y-1">
-        <p className="text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-widest">Next Step</p>
-        <h4 className="text-base font-bold text-zinc-900 dark:text-zinc-100">{title || article?.title}</h4>
+        <p className="text-xs font-bold tracking-widest text-amber-600 uppercase dark:text-amber-500">
+          Next Step
+        </p>
+        <h4 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+          {title || article?.title}
+        </h4>
         {description && <p className="text-sm text-zinc-500 dark:text-zinc-400">{description}</p>}
       </div>
-      <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:bg-amber-500 group-hover:text-white transition-colors shrink-0">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-400 transition-colors group-hover:bg-amber-500 group-hover:text-white dark:bg-zinc-800">
         <ChevronRight className="h-5 w-5" />
       </div>
     </div>
@@ -712,9 +831,9 @@ function ActionCardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: R
 
   if (article) {
     return (
-      <Link 
-        href={`/posts/${article.slug}`} 
-        className="block rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md hover:border-amber-500/50 transition-all group overflow-hidden"
+      <Link
+        href={`/posts/${article.slug}`}
+        className="group block overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-amber-500/50 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
       >
         {content}
       </Link>
@@ -722,7 +841,7 @@ function ActionCardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: R
   }
 
   return (
-    <div className="rounded-3xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 overflow-hidden">
+    <div className="overflow-hidden rounded-3xl border border-zinc-100 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50">
       {content}
     </div>
   );
@@ -731,8 +850,8 @@ function ActionCardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: R
 function FloatingActionPrimitive({ node }: { node: PrimitiveNode }) {
   const label = safeString(node.props.label);
   return (
-    <button className="fixed bottom-8 right-8 z-[100] px-6 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-bold shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 group">
-      <div className="h-2 w-2 rounded-full bg-amber-500 animate-ping" />
+    <button className="group fixed right-8 bottom-8 z-[100] flex items-center gap-3 rounded-full bg-zinc-900 px-6 py-4 font-bold text-white shadow-2xl transition-all hover:scale-110 active:scale-95 dark:bg-white dark:text-zinc-900">
+      <div className="h-2 w-2 animate-ping rounded-full bg-amber-500" />
       {label}
     </button>
   );
@@ -750,7 +869,7 @@ function HeroSectionPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Rendere
   const image = article?.heroImageId;
 
   return (
-    <div className="relative w-full min-h-[400px] flex items-center justify-center overflow-hidden rounded-[3rem] shadow-2xl group">
+    <div className="group relative flex min-h-[400px] w-full items-center justify-center overflow-hidden rounded-[3rem] shadow-2xl">
       {image && isTrustedImagePath(image) ? (
         <Image
           src={image}
@@ -763,20 +882,20 @@ function HeroSectionPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Rendere
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950" />
       )}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-all group-hover:backdrop-blur-none" />
-      <div className="relative z-10 text-center px-6 py-12 space-y-6 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold text-white font-heading drop-shadow-lg leading-tight animate-in fade-in zoom-in-95 duration-1000">
+      <div className="relative z-10 max-w-3xl space-y-6 px-6 py-12 text-center">
+        <h1 className="font-heading animate-in fade-in zoom-in-95 text-4xl leading-tight font-bold text-white drop-shadow-lg duration-1000 md:text-6xl">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-lg md:text-xl text-zinc-100 font-medium drop-shadow-md animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+          <p className="animate-in fade-in slide-in-from-bottom-4 text-lg font-medium text-zinc-100 drop-shadow-md delay-300 duration-1000 md:text-xl">
             {subtitle}
           </p>
         )}
         {article && (
-          <div className="pt-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
-            <Link 
+          <div className="animate-in fade-in slide-in-from-bottom-8 pt-4 delay-500 duration-1000">
+            <Link
               href={`/posts/${article.slug}`}
-              className="px-8 py-4 bg-white text-zinc-900 rounded-full font-bold shadow-xl hover:bg-amber-500 hover:text-white transition-all hover:scale-105 inline-block"
+              className="inline-block rounded-full bg-white px-8 py-4 font-bold text-zinc-900 shadow-xl transition-all hover:scale-105 hover:bg-amber-500 hover:text-white"
             >
               冒険を始める
             </Link>
@@ -795,30 +914,30 @@ function FeaturedCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Render
   const article = articleId ? ctx.articleIndex[articleId] : null;
 
   return (
-    <div className="relative group overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-amber-50 to-orange-50 dark:from-zinc-900 dark:to-zinc-800 border border-amber-100 dark:border-zinc-700 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
-      <div className="p-8 space-y-4">
+    <div className="group relative overflow-hidden rounded-[2.5rem] border border-amber-100 bg-gradient-to-br from-amber-50 to-orange-50 shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl dark:border-zinc-700 dark:from-zinc-900 dark:to-zinc-800">
+      <div className="space-y-4 p-8">
         {badge && (
-          <span className="inline-block px-4 py-1 rounded-full bg-amber-500 text-white text-xs font-bold uppercase tracking-widest shadow-md">
+          <span className="inline-block rounded-full bg-amber-500 px-4 py-1 text-xs font-bold tracking-widest text-white uppercase shadow-md">
             {badge}
           </span>
         )}
-        <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 font-heading">
+        <h3 className="font-heading text-2xl font-bold text-zinc-900 dark:text-zinc-100">
           {title || article?.title}
         </h3>
-        <p className="text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">
+        <p className="leading-relaxed font-medium text-zinc-600 dark:text-zinc-400">
           {description || article?.summaryForAI}
         </p>
         {article && (
-          <Link 
+          <Link
             href={`/posts/${article.slug}`}
-            className="flex items-center gap-2 text-amber-600 dark:text-amber-500 font-bold hover:gap-3 transition-all"
+            className="flex items-center gap-2 font-bold text-amber-600 transition-all hover:gap-3 dark:text-amber-500"
           >
             詳しく見る <ChevronRight className="h-4 w-4" />
           </Link>
         )}
       </div>
       <div className="absolute top-0 right-0 p-4 opacity-10">
-        <Sparkles className="h-24 w-24 text-amber-500 rotate-12" />
+        <Sparkles className="h-24 w-24 rotate-12 text-amber-500" />
       </div>
     </div>
   );
@@ -831,7 +950,7 @@ function FeaturedCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Render
 function IconWithTextPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   const iconName = safeString(node.props.icon).toLowerCase();
-  
+
   const Icons = {
     wifi: <Wifi className="h-4 w-4" />,
     map: <MapPin className="h-4 w-4" />,
@@ -860,7 +979,7 @@ function ImagePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererConte
     if (src && isTrustedImagePath(src)) {
       return (
         <div className="space-y-2">
-          <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800 shadow-sm">
+          <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-zinc-100 bg-zinc-100 shadow-sm dark:border-zinc-800 dark:bg-zinc-800">
             <Image
               src={src}
               alt={caption || article.title}
@@ -887,23 +1006,30 @@ function ImageGalleryPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Render
       if (!isTrustedImagePath(article.heroImageId)) return null;
       return { id, article, src: article.heroImageId };
     })
-    .filter((x): x is { id: string; article: (typeof ctx.articleIndex)[string]; src: string } => x !== null);
+    .filter(
+      (x): x is { id: string; article: (typeof ctx.articleIndex)[string]; src: string } =>
+        x !== null,
+    );
 
   if (!items.length) return null;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {items.map(({ id, article, src }) => (
-        <Link key={id} href={`/posts/${article.slug}`} className="group relative aspect-square rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 block shadow-sm">
+        <Link
+          key={id}
+          href={`/posts/${article.slug}`}
+          className="group relative block aspect-square overflow-hidden rounded-2xl bg-zinc-100 shadow-sm dark:bg-zinc-800"
+        >
           <Image
             src={src}
             alt={article.title}
             fill
             sizes="(max-width: 640px) 50vw, 220px"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <p className="absolute bottom-0 left-0 right-0 text-[10px] font-bold text-white p-3 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 duration-300 line-clamp-2">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <p className="absolute right-0 bottom-0 left-0 line-clamp-2 translate-y-2 transform p-3 text-[10px] font-bold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
             {article.title}
           </p>
         </Link>
@@ -924,14 +1050,14 @@ function ArticleCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Rendere
   return (
     <Link
       href={`/posts/${article.slug}`}
-      className="block rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 hover:shadow-lg hover:border-amber-500/30 transition-all group"
+      className="group block rounded-2xl border border-zinc-100 bg-white p-5 transition-all hover:border-amber-500/30 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
     >
       <div className="space-y-2">
-        <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-amber-600 transition-colors line-clamp-2 leading-snug">
+        <p className="line-clamp-2 text-sm leading-snug font-bold text-zinc-900 transition-colors group-hover:text-amber-600 dark:text-zinc-100">
           {article.title}
         </p>
         {article.summaryForAI && (
-          <p className="text-xs text-zinc-500 dark:text-zinc-500 line-clamp-2 leading-relaxed">
+          <p className="line-clamp-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500">
             {article.summaryForAI}
           </p>
         )}
@@ -952,13 +1078,17 @@ function ArticleListPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Rendere
         <li key={id}>
           <Link
             href={`/posts/${article?.slug}`}
-            className="flex items-center justify-between p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group"
+            className="group flex items-center justify-between rounded-xl p-3 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-400 group-hover:bg-amber-100 group-hover:text-amber-600 transition-colors italic">›</span>
-              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 line-clamp-1">{article?.title}</span>
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-xs text-zinc-400 italic transition-colors group-hover:bg-amber-100 group-hover:text-amber-600 dark:bg-zinc-800">
+                ›
+              </span>
+              <span className="line-clamp-1 text-sm font-medium text-zinc-700 group-hover:text-zinc-900 dark:text-zinc-300 dark:group-hover:text-zinc-100">
+                {article?.title}
+              </span>
             </div>
-            <ChevronRight className="h-4 w-4 text-zinc-300 group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="h-4 w-4 text-zinc-300 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </li>
       ))}
@@ -967,10 +1097,12 @@ function ArticleListPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Rendere
 }
 
 function TimelinePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
-  const items = safeArray<{ title: string; text?: string; time?: string; articleId?: string }>(node.props.items);
+  const items = safeArray<{ title: string; text?: string; time?: string; articleId?: string }>(
+    node.props.items,
+  );
   if (!items.length) return null;
   return (
-    <ol className="relative border-l border-zinc-200 dark:border-zinc-800 ml-3 space-y-8">
+    <ol className="relative ml-3 space-y-8 border-l border-zinc-200 dark:border-zinc-800">
       {items.map((item, i) => {
         const title = safeString(item.title);
         const text = safeString(item.text);
@@ -979,23 +1111,35 @@ function TimelinePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererCo
         const article = articleId ? ctx.articleIndex[articleId] : null;
         return (
           <li key={i} className="mb-0 ml-6">
-            <span className="absolute flex items-center justify-center w-6 h-6 bg-zinc-900 dark:bg-zinc-100 rounded-full -left-3 ring-8 ring-white dark:ring-zinc-950">
-              <span className="text-[10px] font-bold text-white dark:text-zinc-900 italic">{i + 1}</span>
+            <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-zinc-900 ring-8 ring-white dark:bg-zinc-100 dark:ring-zinc-950">
+              <span className="text-[10px] font-bold text-white italic dark:text-zinc-900">
+                {i + 1}
+              </span>
             </span>
             <div className="space-y-1">
-              {time && <time className="text-[10px] font-bold uppercase tracking-widest text-amber-500">{time}</time>}
+              {time && (
+                <time className="text-[10px] font-bold tracking-widest text-amber-500 uppercase">
+                  {time}
+                </time>
+              )}
               <div className="flex flex-col gap-1">
                 {article ? (
                   <Link
                     href={`/posts/${article.slug}`}
-                    className="text-sm md:text-base font-bold text-zinc-900 dark:text-zinc-100 hover:text-amber-600 underline decoration-zinc-200 dark:decoration-zinc-800 underline-offset-4"
+                    className="text-sm font-bold text-zinc-900 underline decoration-zinc-200 underline-offset-4 hover:text-amber-600 md:text-base dark:text-zinc-100 dark:decoration-zinc-800"
                   >
                     {title || article.title}
                   </Link>
                 ) : (
-                  <p className="text-sm md:text-base font-bold text-zinc-900 dark:text-zinc-100">{title}</p>
+                  <p className="text-sm font-bold text-zinc-900 md:text-base dark:text-zinc-100">
+                    {title}
+                  </p>
                 )}
-                {text && <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{text}</p>}
+                {text && (
+                  <p className="text-xs leading-relaxed text-zinc-500 md:text-sm dark:text-zinc-400">
+                    {text}
+                  </p>
+                )}
               </div>
             </div>
           </li>
@@ -1015,7 +1159,11 @@ function AirportAnxietyMapPrimitive({ node }: { node: PrimitiveNode }) {
       mode: safeString(o.mode),
       time: safeString(o.time),
       cost: safeString(o.cost),
-      difficulty: safeEnum<"Easy" | "Medium" | "Hard">(o.difficulty, ["Easy", "Medium", "Hard"], "Medium"),
+      difficulty: safeEnum<"Easy" | "Medium" | "Hard">(
+        o.difficulty,
+        ["Easy", "Medium", "Hard"],
+        "Medium",
+      ),
       description: safeString(o.description),
     }))
     .filter((o) => o.mode);
@@ -1091,7 +1239,9 @@ function ItineraryDisplayPrimitive({ node }: { node: PrimitiveNode }) {
     }))
     .filter((d) => d.title);
   if (!title || !days.length) return null;
-  return <ItineraryDisplay title={title} destination={destination} duration={duration} days={days} />;
+  return (
+    <ItineraryDisplay title={title} destination={destination} duration={duration} days={days} />
+  );
 }
 
 function PackingListPrimitive({ node }: { node: PrimitiveNode }) {

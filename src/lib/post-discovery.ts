@@ -3,11 +3,7 @@ import { Post, TravelTopic } from "@/types/types";
 
 type PostMetadata = Omit<Post, "content">;
 
-export type BlogDiscoveryView =
-  | "recommended"
-  | "new"
-  | "practical"
-  | "diary";
+export type BlogDiscoveryView = "recommended" | "new" | "practical" | "diary";
 
 const ENTRY_TOPIC_SCORES: Record<TravelTopic, number> = {
   transport: 26,
@@ -20,8 +16,7 @@ const ENTRY_TOPIC_SCORES: Record<TravelTopic, number> = {
 
 const DIARY_CATEGORIES = new Set(["series", "itinerary"]);
 
-const getTimestamp = (dates?: string[]) =>
-  new Date(dates?.[0] || "1970-01-01").getTime();
+const getTimestamp = (dates?: string[]) => new Date(dates?.[0] || "1970-01-01").getTime();
 
 const countOverlap = (left: string[] = [], right: string[] = []) => {
   const rightSet = new Set(right.map((value) => value.toLowerCase()));
@@ -35,8 +30,7 @@ const getMonthsOld = (post: PostMetadata) => {
   return diffMs / (1000 * 60 * 60 * 24 * 30);
 };
 
-const getPrimaryLocation = (post: PostMetadata) =>
-  post.location?.[0]?.toLowerCase().trim();
+const getPrimaryLocation = (post: PostMetadata) => post.location?.[0]?.toLowerCase().trim();
 
 const getLocationDepth = (slug: string) => getRegionPath(slug).length;
 
@@ -147,10 +141,7 @@ export const getHomepageEntryPosts = (posts: PostMetadata[], limit: number = 4) 
   return takeDiversePosts(getRecommendedPosts(candidates), limit);
 };
 
-export const getPostsForView = (
-  posts: PostMetadata[],
-  view: BlogDiscoveryView,
-) => {
+export const getPostsForView = (posts: PostMetadata[], view: BlogDiscoveryView) => {
   switch (view) {
     case "practical":
       return getRecommendedPosts(posts.filter(isPracticalPost));
@@ -295,8 +286,7 @@ export const getContextualRelatedPosts = (
       const sameJourney = Boolean(current.journey && current.journey === post.journey);
       const sameCategory = current.category === post.category;
       const sameRevenueCategory =
-        Boolean(current.revenueCategory) &&
-        current.revenueCategory === post.revenueCategory;
+        Boolean(current.revenueCategory) && current.revenueCategory === post.revenueCategory;
 
       let score = geo.score;
       score += sharedTopics * 24;
@@ -311,11 +301,7 @@ export const getContextualRelatedPosts = (
       }
 
       const hasContext =
-        geo.score > 0 ||
-        sharedTopics > 0 ||
-        sameSeries ||
-        sameJourney ||
-        sameRevenueCategory;
+        geo.score > 0 || sharedTopics > 0 || sameSeries || sameJourney || sameRevenueCategory;
 
       if (!hasContext || score < 18) {
         return null;

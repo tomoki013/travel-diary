@@ -28,9 +28,7 @@ export async function generateMetadata(props: {
   };
 }
 
-const eachSeries = async (props: {
-  params: Promise<{ slug: string }>;
-}) => {
+const eachSeries = async (props: { params: Promise<{ slug: string }> }) => {
   const params = await props.params;
   const slug = await params.slug;
 

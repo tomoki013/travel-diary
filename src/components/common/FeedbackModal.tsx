@@ -19,20 +19,18 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <div className="relative w-full max-w-lg p-6 mx-4 bg-background rounded-lg shadow-lg">
+      <div className="bg-background relative mx-4 w-full max-w-lg rounded-lg p-6 shadow-lg">
         <Button
           variant="ghost"
           size="icon"
           onClick={onClose}
           className="absolute top-4 right-4 rounded-full"
         >
-          <X className="w-5 h-5" />
+          <X className="h-5 w-5" />
           <span className="sr-only">閉じる</span>
         </Button>
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            フィードバックにご協力ください
-          </h2>
+          <h2 className="mb-4 text-2xl font-bold">フィードバックにご協力ください</h2>
           <p className="text-muted-foreground mb-6">
             このAI旅行プランナーはまだ開発中です。
             <br />

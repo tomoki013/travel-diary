@@ -8,12 +8,12 @@ export default function Client() {
   return (
     <div>
       {/* ==================== Hero Section ==================== */}
-      <section className="relative h-72 md:h-96 flex items-center justify-center text-foreground text-center">
+      <section className="text-foreground relative flex h-72 items-center justify-center text-center md:h-96">
         <div className="relative z-10 p-4">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+          <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
             記事テーマ リクエストボックス
           </h1>
-          <p className="text-md md:text-lg mt-4 max-w-2xl mx-auto">
+          <p className="text-md mx-auto mt-4 max-w-2xl md:text-lg">
             あなたの「知りたい！」「見てみたい」を教えてください。
             <br />
             次の冒険のテーマになるかもしれません。
@@ -21,7 +21,7 @@ export default function Client() {
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+      <div className="mx-auto max-w-4xl space-y-20 px-4 py-16 sm:px-6 lg:px-8">
         {/* ==================== 挨拶・趣旨説明 ==================== */}
         <motion.section
           initial="hidden"
@@ -30,8 +30,8 @@ export default function Client() {
           variants={sectionVariants}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold mb-4">このページについて</h2>
-          <p className="text-lg text-foreground leading-relaxed">
+          <h2 className="mb-4 text-3xl font-bold">このページについて</h2>
+          <p className="text-foreground text-lg leading-relaxed">
             いつもブログを読んでくださりありがとうございます！
             <br />
             このブログを、もっと皆さんの役に立つ場所にしたいと思い、記事のテーマを募集するページを作りました。
@@ -47,37 +47,35 @@ export default function Client() {
           viewport={{ once: true, amount: 0.1 }}
           variants={sectionVariants}
         >
-          <h2 className="text-3xl font-bold text-center mb-8">
+          <h2 className="mb-8 text-center text-3xl font-bold">
             例えば、こんなテーマを募集しています
           </h2>
-          <div className="grid md:grid-cols-2 gap-6 text-gray-700">
-            <div className="bg-gray-50 p-6 rounded-lg flex items-start gap-4">
-              <Lightbulb className="text-amber-500 w-8 h-8 flex-shrink-0 mt-1" />
+          <div className="grid gap-6 text-gray-700 md:grid-cols-2">
+            <div className="flex items-start gap-4 rounded-lg bg-gray-50 p-6">
+              <Lightbulb className="mt-1 h-8 w-8 flex-shrink-0 text-amber-500" />
               <div>
-                <h3 className="font-bold mb-1">素朴な疑問</h3>
-                <p>
-                  旅行計画に関する素朴な疑問（例：航空券の探し方、ホテルの選び方）
-                </p>
+                <h3 className="mb-1 font-bold">素朴な疑問</h3>
+                <p>旅行計画に関する素朴な疑問（例：航空券の探し方、ホテルの選び方）</p>
               </div>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg flex items-start gap-4">
-              <CheckCircle className="text-teal-500 w-8 h-8 flex-shrink-0 mt-1" />
+            <div className="flex items-start gap-4 rounded-lg bg-gray-50 p-6">
+              <CheckCircle className="mt-1 h-8 w-8 flex-shrink-0 text-teal-500" />
               <div>
-                <h3 className="font-bold mb-1">レビュー依頼</h3>
+                <h3 className="mb-1 font-bold">レビュー依頼</h3>
                 <p>レビューしてほしい旅行グッズやカメラ機材</p>
               </div>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg flex items-start gap-4">
-              <FileText className="text-blue-500 w-8 h-8 flex-shrink-0 mt-1" />
+            <div className="flex items-start gap-4 rounded-lg bg-gray-50 p-6">
+              <FileText className="mt-1 h-8 w-8 flex-shrink-0 text-blue-500" />
               <div>
-                <h3 className="font-bold mb-1">深掘り解説</h3>
+                <h3 className="mb-1 font-bold">深掘り解説</h3>
                 <p>詳しく解説してほしい国や地域の歴史・文化</p>
               </div>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg flex items-start gap-4">
-              <FileText className="text-purple-500 w-8 h-8 flex-shrink-0 mt-1" />
+            <div className="flex items-start gap-4 rounded-lg bg-gray-50 p-6">
+              <FileText className="mt-1 h-8 w-8 flex-shrink-0 text-purple-500" />
               <div>
-                <h3 className="font-bold mb-1">体験談</h3>
+                <h3 className="mb-1 font-bold">体験談</h3>
                 <p>僕の体験談（失敗談・成功談など）で聞いてみたいこと</p>
               </div>
             </div>
@@ -128,11 +126,9 @@ export default function Client() {
           viewport={{ once: true, amount: 0.1 }}
           variants={sectionVariants}
         >
-          <h2 className="text-3xl font-bold text-center mb-8">
-            リクエストフォーム
-          </h2>
-          <div className="bg-gray-100 border-2 border-dashed border-gray-300 p-8 rounded-lg text-center">
-            <div className="bg-gray-100 p-2 rounded-lg shadow-inner">
+          <h2 className="mb-8 text-center text-3xl font-bold">リクエストフォーム</h2>
+          <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-100 p-8 text-center">
+            <div className="rounded-lg bg-gray-100 p-2 shadow-inner">
               <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSfpawRugp4nrxhGMR-YBEFHn3ZYqrVpP_sLXCteNneYh9higg/viewform?embedded=true"
                 width="100%"
@@ -144,9 +140,7 @@ export default function Client() {
                 読み込んでいます…
               </iframe>
             </div>
-            <p className="text-gray-500 mt-2">
-              皆さんの声をお待ちしております！
-            </p>
+            <p className="mt-2 text-gray-500">皆さんの声をお待ちしております！</p>
           </div>
         </motion.section>
 
@@ -156,13 +150,11 @@ export default function Client() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={sectionVariants}
-          className="text-sm text-gray-600 bg-gray-50 p-6 rounded-lg"
+          className="rounded-lg bg-gray-50 p-6 text-sm text-gray-600"
         >
-          <h3 className="text-lg font-bold mb-4 text-center">注意事項</h3>
-          <ul className="list-disc list-inside space-y-2">
-            <li>
-              いただいたテーマ全てを記事にできるわけではありません。ご了承ください。
-            </li>
+          <h3 className="mb-4 text-center text-lg font-bold">注意事項</h3>
+          <ul className="list-inside list-disc space-y-2">
+            <li>いただいたテーマ全てを記事にできるわけではありません。ご了承ください。</li>
             <li>
               原則として、投稿への個別の返信は行っておりません。（採用時に連絡をご希望の方は、フォームにメールアドレスをご記入ください）
             </li>
@@ -181,7 +173,7 @@ export default function Client() {
           viewport={{ once: true, amount: 0.3 }}
           className="text-center"
         >
-          <p className="text-xl font-semibold text-foreground">
+          <p className="text-foreground text-xl font-semibold">
             あなたの声が、このブログの未来を作ります。
             <br />
             お気軽に投稿いただけると嬉しいです！

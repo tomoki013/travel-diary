@@ -9,18 +9,32 @@ const Background = () => {
 
   const particleColor = useMemo(() => {
     if (!hydrated) {
-      return "#ffffff"; // SSR/initial fallback
+      return "rgba(245, 158, 11, 0.1)"; // Default amber
     }
-    return theme === "dark" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
+    return theme === "dark" ? "rgba(251, 191, 36, 0.2)" : "rgba(245, 158, 11, 0.15)";
   }, [hydrated, theme]);
 
   const particles = useMemo(() => {
-    return Array.from({ length: 50 }).map((_, i) => {
+    if (!hydrated) return [];
+
+    const isReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const isSmallScreen =
+      typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+
+    if (isReducedMotion) return [];
+
+    // Keep particle count low for performance
+    const count = isSmallScreen ? 12 : 24;
+
+    return Array.from({ length: count }).map((_, i) => {
       const seed = i + 1;
       const size = 1 + (seed % 3);
       const x = (seed * 17) % 100;
       const y = (seed * 29) % 100;
-      const duration = 10 + (seed % 11);
+      const duration = 20 + (seed % 20);
       const delay = -((seed * 7) % 20);
       const xEnd = (seed * 37) % 100;
       const yEnd = (seed * 53) % 100;
@@ -35,7 +49,7 @@ const Background = () => {
         yEnd,
       };
     });
-  }, []);
+  }, [hydrated]);
 
   if (!hydrated) {
     return null;
@@ -43,39 +57,45 @@ const Background = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 w-full h-full -z-50 overflow-hidden bg-background"
+      className="fixed inset-0 -z-50 h-full w-full overflow-hidden pointer-events-none"
       aria-hidden="true"
     >
-      <svg
-        className="w-full h-full"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        <defs>
-          <filter id="blur-filter">
-            <feGaussianBlur stdDeviation="0.5" />
-          </filter>
-        </defs>
+      <svg className="h-full w-full opacity-60" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        {/* Removed feGaussianBlur filter as it's very heavy on scroll */}
         {particles.map((p) => (
           <circle
             key={p.id}
-            cx={`${p.x}%`}
-            cy={`${p.y}%`}
             r={p.size}
             fill={particleColor}
-            className="animate-particle"
-            style={
-              {
-                "--duration": `${p.duration}s`,
-                "--delay": `${p.delay}s`,
-                "--x-start": `${p.x}%`,
-                "--y-start": `${p.y}%`,
-                "--x-end": `${p.xEnd}%`,
-                "--y-end": `${p.yEnd}%`,
-              } as React.CSSProperties
-            }
-            filter="url(#blur-filter)"
-          />
+          >
+            <animate
+              attributeName="cx"
+              from={`${p.x}%`}
+              to={`${p.xEnd}%`}
+              dur={`${p.duration}s`}
+              begin={`${p.delay}s`}
+              repeatCount="indefinite"
+              calcMode="spline"
+              keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+            />
+            <animate
+              attributeName="cy"
+              from={`${p.y}%`}
+              to={`${p.yEnd}%`}
+              dur={`${p.duration * 1.2}s`}
+              begin={`${p.delay}s`}
+              repeatCount="indefinite"
+              calcMode="spline"
+              keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur={`${p.duration}s`}
+              begin={`${p.delay}s`}
+              repeatCount="indefinite"
+            />
+          </circle>
         ))}
       </svg>
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>

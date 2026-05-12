@@ -121,15 +121,13 @@ function sanitizeNode(node: PrimitiveNode, validArticleIds: Set<string>): Primit
 
 export function sanitizeGeneratedSchema(
   schema: GeneratedTopPage,
-  validArticleIds: Set<string>
+  validArticleIds: Set<string>,
 ): GeneratedTopPage {
   const sanitizedSections = schema.sections
     .map((node) => sanitizeNode(node, validArticleIds))
     .filter((n): n is PrimitiveNode => n !== null);
 
-  const sanitizedUsedArticleIds = schema.usedArticleIds.filter((id) =>
-    validArticleIds.has(id)
-  );
+  const sanitizedUsedArticleIds = schema.usedArticleIds.filter((id) => validArticleIds.has(id));
 
   return {
     ...schema,

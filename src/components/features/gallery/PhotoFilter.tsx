@@ -8,30 +8,21 @@ interface PhotoFilterProps {
   setActiveFilter: (filter: string) => void;
 }
 
-const PhotoFilter = ({
-  filterList,
-  activeFilter,
-  setActiveFilter,
-}: PhotoFilterProps) => {
+const PhotoFilter = ({ filterList, activeFilter, setActiveFilter }: PhotoFilterProps) => {
   return (
-    <motion.div
-      variants={sectionVariants}
-      className="flex justify-center flex-wrap gap-2 mb-12"
-    >
+    <motion.div variants={sectionVariants} className="mb-12 flex flex-wrap justify-center gap-2">
       {filterList.map((filter) => (
         <button
           key={filter}
           onClick={() => setActiveFilter(filter)}
-          className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 relative ${
-            activeFilter === filter
-              ? "text-white"
-              : "text-muted-foreground hover:text-foreground"
+          className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+            activeFilter === filter ? "text-white" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           {activeFilter === filter && (
             <motion.div
               layoutId="active-filter-background"
-              className="absolute inset-0 bg-teal-600 rounded-full"
+              className="absolute inset-0 rounded-full bg-teal-600"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           )}

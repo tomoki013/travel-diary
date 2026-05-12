@@ -32,11 +32,7 @@ interface LoadingAnimationProps {
 }
 
 // Data for animations that use it
-const icons = [
-  <FaPlane key="plane" />,
-  <FaGlobeEurope key="globe" />,
-  <FaCamera key="camera" />,
-];
+const icons = [<FaPlane key="plane" />, <FaGlobeEurope key="globe" />, <FaCamera key="camera" />];
 const lanterns = [
   { left: "10%", animationDuration: "8s", animationDelay: "0s" },
   { left: "30%", animationDuration: "6s", animationDelay: "1s" },
@@ -76,13 +72,7 @@ function padCenter(str: string, targetLength: number, padChar = " ") {
 }
 
 // Sub-component for SplitFlap
-const SplitFlapCharacter = ({
-  char,
-  flapBG,
-}: {
-  char: string;
-  flapBG: string;
-}) => {
+const SplitFlapCharacter = ({ char, flapBG }: { char: string; flapBG: string }) => {
   const [currentChar, setCurrentChar] = useState(" ");
   const [prevChar, setPrevChar] = useState(" ");
   const [isFlipping, setIsFlipping] = useState(false);
@@ -116,9 +106,7 @@ const SplitFlapCharacter = ({
     <div className="char-container">
       <div className={`flap top ${flapBG}`}>{currentChar}</div>
       <div className={`flap bottom ${flapBG}`}>{currentChar}</div>
-      {isFlipping && (
-        <div className={`flap top flipping ${flapBG}`}>{prevChar}</div>
-      )}
+      {isFlipping && <div className={`flap top flipping ${flapBG}`}>{prevChar}</div>}
     </div>
   );
 };
@@ -142,9 +130,7 @@ export const LoadingAnimation = ({
     }
     if (variant === "splitFlap") {
       const wordInterval = setInterval(() => {
-        setCurrentWord(
-          (prev) => words[(words.indexOf(prev) + 1) % words.length]
-        );
+        setCurrentWord((prev) => words[(words.indexOf(prev) + 1) % words.length]);
       }, 3000);
       return () => clearInterval(wordInterval);
     }

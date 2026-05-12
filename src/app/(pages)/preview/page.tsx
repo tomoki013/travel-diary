@@ -22,8 +22,8 @@ export default async function PreviewPage() {
   const drafts = await getAllDraftPosts();
 
   return (
-    <div className="container py-10 max-w-4xl mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8">Draft Preview</h1>
+    <div className="container mx-auto max-w-4xl px-4 py-10">
+      <h1 className="mb-8 text-3xl font-bold">Draft Preview</h1>
       <div className="grid gap-6">
         {drafts.length === 0 ? (
           <p className="text-muted-foreground">No drafts found in draft-posts directory.</p>
@@ -32,7 +32,7 @@ export default async function PreviewPage() {
             <Link key={draft.slug} href={`/preview/${draft.slug}`}>
               <Card className="hover:bg-accent transition-colors">
                 <CardHeader>
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <CardTitle className="text-xl">{draft.title || draft.slug}</CardTitle>
                     <Badge variant="outline">{draft.category}</Badge>
                   </div>
@@ -43,7 +43,7 @@ export default async function PreviewPage() {
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {draft.tags?.map((tag) => (
-                      <span key={tag} className="text-xs text-muted-foreground">
+                      <span key={tag} className="text-muted-foreground text-xs">
                         #{tag}
                       </span>
                     ))}

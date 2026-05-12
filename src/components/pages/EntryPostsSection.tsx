@@ -4,10 +4,7 @@ import { motion } from "framer-motion";
 import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import Button from "@/components/common/Button";
-import {
-  sectionVariants,
-  staggerContainer,
-} from "@/components/common/animation";
+import { sectionVariants, staggerContainer } from "@/components/common/animation";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -26,25 +23,22 @@ const EntryPostsSection = ({ posts }: EntryPostsSectionProps) => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
-      className="py-24 px-6 md:px-8 max-w-6xl mx-auto"
+      className="mx-auto max-w-6xl px-6 py-24 md:px-8"
     >
-      <div className="text-center mb-16">
+      <div className="mb-16 text-center">
         <p className="text-sm font-semibold tracking-[0.24em] text-orange-600 dark:text-amber-300">
           START HERE
         </p>
-        <h2 className="mt-3 font-heading text-4xl md:text-5xl font-bold text-foreground">
+        <h2 className="font-heading text-foreground mt-3 text-4xl font-bold md:text-5xl">
           まずはここから
         </h2>
-        <p className="mx-auto mt-4 max-w-3xl text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground mx-auto mt-4 max-w-3xl leading-relaxed">
           初めて読む人でも入りやすい記事を、実用性を優先して並べました。
           空港アクセスや現地移動、旅の全体像から読み始めるのがおすすめです。
         </p>
       </div>
 
-      <motion.div
-        variants={staggerContainer()}
-        className="grid grid-cols-1 gap-8 md:grid-cols-2"
-      >
+      <motion.div variants={staggerContainer()} className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {posts.map((post) => (
           <motion.div
             key={post.slug}
