@@ -13,26 +13,30 @@ import { UIProvider } from "@/context/UIContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
   variable: "--font-montserrat",
+  display: "swap",
 });
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   weight: "700",
   variable: "--font-playfair-display",
+  display: "swap",
 });
 
 const caveat = Caveat({
   subsets: ["latin"],
   weight: "700",
   variable: "--font-caveat",
+  display: "swap",
 });
 
 const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
   variable: "--font-noto-sans-jp",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
