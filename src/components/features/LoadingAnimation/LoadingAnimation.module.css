@@ -313,7 +313,7 @@
   display: flex;
   gap: 4px;
 }
-:global(.char-container) {
+.char-container {
   width: 20px;
   height: 30px;
   perspective: 300px;
@@ -323,7 +323,7 @@
   font-weight: bold;
   color: inherit;
 }
-:global(.flap) {
+.flap {
   position: absolute;
   width: 100%;
   height: 50%;
@@ -332,16 +332,16 @@
   backface-visibility: hidden;
   line-height: 30px;
 }
-:global(.flap.top) {
+.flap.top {
   top: 0;
   border-radius: 3px 3px 0 0;
 }
-:global(.flap.bottom) {
+.flap.bottom {
   top: 50%;
   border-radius: 0 0 3px 3px;
   line-height: 0;
 }
-:global(.flap.flipping) {
+.flap.flipping {
   animation: flip-down 0.4s ease-in-out;
 }
 @keyframes flip-down {
@@ -359,7 +359,7 @@
   position: relative;
   overflow: hidden;
 }
-.loader-lantern :global(.lantern) {
+.loader-lantern .lantern {
   position: absolute;
   bottom: -40px;
   width: 20px;
@@ -393,7 +393,7 @@
   border-radius: 20% 20% 10% 10%;
   position: relative;
 }
-.loader-backpack :global(.flap) {
+.loader-backpack .flap {
   width: 50%;
   height: 20px;
   background: #3b82f6;
@@ -404,7 +404,7 @@
   transform-origin: top center;
   animation: flap-open 2s infinite ease-in-out;
 }
-.loader-backpack :global(.item) {
+.loader-backpack .item {
   position: absolute;
   bottom: 10px;
   left: 50%;
@@ -412,13 +412,13 @@
   border-radius: 3px;
   animation: item-pop 2s infinite ease-in-out;
 }
-.loader-backpack :global(.item.passport) {
+.loader-backpack .item.passport {
   width: 20px;
   height: 25px;
   background: #1e40af;
   animation-delay: 0s;
 }
-.loader-backpack :global(.item.camera) {
+.loader-backpack .item.camera {
   width: 25px;
   height: 20px;
   background: #4b5563;
@@ -455,7 +455,7 @@
   position: relative;
   border: 1px solid #e2e8f0;
 }
-.loader-boarding-pass :global(.stub) {
+.loader-boarding-pass .stub {
   position: absolute;
   top: 0;
   left: 0;
@@ -482,7 +482,7 @@
   border: 1px solid #e5e7eb;
   position: relative;
 }
-.loader-postcard :global(.writing-path) {
+.loader-postcard .writing-path {
   stroke: #4b5563;
   stroke-width: 2;
   fill: none;
@@ -506,12 +506,12 @@
   position: relative;
   overflow: hidden;
 }
-.loader-day-night :global(.sky) {
+.loader-day-night .sky {
   width: 100%;
   height: 100%;
   animation: sky-change 6s infinite linear;
 }
-.loader-day-night :global(.sun-moon) {
+.loader-day-night .sun-moon {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -545,7 +545,7 @@
   width: 100px;
   height: 100px;
 }
-.loader-landmark :global(path) {
+.loader-landmark path {
   fill: none;
   stroke: #374151;
   stroke-width: 2;
@@ -570,14 +570,14 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: shake-polaroid 3s infinite ease-in-out;
 }
-.loader-polaroid :global(.photo) {
+.loader-polaroid .photo {
   width: 100%;
   height: 100%;
   background: #a3bfb8;
   position: relative;
   overflow: hidden;
 }
-.loader-polaroid :global(.photo::after) {
+.loader-polaroid .photo::after {
   content: "";
   position: absolute;
   top: 0;
@@ -616,7 +616,7 @@
   border-bottom-right-radius: 40px;
   position: relative;
 }
-.loader-noodles :global(.steam) {
+.loader-noodles .steam {
   position: absolute;
   bottom: 100%;
   left: 50%;
@@ -627,15 +627,15 @@
   transform-origin: bottom center;
   animation: steam-rise 2s infinite linear;
 }
-.loader-noodles :global(.steam1) {
+.loader-noodles .steam1 {
   animation-delay: 0s;
 }
-.loader-noodles :global(.steam2) {
+.loader-noodles .steam2 {
   left: 40%;
   animation-delay: 0.5s;
   transform: scale(0.8);
 }
-.loader-noodles :global(.steam3) {
+.loader-noodles .steam3 {
   left: 60%;
   animation-delay: 1s;
   transform: scale(0.9);
@@ -659,7 +659,7 @@
   height: 60px;
   position: relative;
 }
-.loader-treasure-chest :global(.lid) {
+.loader-treasure-chest .lid {
   width: 100%;
   height: 20px;
   background: #a16207;
@@ -669,7 +669,7 @@
   transform-origin: bottom center;
   animation: open-chest 2s infinite ease-in-out;
 }
-.loader-treasure-chest :global(.base) {
+.loader-treasure-chest .base {
   width: 100%;
   height: 40px;
   background: #854d0e;
@@ -677,7 +677,7 @@
   bottom: 0;
   border-radius: 0 0 5px 5px;
 }
-.loader-treasure-chest :global(.glow) {
+.loader-treasure-chest .glow {
   width: 30px;
   height: 30px;
   background: radial-gradient(circle, white, transparent);
@@ -714,7 +714,7 @@
   height: 100px;
   position: relative;
 }
-.loader-message-bottle :global(.bottle) {
+.loader-message-bottle .bottle {
   width: 40px;
   height: 80px;
   border: 2px solid #a1a1aa;
@@ -724,7 +724,7 @@
   left: 30px;
   animation: bob-bottle 4s infinite ease-in-out;
 }
-.loader-message-bottle :global(.wave) {
+.loader-message-bottle .wave {
   position: absolute;
   bottom: 0;
   left: -50%;
@@ -735,7 +735,7 @@
   border-radius: 45%;
   animation: move-wave 4s infinite ease-in-out;
 }
-.loader-message-bottle :global(.wave2) {
+.loader-message-bottle .wave2 {
   animation-direction: reverse;
 }
 @keyframes bob-bottle {
