@@ -27,7 +27,6 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
     .map((topic) => getTravelTopicTitle(topic))
     .filter((title): title is string => Boolean(title));
   const isTitleOnly = variant === "titleOnly";
-  const author = members.find((m) => m.name === post.author);
 
   return (
     <motion.header initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
@@ -160,6 +159,7 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
                 height={675}
                 className="aspect-video w-full object-cover transition-transform duration-700 hover:scale-105"
                 priority
+                sizes="(max-width: 1280px) 100vw, 1200px"
               />
             </div>
           )}

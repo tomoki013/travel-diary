@@ -76,9 +76,27 @@ export const CustomImg = ({ src, alt }: CustomImgProps) => {
       console.error(`Error getting dimensions for image: ${src}`, error);
     }
 
-    return <Image src={src} alt={alt} width={width} height={height} />;
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes="(max-width: 768px) 100vw, 768px"
+        className="rounded-lg"
+      />
+    );
   } else {
-    return <Image src={fallbackSrc} alt={alt} width={700} height={400} />;
+    return (
+      <Image
+        src={fallbackSrc}
+        alt={alt}
+        width={700}
+        height={400}
+        sizes="(max-width: 768px) 100vw, 768px"
+        className="rounded-lg"
+      />
+    );
   }
 };
 

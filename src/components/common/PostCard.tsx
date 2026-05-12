@@ -91,6 +91,13 @@ const PostCard = ({
                   src={post.image}
                   alt={post.title}
                   fill
+                  sizes={
+                    isHorizontal
+                      ? "(max-width: 640px) 100vw, (max-width: 1024px) 300px, 320px"
+                      : isCompact
+                        ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"
+                  }
                   className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
                     isCompact
                       ? "group-hover:scale-105"

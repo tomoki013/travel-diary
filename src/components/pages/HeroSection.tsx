@@ -17,7 +17,14 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   return (
     <div className="text-foreground relative flex h-64 items-center justify-center md:h-80">
-      <Image src={src} alt={alt} fill objectFit="cover" className="brightness-50" priority />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover brightness-50"
+        priority
+        sizes="100vw"
+      />
       <div className={`relative z-10 text-center ${textColor}`}>
         <h1 className="text-4xl font-bold tracking-tight md:text-6xl">{pageTitle || ""}</h1>
         <p className="mt-2 text-lg md:text-xl">{pageMessage || ""}</p>

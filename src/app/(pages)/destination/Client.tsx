@@ -1,10 +1,20 @@
 "use client";
 
 import AllDestination from "@/components/features/destination/allDestination";
-import WorldMap from "@/components/features/worldMap/WorldMap";
-import Destination from "@/components/pages/Destination";
 import { AllDestinationProps } from "@/types/types";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { LoadingAnimation } from "@/components/features/LoadingAnimation/LoadingAnimation";
+
+const WorldMap = dynamic(() => import("@/components/features/worldMap/WorldMap"), {
+  ssr: false,
+  loading: () => <LoadingAnimation variant="mapRoute" />,
+});
+
+const Destination = dynamic(() => import("@/components/pages/Destination"), {
+  ssr: false,
+  loading: () => <div className="h-96 animate-pulse bg-stone-100 dark:bg-stone-900" />,
+});
 
 const Client = ({ regionData }: AllDestinationProps) => {
   // すべての国名を小文字の配列として抽出
@@ -20,13 +30,14 @@ const Client = ({ regionData }: AllDestinationProps) => {
           fill
           className="-z-10 object-cover"
           priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 -z-10 bg-black/35" />
         <div className="max-w-4xl px-8">
           <h1 className="text-4xl font-bold tracking-tight md:text-6xl">DESTINATIONS</h1>
           <p className="text-md mt-4 max-w-2xl md:text-lg">世界地図から、旅先を探す</p>
         </div>
-        <div className="mx-auto h-auto w-full">
+        <div className="mx-auto h-auto w-full max-w-2xl">
           <WorldMap highlightedRegions={allCountryNames} isClickable={false} />
         </div>
       </section>
