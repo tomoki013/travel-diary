@@ -26,8 +26,8 @@ const StatusBadge = ({ status }: { status: RoadmapItem["status"] }) => {
   return (
     <span
       className={cn(
-        "px-3 py-1 text-xs font-semibold rounded-full border shadow-sm",
-        styles[status]
+        "rounded-full border px-3 py-1 text-xs font-semibold shadow-sm",
+        styles[status],
       )}
     >
       {labels[status]}
@@ -165,17 +165,10 @@ export default function RoadmapTimeline() {
   }, [updatePositions]);
 
   return (
-    <section
-      ref={timelineRef}
-      className="relative max-w-3xl mx-auto px-4 pb-48"
-    >
+    <section ref={timelineRef} className="relative mx-auto max-w-3xl px-4 pb-48">
       {/* SVG Path Background */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
-        <svg
-          className="w-full"
-          style={{ height: svgHeight }}
-          preserveAspectRatio="none"
-        >
+      <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full">
+        <svg className="w-full" style={{ height: svgHeight }} preserveAspectRatio="none">
           <defs>
             {/* Fade IN Gradient (Top to Bottom: Transparent -> Opaque) */}
             <linearGradient id="fadeInGradient" x1="0" x2="0" y1="0" y2="1">
@@ -258,10 +251,7 @@ export default function RoadmapTimeline() {
           return (
             <motion.div
               key={item.id}
-              className={cn(
-                "relative flex gap-4 md:gap-8 items-center",
-                rowClass
-              )}
+              className={cn("relative flex items-center gap-4 md:gap-8", rowClass)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -273,20 +263,20 @@ export default function RoadmapTimeline() {
                   dotRefs.current[index] = el;
                 }}
                 className={cn(
-                  "absolute transform -translate-x-1/2 z-10 bg-background p-1.5 rounded-full border-2 border-primary/20 shadow-sm transition-all duration-500",
-                  dotPosition
+                  "bg-background border-primary/20 absolute z-10 -translate-x-1/2 transform rounded-full border-2 p-1.5 shadow-sm transition-all duration-500",
+                  dotPosition,
                 )}
               >
                 <div
                   className={cn(
-                    "w-3 h-3 rounded-full",
+                    "h-3 w-3 rounded-full",
                     item.status === "COMPLETED"
                       ? "bg-primary"
                       : item.status === "DEPLOYED"
                         ? "bg-secondary"
                         : item.status === "CURRENT_TARGET"
                           ? "bg-primary animate-pulse"
-                          : "bg-muted-foreground/30"
+                          : "bg-muted-foreground/30",
                   )}
                 />
               </div>
@@ -296,38 +286,31 @@ export default function RoadmapTimeline() {
                 className={cn(
                   "w-full md:w-1/2",
                   // Adjust padding to clear the dot area
-                  isEven
-                    ? "pl-12 md:pl-24 text-left"
-                    : "pr-12 md:pr-24 text-right"
+                  isEven ? "pl-12 text-left md:pl-24" : "pr-12 text-right md:pr-24",
                 )}
               >
                 <div
                   className={cn(
-                    "group relative bg-card text-card-foreground p-6 rounded-2xl shadow-sm border border-border hover:shadow-md transition-all duration-300",
-                    "dark:bg-card/50"
+                    "group bg-card text-card-foreground border-border relative rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:shadow-md",
+                    "dark:bg-card/50",
                   )}
                 >
                   {/* Season Label */}
                   <div
                     className={cn(
-                      "absolute -top-3 px-3 py-1 bg-primary text-primary-foreground text-xs font-bold rounded-full shadow-sm",
-                      isEven ? "left-6" : "right-6"
+                      "bg-primary text-primary-foreground absolute -top-3 rounded-full px-3 py-1 text-xs font-bold shadow-sm",
+                      isEven ? "left-6" : "right-6",
                     )}
                   >
                     {item.season}
                   </div>
 
-                  <div
-                    className={cn(
-                      "flex flex-col gap-3",
-                      isEven ? "items-start" : "items-end"
-                    )}
-                  >
+                  <div className={cn("flex flex-col gap-3", isEven ? "items-start" : "items-end")}>
                     <div className="mb-1">
                       <StatusBadge status={item.status} />
                     </div>
 
-                    <h3 className="text-xl font-bold flex items-center gap-2 text-foreground">
+                    <h3 className="text-foreground flex items-center gap-2 text-xl font-bold">
                       {item.title}
                     </h3>
 
@@ -338,8 +321,8 @@ export default function RoadmapTimeline() {
                     {/* Icon Decoration */}
                     <div
                       className={cn(
-                        "absolute opacity-5 text-primary transform scale-150 pointer-events-none",
-                        isEven ? "bottom-4 right-4" : "bottom-4 left-4"
+                        "text-primary pointer-events-none absolute scale-150 transform opacity-5",
+                        isEven ? "right-4 bottom-4" : "bottom-4 left-4",
                       )}
                     >
                       {item.icon}
@@ -349,7 +332,7 @@ export default function RoadmapTimeline() {
               </div>
 
               {/* Balancer */}
-              <div className="hidden md:block w-1/2" />
+              <div className="hidden w-1/2 md:block" />
             </motion.div>
           );
         })}

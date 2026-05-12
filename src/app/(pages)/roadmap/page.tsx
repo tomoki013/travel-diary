@@ -8,14 +8,12 @@ import UpdateList from "@/components/features/roadmap/UpdateList";
 
 export default function RoadmapPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="bg-background text-foreground min-h-screen overflow-x-hidden">
       <RoadmapHero />
 
       <section className="py-8 text-center">
-        <h2 className="text-3xl font-heading font-bold text-primary">
-          Future Roadmap
-        </h2>
-        <p className="mt-2 text-muted-foreground">これからの冒険の計画</p>
+        <h2 className="font-heading text-primary text-3xl font-bold">Future Roadmap</h2>
+        <p className="text-muted-foreground mt-2">これからの冒険の計画</p>
       </section>
 
       <RoadmapTimeline />
@@ -23,11 +21,9 @@ export default function RoadmapPage() {
       <UpdateList />
 
       {/* Footer Message */}
-      <section className="py-20 text-center space-y-8">
+      <section className="space-y-8 py-20 text-center">
         <div>
-          <h2 className="text-2xl font-heading font-bold text-primary mb-4">
-            To Be Continued...
-          </h2>
+          <h2 className="font-heading text-primary mb-4 text-2xl font-bold">To Be Continued...</h2>
           <p className="text-muted-foreground">旅はまだ始まったばかり。</p>
         </div>
 
@@ -40,7 +36,7 @@ export default function RoadmapPage() {
         >
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all duration-300"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center rounded-full px-8 py-3 font-bold shadow-lg transition-all duration-300 hover:shadow-xl"
           >
             新しい旅を始める
           </Link>

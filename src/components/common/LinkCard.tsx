@@ -20,13 +20,7 @@ const getAnalogRotation = (value: string) => {
   return hash / 1000 - 1;
 };
 
-export const LinkCard = ({
-  href,
-  title,
-  excerpt,
-  imageUrl,
-  variant,
-}: LinkCardProps) => {
+export const LinkCard = ({ href, title, excerpt, imageUrl, variant }: LinkCardProps) => {
   const resolvedUrl = new URL(href, `${PRIMARY_SITE_URL}/posts/`);
   const displayUrl = `${resolvedUrl.hostname}${resolvedUrl.pathname}${resolvedUrl.search}`;
 
@@ -35,30 +29,28 @@ export const LinkCard = ({
     return (
       <Link
         href={href}
-        className="group flex flex-col md:flex-row items-center md:gap-4 my-6 p-4 bg-white/80 border border-gray-200 rounded-lg transition-colors shadow-sm not-prose"
+        className="group not-prose my-6 flex flex-col items-center rounded-lg border border-gray-200 bg-white/80 p-4 shadow-sm transition-colors md:flex-row md:gap-4"
       >
         {imageUrl && (
-          <p className="md:w-1/4 flex-shrink-0">
+          <p className="flex-shrink-0 md:w-1/4">
             <Image
               src={imageUrl}
               alt={title}
               width={400}
               height={300}
-              className="rounded-md object-cover aspect-video"
+              className="aspect-video rounded-md object-cover"
             />
           </p>
         )}
         <p className="flex-grow">
-          <p className="font-bold text-foreground group-hover:text-muted-foreground">
-            {title}
-          </p>
+          <p className="text-foreground group-hover:text-muted-foreground font-bold">{title}</p>
           <Separator />
           {excerpt && (
-            <p className="text-sm text-foreground mt-1 line-clamp-2 group-hover:text-muted-foreground">
+            <p className="text-foreground group-hover:text-muted-foreground mt-1 line-clamp-2 text-sm">
               {excerpt}
             </p>
           )}
-          <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1 underline">
+          <p className="text-muted-foreground mt-2 flex items-center gap-1 text-xs underline">
             <LinkIcon size={12} /> {displayUrl}
           </p>
         </p>
@@ -71,20 +63,20 @@ export const LinkCard = ({
     return (
       <Link
         href={href}
-        className="group block my-8 hover:!rotate-0 transition-transform duration-300"
+        className="group my-8 block transition-transform duration-300 hover:!rotate-0"
         style={{ transform: `rotate(${getAnalogRotation(href)}deg)` }}
       >
-        <p className="bg-white p-3 pb-8 rounded-md shadow-lg relative">
+        <p className="relative rounded-md bg-white p-3 pb-8 shadow-lg">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={title}
               width={800}
               height={600}
-              className="rounded-sm object-cover aspect-[4/3] border-2 border-gray-100"
+              className="aspect-[4/3] rounded-sm border-2 border-gray-100 object-cover"
             />
           )}
-          <p className="font-serif font-semibold text-center mt-3 text-foreground absolute bottom-2 left-0 right-0">
+          <p className="text-foreground absolute right-0 bottom-2 left-0 mt-3 text-center font-serif font-semibold">
             {title}
           </p>
         </p>
@@ -97,12 +89,10 @@ export const LinkCard = ({
     return (
       <Link
         href={href}
-        className="group block my-4 p-4 border-l-4 border-secondary bg-white/80 transition-colors"
+        className="group border-secondary my-4 block border-l-4 bg-white/80 p-4 transition-colors"
       >
-        <p className="font-bold text-foreground group-hover:text-muted-foreground">
-          {title}
-        </p>
-        <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+        <p className="text-foreground group-hover:text-muted-foreground font-bold">{title}</p>
+        <p className="text-muted-foreground mt-1 flex items-center gap-1 text-xs">
           <LinkIcon size={12} /> {displayUrl}
         </p>
       </Link>

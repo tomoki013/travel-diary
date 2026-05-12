@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Caveat,
-  Montserrat,
-  Playfair_Display,
-  Noto_Sans_JP,
-} from "next/font/google";
+import { Caveat, Montserrat, Playfair_Display, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { useEffect } from "react";
 import ErrorDisplay from "@/components/common/ErrorDisplay";

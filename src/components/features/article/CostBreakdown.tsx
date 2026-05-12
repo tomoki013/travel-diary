@@ -1,13 +1,4 @@
-import {
-  Wallet,
-  Plane,
-  Hotel,
-  UtensilsCrossed,
-  Train,
-  Car,
-  Camera,
-  Ellipsis,
-} from "lucide-react";
+import { Wallet, Plane, Hotel, UtensilsCrossed, Train, Car, Camera, Ellipsis } from "lucide-react";
 import React from "react";
 
 // 親コンポーネントから受け取るpropsの型定義
@@ -38,18 +29,15 @@ const CostBreakdown = ({ costs }: CostBreakdownProps) => {
   }
 
   // 合計金額を計算
-  const totalCost = Object.values(costs).reduce(
-    (sum, current) => sum + current,
-    0
-  );
+  const totalCost = Object.values(costs).reduce((sum, current) => sum + current, 0);
 
   // 金額の大きい順にソート
   const sortedCosts = Object.entries(costs).sort(([, a], [, b]) => b - a);
 
   return (
-    <details className="group bg-muted rounded-lg p-6 my-6 border-l-4 border-secondary">
-      <summary className="flex cursor-pointer items-center list-none transition-opacity hover:opacity-80">
-        <div className="h-5 w-5 text-foreground transition-transform duration-300 group-open:rotate-90">
+    <details className="group bg-muted border-secondary my-6 rounded-lg border-l-4 p-6">
+      <summary className="flex cursor-pointer list-none items-center transition-opacity hover:opacity-80">
+        <div className="text-foreground h-5 w-5 transition-transform duration-300 group-open:rotate-90">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -58,16 +46,12 @@ const CostBreakdown = ({ costs }: CostBreakdownProps) => {
             stroke="currentColor"
             className="h-full w-full"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m8.25 4.5 7.5 7.5-7.5 7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
         </div>
-        <div className="flex items-center gap-2 ml-4">
-          <Wallet className="h-5 w-5 text-foreground" />
-          <h3 className="text-lg font-bold text-foreground">費用の内訳</h3>
+        <div className="ml-4 flex items-center gap-2">
+          <Wallet className="text-foreground h-5 w-5" />
+          <h3 className="text-foreground text-lg font-bold">費用の内訳</h3>
         </div>
       </summary>
       <ul className="space-y-4">
@@ -79,18 +63,16 @@ const CostBreakdown = ({ costs }: CostBreakdownProps) => {
           const percentage = totalCost > 0 ? (amount / totalCost) * 100 : 0;
           return (
             <li key={categoryKey}>
-              <div className="flex justify-between items-center text-sm mb-1">
-                <span className="flex items-center font-medium text-muted-foreground">
-                  <Icon className="h-4 w-4 mr-2" />
+              <div className="mb-1 flex items-center justify-between text-sm">
+                <span className="text-muted-foreground flex items-center font-medium">
+                  <Icon className="mr-2 h-4 w-4" />
                   {label}
                 </span>
-                <span className="font-semibold">
-                  {amount.toLocaleString()}円
-                </span>
+                <span className="font-semibold">{amount.toLocaleString()}円</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+              <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                 <div
-                  className="bg-teal-500 h-2 rounded-full"
+                  className="h-2 rounded-full bg-teal-500"
                   style={{ width: `${percentage}%` }}
                 ></div>
               </div>
@@ -99,7 +81,7 @@ const CostBreakdown = ({ costs }: CostBreakdownProps) => {
         })}
       </ul>
       {/* 合計金額セクション */}
-      <div className="border-t pt-4 mt-4 flex justify-between items-center font-bold text-base">
+      <div className="mt-4 flex items-center justify-between border-t pt-4 text-base font-bold">
         <span>合計金額</span>
         <span>{totalCost.toLocaleString()}円</span>
       </div>

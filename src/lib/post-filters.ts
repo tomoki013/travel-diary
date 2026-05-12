@@ -15,32 +15,20 @@ export function sortByDate(posts: PostMetadata[]): PostMetadata[] {
   });
 }
 
-export function filterByCategory(
-  posts: PostMetadata[],
-  category: string
-): PostMetadata[] {
+export function filterByCategory(posts: PostMetadata[], category: string): PostMetadata[] {
   return posts.filter((post) => post.category === category);
 }
 
-export function filterBySeries(
-  posts: PostMetadata[],
-  series: string
-): PostMetadata[] {
+export function filterBySeries(posts: PostMetadata[], series: string): PostMetadata[] {
   return posts.filter((post) => post.series === series);
 }
 
-export function filterByTag(
-  posts: PostMetadata[],
-  tag: string
-): PostMetadata[] {
+export function filterByTag(posts: PostMetadata[], tag: string): PostMetadata[] {
   // `tags` is now guaranteed to be an array by the data layer.
   return posts.filter((post) => post.tags && post.tags.includes(tag));
 }
 
-export function filterByTravelTopic(
-  posts: PostMetadata[],
-  topic: TravelTopic
-): PostMetadata[] {
+export function filterByTravelTopic(posts: PostMetadata[], topic: TravelTopic): PostMetadata[] {
   return posts.filter((post) => post.travelTopics?.includes(topic));
 }
 
@@ -49,10 +37,7 @@ export function filterByTravelTopic(
  * @param slug 現在の記事のスラッグ
  * @param allPosts - **日付で降順にソート済みの**記事配列。
  */
-export function getNextPost(
-  slug: string,
-  allPosts: PostMetadata[],
-): PostMetadata | null {
+export function getNextPost(slug: string, allPosts: PostMetadata[]): PostMetadata | null {
   const currentIndex = allPosts.findIndex((p) => p.slug === slug);
   if (currentIndex === -1 || currentIndex === 0) {
     return null; // No next post if it's the first one or not found
@@ -65,10 +50,7 @@ export function getNextPost(
  * @param slug 現在の記事のスラッグ
  * @param allPosts - **日付で降順にソート済みの**記事配列。
  */
-export function getPreviousPost(
-  slug: string,
-  allPosts: PostMetadata[],
-): PostMetadata | null {
+export function getPreviousPost(slug: string, allPosts: PostMetadata[]): PostMetadata | null {
   const currentIndex = allPosts.findIndex((p) => p.slug === slug);
   if (currentIndex === -1 || currentIndex === allPosts.length - 1) {
     return null; // No previous post if it's the last one or not found
@@ -76,12 +58,8 @@ export function getPreviousPost(
   return allPosts[currentIndex + 1];
 }
 
-export function getRegionPosts(
-  posts: PostMetadata[],
-  targetSlugs: string[]
-): PostMetadata[] {
+export function getRegionPosts(posts: PostMetadata[], targetSlugs: string[]): PostMetadata[] {
   return posts.filter(
-    (post) =>
-      post.location && post.location.some((loc) => targetSlugs.includes(loc))
+    (post) => post.location && post.location.some((loc) => targetSlugs.includes(loc)),
   );
 }

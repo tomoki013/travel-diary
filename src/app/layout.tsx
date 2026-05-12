@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Caveat,
-  Montserrat,
-  Playfair_Display,
-  Noto_Sans_JP,
-} from "next/font/google";
+import { Caveat, Montserrat, Playfair_Display, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import Header from "@/components/layouts/Header";
@@ -81,6 +76,12 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "ともきちの旅行日記",
   },
+  verification: {
+    other: {
+      "impact-site-verification": ["6961c957-6c21-44ec-90ac-fbe728936d15"],
+      "agd-partner-manual-verification": [""],
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -96,42 +97,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <head>
-        {/* impact */}
-        <meta
-          name="impact-site-verification"
-          content="6961c957-6c21-44ec-90ac-fbe728936d15"
-        />
-
-        {/* Agoda */}
-        <meta name="agd-partner-manual-verification" />
-
+      <body
+        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
+      >
         {/* GetYourGuide Analytics */}
         <Script
           async
           defer
           src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
           data-gyg-partner-id="GTNOM0E"
-        ></Script>
+          strategy="lazyOnload"
+        />
 
         {/* Google Analytics */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-BZJ1EDMYTZ"
-        ></Script>
-        <Script id="google-analytics">
+          strategy="lazyOnload"
+        />
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
-						window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BZJ1EDMYTZ');
-					`}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BZJ1EDMYTZ');
+          `}
         </Script>
-      </head>
-      <body
-        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
-      >
+
         <ThemeProvider
           attribute={`class`}
           defaultTheme="light"
@@ -140,7 +132,7 @@ export default function RootLayout({
         >
           <UIProvider>
             <Background />
-            <div className="flex flex-col min-h-screen">
+            <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex-1 text-sm md:text-base">{children}</main>
               <Footer />

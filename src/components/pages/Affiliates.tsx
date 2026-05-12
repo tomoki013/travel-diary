@@ -17,11 +17,11 @@ const Affiliates = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
-      className="py-24 px-6 md:px-8 max-w-5xl mx-auto"
+      className="mx-auto max-w-5xl px-6 py-24 md:px-8"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
+        <div className="mb-10 text-center">
+          <h2 className="font-heading text-foreground text-3xl font-bold md:text-4xl">
             旅の予約におすすめのサイト・アプリ
           </h2>
           <p className="text-muted-foreground mt-2">
@@ -29,7 +29,7 @@ const Affiliates = () => {
           </p>
         </div>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start"
+          className="grid grid-cols-1 items-start gap-8 md:grid-cols-2 lg:grid-cols-3"
           variants={staggerContainer()}
         >
           {appsToShow.map((app) => (

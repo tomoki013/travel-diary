@@ -114,7 +114,7 @@ export default function Client() {
         pageMessage="各SNSの活動内容やコンセプトをご紹介します"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+      <div className="mx-auto max-w-4xl space-y-20 px-4 py-16 sm:px-6 lg:px-8">
         {/* ==================== SNS Cards List ==================== */}
         {socialAccounts.map((account, idx) => {
           const motionProps =
@@ -134,28 +134,22 @@ export default function Client() {
             <motion.section
               key={account.name}
               {...motionProps}
-              className="bg-gray-50 p-8 rounded-lg shadow-md"
+              className="rounded-lg bg-gray-50 p-8 shadow-md"
             >
-              <div className="flex items-center gap-4 mb-6">
-                <account.IconComponent
-                  className={`text-5xl ${account.iconColor}`}
-                />
+              <div className="mb-6 flex items-center gap-4">
+                <account.IconComponent className={`text-5xl ${account.iconColor}`} />
                 <h2 className="text-4xl font-bold">{account.name}</h2>
               </div>
 
               <div className="pl-2">
-                <h3 className="text-xl font-semibold text-teal-600 mb-2">
-                  {account.conceptTitle}
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  {account.description}
-                </p>
+                <h3 className="mb-2 text-xl font-semibold text-teal-600">{account.conceptTitle}</h3>
+                <p className="mb-6 leading-relaxed text-gray-700">{account.description}</p>
 
                 <Link
                   href={account.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block mt-8 px-8 py-3 bg-gray-800 text-white font-bold rounded-full hover:bg-gray-700 transition-colors"
+                  className="mt-8 inline-block rounded-full bg-gray-800 px-8 py-3 font-bold text-white transition-colors hover:bg-gray-700"
                 >
                   {account.ctaText} →
                 </Link>
@@ -170,7 +164,7 @@ export default function Client() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="text-center py-10"
+          className="py-10 text-center"
         >
           <p className="text-xl font-semibold text-gray-800">
             お好きなプラットフォームで、お気軽にフォローしてください！

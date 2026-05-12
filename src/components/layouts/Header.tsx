@@ -19,9 +19,14 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ModeToggle from "../common/mode-toggle";
-import SearchOverlay from "../features/search/SearchOverlay";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+
+const SearchOverlay = dynamic(() => import("../features/search/SearchOverlay"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const Header = () => {
   const { isMenuOpen, toggleMenu, closeMenu } = useMobileMenu();
@@ -43,9 +48,7 @@ const Header = () => {
     const updateScrolledState = () => {
       ticking = false;
       const nextIsScrolled = window.scrollY > 24;
-      setIsScrolled((current) =>
-        current === nextIsScrolled ? current : nextIsScrolled
-      );
+      setIsScrolled((current) => (current === nextIsScrolled ? current : nextIsScrolled));
     };
 
     const handleScroll = () => {
@@ -67,11 +70,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isMenuOpen &&
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node)
-      ) {
+      if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
         closeMenu();
       }
     };
@@ -79,8 +78,7 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen, closeMenu]);
 
-  const isTransparent =
-    isHomePage && !isScrolled && !isMenuOpen && !isSearchOpen;
+  const isTransparent = isHomePage && !isScrolled && !isMenuOpen && !isSearchOpen;
 
   // Icon mapping for mobile menu
   const NAV_ICONS: Record<string, React.ElementType> = {
@@ -100,20 +98,20 @@ const Header = () => {
           isHomePage ? "fixed" : "sticky",
           isTransparent
             ? "border-transparent bg-transparent py-6"
-            : "border-border/40 bg-background/95 py-2 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-background/80",
+            : "border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/80 py-2 shadow-sm backdrop-blur-md",
         )}
       >
         <div className="container mx-auto flex h-12 items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo Area */}
           <Link
             href="/"
-            className="relative z-50 flex items-center gap-3 group"
+            className="group relative z-50 flex items-center gap-3"
             onClick={closeMenu}
           >
             <div className="flex flex-col">
               <span
                 className={cn(
-                  "font-heading font-bold text-xl leading-none transition-colors duration-300",
+                  "font-heading text-xl leading-none font-bold transition-colors duration-300",
                   isTransparent && !isMenuOpen
                     ? "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" // Heroの文字と同様のシャドウ感
                     : "text-foreground",
@@ -123,7 +121,7 @@ const Header = () => {
               </span>
               <span
                 className={cn(
-                  "text-[10px] font-code tracking-[0.2em] uppercase transition-colors duration-300 mt-0.5",
+                  "font-code mt-0.5 text-[10px] tracking-[0.2em] uppercase transition-colors duration-300",
                   isTransparent && !isMenuOpen
                     ? "text-white/80 drop-shadow-md"
                     : "text-muted-foreground group-hover:text-primary",
@@ -135,15 +133,15 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden items-center gap-8 md:flex">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "relative text-sm font-bold tracking-wide transition-all duration-300 group py-2 font-heading",
+                  "group font-heading relative py-2 text-sm font-bold tracking-wide transition-all duration-300",
                   isTransparent
-                    ? "text-white/90 hover:text-white drop-shadow-md"
+                    ? "text-white/90 drop-shadow-md hover:text-white"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -151,7 +149,7 @@ const Header = () => {
                 {/* Underline Animation */}
                 <span
                   className={cn(
-                    "absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-300 ease-out group-hover:w-full rounded-full",
+                    "absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-all duration-300 ease-out group-hover:w-full",
                     isTransparent
                       ? "bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                       : "bg-primary",
@@ -162,30 +160,25 @@ const Header = () => {
           </nav>
 
           {/* Desktop Icons & Actions */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden items-center gap-3 md:flex">
             {/* Utility Icons */}
-            <div className="flex items-center gap-3 ml-2">
+            <div className="ml-2 flex items-center gap-3">
               <button
                 onClick={openSearch}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm border-2",
+                  "flex items-center gap-2 rounded-full border-2 px-4 py-1.5 shadow-sm transition-all duration-300",
                   isTransparent
-                    ? "bg-black/20 backdrop-blur-md border-white/30 text-white hover:bg-white/20 hover:border-white/50"
+                    ? "border-white/30 bg-black/20 text-white backdrop-blur-md hover:border-white/50 hover:bg-white/20"
                     : "bg-background/80 border-border/80 text-foreground hover:border-primary/50 hover:bg-background",
                 )}
                 aria-label="Search"
               >
                 <SearchIcon className="h-4 w-4" />
-                <span className="text-xs font-bold tracking-wider uppercase hidden lg:inline-block">
+                <span className="hidden text-xs font-bold tracking-wider uppercase lg:inline-block">
                   Search
                 </span>
               </button>
-              <div
-                className={cn(
-                  "transition-opacity",
-                  isTransparent && "opacity-90",
-                )}
-              >
+              <div className={cn("transition-opacity", isTransparent && "opacity-90")}>
                 <ModeToggle />
               </div>
             </div>
@@ -196,9 +189,9 @@ const Header = () => {
             <button
               onClick={openSearch}
               className={cn(
-                "flex items-center justify-center p-2 rounded-full transition-all border-2 shadow-sm",
+                "flex items-center justify-center rounded-full border-2 p-2 shadow-sm transition-all",
                 isTransparent && !isMenuOpen
-                  ? "bg-black/20 backdrop-blur-md border-white/30 text-white hover:bg-white/20"
+                  ? "border-white/30 bg-black/20 text-white backdrop-blur-md hover:bg-white/20"
                   : "bg-background/80 border-border/80 text-foreground hover:border-primary/50",
               )}
               aria-label="Search"
@@ -207,7 +200,7 @@ const Header = () => {
             </button>
             <div
               className={cn(
-                "transition-opacity scale-90",
+                "scale-90 transition-opacity",
                 isTransparent && !isMenuOpen && "opacity-90",
               )}
             >
@@ -216,7 +209,7 @@ const Header = () => {
             <button
               onClick={toggleMenu}
               className={cn(
-                "relative z-50 p-2 rounded-full transition-colors",
+                "relative z-50 rounded-full p-2 transition-colors",
                 isMenuOpen
                   ? "text-foreground bg-accent"
                   : isTransparent
@@ -225,11 +218,7 @@ const Header = () => {
               )}
               aria-label="Menu"
             >
-              {isMenuOpen ? (
-                <XIcon className="h-6 w-6" />
-              ) : (
-                <MenuIcon className="h-6 w-6" />
-              )}
+              {isMenuOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -245,12 +234,12 @@ const Header = () => {
             animate={{ opacity: 1, backdropFilter: "blur(16px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[90] bg-background/95 md:hidden flex flex-col touch-none"
+            className="bg-background/95 fixed inset-0 z-[90] flex touch-none flex-col md:hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background pointer-events-none" />
+            <div className="from-background/50 to-background pointer-events-none absolute inset-0 bg-gradient-to-b" />
 
-            <div className="container relative mx-auto flex h-full flex-col gap-4 px-6 pt-20 pb-8 justify-between overflow-hidden">
-              <nav className="flex flex-col gap-2 w-full max-w-sm mx-auto">
+            <div className="relative container mx-auto flex h-full flex-col justify-between gap-4 overflow-hidden px-6 pt-20 pb-8">
+              <nav className="mx-auto flex w-full max-w-sm flex-col gap-2">
                 {NAV_LINKS.map((link, index) => {
                   const Icon = NAV_ICONS[link.label] || Sparkles;
                   return (
@@ -262,13 +251,13 @@ const Header = () => {
                     >
                       <Link
                         href={link.href}
-                        className="group flex items-center gap-4 rounded-xl p-3 text-foreground/80 transition-all hover:bg-accent hover:text-foreground"
+                        className="group text-foreground/80 hover:bg-accent hover:text-foreground flex items-center gap-4 rounded-xl p-3 transition-all"
                         onClick={closeMenu}
                       >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/50 text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                        <div className="bg-secondary/50 text-foreground group-hover:bg-primary group-hover:text-primary-foreground flex h-10 w-10 items-center justify-center rounded-full transition-colors">
                           <Icon className="h-5 w-5" />
                         </div>
-                        <span className="text-xl font-bold font-heading tracking-wide">
+                        <span className="font-heading text-xl font-bold tracking-wide">
                           {link.label}
                         </span>
                       </Link>
@@ -281,13 +270,11 @@ const Header = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex flex-col items-center gap-y-4 w-full max-w-sm mx-auto"
+                className="mx-auto flex w-full max-w-sm flex-col items-center gap-y-4"
               >
-                <div className="w-full h-px bg-border/50" />
+                <div className="bg-border/50 h-px w-full" />
                 <div className="flex w-full items-center justify-between px-4">
-                  <span className="text-sm font-bold text-muted-foreground">
-                    Theme
-                  </span>
+                  <span className="text-muted-foreground text-sm font-bold">Theme</span>
                   <ModeToggle />
                 </div>
               </motion.div>

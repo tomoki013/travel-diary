@@ -1,6 +1,6 @@
 "use client";
 
-import { Post } from "@/types/types";
+import { PostMetadata } from "@/types/types";
 import XButton from "@/components/common/share-buttons/XButton";
 import FacebookButton from "@/components/common/share-buttons/FacebookButton";
 import LineButton from "@/components/common/share-buttons/LineButton";
@@ -8,13 +8,12 @@ import CopyLinkButton from "@/components/common/share-buttons/CopyLinkButton";
 import NativeShareButton from "@/components/common/share-buttons/NativeShareButton";
 
 interface Props {
-  post: Post;
+  post: PostMetadata;
   url?: string;
 }
 
 const ShareButtons = ({ post, url }: Props) => {
-  const currentUrl =
-    url || (typeof window !== "undefined" ? window.location.href : "");
+  const currentUrl = url || (typeof window !== "undefined" ? window.location.href : "");
 
   if (!currentUrl) {
     return null;
@@ -27,11 +26,7 @@ const ShareButtons = ({ post, url }: Props) => {
       <FacebookButton url={currentUrl} />
       <LineButton url={currentUrl} title={post.title} />
       <CopyLinkButton url={currentUrl} />
-      <NativeShareButton
-        url={currentUrl}
-        title={post.title}
-        text={post.excerpt || ""}
-      />
+      <NativeShareButton url={currentUrl} title={post.title} text={post.excerpt || ""} />
     </div>
   );
 };

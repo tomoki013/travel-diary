@@ -22,7 +22,9 @@ const HighIntentSection = ({
     category: topic,
     label: travelTopicTitleMap[topic as TravelTopic],
     posts: posts
-      .filter((post) => post.category === "tourism" && post.travelTopics?.includes(topic as TravelTopic))
+      .filter(
+        (post) => post.category === "tourism" && post.travelTopics?.includes(topic as TravelTopic),
+      )
       .slice(0, 2),
   })).filter((group) => group.posts.length > 0);
 
@@ -33,13 +35,13 @@ const HighIntentSection = ({
   return (
     <section className="mx-auto max-w-6xl px-6 py-14">
       <h2 className="text-center text-3xl font-bold">{title}</h2>
-      <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground leading-relaxed">
+      <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-center leading-relaxed">
         {description}
       </p>
 
       <div className="mt-8 grid gap-8">
         {grouped.map((group) => (
-          <div key={group.category} className="rounded-3xl border border-border/70 p-4 sm:p-6">
+          <div key={group.category} className="border-border/70 rounded-3xl border p-4 sm:p-6">
             <div className="mb-4 flex items-center justify-between gap-4">
               <h3 className="text-xl font-semibold">{group.label}</h3>
               <Link

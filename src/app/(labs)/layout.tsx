@@ -7,10 +7,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LabsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function LabsLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

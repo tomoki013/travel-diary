@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { useRouter } from "next/navigation";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
@@ -38,19 +32,11 @@ export interface WorldMapHandle {
 
 const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
   (
-    {
-      highlightedRegions,
-      isClickable,
-      isTooltip = false,
-      regionData = [],
-      isZoomable = false,
-    },
-    ref
+    { highlightedRegions, isClickable, isTooltip = false, regionData = [], isZoomable = false },
+    ref,
   ) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(
-      null
-    );
+    const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showZoomHint, setShowZoomHint] = useState(false);
@@ -61,9 +47,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
 
     // ★変更点: マウント時に一度だけ実行し、デバイスタイプを判定
     useEffect(() => {
-      setIsTouchDevice(
-        "ontouchstart" in window || navigator.maxTouchPoints > 0
-      );
+      setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
       setIsMounted(true);
     }, []);
 
@@ -71,10 +55,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
       resetZoom: () => {
         if (svgRef.current && zoomRef.current) {
           const svg = d3.select(svgRef.current);
-          svg
-            .transition()
-            .duration(750)
-            .call(zoomRef.current.transform, d3.zoomIdentity);
+          svg.transition().duration(750).call(zoomRef.current.transform, d3.zoomIdentity);
         }
       },
       zoomIn: () => {
@@ -110,7 +91,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
             return () => clearTimeout(timer);
           }
         },
-        { threshold: 0.1 }
+        { threshold: 0.1 },
       );
 
       if (currentRef) {
@@ -161,12 +142,10 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
           .style("pointer-events", "none");
 
         try {
-          const world = (await d3.json(
-            "/data/world-110m.json"
-          )) as WorldTopology;
+          const world = (await d3.json("/data/world-110m.json")) as WorldTopology;
           const countries = topojson.feature(
             world,
-            world.objects.countries
+            world.objects.countries,
           ) as unknown as FeatureCollection<Geometry, GeoJsonProperties>;
 
           const paths = g
@@ -204,23 +183,18 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
                   event.preventDefault();
                   if (!isTooltip) return;
                   const countryName = d.properties?.name.toLowerCase();
-                  const isHighlighted =
-                    highlightedRegions.includes(countryName);
+                  const isHighlighted = highlightedRegions.includes(countryName);
 
                   if (isHighlighted) {
-                    const allCountries = regionData.flatMap(
-                      (continent) => continent.countries
-                    );
-                    const countryData = allCountries.find(
-                      (c) => c.slug === countryName
-                    );
+                    const allCountries = regionData.flatMap((continent) => continent.countries);
+                    const countryData = allCountries.find((c) => c.slug === countryName);
 
                     if (countryData) {
                       const [x, y] = d3.pointer(event, document.body);
                       tooltip.transition().duration(200).style("opacity", 0.9);
                       tooltip
                         .html(
-                          `<strong>${countryData.name}</strong><br/><img src="${countryData.imageURL}" alt="${countryData.name}" class="tooltip-image"/>`
+                          `<strong>${countryData.name}</strong><br/><img src="${countryData.imageURL}" alt="${countryData.name}" class="tooltip-image"/>`,
                         )
                         .style("left", x + 15 + "px")
                         .style("top", y - 28 + "px");
@@ -235,8 +209,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
                   tooltip.transition().duration(200).style("opacity", 0);
                   if (!isClickable) return;
                   const countryName = d.properties?.name.toLowerCase();
-                  const isHighlighted =
-                    highlightedRegions.includes(countryName);
+                  const isHighlighted = highlightedRegions.includes(countryName);
                   if (isHighlighted) {
                     router.push(`/destination/${countryName}`);
                   }
@@ -264,18 +237,14 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
                 const isHighlighted = highlightedRegions.includes(countryName);
 
                 if (isHighlighted) {
-                  const allCountries = regionData.flatMap(
-                    (continent) => continent.countries
-                  );
-                  const countryData = allCountries.find(
-                    (c) => c.slug === countryName
-                  );
+                  const allCountries = regionData.flatMap((continent) => continent.countries);
+                  const countryData = allCountries.find((c) => c.slug === countryName);
 
                   if (countryData) {
                     tooltip.transition().duration(200).style("opacity", 0.9);
                     tooltip
                       .html(
-                        `<strong>${countryData.name}</strong><br/><img src="${countryData.imageURL}" alt="${countryData.name}" class="tooltip-image"/>`
+                        `<strong>${countryData.name}</strong><br/><img src="${countryData.imageURL}" alt="${countryData.name}" class="tooltip-image"/>`,
                       )
                       .style("left", event.pageX + 15 + "px")
                       .style("top", event.pageY - 28 + "px");
@@ -331,53 +300,32 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
     ]);
 
     return (
-      <div ref={containerRef} className="relative w-full h-auto mx-auto">
+      <div ref={containerRef} className="relative mx-auto h-auto w-full">
         <div
-          className={`
-           absolute inset-0 flex items-center justify-center
-           transition-opacity duration-500 ease-in-out
-           ${isLoading ? "opacity-100" : "opacity-0 pointer-events-none"}
-         `}
+          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-100" : "pointer-events-none opacity-0"} `}
         >
           <LoadingAnimation variant="mapRoute" />
         </div>
         <svg
           ref={svgRef}
           style={{ touchAction: "none" }}
-          className={`
-           w-full h-full
-           transition-opacity duration-500 ease-in-out
-           ${isLoading ? "opacity-0" : "opacity-100"}
-         `}
+          className={`h-full w-full transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-0" : "opacity-100"} `}
         />
         {isZoomable && (
           <div
-            className={`
-             absolute top-4 left-1/2 -translate-x-1/2
-             bg-background/80 text-foreground py-2 px-4 rounded-md shadow-lg
-             transition-opacity duration-500 ease-in-out
-             ${showZoomHint ? "opacity-100" : "opacity-0 pointer-events-none"}
-           `}
+            className={`bg-background/80 text-foreground absolute top-4 left-1/2 -translate-x-1/2 rounded-md px-4 py-2 shadow-lg transition-opacity duration-500 ease-in-out ${showZoomHint ? "opacity-100" : "pointer-events-none opacity-0"} `}
           >
             <p className="text-sm">スクロールやピンチで拡大できます</p>
           </div>
         )}
         {isZoomable && !isLoading && (
-          <div
-            className="
-             absolute bottom-4 left-4
-             bg-background/80 text-foreground py-1 px-3 rounded-md shadow-lg
-             pointer-events-none
-           "
-          >
-            <p className="text-sm font-semibold">
-              ×{currentZoom.toFixed(1)}/×8.0
-            </p>
+          <div className="bg-background/80 text-foreground pointer-events-none absolute bottom-4 left-4 rounded-md px-3 py-1 shadow-lg">
+            <p className="text-sm font-semibold">×{currentZoom.toFixed(1)}/×8.0</p>
           </div>
         )}
       </div>
     );
-  }
+  },
 );
 
 WorldMap.displayName = "WorldMap";

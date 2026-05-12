@@ -62,5 +62,10 @@ public/sitemap-*.xml
 # Local Netlify folder
 .netlify
 
+# AI Agent folders
+.claude/
+.gemini/
+.agent-game-companion/
+
 # Log files
 *.log

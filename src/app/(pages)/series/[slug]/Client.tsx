@@ -22,9 +22,7 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pageParam = searchParams.get("page");
-  const [currentPage, setCurrentPage] = useState(
-    pageParam ? Number(pageParam) : 1
-  );
+  const [currentPage, setCurrentPage] = useState(pageParam ? Number(pageParam) : 1);
   // ページ番号クリック時もスクロール＆URL更新
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -49,7 +47,7 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   const paginatedPosts = allPosts.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
+    currentPage * POSTS_PER_PAGE,
   );
 
   // ページネーション表示用ページ番号リスト生成
@@ -87,17 +85,15 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
         pageMessage={series.description}
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
         {/* ==================== Series Description ==================== */}
-        <div className="mb-12 text-center text-muted-foreground space-y-4 max-w-3xl mx-auto">
-          <p className="text-lg text-foreground font-medium">
-            {series.description}
-          </p>
-          <p className="text-sm md:text-base leading-relaxed">
+        <div className="text-muted-foreground mx-auto mb-12 max-w-3xl space-y-4 text-center">
+          <p className="text-foreground text-lg font-medium">{series.description}</p>
+          <p className="text-sm leading-relaxed md:text-base">
             このシリーズでは、特定のテーマに沿って「ともきちの旅行日記」の記事をピックアップしています。
             一つの視点から旅を深掘りすることで、新しい発見やインスピレーションが見つかるかもしれません。
           </p>
-          <div className="w-20 h-0.5 bg-primary/30 mx-auto mt-6" />
+          <div className="bg-primary/30 mx-auto mt-6 h-0.5 w-20" />
         </div>
 
         {/* ==================== Article List ==================== */}
@@ -121,29 +117,18 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
                     transition: { duration: 0.8 },
                   };
             return (
-              <motion.div
-                key={post.slug}
-                {...motionProps}
-                variants={sectionVariants}
-              >
-                <PostCard
-                  post={post}
-                  showDiscoveryNote={true}
-                  size="compact"
-                />
+              <motion.div key={post.slug} {...motionProps} variants={sectionVariants}>
+                <PostCard post={post} showDiscoveryNote={true} size="compact" />
               </motion.div>
             );
           })}
         </motion.section>
 
         {/* ==================== Pagination ==================== */}
-        <section className="mt-16 flex justify-center items-center gap-2">
+        <section className="mt-16 flex items-center justify-center gap-2">
           {/* Prevボタン: 1ページ目では非表示 */}
           {currentPage !== 1 && (
-            <button
-              onClick={handlePrev}
-              className="px-4 py-2 rounded-lg bg-gray-200 text-black"
-            >
+            <button onClick={handlePrev} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
               Prev
             </button>
           )}
@@ -157,22 +142,17 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === page
-                    ? "bg-teal-600 text-white"
-                    : "bg-gray-200 text-black"
+                className={`rounded-lg px-4 py-2 ${
+                  currentPage === page ? "bg-teal-600 text-white" : "bg-gray-200 text-black"
                 }`}
               >
                 {page}
               </button>
-            )
+            ),
           )}
           {/* Nextボタン: 最終ページでは非表示 */}
           {currentPage !== totalPages && (
-            <button
-              onClick={handleNext}
-              className="px-4 py-2 rounded-lg bg-gray-200 text-black"
-            >
+            <button onClick={handleNext} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
               Next
             </button>
           )}

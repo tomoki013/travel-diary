@@ -77,7 +77,7 @@ const Destination = ({
   const worldMapRef = useRef<WorldMapHandle>(null);
   // すべての国名を小文字の配列として抽出
   const allCountryNames = regionData.flatMap((continent) =>
-    continent.countries.map((country) => country.slug)
+    continent.countries.map((country) => country.slug),
   );
 
   const handleResetZoom = () => {
@@ -98,16 +98,14 @@ const Destination = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
-      className="py-24 px-6 md:px-8 max-w-5xl mx-auto"
+      className="mx-auto max-w-5xl px-6 py-24 md:px-8"
     >
-      <div className="text-center mb-16">
-        <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-          {title}
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+      <div className="mb-16 text-center">
+        <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">{title}</h2>
+        <p className="text-muted-foreground mx-auto mt-4 max-w-2xl leading-relaxed">
           {description}
         </p>
-        <div className="w-30 h-0.5 bg-secondary mx-auto mt-6" />
+        <div className="bg-secondary mx-auto mt-6 h-0.5 w-30" />
       </div>
       <div className="relative">
         <WorldMap
@@ -119,24 +117,24 @@ const Destination = ({
           isZoomable={true}
         />
         {/* Zoom Controls */}
-        <div className="absolute bottom-4 right-4 flex flex-col space-y-2">
+        <div className="absolute right-4 bottom-4 flex flex-col space-y-2">
           <button
             onClick={handleZoomIn}
-            className="bg-primary text-primary-foreground p-2 rounded-full shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-ring rounded-full p-2 shadow-lg focus:ring-2 focus:ring-offset-2 focus:outline-none"
             aria-label="ズームイン"
           >
             <ZoomInIcon />
           </button>
           <button
             onClick={handleZoomOut}
-            className="bg-primary text-primary-foreground p-2 rounded-full shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-ring rounded-full p-2 shadow-lg focus:ring-2 focus:ring-offset-2 focus:outline-none"
             aria-label="ズームアウト"
           >
             <ZoomOutIcon />
           </button>
           <button
             onClick={handleResetZoom}
-            className="bg-primary text-primary-foreground p-2 rounded-full shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-ring rounded-full p-2 shadow-lg focus:ring-2 focus:ring-offset-2 focus:outline-none"
             aria-label="ズームをリセット"
           >
             <ResetIcon />

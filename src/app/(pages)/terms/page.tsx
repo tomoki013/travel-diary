@@ -28,7 +28,7 @@ const TermsPage = () => {
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:mx-8">
         <h1 className="mb-8 text-4xl font-bold">利用規約</h1>
 
-        <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose prose-lg dark:prose-invert max-w-none">
           <p>
             この利用規約（以下、「本規約」）は、当サイト「ともきちの旅行日記」（以下、「当サイト」）の利用条件を定めるものです。ユーザーの皆様（以下、「ユーザー」）には本規約に従って当サイトをご利用いただきます。
           </p>
@@ -43,38 +43,28 @@ const TermsPage = () => {
           <Separator className="my-8" />
 
           <h2 className="text-2xl font-bold">第2条（禁止事項）</h2>
-          <p>
-            ユーザーは、本サービスの利用にあたり、以下の行為をしてはなりません：
-          </p>
+          <p>ユーザーは、本サービスの利用にあたり、以下の行為をしてはなりません：</p>
           <ul className="list-disc pl-6">
             <li>法令または公序良俗に違反する行為</li>
             <li>犯罪行為に関連する行為</li>
-            <li>
-              当サイトのサーバーまたはネットワークの機能を破壊したり、妨害したりする行為
-            </li>
+            <li>当サイトのサーバーまたはネットワークの機能を破壊したり、妨害したりする行為</li>
             <li>当サイトのサービスの運営を妨害するおそれのある行為</li>
             <li>他のユーザーになりすます行為</li>
             <li>
               当サイトのサービスに関連して、反社会的勢力に対して直接または間接に利益を供与する行為
             </li>
-            <li>
-              当サイトのコンテンツ（文章、画像、動画等）を無断で転載、複製、配布する行為
-            </li>
+            <li>当サイトのコンテンツ（文章、画像、動画等）を無断で転載、複製、配布する行為</li>
             <li>その他、当サイトが不適切と判断する行為</li>
           </ul>
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">
-            第3条（本サービスの提供の停止等）
-          </h2>
+          <h2 className="text-2xl font-bold">第3条（本サービスの提供の停止等）</h2>
           <p>
             当サイトは、以下のいずれかの事由があると判断した場合、ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします：
           </p>
           <ul className="list-disc pl-6">
-            <li>
-              本サービスにかかるコンピュータシステムの保守点検または更新を行う場合
-            </li>
+            <li>本サービスにかかるコンピュータシステムの保守点検または更新を行う場合</li>
             <li>
               地震、落雷、火災、停電または天災などの不可抗力により、本サービスの提供が困難となった場合
             </li>
@@ -84,9 +74,7 @@ const TermsPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">
-            第4条（著作権およびコンテンツの利用）
-          </h2>
+          <h2 className="text-2xl font-bold">第4条（著作権およびコンテンツの利用）</h2>
           <p>
             当サイトに掲載されているコンテンツ（文章、画像、動画等）の著作権は、当サイトまたは正当な権利者に帰属します。ユーザーは、著作権法で認められる私的利用の範囲を超えて、無断で複製、転用、販売などの二次利用を行うことはできません。
           </p>
@@ -103,16 +91,11 @@ const TermsPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">
-            第6条（Cookieとアクセス解析ツールについて）
-          </h2>
+          <h2 className="text-2xl font-bold">第6条（Cookieとアクセス解析ツールについて）</h2>
           <p>
             当サイトは、サービスの品質向上とユーザー体験の改善を目的として、Cookie（クッキー）およびGoogle
             Analyticsなどのアクセス解析ツールを利用しています。これにより、ユーザーのサイト利用状況に関する情報を匿名で収集しますが、個人を特定するものではありません。詳細については、別途定める
-            <Link
-              href="/cookie-policy"
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href="/cookie-policy" className="text-primary hover:text-secondary underline">
               クッキーポリシー
             </Link>
             をご確認ください。
@@ -141,9 +124,7 @@ const TermsPage = () => {
 
           <Separator className="my-8" />
 
-          <p className="text-sm text-muted-foreground">
-            最終更新日：2025年8月21日
-          </p>
+          <p className="text-muted-foreground text-sm">最終更新日：2025年8月21日</p>
         </div>
       </div>
     </div>

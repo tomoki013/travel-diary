@@ -23,9 +23,7 @@ export const findRelatedPostForPhoto = (
   }
 
   const normalizedPhotoTitle = normalizeText(photo.title);
-  const locationMatches = posts.filter((post) =>
-    post.location?.includes(photo.location),
-  );
+  const locationMatches = posts.filter((post) => post.location?.includes(photo.location));
 
   const exactTitleMatch = locationMatches.find((post) => {
     const normalizedPostTitle = normalizeText(post.title);

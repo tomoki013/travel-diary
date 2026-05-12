@@ -9,7 +9,7 @@ type ArticleEntry = SafeArticleContext & {
 
 export function selectCandidateArticles(
   articles: ArticleEntry[],
-  userInput: string
+  userInput: string,
 ): SafeArticleContext[] {
   const input = userInput.toLowerCase();
   const tokens = tokenize(input);
@@ -34,7 +34,10 @@ export function selectCandidateArticles(
       })
       .slice(0, MAX_CANDIDATES);
 
-    const merged = mergeUnique(meaningful.map((x) => x.article), byDate);
+    const merged = mergeUnique(
+      meaningful.map((x) => x.article),
+      byDate,
+    );
     return merged.slice(0, MAX_CANDIDATES).map(toSafe);
   }
 
@@ -100,17 +103,29 @@ function scoreArticle(article: ArticleEntry, tokens: string[], rawInput: string)
   const comparisonWords = ["迷っ", "比較", "どっち", "違い"];
 
   if (anxietyWords.some((w) => rawInput.includes(w))) {
-    if (searchText.includes("不安") || searchText.includes("注意") || searchText.includes("初心者")) {
+    if (
+      searchText.includes("不安") ||
+      searchText.includes("注意") ||
+      searchText.includes("初心者")
+    ) {
       score += 3;
     }
   }
   if (photoWords.some((w) => rawInput.includes(w))) {
-    if (searchText.includes("写真") || searchText.includes("絶景") || article.themes?.includes("絶景")) {
+    if (
+      searchText.includes("写真") ||
+      searchText.includes("絶景") ||
+      article.themes?.includes("絶景")
+    ) {
       score += 3;
     }
   }
   if (constraintWords.some((w) => rawInput.includes(w))) {
-    if (searchText.includes("節約") || searchText.includes("アクセス") || searchText.includes("交通")) {
+    if (
+      searchText.includes("節約") ||
+      searchText.includes("アクセス") ||
+      searchText.includes("交通")
+    ) {
       score += 3;
     }
   }

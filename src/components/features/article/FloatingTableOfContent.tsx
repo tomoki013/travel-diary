@@ -5,16 +5,37 @@ import { AnimatePresence, motion } from "framer-motion";
 import { List, X } from "lucide-react";
 import {
   TableOfContentNav,
-  useArticleHeadings,
+  useHeadings,
+  useScrollSync,
+  type ArticleHeading,
 } from "@/components/features/article/TableOfContent";
 
 const SCROLL_TRIGGER_OFFSET = 120;
 
-const FloatingTableOfContent = () => {
+interface FloatingTableOfContentProps {
+  headings?: ArticleHeading[];
+  activeId?: string;
+}
+
+const FloatingTableOfContent = ({
+  headings: propHeadings,
+  activeId: propActiveId,
+}: FloatingTableOfContentProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
-  const { headings, activeId } = useArticleHeadings(true, navRef);
+
+  const localHeadings = useHeadings();
+  const headings = propHeadings ?? localHeadings;
+
+  const localActiveId = useScrollSync(
+    headings,
+    true && !propActiveId,
+    navRef,
+    true, // OK to scroll into view for floating TOC menu
+  );
+
+  const activeId = propActiveId ?? localActiveId;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +84,7 @@ const FloatingTableOfContent = () => {
             aria-label="目次を開く"
             aria-expanded={isOpen}
             aria-controls="floating-table-of-content"
-            className="fixed bottom-6 right-4 z-[70] inline-flex h-14 items-center gap-2 rounded-full border border-amber-200 bg-stone-950 px-5 text-sm font-bold text-amber-50 shadow-2xl shadow-stone-950/20 ring-1 ring-white/20 transition-colors hover:bg-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 dark:border-amber-500/30 dark:bg-amber-500 dark:text-stone-950 dark:hover:bg-amber-400 sm:right-6"
+            className="fixed right-4 bottom-6 z-[70] inline-flex h-14 items-center gap-2 rounded-full border border-amber-200 bg-stone-950 px-5 text-sm font-bold text-amber-50 shadow-2xl ring-1 shadow-stone-950/20 ring-white/20 transition-colors hover:bg-stone-900 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none sm:right-6 dark:border-amber-500/30 dark:bg-amber-500 dark:text-stone-950 dark:hover:bg-amber-400"
             initial={{ opacity: 0, y: 18, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.94 }}
@@ -101,14 +122,14 @@ const FloatingTableOfContent = () => {
               exit={{ y: "100%" }}
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
-              <div className="flex items-start justify-between gap-4 border-b border-stone-100 px-5 py-4 dark:border-stone-800 sm:px-6">
+              <div className="flex items-start justify-between gap-4 border-b border-stone-100 px-5 py-4 sm:px-6 dark:border-stone-800">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-amber-600 dark:text-amber-400">
+                  <p className="text-xs font-bold tracking-[0.22em] text-amber-600 uppercase dark:text-amber-400">
                     Table of Contents
                   </p>
                   <h2
                     id="floating-table-of-content-title"
-                    className="mt-1 font-heading text-xl font-bold text-stone-900 dark:text-stone-50"
+                    className="font-heading mt-1 text-xl font-bold text-stone-900 dark:text-stone-50"
                   >
                     目次から移動
                   </h2>
@@ -116,7 +137,7 @@ const FloatingTableOfContent = () => {
                 <button
                   type="button"
                   aria-label="目次を閉じる"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-500 transition-colors hover:bg-stone-200 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-500 transition-colors hover:bg-stone-200 hover:text-stone-900 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white"
                   onClick={() => setIsOpen(false)}
                 >
                   <X className="h-5 w-5" />

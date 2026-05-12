@@ -17,6 +17,7 @@ pnpm start         # Start production server
 ```
 
 The build process runs prebuild scripts that generate:
+
 - `.posts.cache.json` - Post content cache from `scripts/generate-post-cache.js`
 - Image index from `scripts/generate-image-index.js`
 
@@ -27,6 +28,7 @@ The build process runs prebuild scripts that generate:
 **Posts** are stored as Markdown files directly in the repository's `posts/` directory. Drafts are stored in `draft-posts/`.
 
 Post files use Markdown (.md/.mdx) with gray-matter frontmatter:
+
 ```yaml
 title: string
 dates: string[]
@@ -42,6 +44,7 @@ journey?: string       # Links to journey data
 ### Data Layer
 
 Static data files in `src/data/`:
+
 - `region.ts` - Hierarchical continent/country/city structure for destination pages
 - `series.ts` - Featured series definitions
 - `categories.ts`, `photoCategories.ts` - Category configurations
@@ -50,10 +53,12 @@ Static data files in `src/data/`:
 ### Page Structure
 
 Uses Next.js App Router with route groups:
+
 - `src/app/(pages)/` - Main pages (about, posts, gallery, destination, series, journey, etc.)
 - `src/app/api/` - API routes (search, send-email, chat)
 
 Many pages follow a Server Component + Client Component pattern:
+
 - `page.tsx` - Server component for data fetching
 - `Client.tsx` - Client component for interactivity
 
@@ -79,11 +84,13 @@ Many pages follow a Server Component + Client Component pattern:
 All AI agents MUST adhere to the following rules for blog post creation, editing, and formatting.
 
 ### Rule Source
+
 - **Primary Rules:** `draft-posts/rules/*.md`
 - Agents MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
 - Specifically, use `draft-posts/rules/EDITORIAL_BASELINE.md` as the general editorial baseline, apply `draft-posts/rules/CONTENT_STRATEGY.md` for category intent, and apply `draft-posts/rules/TRAVEL_DIARY_RULES.md` whenever working on `series: travel-diary`.
 
 ### Core Principles
+
 - **Style Consistency:** Match the existing patterns in the `posts/` directory.
 - **Fixed Targets:** Always define the target file path before starting edits.
 - **Structural Integrity:** Use proper Markdown headings (`##`, `###`), unified "Desu/Masu" (です・ます) tone, and chronological re-organization.
@@ -98,6 +105,7 @@ All AI agents MUST adhere to the following rules for blog post creation, editing
 ## Types
 
 Core types defined in `src/types/types.ts`:
+
 - `Post` / `PostMetadata` - Blog post structure
 - `Photo` - Gallery photo
 - `ContinentData`, `Country`, `City` - Destination hierarchy

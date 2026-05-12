@@ -4,27 +4,53 @@ import { z } from "zod";
 // Allowed Primitive types (whitelist)
 // ────────────────────────────────────────────
 export const ALLOWED_PRIMITIVE_TYPES = [
+  // Layout
   "section",
   "container",
   "stack",
   "grid",
-  "heading",
-  "text",
-  "badge",
-  "button",
-  "choice_grid",
+  "flex_row",
+  "flex_col",
+  "card",
+  "divider",
+  "spacer",
+  // Typography
+  "heading_h1",
+  "heading_h2",
+  "heading_h3",
+  "heading_h4",
+  "body_text",
+  "caption_text",
+  "quote_block",
+  "highlight_text",
+  // Data Display
+  "data_table",
+  "key_value_list",
+  "progress_bar",
+  "rating_stars",
+  "tag_list",
+  "timeline",
+  "comparison_columns",
+  // Feedback & Callout
+  "alert_box",
+  "tip_callout",
+  "did_you_know",
+  // Navigation & Action
+  "primary_button",
+  "secondary_button",
+  "text_link",
+  "action_card",
+  // Media
+  "image_single",
+  "image_gallery",
+  "icon_with_text",
+  "floating_action",
+  "featured_card",
+  "hero_section",
+  "gradient_text",
+  // Legacy/Rich (Keeping for compatibility)
   "article_card",
   "article_list",
-  "image",
-  "image_gallery",
-  "comparison_table",
-  "score_card",
-  "callout",
-  "tabs",
-  "accordion",
-  "timeline",
-  "next_action",
-  // Rich interactive components
   "airport_anxiety_map",
   "budget_simulator",
   "destination_comparison",
@@ -32,10 +58,29 @@ export const ALLOWED_PRIMITIVE_TYPES = [
   "packing_list",
   "photo_spots",
   "article_embedder",
+  // Aliases / Legacy
+  "heading",
+  "text",
+  "button",
+  "badge",
+  "callout",
+  "next_action",
 ] as const;
 
 export const PrimitiveTypeSchema = z.enum(ALLOWED_PRIMITIVE_TYPES);
 export type PrimitiveType = z.infer<typeof PrimitiveTypeSchema>;
+
+// ────────────────────────────────────────────
+// Intent Analysis (Step 1)
+// ────────────────────────────────────────────
+export const IntentAnalysisSchema = z.object({
+  primaryGoal: z.string().max(200),
+  keyConcerns: z.array(z.string().max(100)),
+  recommendedTone: z.string().max(100),
+  suggestedLayoutStrategy: z.string().max(300),
+});
+
+export type IntentAnalysis = z.infer<typeof IntentAnalysisSchema>;
 
 // ────────────────────────────────────────────
 // Recursive PrimitiveNode
@@ -44,6 +89,7 @@ export type PrimitiveNode = {
   id: string;
   type: PrimitiveType;
   props: Record<string, unknown>;
+  reason?: string;
   children?: PrimitiveNode[];
 };
 
@@ -52,8 +98,9 @@ export const PrimitiveNodeSchema: z.ZodType<PrimitiveNode> = z.lazy(() =>
     id: z.string().min(1).max(80),
     type: PrimitiveTypeSchema,
     props: z.record(z.string(), z.unknown()).default({}),
+    reason: z.string().max(200).optional(),
     children: z.array(PrimitiveNodeSchema).max(20).optional(),
-  })
+  }),
 );
 
 // ────────────────────────────────────────────

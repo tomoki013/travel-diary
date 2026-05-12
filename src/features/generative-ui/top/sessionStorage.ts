@@ -16,7 +16,7 @@ export type StoredGeneratedTopSession = {
 export function saveGeneratedTop(
   schema: GeneratedTopPage,
   userInput: string,
-  articleIndexVersion?: string
+  articleIndexVersion?: string,
 ): void {
   if (typeof window === "undefined") return;
   const now = Date.now();

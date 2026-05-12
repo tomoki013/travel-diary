@@ -6,8 +6,7 @@ import type { ArticleIndex } from "@/features/generative-ui/top/renderer";
 
 export const metadata: Metadata = {
   title: "旅行トップを生成する（実験機能）| ともきちの旅行日記",
-  description:
-    "あなたの旅行目的に合わせてブログトップページをAIが生成する実験ページです。",
+  description: "あなたの旅行目的に合わせてブログトップページをAIが生成する実験ページです。",
   robots: { index: false, follow: false },
 };
 
@@ -34,7 +33,7 @@ async function loadArticleIndex(): Promise<ArticleIndex> {
           summaryForAI: a.summaryForAI,
           heroImageId: a.heroImageId,
         },
-      ])
+      ]),
     );
   } catch {
     return {};
@@ -46,8 +45,8 @@ export default async function GenerativeUiTopPage() {
 
   return (
     <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <div className="border-b border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3 flex items-center gap-3">
-        <span className="text-xs font-mono px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 font-semibold">
+      <div className="flex items-center gap-3 border-b border-zinc-100 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+        <span className="rounded bg-amber-100 px-2 py-0.5 font-mono text-xs font-semibold text-amber-700 dark:bg-amber-900 dark:text-amber-300">
           実験
         </span>
         <span className="text-xs text-zinc-500 dark:text-zinc-400">

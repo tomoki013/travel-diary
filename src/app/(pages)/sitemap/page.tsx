@@ -43,9 +43,7 @@ const groupPostsByYearMonth = (posts: PostMetadata[]): YearMonthPosts => {
     .map((year) => ({
       year,
       months: Object.keys(grouped[year])
-        .sort(
-          (a, b) => Number(b.replace("月", "")) - Number(a.replace("月", ""))
-        )
+        .sort((a, b) => Number(b.replace("月", "")) - Number(a.replace("月", "")))
         .map((month) => ({ month, posts: grouped[year][month] })),
     }));
 };
@@ -87,26 +85,22 @@ export default async function SitemapPage() {
         textColor="text-foreground"
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {/* ==================== 手動更新エリア ==================== */}
           <div className="space-y-12">
             <section>
-              <h2 className="text-2xl font-bold border-b-2 border-teal-500 pb-2 mb-4">
+              <h2 className="mb-4 border-b-2 border-teal-500 pb-2 text-2xl font-bold">
                 メインページ
               </h2>
-              <ul className="space-y-2 text-foreground">
+              <ul className="text-foreground space-y-2">
                 {mainList.map((p) => (
                   <li key={p.pass}>
                     <Link
                       href={p.pass}
                       className="hover:text-secondary"
                       target={p.pass.startsWith("http") ? "_blank" : undefined}
-                      rel={
-                        p.pass.startsWith("http")
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
+                      rel={p.pass.startsWith("http") ? "noopener noreferrer" : undefined}
                     >
                       {p.name}
                     </Link>
@@ -116,16 +110,13 @@ export default async function SitemapPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold border-b-2 border-teal-500 pb-2 mb-4">
+              <h2 className="mb-4 border-b-2 border-teal-500 pb-2 text-2xl font-bold">
                 シリーズ一覧
               </h2>
-              <ul className="space-y-2 text-foreground">
+              <ul className="text-foreground space-y-2">
                 {featuredSeries.map((series) => (
                   <li key={series.id}>
-                    <Link
-                      href={`/series/${series.slug}`}
-                      className="hover:text-secondary"
-                    >
+                    <Link href={`/series/${series.slug}`} className="hover:text-secondary">
                       {series.title}
                     </Link>
                   </li>
@@ -134,7 +125,7 @@ export default async function SitemapPage() {
             </section>
 
             <div>
-              <h2 className="text-2xl font-bold border-b-2 border-teal-500 pb-2 mb-4">
+              <h2 className="mb-4 border-b-2 border-teal-500 pb-2 text-2xl font-bold">
                 国・地域別一覧
               </h2>
               <section className="space-y-4">
@@ -149,26 +140,21 @@ export default async function SitemapPage() {
 
           {/* ==================== 自動更新エリア ==================== */}
           <section className="lg:col-span-2">
-            <h2 className="text-2xl font-bold border-b-2 border-teal-500 pb-2 mb-4">
+            <h2 className="mb-4 border-b-2 border-teal-500 pb-2 text-2xl font-bold">
               全記事一覧 (時系列)
             </h2>
             <div className="space-y-8">
               {postsByYearMonth.map(({ year, months }) => (
                 <div key={year}>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    {year}年
-                  </h3>
+                  <h3 className="text-foreground text-xl font-semibold">{year}年</h3>
                   <div className="mt-2 space-y-4">
                     {months.map(({ month, posts }) => (
                       <div key={month}>
-                        <h4 className="font-bold text-foreground">{month}</h4>
-                        <ul className="mt-2 ml-4 space-y-2 text-foreground list-disc list-inside">
+                        <h4 className="text-foreground font-bold">{month}</h4>
+                        <ul className="text-foreground mt-2 ml-4 list-inside list-disc space-y-2">
                           {posts.map((post) => (
                             <li key={post.slug}>
-                              <Link
-                                href={`/posts/${post.slug}`}
-                                className="hover:text-secondary"
-                              >
+                              <Link href={`/posts/${post.slug}`} className="hover:text-secondary">
                                 {post.title}
                               </Link>
                             </li>

@@ -50,7 +50,7 @@ const FilterChipGroup = ({
   onToggle: (value: string) => void;
 }) => (
   <div>
-    <h3 className="text-lg font-semibold mb-2 font-heading">{title}</h3>
+    <h3 className="font-heading mb-2 text-lg font-semibold">{title}</h3>
     <div className="mt-2 flex flex-wrap gap-2">
       {options.map((option) => (
         <Button
@@ -89,14 +89,9 @@ const SearchSuggestions = ({
   totalResults: number | null;
 }) => {
   const canShowComponent =
-    searchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH ||
-    selectedCategory ||
-    selectedTopic;
+    searchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH || selectedCategory || selectedTopic;
 
-  const displayedSuggestions = suggestions.slice(
-    0,
-    SEARCH_CONFIG.MAX_SUGGESTIONS,
-  );
+  const displayedSuggestions = suggestions.slice(0, SEARCH_CONFIG.MAX_SUGGESTIONS);
 
   const showSeeAllButton = suggestions.length > SEARCH_CONFIG.MAX_SUGGESTIONS;
 
@@ -118,39 +113,30 @@ const SearchSuggestions = ({
   if (!canShowComponent) return null;
 
   return (
-    <div className="mt-4 bg-background border border-border rounded-lg shadow-lg">
+    <div className="bg-background border-border mt-4 rounded-lg border shadow-lg">
       {isLoading && <LoadingAnimation variant="luggageCarousel" />}
 
       {!isLoading && totalResults !== null && (
-        <div className="p-3 text-sm text-muted-foreground border-b border-border">
+        <div className="text-muted-foreground border-border border-b p-3 text-sm">
           検索結果: {totalResults}件
         </div>
       )}
 
       {!isLoading && displayedSuggestions.length > 0 && (
-        <motion.ul
-          variants={listVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-        >
+        <motion.ul variants={listVariants} initial="hidden" animate="visible" exit="hidden">
           {displayedSuggestions.map((post) => (
             <motion.li key={post.slug} variants={itemVariants} onTap={onClose}>
-              <LinkCard
-                href={`/posts/${post.slug}`}
-                title={post.title}
-                variant="minimal"
-              />
+              <LinkCard href={`/posts/${post.slug}`} title={post.title} variant="minimal" />
             </motion.li>
           ))}
         </motion.ul>
       )}
 
       {!isLoading && showSeeAllButton && (
-        <div className="p-2 border-t border-border">
+        <div className="border-border border-t p-2">
           <Button variant="ghost" className="w-full" onClick={executeSearch}>
             すべての結果を見る
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       )}
@@ -159,7 +145,7 @@ const SearchSuggestions = ({
         suggestions.length === 0 &&
         (searchTerm || selectedCategory || selectedTopic) &&
         totalResults === 0 && (
-          <div className="p-4 text-muted-foreground">
+          <div className="text-muted-foreground p-4">
             一致する記事は見つかりませんでした。
             <br />
             キーワードを変えて再度お試しください。
@@ -187,10 +173,7 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
     handleKeyDown,
   } = useSearchOverlay({ onClose });
 
-  const availableCategories = useMemo(
-    () => articleCategories.filter((c) => c.slug !== "all"),
-    [],
-  );
+  const availableCategories = useMemo(() => articleCategories.filter((c) => c.slug !== "all"), []);
   const availableTopics = useMemo(
     () => travelTopicOptions.filter((topic) => topic.slug !== "all"),
     [],
@@ -201,25 +184,25 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
       {isOpen && (
         <motion.div
           {...ANIMATION_CONFIG.overlay}
-          className="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-[110] overflow-y-auto bg-black/80 backdrop-blur-sm"
           onClick={onClose}
         >
           <motion.div
             {...ANIMATION_CONFIG.modal}
-            className="relative bg-background w-full max-w-2xl mx-auto mt-20 p-6 rounded-lg shadow-xl"
+            className="bg-background relative mx-auto mt-20 w-full max-w-2xl rounded-lg p-6 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 閉じるボタン */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full text-muted-foreground hover:bg-accent transition-colors"
+              className="text-muted-foreground hover:bg-accent absolute top-4 right-4 rounded-full p-2 transition-colors"
               aria-label="検索を閉じる"
             >
               <XIcon className="h-6 w-6" />
             </button>
 
             <div className="flex flex-col gap-6">
-              <h2 className="text-2xl font-bold font-heading">ブログ検索</h2>
+              <h2 className="font-heading text-2xl font-bold">ブログ検索</h2>
 
               {/* キーワード検索 */}
               <div className="flex flex-col gap-2">
@@ -236,18 +219,16 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
                   />
                   <Button onClick={executeSearch} disabled={isLoading}>
                     {isLoading ? (
-                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                     ) : (
-                      <SearchIcon className="h-5 w-5 mr-2" />
+                      <SearchIcon className="mr-2 h-5 w-5" />
                     )}
                     {isLoading ? "検索中..." : "検索"}
                   </Button>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground px-2">
-                ヒント:
-                「&quot;絶景&quot;」のように囲むとフレーズ検索、-除外したい単語
-                も使えます。
+              <p className="text-muted-foreground px-2 text-xs">
+                ヒント: 「&quot;絶景&quot;」のように囲むとフレーズ検索、-除外したい単語 も使えます。
               </p>
 
               <FilterChipGroup

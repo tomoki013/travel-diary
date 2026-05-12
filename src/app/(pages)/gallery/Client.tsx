@@ -8,10 +8,7 @@ import PhotoFilter from "@/components/features/gallery/PhotoFilter";
 import PhotoGrid from "@/components/features/gallery/PhotoGrid";
 import PhotoModal from "@/components/features/gallery/PhotoModal";
 import { categoryMappings } from "@/data/photoCategories";
-import {
-  buildGalleryPhotoEntries,
-  GalleryPhotoEntry,
-} from "@/lib/gallery-discovery";
+import { buildGalleryPhotoEntries, GalleryPhotoEntry } from "@/lib/gallery-discovery";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 const filterList: string[] = ["すべて", ...Object.keys(categoryMappings)];
@@ -36,10 +33,7 @@ const Client = ({ posts, photos }: ClientProps) => {
   const [activeFilter, setActiveFilter] = useState("すべて");
   const [selectedEntry, setSelectedEntry] = useState<GalleryPhotoEntry | null>(null);
 
-  const photoEntries = useMemo(
-    () => buildGalleryPhotoEntries(photos, posts),
-    [photos, posts],
-  );
+  const photoEntries = useMemo(() => buildGalleryPhotoEntries(photos, posts), [photos, posts]);
 
   useBodyScrollLock(selectedEntry !== null);
 
@@ -48,9 +42,7 @@ const Client = ({ posts, photos }: ClientProps) => {
       activeFilter === "すべて"
         ? photoEntries
         : photoEntries.filter(({ photo }) =>
-            photo.categories.some(
-              (category) => getFilterCategory(category) === activeFilter
-            )
+            photo.categories.some((category) => getFilterCategory(category) === activeFilter),
           ),
     [activeFilter, photoEntries],
   );
@@ -78,8 +70,7 @@ const Client = ({ posts, photos }: ClientProps) => {
       const currentIndex = filteredPhotos.findIndex(
         (entry) => entry.photo.id === selectedEntry.photo.id,
       );
-      const prevIndex =
-        (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
+      const prevIndex = (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
       handleSelectPhoto(filteredPhotos[prevIndex]);
     }
   };
@@ -94,8 +85,8 @@ const Client = ({ posts, photos }: ClientProps) => {
         textColor="text-foreground"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section className="mb-10 text-center text-muted-foreground space-y-4 max-w-3xl mx-auto">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <section className="text-muted-foreground mx-auto mb-10 max-w-3xl space-y-4 text-center">
           <p>
             これまでの旅先で撮影した風景や日常のワンシーンをまとめた写真ギャラリーです。アジアの熱気ある街並みからヨーロッパの歴史的な建築、自然が織りなす絶景まで、世界各地の様子を記録しています。
           </p>
@@ -116,9 +107,7 @@ const Client = ({ posts, photos }: ClientProps) => {
         photoCount={filteredPhotos.length}
         photoIndex={
           selectedEntry
-            ? filteredPhotos.findIndex(
-                (entry) => entry.photo.id === selectedEntry.photo.id,
-              )
+            ? filteredPhotos.findIndex((entry) => entry.photo.id === selectedEntry.photo.id)
             : -1
         }
         onClose={handleCloseModal}

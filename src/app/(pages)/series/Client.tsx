@@ -22,9 +22,9 @@ const Client = ({ children }: ClientProps) => {
       {/* ==================== Series List ==================== */}
       <motion.section
         variants={staggerContainer()}
-        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+        className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8"
       >
-        <div className="mb-12 text-center text-muted-foreground space-y-4 max-w-3xl mx-auto">
+        <div className="text-muted-foreground mx-auto mb-12 max-w-3xl space-y-4 text-center">
           <p>
             「ともきちの旅行日記」では、様々な国や地域での体験をいくつかのテーマに沿って「シリーズ」としてまとめています。
             バックパッカーとしてのアジア周遊から、ヨーロッパの美しい絶景・建築を巡る旅まで、
@@ -36,7 +36,7 @@ const Client = ({ children }: ClientProps) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">{children}</div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">{children}</div>
       </motion.section>
     </div>
   );

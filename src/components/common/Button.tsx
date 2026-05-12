@@ -8,10 +8,10 @@ interface ButtonProps {
 
 const Button = ({ children, href, className }: ButtonProps) => {
   return (
-    <div className="text-center mt-16">
+    <div className="mt-16 text-center">
       <Link
         href={href}
-        className={`inline-block py-3 px-10 bg-secondary text-white uppercase text-sm font-bold tracking-wider rounded-full border-2 border-secondary transition-all duration-300 ease-in-out hover:bg-transparent hover:text-secondary ${className}`}
+        className={`bg-secondary border-secondary hover:text-secondary inline-block rounded-full border-2 px-10 py-3 text-sm font-bold tracking-wider text-white uppercase transition-all duration-300 ease-in-out hover:bg-transparent ${className}`}
       >
         {children}
       </Link>

@@ -13,10 +13,7 @@ export async function GET(request: Request) {
   const topic = searchParams.get("topic") as TravelTopic | null;
 
   if (!query && !category && !topic) {
-    return NextResponse.json(
-      { error: "Query or filter parameter is missing" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Query or filter parameter is missing" }, { status: 400 });
   }
 
   try {
@@ -28,9 +25,7 @@ export async function GET(request: Request) {
     }
 
     if (topic) {
-      postsToSearch = postsToSearch.filter((post) =>
-        post.travelTopics?.includes(topic)
-      );
+      postsToSearch = postsToSearch.filter((post) => post.travelTopics?.includes(topic));
     }
 
     let finalPosts = postsToSearch;
@@ -38,18 +33,14 @@ export async function GET(request: Request) {
     if (query) {
       const filteredBySearch = filterPostsBySearch(postsToSearch, query);
       const scoredPosts = calculateScores(filteredBySearch, query);
-      finalPosts = scoredPosts
-        .sort((a, b) => b.score - a.score)
-        .map((item) => item.post);
+      finalPosts = scoredPosts.sort((a, b) => b.score - a.score).map((item) => item.post);
     }
 
     const total = finalPosts.length;
-    const suggestions = finalPosts
-      .slice(0, SEARCH_CONFIG.API_MAX_RESULTS)
-      .map((post) => ({
-        title: post.title,
-        slug: post.slug,
-      }));
+    const suggestions = finalPosts.slice(0, SEARCH_CONFIG.API_MAX_RESULTS).map((post) => ({
+      title: post.title,
+      slug: post.slug,
+    }));
 
     return NextResponse.json({
       suggestions,
@@ -57,9 +48,6 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("Search API error:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

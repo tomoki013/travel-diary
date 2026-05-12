@@ -9,23 +9,23 @@ import { sectionVariants, staggerContainer } from "@/components/common/animation
 const FeaturedSeries = () => {
   return (
     <motion.section
-      className="py-24 px-6 md:px-8 max-w-6xl mx-auto"
+      className="mx-auto max-w-6xl px-6 py-24 md:px-8"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
     >
       {/* セクションタイトル */}
-      <div className="text-center mb-16">
-        <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
+      <div className="mb-16 text-center">
+        <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">
           Featured Series
         </h2>
-        <div className="w-30 h-0.5 bg-secondary mx-auto mt-6"></div>
+        <div className="bg-secondary mx-auto mt-6 h-0.5 w-30"></div>
       </div>
 
       {/* カードグリッド */}
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+        className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
         variants={staggerContainer()}
       >
         {featuredSeries.slice(0, 6).map((series) => (

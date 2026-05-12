@@ -85,7 +85,9 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       headline: post.title,
       image: post.image ? [post.image] : [],
       datePublished: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
-      dateModified: post.dates?.[post.dates.length - 1] ? new Date(post.dates[post.dates.length - 1]).toISOString() : undefined,
+      dateModified: post.dates?.[post.dates.length - 1]
+        ? new Date(post.dates[post.dates.length - 1]).toISOString()
+        : undefined,
       author: [
         {
           "@type": "Person",
@@ -121,6 +123,8 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       ],
     };
 
+    const { content, ...postForClient } = post;
+
     return (
       <>
         <script
@@ -132,7 +136,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
         <Client
-          post={post}
+          post={postForClient}
           previousPost={previousPost}
           nextPost={nextPost}
           regionRelatedPosts={regionRelatedPosts}
@@ -142,7 +146,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
           nextSeriesPost={nextSeriesPost}
         >
           <ArticleContent
-            content={post.content}
+            content={content}
             currentPostCategory={post.category}
             allPosts={allPosts}
           />

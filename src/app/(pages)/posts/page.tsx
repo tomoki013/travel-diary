@@ -32,29 +32,21 @@ const normalizeFilters = (
 };
 
 const isDiscoveryView = (value: string): value is BlogDiscoveryView =>
-  value === "recommended" ||
-  value === "new" ||
-  value === "practical" ||
-  value === "diary";
+  value === "recommended" || value === "new" || value === "practical" || value === "diary";
 
 const PostsPage = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const searchParams = await props.searchParams;
-  const rawCategory =
-    typeof searchParams.category === "string" ? searchParams.category : "all";
+  const rawCategory = typeof searchParams.category === "string" ? searchParams.category : "all";
   const rawTopic =
     typeof searchParams.topic === "string" ? (searchParams.topic as TravelTopic) : "all";
   const { category, topic } = normalizeFilters(rawCategory, rawTopic);
-  const page =
-    typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
-  const searchQuery =
-    typeof searchParams.search === "string" ? searchParams.search : "";
-  const rawView =
-    typeof searchParams.view === "string" ? searchParams.view : "recommended";
+  const page = typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
+  const searchQuery = typeof searchParams.search === "string" ? searchParams.search : "";
+  const rawView = typeof searchParams.view === "string" ? searchParams.view : "recommended";
   const view = isDiscoveryView(rawView) ? rawView : "recommended";
-  const region =
-    typeof searchParams.region === "string" ? searchParams.region : "all";
+  const region = typeof searchParams.region === "string" ? searchParams.region : "all";
 
   const allPosts = await getAllPosts();
 
@@ -65,15 +57,11 @@ const PostsPage = async (props: {
   }
 
   if (topic !== "all") {
-    filteredPosts = filteredPosts.filter((post) =>
-      post.travelTopics?.includes(topic)
-    );
+    filteredPosts = filteredPosts.filter((post) => post.travelTopics?.includes(topic));
   }
 
   if (region !== "all") {
-    filteredPosts = filteredPosts.filter((post) =>
-      post.location?.includes(region)
-    );
+    filteredPosts = filteredPosts.filter((post) => post.location?.includes(region));
   }
 
   let processedPosts = filteredPosts;
@@ -81,9 +69,7 @@ const PostsPage = async (props: {
   if (searchQuery) {
     processedPosts = filterPostsBySearch(filteredPosts, searchQuery);
     const scoredPosts = calculateScores(processedPosts, searchQuery);
-    processedPosts = scoredPosts
-      .sort((a, b) => b.score - a.score)
-      .map((item) => item.post);
+    processedPosts = scoredPosts.sort((a, b) => b.score - a.score).map((item) => item.post);
   } else {
     processedPosts = getPostsForView(processedPosts, view);
   }

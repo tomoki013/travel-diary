@@ -6,11 +6,7 @@ import { motion } from "framer-motion";
 import { Region, Post, AllDestinationProps } from "@/types/types";
 type PostMetadata = Omit<Post, "content">;
 import PostCard from "@/components/common/PostCard";
-import {
-  sectionVariants,
-  slideFadeIn,
-  staggerContainer,
-} from "@/components/common/animation";
+import { sectionVariants, slideFadeIn, staggerContainer } from "@/components/common/animation";
 import { Wind } from "lucide-react";
 import AllDestination from "@/components/features/destination/allDestination";
 import GlobePromo from "@/components/features/promo/GlobePromo";
@@ -41,13 +37,12 @@ const Client = ({
     .flatMap((continent) => continent.countries)
     .find((c) => c.slug === region.slug);
 
-  const hasChildren =
-    country && country.children && country.children.length > 0;
+  const hasChildren = country && country.children && country.children.length > 0;
 
   return (
     <div>
       {/* ==================== Hero Section ==================== */}
-      <section className="relative h-80 md:h-96 flex items-center justify-center text-white/80 text-center">
+      <section className="relative flex h-80 items-center justify-center text-center text-white/80 md:h-96">
         <Image
           src={region.imageURL}
           alt={region.name}
@@ -57,7 +52,7 @@ const Client = ({
           priority
         />
         <div className="relative z-10 p-4">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight uppercase">
+          <h1 className="text-4xl font-bold tracking-tight uppercase md:text-6xl">
             {region.slug} - {region.name}
           </h1>
         </div>
@@ -72,12 +67,10 @@ const Client = ({
           viewport={{ once: true, amount: 0.1 }}
           variants={sectionVariants}
         >
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              この国のエリア
-            </h2>
+          <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+            <h2 className="mb-12 text-center text-3xl font-bold">この国のエリア</h2>
             <motion.div
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"
+              className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-4"
               variants={staggerContainer(0.1, 0.1)}
             >
               {country.children.map((child) => (
@@ -88,10 +81,7 @@ const Client = ({
                   viewport={{ once: true, amount: 0.1 }}
                   variants={sectionVariants}
                 >
-                  <Link
-                    href={`/destination/${child.slug}`}
-                    className="group block"
-                  >
+                  <Link href={`/destination/${child.slug}`} className="group block">
                     <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                       <Image
                         src={child.imageURL}
@@ -102,7 +92,7 @@ const Client = ({
                       />
                       <div className="absolute inset-0 transition-colors duration-300" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-center text-foreground group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-foreground group-hover:text-primary mt-4 text-center text-lg font-semibold transition-colors duration-300">
                       {child.name}
                     </h3>
                   </Link>
@@ -113,22 +103,20 @@ const Client = ({
         </motion.section>
       )}
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         {noPosts ? (
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
             variants={slideFadeIn()}
-            className="text-center bg-background border-2 border-dashed border-slate-300 rounded-xl p-8 md:p-12"
+            className="bg-background rounded-xl border-2 border-dashed border-slate-300 p-8 text-center md:p-12"
           >
-            <div className="flex justify-center mb-4">
-              <Wind className="w-16 h-16 text-slate-400" strokeWidth={1} />
+            <div className="mb-4 flex justify-center">
+              <Wind className="h-16 w-16 text-slate-400" strokeWidth={1} />
             </div>
-            <h3 className="text-2xl font-bold text-foreground">
-              まだ何もない場所
-            </h3>
-            <p className="mt-2 text-foreground max-w-md mx-auto">
+            <h3 className="text-foreground text-2xl font-bold">まだ何もない場所</h3>
+            <p className="text-foreground mx-auto mt-2 max-w-md">
               この地域に関する記事は現在準備中です。
               <br />
               新しい冒険の記録が追加されるのをお楽しみに！
@@ -143,16 +131,16 @@ const Client = ({
               viewport={{ once: true, amount: 0.1 }}
               variants={sectionVariants}
             >
-              <div className="max-w-3xl mx-auto text-center space-y-4">
-                <p className="text-xl md:text-2xl font-medium text-foreground">
+              <div className="mx-auto max-w-3xl space-y-4 text-center">
+                <p className="text-foreground text-xl font-medium md:text-2xl">
                   {region.name}の旅行ガイド・記
                 </p>
                 {region.description ? (
-                  <p className="text-lg text-foreground leading-relaxed whitespace-pre-wrap">
+                  <p className="text-foreground text-lg leading-relaxed whitespace-pre-wrap">
                     {region.description}
                   </p>
                 ) : (
-                  <p className="text-lg text-foreground leading-relaxed">
+                  <p className="text-foreground text-lg leading-relaxed">
                     {region.name}
                     の旅で役立つ情報や、旅の記録をまとめました。あなたの次の冒険の参考にしてください。
                   </p>
@@ -168,11 +156,11 @@ const Client = ({
                 viewport={{ once: true, amount: 0.1 }}
                 variants={sectionVariants}
               >
-                <h2 className="text-3xl font-bold text-center mb-8">
+                <h2 className="mb-8 text-center text-3xl font-bold">
                   この地域が登場するシリーズ記事
                 </h2>
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                  className="grid grid-cols-1 gap-8 md:grid-cols-2"
                   variants={staggerContainer()}
                 >
                   {seriesPosts.map((post, index) => (
@@ -203,11 +191,11 @@ const Client = ({
                 viewport={{ once: true, amount: 0.2 }}
                 variants={sectionVariants}
               >
-                <h2 className="text-3xl font-bold text-center mb-8">
+                <h2 className="mb-8 text-center text-3xl font-bold">
                   観光情報 - Tourist Information
                 </h2>
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
                   variants={staggerContainer()}
                 >
                   {tourismPosts.map((post, index) => (
@@ -238,11 +226,11 @@ const Client = ({
                 viewport={{ once: true, amount: 0.1 }}
                 variants={sectionVariants}
               >
-                <h2 className="text-3xl font-bold text-center mb-8">
+                <h2 className="mb-8 text-center text-3xl font-bold">
                   旅程&費用 - Itinerary & Cost
                 </h2>
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
                   variants={staggerContainer()}
                 >
                   {itineraryPosts.map((post, index) => (
@@ -273,11 +261,9 @@ const Client = ({
                 viewport={{ once: true, amount: 0.1 }}
                 variants={sectionVariants}
               >
-                <h2 className="text-3xl font-bold text-center mb-8">
-                  単発企画 - one-off project
-                </h2>
+                <h2 className="mb-8 text-center text-3xl font-bold">単発企画 - one-off project</h2>
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
                   variants={staggerContainer()}
                 >
                   {oneOffPosts.map((post, index) => (
@@ -303,21 +289,15 @@ const Client = ({
         )}
       </div>
       <GlobePromo
-        className="max-w-5xl mx-auto"
-        queryParams={
-          country
-            ? { country: region.slug }
-            : { region: region.slug }
-        }
+        className="mx-auto max-w-5xl"
+        queryParams={country ? { country: region.slug } : { region: region.slug }}
       />
 
-      <div className="mt-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          全ての旅行先を見る
-        </h2>
+      <div className="mx-auto mt-16 max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h2 className="mb-12 text-center text-3xl font-bold">全ての旅行先を見る</h2>
         <AllDestination
           regionData={regionData}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"
           countryStyle="border-b-2 border-secondary"
         />
       </div>

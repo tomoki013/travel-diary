@@ -44,12 +44,12 @@ const CookieBanner = () => {
           animate={{ y: 0 }} // 表示状態（画面下）
           exit={{ y: "100%" }} // 終了状態（画面下外へ）
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm p-4 border-t border-border"
+          className="bg-background/80 border-border fixed right-0 bottom-0 left-0 z-50 border-t p-4 backdrop-blur-sm"
         >
-          <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 relative">
+          <div className="relative container mx-auto flex flex-col items-center justify-between gap-4 sm:flex-row">
             <button
               onClick={handleDismiss}
-              className="absolute -top-2 -right-2 sm:top-1/2 sm:-translate-y-1/2 sm:-right-10 text-muted-foreground hover:text-foreground disabled:opacity-50"
+              className="text-muted-foreground hover:text-foreground absolute -top-2 -right-2 disabled:opacity-50 sm:top-1/2 sm:-right-10 sm:-translate-y-1/2"
               aria-label="閉じる"
               disabled={isAgreed} // 同意後は無効化
             >
@@ -69,11 +69,11 @@ const CookieBanner = () => {
                   {isAgreed ? (
                     <CheckCircle className="h-6 w-6 text-green-500" />
                   ) : (
-                    <Cookie className="h-6 w-6 text-primary" />
+                    <Cookie className="text-primary h-6 w-6" />
                   )}
                 </motion.div>
               </AnimatePresence>
-              <p className="text-sm text-foreground text-center sm:text-left">
+              <p className="text-foreground text-center text-sm sm:text-left">
                 {isAgreed
                   ? "ご協力ありがとうございます！"
                   : "当サイトでは、サービスの向上と最適なユーザー体験を提供するためにCookieを使用しています。"}
@@ -83,7 +83,7 @@ const CookieBanner = () => {
             <motion.div
               animate={{ opacity: isAgreed ? 0 : 1 }} // 同意後はボタンをフェードアウト
               transition={{ duration: 0.2 }}
-              className="flex-shrink-0 flex items-center gap-x-2"
+              className="flex flex-shrink-0 items-center gap-x-2"
             >
               <Button
                 asChild

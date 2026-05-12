@@ -20,7 +20,7 @@ const defaultTransition: Transition = {
 export const slideFadeIn = (
   direction: "up" | "down" | "left" | "right" = "up",
   distance: number = 30,
-  delay: number = 0
+  delay: number = 0,
 ): Variants => ({
   hidden: {
     opacity: 0,
@@ -44,10 +44,7 @@ export const slideFadeIn = (
  * @param delay - アニメーション開始までの遅延時間 (s)
  * @returns {Variants} - Framer Motion用のVariantsオブジェクト
  */
-export const fadeIn = (
-  duration: number = 0.5,
-  delay: number = 0
-): Variants => ({
+export const fadeIn = (duration: number = 0.5, delay: number = 0): Variants => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -67,7 +64,7 @@ export const fadeIn = (
  */
 export const staggerContainer = (
   staggerChildren: number = 0.1,
-  delayChildren: number = 0
+  delayChildren: number = 0,
 ): Variants => ({
   hidden: {},
   visible: {

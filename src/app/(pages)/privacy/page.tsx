@@ -27,7 +27,7 @@ const PrivacyPage = () => {
     <div className="container py-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:mx-8">
         <h1 className="mb-8 text-4xl font-bold">プライバシーポリシー</h1>
-        <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose prose-lg dark:prose-invert max-w-none">
           <p>
             当サイト「ともきちの旅行日記」（以下、「当サイト」）は、ユーザーの個人情報の保護を重要と考えています。本プライバシーポリシーでは、当サイトがどのように個人情報を収集、使用、保護するかについて説明します。
           </p>
@@ -43,9 +43,7 @@ const PrivacyPage = () => {
             <li>
               サーバーによって自動的に記録されるアクセスログ情報（IPアドレス、ブラウザの種類、リファラなど）
             </li>
-            <li>
-              Cookieを通じて収集される、個人を特定しない形でのサイト利用履歴
-            </li>
+            <li>Cookieを通じて収集される、個人を特定しない形でのサイト利用履歴</li>
           </ul>
 
           <Separator className="my-8" />
@@ -69,9 +67,7 @@ const PrivacyPage = () => {
           <Separator className="my-8" />
 
           <h2 className="text-2xl font-bold">4. 第三者への提供</h2>
-          <p>
-            当サイトは、以下の場合を除き、収集した個人情報を第三者に提供することはありません：
-          </p>
+          <p>当サイトは、以下の場合を除き、収集した個人情報を第三者に提供することはありません：</p>
           <ul className="list-disc pl-6">
             <li>ユーザーご本人の同意がある場合</li>
             <li>法令に基づく開示請求があった場合</li>
@@ -88,10 +84,7 @@ const PrivacyPage = () => {
           <p>
             当サイトでは、サービスの向上、アクセス解析、および広告配信のためにCookieを使用しています。
             Cookieの具体的な使用目的、使用しているツール、および無効化の方法などの詳細については、
-            <Link
-              href="/cookie-policy"
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href="/cookie-policy" className="text-primary hover:text-secondary underline">
               クッキーポリシー
             </Link>
             をご確認ください。
@@ -99,31 +92,36 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">
-            6. 広告の配信について
-          </h2>
+          <h2 className="text-2xl font-bold">6. 広告の配信について</h2>
           <p>
-            当サイトは、第三者配信の広告サービス（Google AdSense等）を利用しています。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」（氏名、住所、メール アドレス、電話番号は含まれません）を使用することがあります。
+            当サイトは、第三者配信の広告サービス（Google
+            AdSense等）を利用しています。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」（氏名、住所、メール
+            アドレス、電話番号は含まれません）を使用することがあります。
           </p>
           <p>
-            また、Google AdSenseに関して、このプロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、<a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-secondary">Googleポリシーと規約</a>をご覧ください。
+            また、Google
+            AdSenseに関して、このプロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、
+            <a
+              href="https://policies.google.com/technologies/ads?hl=ja"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-secondary underline"
+            >
+              Googleポリシーと規約
+            </a>
+            をご覧ください。
           </p>
 
           <Separator className="my-8" />
 
-          <h2 className="text-2xl font-bold">
-            7. アフィリエイトプログラムについて
-          </h2>
+          <h2 className="text-2xl font-bold">7. アフィリエイトプログラムについて</h2>
           <p>当サイトは、アフィリエイトプログラム参加者です。</p>
           <p>
             第三者がコンテンツおよび宣伝を提供し、訪問者から直接情報を収集し、訪問者のブラウザにCookieを設定したりこれを認識したりする場合があります。
           </p>
           <p>
             詳しい運営方針は
-            <Link
-              href={`/affiliates`}
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href={`/affiliates`} className="text-primary hover:text-secondary underline">
               アフィリエイトポリシー
             </Link>
             をご覧ください。
@@ -144,10 +142,7 @@ const PrivacyPage = () => {
           <h2 className="text-2xl font-bold">9. お問い合わせ</h2>
           <p>
             本プライバシーポリシーに関するお問い合わせは、
-            <Link
-              href="/contact"
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href="/contact" className="text-primary hover:text-secondary underline">
               お問い合わせフォーム
             </Link>
             よりご連絡ください。
@@ -162,9 +157,7 @@ const PrivacyPage = () => {
 
           <Separator className="my-8" />
 
-          <p className="text-sm text-muted-foreground">
-            最終更新日：2025年12月22日
-          </p>
+          <p className="text-muted-foreground text-sm">最終更新日：2025年12月22日</p>
         </div>
       </div>
     </div>

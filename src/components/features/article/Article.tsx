@@ -24,10 +24,7 @@ export interface ArticleContentProps {
   allPosts: PostMetadata[];
 }
 
-const ArticleContent = ({
-  content,
-  allPosts,
-}: ArticleContentProps) => {
+const ArticleContent = ({ content, allPosts }: ArticleContentProps) => {
   const markdownComponents: Components = {
     p: (props) => {
       const { node } = props;
@@ -90,11 +87,8 @@ const ArticleContent = ({
   };
 
   return (
-    <div className={cn("prose prose-lg max-w-none dark:prose-invert")}>
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkToc]}
-        components={markdownComponents}
-      >
+    <div className={cn("prose prose-lg dark:prose-invert max-w-none")}>
+      <ReactMarkdown remarkPlugins={[remarkGfm, remarkToc]} components={markdownComponents}>
         {content}
       </ReactMarkdown>
     </div>

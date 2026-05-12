@@ -27,7 +27,7 @@ const CookiePolicyPage = () => {
     <div className="container py-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:mx-8">
         <h1 className="mb-8 text-4xl font-bold">クッキーポリシー</h1>
-        <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose prose-lg dark:prose-invert max-w-none">
           <p>
             当サイト「ともきちの旅行日記」（以下、「当サイト」）では、お客様により良いサービスを提供し、快適にサイトをご利用いただくために、Cookie（クッキー）を使用しています。本クッキーポリシーでは、Cookieの定義、収集する情報の種類、その使用目的、およびお客様がCookieの設定を管理する方法について詳しくご説明いたします。
           </p>
@@ -65,7 +65,7 @@ const CookiePolicyPage = () => {
 
           <h2 className="text-2xl font-bold">3. 使用しているツールについて</h2>
 
-          <h3 className="text-xl font-bold mt-6">Google Analytics</h3>
+          <h3 className="mt-6 text-xl font-bold">Google Analytics</h3>
           <p>
             当サイトでは、Google社の提供するアクセス解析ツール「Google
             Analytics」を利用しています。Google
@@ -77,7 +77,7 @@ const CookiePolicyPage = () => {
                 href="https://marketingplatform.google.com/about/analytics/terms/jp/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Google Analytics利用規約
               </Link>
@@ -87,29 +87,27 @@ const CookiePolicyPage = () => {
                 href="https://policies.google.com/privacy?hl=ja"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Googleプライバシーポリシー
               </Link>
             </li>
           </ul>
 
-          <h3 className="text-xl font-bold mt-6">Google AdSense</h3>
+          <h3 className="mt-6 text-xl font-bold">Google AdSense</h3>
           <p>
             当サイトでは、第三者配信の広告サービス「Google
             AdSense」を利用しています。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」(氏名、住所、メールアドレス、電話番号は含まれません)
             を使用することがあります。
           </p>
-          <p>
-            Googleの広告におけるCookieの利用詳細については、以下をご確認ください。
-          </p>
+          <p>Googleの広告におけるCookieの利用詳細については、以下をご確認ください。</p>
           <ul className="list-disc pl-6">
             <li>
               <Link
                 href="https://policies.google.com/technologies/ads"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Googleの広告とプライバシーに関するポリシー
               </Link>
@@ -137,7 +135,7 @@ const CookiePolicyPage = () => {
                 href="https://support.google.com/chrome/answer/95647"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Google Chrome
               </Link>
@@ -147,7 +145,7 @@ const CookiePolicyPage = () => {
                 href="https://support.mozilla.org/ja/kb/block-websites-storing-cookies-site-data-firefox"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Mozilla Firefox
               </Link>
@@ -157,7 +155,7 @@ const CookiePolicyPage = () => {
                 href="https://support.apple.com/ja-jp/guide/safari/sfri11471/mac"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Apple Safari
               </Link>
@@ -167,19 +165,16 @@ const CookiePolicyPage = () => {
                 href="https://support.microsoft.com/ja-jp/microsoft-edge/microsoft-edge-%E3%81%A7-cookie-%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B-63947406-40ac-c3b8-57b9-2a946a29ae09"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Microsoft Edge
               </Link>
             </li>
           </ul>
 
-          <h3 className="text-xl font-bold mt-6">
-            Google Analyticsのオプトアウト
-          </h3>
+          <h3 className="mt-6 text-xl font-bold">Google Analyticsのオプトアウト</h3>
           <p>
-            Google
-            Analyticsによるデータ収集を無効にしたい場合は、Google社が提供する「Google
+            Google Analyticsによるデータ収集を無効にしたい場合は、Google社が提供する「Google
             Analyticsオプトアウトアドオン」をご利用ください。
           </p>
           <ul className="list-disc pl-6">
@@ -188,7 +183,7 @@ const CookiePolicyPage = () => {
                 href="https://tools.google.com/dlpage/gaoptout"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline hover:text-secondary"
+                className="text-primary hover:text-secondary underline"
               >
                 Google Analyticsオプトアウトアドオン
               </Link>
@@ -207,10 +202,7 @@ const CookiePolicyPage = () => {
           <h2 className="text-2xl font-bold">7. お問い合わせ</h2>
           <p>
             本クッキーポリシーに関するお問い合わせは、
-            <Link
-              href="/contact"
-              className="text-primary underline hover:text-secondary"
-            >
+            <Link href="/contact" className="text-primary hover:text-secondary underline">
               お問い合わせフォーム
             </Link>
             よりご連絡ください。
@@ -218,9 +210,7 @@ const CookiePolicyPage = () => {
 
           <Separator className="my-8" />
 
-          <p className="text-sm text-muted-foreground">
-            最終更新日：2025年12月22日
-          </p>
+          <p className="text-muted-foreground text-sm">最終更新日：2025年12月22日</p>
         </div>
       </div>
     </div>

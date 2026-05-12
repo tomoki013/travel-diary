@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   if (!correctPassword) {
     return NextResponse.json(
       { message: "Server configuration error: PREVIEW_PASSWORD not set" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 

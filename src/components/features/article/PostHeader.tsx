@@ -5,22 +5,21 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronRight, MapPin } from "lucide-react";
 import { getDatePrefix } from "@/lib/dateFormat";
-import { Post } from "@/types/types";
+import { PostMetadata } from "@/types/types";
 import { featuredSeries } from "@/data/series";
 import { getRegionPath, getValidRegionsBySlugs } from "@/lib/regionUtil";
 import { getCategoryTitle, getTravelTopicTitle } from "@/data/categories";
 import { members } from "@/data/member";
 
 interface PostHeaderProps {
-  post: Post;
+  post: PostMetadata;
   variant?: "full" | "titleOnly";
 }
 
 const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
   const series = featuredSeries.find((s) => s.slug === post.series);
   const regionTags = getValidRegionsBySlugs(post.location || []);
-  const primarySlug =
-    post.location && post.location.length > 0 ? post.location[0] : undefined;
+  const primarySlug = post.location && post.location.length > 0 ? post.location[0] : undefined;
   const regionPath = primarySlug ? getRegionPath(primarySlug) : [];
   const country = regionPath.length > 0 ? regionPath[1] : null;
   const categoryTitle = getCategoryTitle(post.category);
@@ -31,24 +30,18 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
   const author = members.find((m) => m.name === post.author);
 
   return (
-    <motion.header
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
+    <motion.header initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
       {isTitleOnly ? (
-        <h1 className="mb-2 text-3xl font-bold text-foreground md:text-5xl">
-          {post.title}
-        </h1>
+        <h1 className="text-foreground mb-2 text-3xl font-bold md:text-5xl">{post.title}</h1>
       ) : (
         <>
           {post.isPromotion && (
-            <section className="my-6 flex items-center justify-center rounded-md border border-stone-200 bg-stone-100 py-3 text-xs text-stone-600 dark:border-stone-800 dark:bg-stone-900/50 dark:text-stone-400 md:text-sm">
+            <section className="my-6 flex items-center justify-center rounded-md border border-stone-200 bg-stone-100 py-3 text-xs text-stone-600 md:text-sm dark:border-stone-800 dark:bg-stone-900/50 dark:text-stone-400">
               <p>
                 ※本記事はプロモーションを含みます。詳しくは
                 <Link
                   href={`/affiliates`}
-                  className="text-amber-600 dark:text-amber-400 underline hover:text-amber-700 ml-1"
+                  className="ml-1 text-amber-600 underline hover:text-amber-700 dark:text-amber-400"
                 >
                   アフィリエイトポリシー
                 </Link>
@@ -58,10 +51,10 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
           )}
 
           <nav
-            className="mb-6 flex flex-wrap items-center text-xs font-medium text-stone-500 dark:text-stone-400 md:text-sm"
+            className="mb-6 flex flex-wrap items-center text-xs font-medium text-stone-500 md:text-sm dark:text-stone-400"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="hover:text-amber-600 transition-colors">
+            <Link href="/" className="transition-colors hover:text-amber-600">
               Home
             </Link>
             {country && (
@@ -69,16 +62,14 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
                 <ChevronRight size={14} className="mx-1.5 opacity-50" />
                 <Link
                   href={`/destination/${country.slug}`}
-                  className="hover:text-amber-600 transition-colors"
+                  className="transition-colors hover:text-amber-600"
                 >
                   {country.name}
                 </Link>
               </>
             )}
             <ChevronRight size={14} className="mx-1.5 opacity-50" />
-            <span className="truncate text-stone-700 dark:text-stone-300">
-              {post.title}
-            </span>
+            <span className="truncate text-stone-700 dark:text-stone-300">{post.title}</span>
           </nav>
 
           <div className="mb-6 flex flex-wrap gap-2">
@@ -119,13 +110,13 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
               ))}
           </div>
 
-          <h1 className="mb-6 text-3xl font-extrabold leading-[1.3] tracking-tight text-stone-900 dark:text-stone-50 md:text-5xl lg:text-5xl">
+          <h1 className="mb-6 text-3xl leading-[1.3] font-extrabold tracking-tight text-stone-900 md:text-5xl lg:text-5xl dark:text-stone-50">
             {post.title}
           </h1>
 
-          <div className="mb-8 flex flex-col justify-between gap-4 border-y border-stone-200 py-4 text-sm font-medium text-stone-600 dark:border-stone-800 dark:text-stone-400 sm:flex-row sm:items-center">
+          <div className="mb-8 flex flex-col justify-between gap-4 border-y border-stone-200 py-4 text-sm font-medium text-stone-600 sm:flex-row sm:items-center dark:border-stone-800 dark:text-stone-400">
             <div className="flex items-center gap-2">
-              <span className="text-xs uppercase tracking-widest opacity-80">
+              <span className="text-xs tracking-widest uppercase opacity-80">
                 {getDatePrefix(post.category)}
               </span>
               <span className="font-code text-stone-900 dark:text-stone-300">
@@ -150,11 +141,11 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
           </div>
 
           {post.category === "tourism" && post.excerpt && (
-            <section className="mb-10 rounded-xl border border-stone-200 bg-stone-50/50 p-6 shadow-sm dark:border-stone-800 dark:bg-stone-900/20 md:p-8">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-500">
+            <section className="mb-10 rounded-xl border border-stone-200 bg-stone-50/50 p-6 shadow-sm md:p-8 dark:border-stone-800 dark:bg-stone-900/20">
+              <p className="mb-3 text-xs font-bold tracking-[0.2em] text-amber-700 uppercase dark:text-amber-500">
                 Introduction
               </p>
-              <p className="text-base leading-loose text-stone-800 dark:text-stone-200 md:text-lg">
+              <p className="text-base leading-loose text-stone-800 md:text-lg dark:text-stone-200">
                 {post.excerpt}
               </p>
             </section>
@@ -167,12 +158,11 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
                 alt={post.title}
                 width={1200}
                 height={675}
-                className="w-full aspect-video object-cover hover:scale-105 transition-transform duration-700"
+                className="aspect-video w-full object-cover transition-transform duration-700 hover:scale-105"
                 priority
               />
             </div>
           )}
-
         </>
       )}
     </motion.header>

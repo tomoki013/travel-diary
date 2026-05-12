@@ -114,21 +114,20 @@ function sanitizeNode(node: PrimitiveNode, validArticleIds: Set<string>): Primit
     id: sanitizeString(node.id),
     type: node.type,
     props,
+    reason: node.reason ? sanitizeString(node.reason).slice(0, 200) : undefined,
     children: children && children.length > 0 ? children : undefined,
   };
 }
 
 export function sanitizeGeneratedSchema(
   schema: GeneratedTopPage,
-  validArticleIds: Set<string>
+  validArticleIds: Set<string>,
 ): GeneratedTopPage {
   const sanitizedSections = schema.sections
     .map((node) => sanitizeNode(node, validArticleIds))
     .filter((n): n is PrimitiveNode => n !== null);
 
-  const sanitizedUsedArticleIds = schema.usedArticleIds.filter((id) =>
-    validArticleIds.has(id)
-  );
+  const sanitizedUsedArticleIds = schema.usedArticleIds.filter((id) => validArticleIds.has(id));
 
   return {
     ...schema,

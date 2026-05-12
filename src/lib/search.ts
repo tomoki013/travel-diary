@@ -11,14 +11,11 @@ const parseQuery = (query: string) => {
   let remainingQuery = query;
 
   // フレーズ (例: "exact match")
-  const phrases = (remainingQuery.match(/"[^"]+"/g) || []).map((p) =>
-    p.slice(1, -1),
-  );
+  const phrases = (remainingQuery.match(/"[^"]+"/g) || []).map((p) => p.slice(1, -1));
   remainingQuery = remainingQuery.replace(/"[^"]+"/g, "").trim();
 
   // 除外単語 (例: -exclude)
-  const notTerms =
-    (remainingQuery.match(/-\S+/g) || []).map((t) => t.slice(1)) || [];
+  const notTerms = (remainingQuery.match(/-\S+/g) || []).map((t) => t.slice(1)) || [];
   remainingQuery = remainingQuery.replace(/-\S+/g, "").trim();
 
   // OR グループ (AND条件で結合された単語のグループ)
@@ -38,10 +35,7 @@ const escapeRegExp = (str: string) => {
 };
 
 // 検索ロジックを定義
-export const filterPostsBySearch = (
-  posts: PostMetadata[],
-  query: string,
-): PostMetadata[] => {
+export const filterPostsBySearch = (posts: PostMetadata[], query: string): PostMetadata[] => {
   if (!query) {
     return posts;
   }
@@ -66,10 +60,7 @@ export const filterPostsBySearch = (
     const checkMatch = (term: string) => {
       const lowerTerm = term.toLowerCase();
       if (lowerTerm.includes("*")) {
-        const regex = new RegExp(
-          escapeRegExp(lowerTerm).replace(/\\\*/g, ".*"),
-          "i",
-        );
+        const regex = new RegExp(escapeRegExp(lowerTerm).replace(/\\\*/g, ".*"), "i");
         return searchableFields.some((field) => regex.test(field));
       }
       return searchableFields.some((field) => field.includes(lowerTerm));

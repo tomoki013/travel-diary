@@ -11,7 +11,7 @@ interface PhotoGridProps {
 
 const PhotoGrid = ({ photos, onSelectPhoto }: PhotoGridProps) => {
   return (
-    <motion.div layout className="columns-2 md:columns-3 lg:columns-4 gap-4">
+    <motion.div layout className="columns-2 gap-4 md:columns-3 lg:columns-4">
       <AnimatePresence initial={false}>
         {photos.map((entry) => {
           const { photo } = entry;
@@ -25,7 +25,7 @@ const PhotoGrid = ({ photos, onSelectPhoto }: PhotoGridProps) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => onSelectPhoto(entry)}
-              className="group mb-4 break-inside-avoid-column cursor-pointer"
+              className="group mb-4 cursor-pointer break-inside-avoid-column"
             >
               <div className="relative overflow-hidden rounded-xl shadow-md transition-shadow duration-300 hover:shadow-xl">
                 <Image
@@ -35,8 +35,8 @@ const PhotoGrid = ({ photos, onSelectPhoto }: PhotoGridProps) => {
                   height={400}
                   className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-4 pb-4 pt-10 text-white">
-                  <p className="text-sm font-semibold leading-snug">{photo.title}</p>
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-4 pt-10 pb-4 text-white">
+                  <p className="text-sm leading-snug font-semibold">{photo.title}</p>
                 </div>
               </div>
             </motion.div>

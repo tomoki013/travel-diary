@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  ReactNode,
-} from "react";
+import { createContext, useCallback, useContext, useMemo, useState, ReactNode } from "react";
 
 interface UIContextValue {
   isMobileMenuOpen: boolean;
@@ -72,7 +65,7 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
       openSearch,
       closeSearch,
       toggleSearch,
-    ]
+    ],
   );
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;

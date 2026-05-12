@@ -69,7 +69,7 @@ const DraftPreviewPage = async (props: { params: Promise<{ slug: string }> }) =>
 
     return (
       <div className="relative">
-        <div className="sticky top-0 z-50 bg-yellow-500 text-black text-center py-1 font-bold">
+        <div className="sticky top-0 z-50 bg-yellow-500 py-1 text-center font-bold text-black">
           PREVIEW MODE - DRAFT POST
         </div>
         <Client

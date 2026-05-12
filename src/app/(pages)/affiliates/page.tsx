@@ -9,7 +9,7 @@ const Affiliates = () => {
     <div className="container py-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:mx-8">
         <h1 className="mb-8 text-4xl font-bold">アフィリエイトポリシー</h1>
-        <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose prose-lg dark:prose-invert max-w-none">
           <p>
             当サイトでは、商品やサービスを紹介する際にアフィリエイトプログラムを利用しています。
             読者の皆様に誠実な情報を提供するため、以下の方針を遵守することをお約束します。
@@ -34,13 +34,9 @@ const Affiliates = () => {
             </li>
           </ol>
 
-          <p>
-            当サイトのレビューが、あなたの素晴らしい選択の一助となれば幸いです。
-          </p>
+          <p>当サイトのレビューが、あなたの素晴らしい選択の一助となれば幸いです。</p>
 
-          <h2 className="mt-12 text-2xl font-bold">
-            参加アフィリエイトプログラム
-          </h2>
+          <h2 className="mt-12 text-2xl font-bold">参加アフィリエイトプログラム</h2>
           <p>
             当サイトは、以下のアフィリエイトプログラムに参加しています。
             これらのプログラムは、商品およびサービスを提供している企業との提携を可能にするためのものです。
@@ -62,9 +58,7 @@ const Affiliates = () => {
 
           <Separator className="my-8" />
 
-          <p className="text-sm text-muted-foreground">
-            最終更新日：2025年12月22日
-          </p>
+          <p className="text-muted-foreground text-sm">最終更新日：2025年12月22日</p>
         </div>
       </div>
     </div>

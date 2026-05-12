@@ -5,24 +5,24 @@
 
 ## 1. Frontmatter
 
-| キー | 型 | 必須/任意 | 説明 | 使用タイミング |
-| :-- | :-- | :-- | :-- | :-- |
-| `title` | `string` | 必須 | 記事タイトル | 全記事 |
-| `dates` | `string[]` | 必須 | 日付配列。`["2024-03-10"]` | 全記事 |
-| `category` | `string` | 必須 | `tourism`, `itinerary`, `series`, `one-off` | 全記事 |
-| `excerpt` | `string` | 任意 | 要約。100 から 150 文字程度 | 一覧・SEO |
-| `image` | `string` | 必須 | アイキャッチ画像のパス | 全記事 |
-| `tags` | `string[]` | 任意 | 検索・フリーワード導線用タグ | 全記事 |
-| `location` | `string[]` | 任意 | `src/data/region.ts` の `slug` | 全記事 |
-| `author` | `string` | 任意 | 著者名。デフォルトは `ともきち` | 全記事 |
-| `id` | `string` | 任意 | 記事のユニーク ID | 管理上必要な場合 |
-| `budget` | `number` | 任意 | 旅行の総予算 | `category: itinerary` |
-| `costs` | `Record` | 任意 | 費用の内訳 | `category: itinerary` |
-| `series` | `string` | 任意 | 連載シリーズの slug | `category: series` |
-| `journey` | `string` | 任意 | `journey.ts` の ID | 旅程に紐づく記事 |
-| `travelTopics` | `string[]` | 任意 | 実用情報ラベル | 実用性の高い `tourism` |
-| `isPromotion` | `boolean` | 任意 | PR 記事かどうか | PR 記事のみ |
-| `promotionPG` | `string[]` | 任意 | プロモーション種別やリンク情報 | PR 記事のみ |
+| キー           | 型         | 必須/任意 | 説明                                        | 使用タイミング         |
+| :------------- | :--------- | :-------- | :------------------------------------------ | :--------------------- |
+| `title`        | `string`   | 必須      | 記事タイトル                                | 全記事                 |
+| `dates`        | `string[]` | 必須      | 日付配列。`["2024-03-10"]`                  | 全記事                 |
+| `category`     | `string`   | 必須      | `tourism`, `itinerary`, `series`, `one-off` | 全記事                 |
+| `excerpt`      | `string`   | 任意      | 要約。100 から 150 文字程度                 | 一覧・SEO              |
+| `image`        | `string`   | 必須      | アイキャッチ画像のパス                      | 全記事                 |
+| `tags`         | `string[]` | 任意      | 検索・フリーワード導線用タグ                | 全記事                 |
+| `location`     | `string[]` | 任意      | `src/data/region.ts` の `slug`              | 全記事                 |
+| `author`       | `string`   | 任意      | 著者名。デフォルトは `ともきち`             | 全記事                 |
+| `id`           | `string`   | 任意      | 記事のユニーク ID                           | 管理上必要な場合       |
+| `budget`       | `number`   | 任意      | 旅行の総予算                                | `category: itinerary`  |
+| `costs`        | `Record`   | 任意      | 費用の内訳                                  | `category: itinerary`  |
+| `series`       | `string`   | 任意      | 連載シリーズの slug                         | `category: series`     |
+| `journey`      | `string`   | 任意      | `journey.ts` の ID                          | 旅程に紐づく記事       |
+| `travelTopics` | `string[]` | 任意      | 実用情報ラベル                              | 実用性の高い `tourism` |
+| `isPromotion`  | `boolean`  | 任意      | PR 記事かどうか                             | PR 記事のみ            |
+| `promotionPG`  | `string[]` | 任意      | プロモーション種別やリンク情報              | PR 記事のみ            |
 
 ## 2. Frontmatter の運用
 

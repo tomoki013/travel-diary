@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const imageDirectory = path.join(process.cwd(), 'public/images');
+const imageDirectory = path.join(process.cwd(), "public/images");
 
 async function generateIndex() {
-  console.log('Starting image index generation...');
+  console.log("Starting image index generation...");
   try {
     const countryDirectories = fs
       .readdirSync(imageDirectory, { withFileTypes: true })
@@ -13,15 +13,15 @@ async function generateIndex() {
 
     for (const country of countryDirectories) {
       const countryPath = path.join(imageDirectory, country);
-      const metadataPath = path.join(countryPath, 'metadata.json');
-      const indexPath = path.join(countryPath, 'index.json');
+      const metadataPath = path.join(countryPath, "metadata.json");
+      const indexPath = path.join(countryPath, "index.json");
 
       if (!fs.existsSync(metadataPath)) {
         console.warn(`⚠️ Warning: metadata.json not found in ${countryPath}. Skipping.`);
         continue;
       }
 
-      const metadataContent = fs.readFileSync(metadataPath, 'utf-8');
+      const metadataContent = fs.readFileSync(metadataPath, "utf-8");
       const metadata = JSON.parse(metadataContent);
 
       if (!Array.isArray(metadata)) {
@@ -50,16 +50,18 @@ async function generateIndex() {
             url: `/images/${country}/${fileName}`,
           };
         } else {
-          console.warn(`⚠️ Warning: Image file '${photo.fileName}' listed in ${metadataPath} not found in ${countryPath}.`);
+          console.warn(
+            `⚠️ Warning: Image file '${photo.fileName}' listed in ${metadataPath} not found in ${countryPath}.`,
+          );
         }
       }
 
       fs.writeFileSync(indexPath, JSON.stringify(newIndex, null, 2));
       console.log(`✅ Successfully generated index.json for ${country}`);
     }
-    console.log('Image index generation complete.');
+    console.log("Image index generation complete.");
   } catch (error) {
-    console.error('❌ An error occurred during index generation:', error);
+    console.error("❌ An error occurred during index generation:", error);
     process.exit(1);
   }
 }

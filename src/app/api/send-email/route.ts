@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   if (!name || !email || !subject || !message || !inquiryType) {
     return NextResponse.json(
       { message: "すべてのフィールドを入力してください。" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -31,10 +31,7 @@ export async function POST(req: Request) {
       text: `名前: ${name}\nメール: ${email}\n種類: ${inquiryType}\n\nメッセージ:\n${message}`,
     });
 
-    return NextResponse.json(
-      { message: "メールが送信されました。" },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: "メールが送信されました。" }, { status: 200 });
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("メール送信エラー:", error.message);
@@ -42,9 +39,6 @@ export async function POST(req: Request) {
     } else {
       console.error("予期しないエラー:", error);
     }
-    return NextResponse.json(
-      { message: "メール送信に失敗しました。" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "メール送信に失敗しました。" }, { status: 500 });
   }
 }

@@ -8,8 +8,7 @@ let previousPaddingRight = "";
 
 const lockBodyScroll = () => {
   const body = document.body;
-  const scrollbarWidth =
-    window.innerWidth - document.documentElement.clientWidth;
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
   if (lockCount === 0) {
     previousOverflow = body.style.overflow;
