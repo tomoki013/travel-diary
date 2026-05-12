@@ -27,6 +27,7 @@ type ClientPost = Omit<Post, "content">;
 interface ClientProps {
   children: React.ReactNode;
   post: ClientPost;
+  headings?: { id: string; text: string; level: number }[];
   previousPost?: { href: string; title: string };
   nextPost?: { href: string; title: string };
   regionRelatedPosts?: Omit<Post, "content">[];
@@ -53,6 +54,7 @@ const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"
 const Client = ({
   children,
   post,
+  headings: propHeadings,
   previousPost,
   nextPost,
   regionRelatedPosts,
@@ -61,9 +63,11 @@ const Client = ({
   previousSeriesPost,
   nextSeriesPost,
 }: ClientProps) => {
-  const headings = useHeadings();
-  const activeId = useScrollSync(headings, true);
+  const headings = useHeadings(!propHeadings);
+  const activeId = useScrollSync(propHeadings ?? headings, true);
   const author = members.find((m) => m.name === post.author);
+
+  const finalHeadings = propHeadings ?? headings;
 
   // Filter relevant travel essentials based on post topics and promotions
   const getRelevantEssentials = () => {
@@ -120,7 +124,7 @@ const Client = ({
 
   return (
     <div className="relative">
-      <FloatingTableOfContent headings={headings} activeId={activeId} />
+      <FloatingTableOfContent headings={finalHeadings} activeId={activeId} />
       <motion.div
         transition={FOCUS_SECTION_TRANSITION}
         className="relative z-40 mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8"
@@ -130,7 +134,7 @@ const Client = ({
         {post.costs && <CostBreakdown costs={post.costs} />}
 
         <div className="my-12">
-          <TableOfContent headings={headings} activeId={activeId} isScrollSyncEnabled />
+          <TableOfContent headings={finalHeadings} activeId={activeId} isScrollSyncEnabled />
         </div>
 
         <div className="mt-12 w-full">

@@ -1,11 +1,15 @@
 import { getPostBySlug, getPostData } from "@/lib/posts";
 import { getAllPosts } from "@/lib/post-metadata";
 import Client from "./Client";
-import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 import ArticleContent from "@/components/features/article/Article";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PRIMARY_SITE_URL } from "@/constants/site";
+import dynamic from "next/dynamic";
+
+const InstallPWAButton = dynamic(() => import("@/components/features/pwa/InstallPWAButton"), {
+  ssr: false,
+});
 
 export const dynamicParams = false;
 
@@ -123,7 +127,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       ],
     };
 
-    const { content, ...postForClient } = post;
+    const { content, headings, ...postForClient } = post;
 
     return (
       <>
@@ -137,6 +141,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
         />
         <Client
           post={postForClient}
+          headings={headings}
           previousPost={previousPost}
           nextPost={nextPost}
           regionRelatedPosts={regionRelatedPosts}

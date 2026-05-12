@@ -7,6 +7,7 @@ export interface Post {
   title: string;
   dates: string[];
   content: string;
+  headings?: { id: string; text: string; level: number }[];
   category: string;
   id?: string;
   excerpt?: string;

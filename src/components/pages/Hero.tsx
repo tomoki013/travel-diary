@@ -1,7 +1,16 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { LoadingAnimation } from "../features/LoadingAnimation/LoadingAnimation";
 import { allRegions } from "@/lib/regionUtil";
-import WorldMap from "../features/worldMap/WorldMap";
+
+const WorldMap = dynamic(() => import("../features/worldMap/WorldMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex aspect-square w-full items-center justify-center">
+      <LoadingAnimation variant="mapRoute" />
+    </div>
+  ),
+});
 import { regionData } from "@/data/region";
 import { shuffleArray } from "@/lib/shuffleArray";
 
@@ -18,6 +27,8 @@ const Hero = () => {
         fill
         className="-z-10 object-cover"
         priority
+        fetchPriority="high"
+        sizes="100vw"
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-stone-900/60 via-stone-900/40 to-stone-900/70" />
 

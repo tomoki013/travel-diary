@@ -25,12 +25,12 @@ const FloatingTableOfContent = ({
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
-  const localHeadings = useHeadings();
+  const localHeadings = useHeadings(!propHeadings);
   const headings = propHeadings ?? localHeadings;
 
   const localActiveId = useScrollSync(
     headings,
-    true && !propActiveId,
+    isVisible && !propActiveId,
     navRef,
     true, // OK to scroll into view for floating TOC menu
   );

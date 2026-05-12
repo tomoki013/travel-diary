@@ -18,6 +18,25 @@ function ensureStringArray(value) {
   return [];
 }
 
+function extractHeadings(content) {
+  const lines = content.split("\n");
+  const headings = [];
+  let index = 0;
+
+  for (const line of lines) {
+    const match = line.match(/^(#{2,3})\s+(.*)$/);
+    if (match) {
+      const level = match[1].length;
+      const text = match[2].trim().replace(/[*_]/g, ""); // Remove basic markdown decoration
+      const escapedText = text.replace(/\s+/g, "-");
+      // Use simpler ID logic to match CustomMarkdown or at least be stable
+      const id = escapedText;
+      headings.push({ id, text, level });
+    }
+  }
+  return headings;
+}
+
 async function generatePostsMetadata() {
   console.log("Generating posts metadata index...");
 
@@ -37,6 +56,7 @@ async function generatePostsMetadata() {
       const fileContents = await fs.readFile(fullPath, "utf8");
       const { data, content } = matter(fileContents);
       const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();
+      const headings = extractHeadings(content);
 
       postsMetadata.push({
         slug,
@@ -63,6 +83,7 @@ async function generatePostsMetadata() {
         title: data.title || "",
         dates: ensureStringArray(data.dates),
         content,
+        headings, // Pre-parsed headings
         category: data.category || "",
         excerpt: data.excerpt || "",
         image: data.image || undefined,
