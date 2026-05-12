@@ -57,17 +57,17 @@ const Background = () => {
 
   return (
     <div
-      className="fixed inset-0 -z-50 h-full w-full overflow-hidden pointer-events-none"
+      className="pointer-events-none fixed inset-0 -z-50 h-full w-full overflow-hidden"
       aria-hidden="true"
     >
-      <svg className="h-full w-full opacity-60" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <svg
+        className="h-full w-full opacity-60"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
         {/* Removed feGaussianBlur filter as it's very heavy on scroll */}
         {particles.map((p) => (
-          <circle
-            key={p.id}
-            r={p.size}
-            fill={particleColor}
-          >
+          <circle key={p.id} r={p.size} fill={particleColor}>
             <animate
               attributeName="cx"
               from={`${p.x}%`}
@@ -98,7 +98,7 @@ const Background = () => {
           </circle>
         ))}
       </svg>
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+      <div className="from-background via-background/80 absolute inset-0 bg-gradient-to-t to-transparent"></div>
     </div>
   );
 };

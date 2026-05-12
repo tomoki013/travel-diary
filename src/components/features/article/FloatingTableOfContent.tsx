@@ -32,7 +32,7 @@ const FloatingTableOfContent = ({
     headings,
     true && !propActiveId,
     navRef,
-    true // OK to scroll into view for floating TOC menu
+    true, // OK to scroll into view for floating TOC menu
   );
 
   const activeId = propActiveId ?? localActiveId;
