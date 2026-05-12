@@ -4,9 +4,12 @@
 
 ## 命名例
 
+- `2026-05-css-reduction.md`
+- `2026-05-font-optimization.md`
 - `2026-05-background-lightweight.md`
 - `2026-05-search-overlay-dynamic-import.md`
 - `2026-05-third-party-script-delay.md`
+- `2026-05-image-sizes.md`
 
 ## 記録項目
 
