@@ -81,6 +81,12 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "ともきちの旅行日記",
   },
+  verification: {
+    other: {
+      "impact-site-verification": ["6961c957-6c21-44ec-90ac-fbe728936d15"],
+      "agd-partner-manual-verification": [""],
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -96,42 +102,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <head>
-        {/* impact */}
-        <meta
-          name="impact-site-verification"
-          content="6961c957-6c21-44ec-90ac-fbe728936d15"
-        />
-
-        {/* Agoda */}
-        <meta name="agd-partner-manual-verification" />
-
+      <body
+        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
+      >
         {/* GetYourGuide Analytics */}
         <Script
           async
           defer
           src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
           data-gyg-partner-id="GTNOM0E"
-        ></Script>
+          strategy="afterInteractive"
+        />
 
         {/* Google Analytics */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-BZJ1EDMYTZ"
-        ></Script>
-        <Script id="google-analytics">
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
-						window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BZJ1EDMYTZ');
-					`}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BZJ1EDMYTZ');
+          `}
         </Script>
-      </head>
-      <body
-        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
-      >
+
         <ThemeProvider
           attribute={`class`}
           defaultTheme="light"

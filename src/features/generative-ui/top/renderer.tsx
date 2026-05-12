@@ -11,9 +11,27 @@ import { ItineraryDisplay } from "@/components/generative-ui/ItineraryDisplay";
 import { PackingList } from "@/components/generative-ui/PackingList";
 import { PhotoOppsComparison } from "@/components/generative-ui/PhotoOppsComparison";
 import { ArticleEmbedder } from "@/components/generative-ui/ArticleEmbedder";
+import { cn } from "@/lib/utils";
+import { 
+  Info, 
+  AlertTriangle, 
+  CheckCircle2, 
+  XCircle, 
+  Lightbulb, 
+  HelpCircle,
+  ExternalLink,
+  ChevronRight,
+  Star,
+  Wifi,
+  MapPin,
+  Clock,
+  CircleDollarSign,
+  Quote,
+  Sparkles
+} from "lucide-react";
 
 // ─────────────────────────────────────────────
-// Article index lookup (resolved client-side from page props)
+// Article index lookup
 // ─────────────────────────────────────────────
 export type ArticleIndex = Record<
   string,
@@ -36,7 +54,7 @@ export function PrimitiveRenderer({
 }) {
   const ctx: RendererContext = { articleIndex };
   return (
-    <div className="space-y-6">
+    <div className="space-y-12 animate-in fade-in duration-1000">
       {schema.sections.map((node) => (
         <NodeRenderer key={node.id} node={node} ctx={ctx} depth={0} />
       ))}
@@ -56,49 +74,103 @@ function NodeRenderer({
   ctx: RendererContext;
   depth: number;
 }) {
-  if (depth > 8) return null;
+  if (depth > 12) return null;
+  
   switch (node.type) {
+    // --- Layout ---
     case "section":
       return <SectionPrimitive node={node} ctx={ctx} depth={depth} />;
     case "container":
       return <ContainerPrimitive node={node} ctx={ctx} depth={depth} />;
     case "stack":
-      return <StackPrimitive node={node} ctx={ctx} depth={depth} />;
+    case "flex_col":
+      return <FlexColPrimitive node={node} ctx={ctx} depth={depth} />;
+    case "flex_row":
+      return <FlexRowPrimitive node={node} ctx={ctx} depth={depth} />;
     case "grid":
       return <GridPrimitive node={node} ctx={ctx} depth={depth} />;
-    case "heading":
-      return <HeadingPrimitive node={node} />;
-    case "text":
+    case "card":
+      return <CardPrimitive node={node} ctx={ctx} depth={depth} />;
+    case "divider":
+      return <DividerPrimitive />;
+    case "spacer":
+      return <SpacerPrimitive node={node} />;
+
+    // --- Typography ---
+    case "heading_h1":
+      return <HeadingPrimitive node={node} level={1} />;
+    case "heading_h2":
+      return <HeadingPrimitive node={node} level={2} />;
+    case "heading_h3":
+      return <HeadingPrimitive node={node} level={3} />;
+    case "heading_h4":
+      return <HeadingPrimitive node={node} level={4} />;
+    case "body_text":
       return <TextPrimitive node={node} />;
-    case "badge":
-      return <BadgePrimitive node={node} />;
-    case "button":
-      return <ButtonPrimitive node={node} ctx={ctx} />;
-    case "choice_grid":
-      return <ChoiceGridPrimitive node={node} />;
+    case "caption_text":
+      return <CaptionPrimitive node={node} />;
+    case "quote_block":
+      return <QuotePrimitive node={node} />;
+    case "highlight_text":
+      return <HighlightPrimitive node={node} />;
+    case "gradient_text":
+      return <GradientTextPrimitive node={node} />;
+
+    // --- Data Display ---
+    case "data_table":
+      return <DataTablePrimitive node={node} />;
+    case "key_value_list":
+      return <KeyValueListPrimitive node={node} />;
+    case "progress_bar":
+      return <ProgressBarPrimitive node={node} />;
+    case "rating_stars":
+      return <RatingStarsPrimitive node={node} />;
+    case "tag_list":
+      return <TagListPrimitive node={node} />;
+    case "timeline":
+      return <TimelinePrimitive node={node} ctx={ctx} />;
+    case "comparison_columns":
+      return <ComparisonColumnsPrimitive node={node} />;
+
+    // --- Feedback & Callout ---
+    case "alert_box":
+      return <AlertBoxPrimitive node={node} />;
+    case "tip_callout":
+      return <TipCalloutPrimitive node={node} />;
+    case "did_you_know":
+      return <DidYouKnowPrimitive node={node} />;
+
+    // --- Navigation & Action ---
+    case "primary_button":
+      return <ButtonPrimitive node={node} ctx={ctx} variant="primary" />;
+    case "secondary_button":
+      return <ButtonPrimitive node={node} ctx={ctx} variant="secondary" />;
+    case "text_link":
+      return <TextLinkPrimitive node={node} ctx={ctx} />;
+    case "action_card":
+      return <ActionCardPrimitive node={node} ctx={ctx} depth={depth} />;
+    case "floating_action":
+      return <FloatingActionPrimitive node={node} />;
+
+    // --- Special ---
+    case "hero_section":
+      return <HeroSectionPrimitive node={node} ctx={ctx} />;
+    case "featured_card":
+      return <FeaturedCardPrimitive node={node} ctx={ctx} />;
+
+    // --- Media ---
+    case "image_single":
+      return <ImagePrimitive node={node} ctx={ctx} />;
+    case "image_gallery":
+      return <ImageGalleryPrimitive node={node} ctx={ctx} />;
+    case "icon_with_text":
+      return <IconWithTextPrimitive node={node} />;
+
+    // --- Legacy / Rich Components ---
     case "article_card":
       return <ArticleCardPrimitive node={node} ctx={ctx} />;
     case "article_list":
       return <ArticleListPrimitive node={node} ctx={ctx} />;
-    case "image":
-      return <ImagePrimitive node={node} ctx={ctx} />;
-    case "image_gallery":
-      return <ImageGalleryPrimitive node={node} ctx={ctx} />;
-    case "comparison_table":
-      return <ComparisonTablePrimitive node={node} />;
-    case "score_card":
-      return <ScoreCardPrimitive node={node} />;
-    case "callout":
-      return <CalloutPrimitive node={node} />;
-    case "tabs":
-      return <TabsPrimitive node={node} ctx={ctx} depth={depth} />;
-    case "accordion":
-      return <AccordionPrimitive node={node} ctx={ctx} depth={depth} />;
-    case "timeline":
-      return <TimelinePrimitive node={node} ctx={ctx} />;
-    case "next_action":
-      return <NextActionPrimitive node={node} ctx={ctx} />;
-    // Rich interactive components
     case "airport_anxiety_map":
       return <AirportAnxietyMapPrimitive node={node} />;
     case "budget_simulator":
@@ -113,6 +185,19 @@ function NodeRenderer({
       return <PhotoSpotsPrimitive node={node} />;
     case "article_embedder":
       return <ArticleEmbedderPrimitive node={node} ctx={ctx} />;
+
+    // Aliases
+    case "heading":
+      return <HeadingPrimitive node={node} level={safeNumber(node.props.level, 2, 1, 4)} />;
+    case "text":
+      return <TextPrimitive node={node} />;
+    case "button":
+      return <ButtonPrimitive node={node} ctx={ctx} />;
+    case "badge":
+      return <TagListPrimitive node={node} propsTags={[safeString(node.props.label)]} />;
+    case "callout":
+      return <AlertBoxPrimitive node={node} />;
+
     default:
       return null;
   }
@@ -130,12 +215,16 @@ function Children({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererCont
 }
 
 // ─────────────────────────────────────────────
-// Primitives
+// Primitives: Layout
 // ─────────────────────────────────────────────
 
 function SectionPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
   return (
-    <section className="rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 p-5 space-y-4">
+    <section 
+      className="rounded-[2.5rem] bg-white dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/60 p-8 md:p-12 space-y-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none backdrop-blur-xl relative overflow-hidden"
+      data-reason={node.reason}
+    >
+      <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-amber-400 to-orange-500 opacity-80" />
       <Children node={node} ctx={ctx} depth={depth} />
     </section>
   );
@@ -143,176 +232,644 @@ function SectionPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: Rend
 
 function ContainerPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
   return (
-    <div className="space-y-3">
+    <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
       <Children node={node} ctx={ctx} depth={depth} />
     </div>
   );
 }
 
-function StackPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+function FlexColPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+  const gap = safeNumber(node.props.gap, 6, 0, 16);
   return (
-    <div className="flex flex-col gap-2">
+    <div className={cn("flex flex-col")} style={{ gap: `${gap * 0.25}rem` }}>
+      <Children node={node} ctx={ctx} depth={depth} />
+    </div>
+  );
+}
+
+function FlexRowPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+  const gap = safeNumber(node.props.gap, 4, 0, 12);
+  const wrap = node.props.wrap !== false;
+  return (
+    <div className={cn("flex items-center", wrap && "flex-wrap")} style={{ gap: `${gap * 0.25}rem` }}>
       <Children node={node} ctx={ctx} depth={depth} />
     </div>
   );
 }
 
 function GridPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+  const cols = safeNumber(node.props.cols, 2, 1, 4);
+  const gap = safeNumber(node.props.gap, 6, 0, 16);
+  const gridCols = {
+    1: "grid-cols-1",
+    2: "grid-cols-1 sm:grid-cols-2",
+    3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-2 lg:grid-cols-4",
+  }[cols as 1|2|3|4];
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div className={cn("grid", gridCols)} style={{ gap: `${gap * 0.25}rem` }}>
       <Children node={node} ctx={ctx} depth={depth} />
     </div>
   );
 }
 
-function HeadingPrimitive({ node }: { node: PrimitiveNode }) {
+function CardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+  const padding = safeEnum(node.props.padding, ["small", "medium", "large"], "medium");
+  const pClass = { small: "p-4", medium: "p-6", large: "p-10" }[padding];
+  return (
+    <div className={cn(
+      "rounded-3xl border border-zinc-100 dark:border-zinc-800 bg-white/50 dark:bg-zinc-800/40 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500", 
+      pClass
+    )}>
+      <Children node={node} ctx={ctx} depth={depth} />
+    </div>
+  );
+}
+
+function DividerPrimitive() {
+  return <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-200 dark:via-zinc-800 to-transparent my-6" />;
+}
+
+function SpacerPrimitive({ node }: { node: PrimitiveNode }) {
+  const size = safeEnum(node.props.size, ["small", "medium", "large"], "medium");
+  const h = { small: "h-4", medium: "h-10", large: "h-20" }[size];
+  return <div className={h} aria-hidden="true" />;
+}
+
+// ─────────────────────────────────────────────
+// Primitives: Typography
+// ─────────────────────────────────────────────
+
+function HeadingPrimitive({ node, level }: { node: PrimitiveNode; level: number }) {
   const text = safeString(node.props.text);
-  const level = safeNumber(node.props.level, 2, 2, 4);
   if (!text) return null;
-  const cls = "font-bold text-zinc-900 dark:text-zinc-100";
-  if (level === 2) return <h2 className={`text-xl ${cls}`}>{text}</h2>;
-  if (level === 3) return <h3 className={`text-lg ${cls}`}>{text}</h3>;
-  return <h4 className={`text-base ${cls}`}>{text}</h4>;
+  const baseCls = "font-bold tracking-tight font-heading leading-tight";
+  
+  if (level === 1) return (
+    <h1 className={cn("text-4xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-200 dark:to-zinc-400 pb-2", baseCls)}>
+      {text}
+    </h1>
+  );
+  if (level === 2) return (
+    <h2 className={cn("text-2xl md:text-3xl text-zinc-900 dark:text-zinc-100 flex items-center gap-3", baseCls)}>
+      <span className="h-8 w-1.5 rounded-full bg-amber-500" />
+      {text}
+    </h2>
+  );
+  if (level === 3) return <h3 className={cn("text-xl md:text-2xl text-zinc-800 dark:text-zinc-200", baseCls)}>{text}</h3>;
+  return <h4 className={cn("text-base md:text-lg text-zinc-700 dark:text-zinc-300", baseCls)}>{text}</h4>;
 }
 
 function TextPrimitive({ node }: { node: PrimitiveNode }) {
   const text = safeString(node.props.text);
   if (!text) return null;
-  return <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">{text}</p>;
+  return <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">{text}</p>;
 }
 
-function BadgePrimitive({ node }: { node: PrimitiveNode }) {
-  const label = safeString(node.props.label);
-  if (!label) return null;
+function CaptionPrimitive({ node }: { node: PrimitiveNode }) {
+  const text = safeString(node.props.text);
+  if (!text) return null;
+  return <p className="text-xs text-zinc-500 dark:text-zinc-500 italic">{text}</p>;
+}
+
+function QuotePrimitive({ node }: { node: PrimitiveNode }) {
+  const text = safeString(node.props.text);
+  const author = safeString(node.props.author);
+  if (!text) return null;
   return (
-    <span className="inline-block text-xs font-medium px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-      {label}
+    <blockquote className="border-l-4 border-zinc-200 dark:border-zinc-700 pl-6 py-2 space-y-2">
+      <Quote className="h-6 w-6 text-zinc-300 dark:text-zinc-600 mb-2" />
+      <p className="text-lg font-medium text-zinc-800 dark:text-zinc-200 italic leading-relaxed">
+        {text}
+      </p>
+      {author && <cite className="block text-sm text-zinc-500 not-italic">— {author}</cite>}
+    </blockquote>
+  );
+}
+
+function HighlightPrimitive({ node }: { node: PrimitiveNode }) {
+  const text = safeString(node.props.text);
+  const color = safeEnum(node.props.color, ["amber", "emerald", "blue", "rose"], "amber");
+  const colors = {
+    amber: "bg-amber-100 dark:bg-amber-900/30 text-amber-900 dark:text-amber-200",
+    emerald: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-900 dark:text-emerald-200",
+    blue: "bg-blue-100 dark:bg-blue-900/30 text-blue-900 dark:text-blue-200",
+    rose: "bg-rose-100 dark:bg-rose-900/30 text-rose-900 dark:text-rose-200",
+  };
+  if (!text) return null;
+  return (
+    <span className={cn("px-1.5 py-0.5 rounded font-medium", colors[color])}>
+      {text}
     </span>
   );
 }
 
-function ButtonPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
-  const label = safeString(node.props.label ?? node.props.text);
-  const articleId = safeString(node.props.articleId);
-  if (!label) return null;
-  if (articleId && ctx.articleIndex[articleId]) {
-    const article = ctx.articleIndex[articleId];
-    return (
-      <Link
-        href={`/posts/${article.slug}`}
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-sm font-medium hover:opacity-80 transition"
-      >
-        {label}
-      </Link>
-    );
-  }
+function GradientTextPrimitive({ node }: { node: PrimitiveNode }) {
+  const text = safeString(node.props.text);
+  const from = safeEnum(node.props.from, ["amber", "emerald", "blue", "rose", "indigo"], "amber");
+  const to = safeEnum(node.props.to, ["amber", "emerald", "blue", "rose", "orange"], "rose");
+  
+  const gradients = {
+    amber: "from-amber-500",
+    emerald: "from-emerald-500",
+    blue: "from-blue-500",
+    rose: "from-rose-500",
+    indigo: "from-indigo-500",
+    orange: "to-orange-500",
+  };
+
   return (
-    <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-zinc-300 dark:border-zinc-600 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-      {label}
+    <span className={cn(
+      "bg-clip-text text-transparent bg-gradient-to-r font-bold",
+      gradients[from as keyof typeof gradients],
+      gradients[to as keyof typeof gradients]
+    )}>
+      {text}
     </span>
   );
 }
 
-function ChoiceGridPrimitive({ node }: { node: PrimitiveNode }) {
-  const choices = safeArray<{ label: string; value: string }>(node.props.choices);
-  const [selected, setSelected] = React.useState<string | null>(null);
-  if (!choices.length) return null;
+// ─────────────────────────────────────────────
+// Primitives: Data Display
+// ─────────────────────────────────────────────
+
+function DataTablePrimitive({ node }: { node: PrimitiveNode }) {
+  const columns = safeArray<string>(node.props.columns);
+  const rows = safeArray<string[]>(node.props.rows);
+  if (!columns.length || !rows.length) return null;
   return (
-    <div className="flex flex-wrap gap-2">
-      {choices.map((c) => {
-        const label = safeString(c.label);
-        const value = safeString(c.value);
-        if (!label) return null;
-        const isSelected = selected === value;
-        return (
-          <button
-            key={value}
-            type="button"
-            onClick={() => setSelected(isSelected ? null : value)}
-            className={`px-3 py-1.5 rounded-xl border text-sm transition ${
-              isSelected
-                ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100"
-                : "border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 hover:border-zinc-500"
-            }`}
-          >
-            {label}
-          </button>
-        );
-      })}
+    <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-zinc-50 dark:bg-zinc-800/50">
+            {columns.map((col, i) => (
+              <th key={i} className="px-4 py-3 text-left font-bold text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800">
+                {safeString(col)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, ri) => (
+            <tr key={ri} className="border-b border-zinc-100 dark:border-zinc-800/50 last:border-0 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+              {safeArray<string>(row).map((cell, ci) => (
+                <td key={ci} className="px-4 py-3 text-zinc-700 dark:text-zinc-300">
+                  {safeString(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-function ArticleCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
-  const articleId = safeString(node.props.articleId);
-  if (!articleId) return null;
-  const article = ctx.articleIndex[articleId];
-  if (!article) return null;
+function KeyValueListPrimitive({ node }: { node: PrimitiveNode }) {
+  const items = safeArray<{ label: string; value: string }>(node.props.items);
+  if (!items.length) return null;
   return (
-    <Link
-      href={`/posts/${article.slug}`}
-      className="block rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 hover:shadow-md transition group"
-    >
-      <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-400 line-clamp-2">
-        {article.title}
-      </p>
-      {article.summaryForAI && (
-        <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500 line-clamp-2">
-          {article.summaryForAI}
-        </p>
-      )}
-    </Link>
-  );
-}
-
-function ArticleListPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
-  const ids = safeArray<string>(node.props.articleIds).slice(0, 10);
-  const articles = ids
-    .map((id) => ({ id, article: ctx.articleIndex[id] }))
-    .filter((x) => x.article);
-  if (!articles.length) return null;
-  return (
-    <ul className="space-y-2">
-      {articles.map(({ id, article }) => (
-        <li key={id}>
-          <Link
-            href={`/posts/${article.slug}`}
-            className="flex items-start gap-2 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition"
-          >
-            <span className="mt-0.5 text-zinc-400">›</span>
-            <span className="line-clamp-2">{article.title}</span>
-          </Link>
-        </li>
+    <dl className="space-y-2">
+      {items.map((item, i) => (
+        <div key={i} className="flex justify-between items-baseline gap-4 py-1.5 border-b border-zinc-100 dark:border-zinc-800 last:border-0">
+          <dt className="text-xs font-bold text-zinc-500 dark:text-zinc-500 uppercase tracking-wider">{safeString(item.label)}</dt>
+          <dd className="text-sm font-medium text-zinc-900 dark:text-zinc-100 text-right">{safeString(item.value)}</dd>
+        </div>
       ))}
-    </ul>
+    </dl>
   );
 }
 
-// image: AIがarticleIdを指定 → articleIndexからheroImageIdを解決して表示
-// AIがsrcを直接指定することはできない（propsのsrc/urlはrenderer側で無視）
+function ProgressBarPrimitive({ node }: { node: PrimitiveNode }) {
+  const label = safeString(node.props.label);
+  const value = safeNumber(node.props.value, 0, 0, 100);
+  const color = safeEnum(node.props.color, ["amber", "emerald", "blue", "rose"], "amber");
+  const barColors = {
+    amber: "bg-amber-500",
+    emerald: "bg-emerald-500",
+    blue: "bg-blue-500",
+    rose: "bg-rose-500",
+  };
+  return (
+    <div className="space-y-1.5">
+      <div className="flex justify-between items-center text-xs">
+        <span className="font-bold text-zinc-700 dark:text-zinc-300">{label}</span>
+        <span className="font-mono text-zinc-500">{value}%</span>
+      </div>
+      <div className="h-2 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+        <div 
+          className={cn("h-full transition-all duration-1000", barColors[color])}
+          style={{ width: `${value}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function RatingStarsPrimitive({ node }: { node: PrimitiveNode }) {
+  const rating = safeNumber(node.props.rating, 0, 0, 5);
+  const label = safeString(node.props.label);
+  return (
+    <div className="flex items-center gap-3">
+      {label && <span className="text-sm font-bold text-zinc-700 dark:text-zinc-300">{label}</span>}
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map((s) => (
+          <Star 
+            key={s} 
+            className={cn(
+              "h-4 w-4",
+              s <= rating 
+                ? "fill-amber-400 text-amber-400" 
+                : s - 0.5 <= rating 
+                  ? "fill-amber-400/50 text-amber-400" 
+                  : "text-zinc-200 dark:text-zinc-700"
+            )} 
+          />
+        ))}
+      </div>
+      <span className="text-xs font-bold text-zinc-500">{rating.toFixed(1)}</span>
+    </div>
+  );
+}
+
+function TagListPrimitive({ node, propsTags }: { node: PrimitiveNode; propsTags?: string[] }) {
+  const tags = propsTags || safeArray<string>(node.props.tags);
+  if (!tags.length) return null;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {tags.map((tag, i) => (
+        <span key={i} className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+          {safeString(tag)}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ComparisonColumnsPrimitive({ node }: { node: PrimitiveNode }) {
+  const left = node.props.left as { title: string; items: string[] };
+  const right = node.props.right as { title: string; items: string[] };
+  if (!left || !right) return null;
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 p-5">
+        <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-3 flex items-center gap-2">
+          <ChevronRight className="h-4 w-4 text-emerald-500" />
+          {safeString(left.title)}
+        </h4>
+        <ul className="space-y-2">
+          {safeArray<string>(left.items).map((item, i) => (
+            <li key={i} className="text-xs text-zinc-600 dark:text-zinc-400 flex items-start gap-2">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+              {safeString(item)}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 p-5">
+        <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-3 flex items-center gap-2">
+          <ChevronRight className="h-4 w-4 text-amber-500" />
+          {safeString(right.title)}
+        </h4>
+        <ul className="space-y-2">
+          {safeArray<string>(right.items).map((item, i) => (
+            <li key={i} className="text-xs text-zinc-600 dark:text-zinc-400 flex items-start gap-2">
+              <Info className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+              {safeString(item)}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Primitives: Feedback & Callout
+// ─────────────────────────────────────────────
+
+function AlertBoxPrimitive({ node }: { node: PrimitiveNode }) {
+  const variant = safeEnum(node.props.variant, ["info", "success", "warning", "error"], "info");
+  const title = safeString(node.props.title);
+  const text = safeString(node.props.text);
+
+  const styles = {
+    info: { 
+      bg: "bg-blue-50 dark:bg-blue-900/20", 
+      border: "border-blue-200 dark:border-blue-800", 
+      text: "text-blue-900 dark:text-blue-200",
+      icon: <Info className="h-5 w-5 text-blue-500" />
+    },
+    success: { 
+      bg: "bg-emerald-50 dark:bg-emerald-900/20", 
+      border: "border-emerald-200 dark:border-emerald-800", 
+      text: "text-emerald-900 dark:text-emerald-200",
+      icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+    },
+    warning: { 
+      bg: "bg-amber-50 dark:bg-amber-900/20", 
+      border: "border-amber-200 dark:border-amber-800", 
+      text: "text-amber-900 dark:text-amber-200",
+      icon: <AlertTriangle className="h-5 w-5 text-amber-500" />
+    },
+    error: { 
+      bg: "bg-rose-50 dark:bg-rose-900/20", 
+      border: "border-rose-200 dark:border-rose-800", 
+      text: "text-rose-900 dark:text-rose-200",
+      icon: <XCircle className="h-5 w-5 text-rose-500" />
+    },
+  };
+
+  const style = styles[variant];
+
+  return (
+    <div className={cn("rounded-2xl border p-5 flex gap-4 animate-in zoom-in-95 duration-500", style.bg, style.border)}>
+      <div className="shrink-0">{style.icon}</div>
+      <div className="space-y-1">
+        {title && <p className={cn("font-bold text-sm", style.text)}>{title}</p>}
+        {text && <p className={cn("text-sm opacity-90", style.text)}>{text}</p>}
+      </div>
+    </div>
+  );
+}
+
+function TipCalloutPrimitive({ node }: { node: PrimitiveNode }) {
+  const text = safeString(node.props.text);
+  if (!text) return null;
+  return (
+    <div className="rounded-2xl bg-amber-500 text-white p-5 flex gap-4 shadow-md shadow-amber-500/20">
+      <div className="shrink-0 bg-white/20 p-2 rounded-full h-fit">
+        <Lightbulb className="h-5 w-5" />
+      </div>
+      <div className="space-y-1">
+        <p className="font-bold text-xs uppercase tracking-widest opacity-80">Pro Tip</p>
+        <p className="text-sm font-medium leading-relaxed">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+function DidYouKnowPrimitive({ node }: { node: PrimitiveNode }) {
+  const title = safeString(node.props.title || "ご存知ですか？");
+  const text = safeString(node.props.text);
+  if (!text) return null;
+  return (
+    <div className="rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 p-6 space-y-3">
+      <div className="flex items-center gap-2 text-zinc-400">
+        <HelpCircle className="h-5 w-5" />
+        <span className="text-xs font-bold uppercase tracking-widest">{title}</span>
+      </div>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed italic">
+        {text}
+      </p>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Primitives: Navigation & Action
+// ─────────────────────────────────────────────
+
+function ButtonPrimitive({ 
+  node, 
+  ctx, 
+  variant = "primary" 
+}: { 
+  node: PrimitiveNode; 
+  ctx: RendererContext; 
+  variant?: "primary" | "secondary" 
+}) {
+  const label = safeString(node.props.label || node.props.text);
+  const articleId = safeString(node.props.articleId);
+  if (!label) return null;
+
+  const baseCls = "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all active:scale-95";
+  const variants = {
+    primary: "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-lg shadow-zinc-900/20 dark:shadow-none hover:opacity-90",
+    secondary: "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800",
+  };
+
+  const article = articleId ? ctx.articleIndex[articleId] : null;
+
+  if (article) {
+    return (
+      <Link href={`/posts/${article.slug}`} className={cn(baseCls, variants[variant])}>
+        {label}
+        <ChevronRight className="h-4 w-4" />
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" className={cn(baseCls, variants[variant])}>
+      {label}
+    </button>
+  );
+}
+
+function TextLinkPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const label = safeString(node.props.label || node.props.text);
+  const articleId = safeString(node.props.articleId);
+  if (!label) return null;
+
+  const article = articleId ? ctx.articleIndex[articleId] : null;
+
+  if (article) {
+    return (
+      <Link 
+        href={`/posts/${article.slug}`} 
+        className="inline-flex items-center gap-1 text-sm font-bold text-amber-600 dark:text-amber-500 hover:underline underline-offset-4 decoration-2"
+      >
+        {label}
+        <ExternalLink className="h-3.5 w-3.5" />
+      </Link>
+    );
+  }
+
+  return <span className="text-sm font-bold text-zinc-400">{label}</span>;
+}
+
+function ActionCardPrimitive({ node, ctx, depth }: { node: PrimitiveNode; ctx: RendererContext; depth: number }) {
+  const title = safeString(node.props.title);
+  const description = safeString(node.props.description);
+  const articleId = safeString(node.props.articleId);
+  
+  const article = articleId ? ctx.articleIndex[articleId] : null;
+  const content = (
+    <div className="flex items-center justify-between gap-4 p-5">
+      <div className="space-y-1">
+        <p className="text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-widest">Next Step</p>
+        <h4 className="text-base font-bold text-zinc-900 dark:text-zinc-100">{title || article?.title}</h4>
+        {description && <p className="text-sm text-zinc-500 dark:text-zinc-400">{description}</p>}
+      </div>
+      <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:bg-amber-500 group-hover:text-white transition-colors shrink-0">
+        <ChevronRight className="h-5 w-5" />
+      </div>
+    </div>
+  );
+
+  if (article) {
+    return (
+      <Link 
+        href={`/posts/${article.slug}`} 
+        className="block rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md hover:border-amber-500/50 transition-all group overflow-hidden"
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div className="rounded-3xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 overflow-hidden">
+      {content}
+    </div>
+  );
+}
+
+function FloatingActionPrimitive({ node }: { node: PrimitiveNode }) {
+  const label = safeString(node.props.label);
+  return (
+    <button className="fixed bottom-8 right-8 z-[100] px-6 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-bold shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 group">
+      <div className="h-2 w-2 rounded-full bg-amber-500 animate-ping" />
+      {label}
+    </button>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Primitives: Special
+// ─────────────────────────────────────────────
+
+function HeroSectionPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const title = safeString(node.props.title);
+  const subtitle = safeString(node.props.subtitle);
+  const articleId = safeString(node.props.articleId);
+  const article = articleId ? ctx.articleIndex[articleId] : null;
+  const image = article?.heroImageId;
+
+  return (
+    <div className="relative w-full min-h-[400px] flex items-center justify-center overflow-hidden rounded-[3rem] shadow-2xl group">
+      {image && isTrustedImagePath(image) ? (
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover transition-transform duration-1000 group-hover:scale-105"
+          priority
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950" />
+      )}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-all group-hover:backdrop-blur-none" />
+      <div className="relative z-10 text-center px-6 py-12 space-y-6 max-w-3xl">
+        <h1 className="text-4xl md:text-6xl font-bold text-white font-heading drop-shadow-lg leading-tight animate-in fade-in zoom-in-95 duration-1000">
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="text-lg md:text-xl text-zinc-100 font-medium drop-shadow-md animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+            {subtitle}
+          </p>
+        )}
+        {article && (
+          <div className="pt-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+            <Link 
+              href={`/posts/${article.slug}`}
+              className="px-8 py-4 bg-white text-zinc-900 rounded-full font-bold shadow-xl hover:bg-amber-500 hover:text-white transition-all hover:scale-105 inline-block"
+            >
+              冒険を始める
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function FeaturedCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const title = safeString(node.props.title);
+  const description = safeString(node.props.description);
+  const badge = safeString(node.props.badge);
+  const articleId = safeString(node.props.articleId);
+  const article = articleId ? ctx.articleIndex[articleId] : null;
+
+  return (
+    <div className="relative group overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-amber-50 to-orange-50 dark:from-zinc-900 dark:to-zinc-800 border border-amber-100 dark:border-zinc-700 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
+      <div className="p-8 space-y-4">
+        {badge && (
+          <span className="inline-block px-4 py-1 rounded-full bg-amber-500 text-white text-xs font-bold uppercase tracking-widest shadow-md">
+            {badge}
+          </span>
+        )}
+        <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 font-heading">
+          {title || article?.title}
+        </h3>
+        <p className="text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">
+          {description || article?.summaryForAI}
+        </p>
+        {article && (
+          <Link 
+            href={`/posts/${article.slug}`}
+            className="flex items-center gap-2 text-amber-600 dark:text-amber-500 font-bold hover:gap-3 transition-all"
+          >
+            詳しく見る <ChevronRight className="h-4 w-4" />
+          </Link>
+        )}
+      </div>
+      <div className="absolute top-0 right-0 p-4 opacity-10">
+        <Sparkles className="h-24 w-24 text-amber-500 rotate-12" />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Primitives: Media
+// ─────────────────────────────────────────────
+
+function IconWithTextPrimitive({ node }: { node: PrimitiveNode }) {
+  const text = safeString(node.props.text);
+  const iconName = safeString(node.props.icon).toLowerCase();
+  
+  const Icons = {
+    wifi: <Wifi className="h-4 w-4" />,
+    map: <MapPin className="h-4 w-4" />,
+    clock: <Clock className="h-4 w-4" />,
+    dollar: <CircleDollarSign className="h-4 w-4" />,
+    star: <Star className="h-4 w-4" />,
+  };
+
+  const Icon = Icons[iconName as keyof typeof Icons] || <ChevronRight className="h-4 w-4" />;
+
+  return (
+    <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
+      <div className="text-amber-500">{Icon}</div>
+      <span className="text-xs font-bold">{text}</span>
+    </div>
+  );
+}
+
 function ImagePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
   const articleId = safeString(node.props.articleId);
-  const alt = safeString(node.props.alt ?? node.props.caption ?? "");
+  const caption = safeString(node.props.caption || node.props.alt || "");
 
-  // articleId経由で解決する（AIがsrc/urlを直指定しても無視）
   if (articleId) {
     const article = ctx.articleIndex[articleId];
     const src = article?.heroImageId;
     if (src && isTrustedImagePath(src)) {
       return (
-        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-          <Image
-            src={src}
-            alt={alt || article.title}
-            fill
-            sizes="(max-width: 640px) 100vw, 672px"
-            className="object-cover"
-          />
-          {alt && (
-            <p className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/40 px-3 py-1.5 text-center">
-              {alt}
-            </p>
-          )}
+        <div className="space-y-2">
+          <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800 shadow-sm">
+            <Image
+              src={src}
+              alt={caption || article.title}
+              fill
+              sizes="(max-width: 640px) 100vw, 672px"
+              className="object-cover"
+            />
+          </div>
+          {caption && <p className="text-center text-xs text-zinc-400 italic">{caption}</p>}
         </div>
       );
     }
@@ -320,7 +877,6 @@ function ImagePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererConte
   return null;
 }
 
-// image_gallery: articleIdsを受け取り、それぞれのheroImageIdでグリッド表示
 function ImageGalleryPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
   const articleIds = safeArray<string>(node.props.articleIds).slice(0, 9);
 
@@ -336,18 +892,18 @@ function ImageGalleryPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Render
   if (!items.length) return null;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {items.map(({ id, article, src }) => (
-        <Link key={id} href={`/posts/${article.slug}`} className="group relative aspect-square rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 block">
+        <Link key={id} href={`/posts/${article.slug}`} className="group relative aspect-square rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 block shadow-sm">
           <Image
             src={src}
             alt={article.title}
             fill
             sizes="(max-width: 640px) 50vw, 220px"
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
-          <p className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/50 px-2 py-1 opacity-0 group-hover:opacity-100 transition line-clamp-1">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <p className="absolute bottom-0 left-0 right-0 text-[10px] font-bold text-white p-3 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 duration-300 line-clamp-2">
             {article.title}
           </p>
         </Link>
@@ -357,9 +913,97 @@ function ImageGalleryPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Render
 }
 
 // ─────────────────────────────────────────────
-// Rich interactive primitives (using local trusted components)
-// Props are validated before passing — AI cannot inject arbitrary code
+// Legacy Interactive Primitives
 // ─────────────────────────────────────────────
+
+function ArticleCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const articleId = safeString(node.props.articleId);
+  if (!articleId) return null;
+  const article = ctx.articleIndex[articleId];
+  if (!article) return null;
+  return (
+    <Link
+      href={`/posts/${article.slug}`}
+      className="block rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 hover:shadow-lg hover:border-amber-500/30 transition-all group"
+    >
+      <div className="space-y-2">
+        <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-amber-600 transition-colors line-clamp-2 leading-snug">
+          {article.title}
+        </p>
+        {article.summaryForAI && (
+          <p className="text-xs text-zinc-500 dark:text-zinc-500 line-clamp-2 leading-relaxed">
+            {article.summaryForAI}
+          </p>
+        )}
+      </div>
+    </Link>
+  );
+}
+
+function ArticleListPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const ids = safeArray<string>(node.props.articleIds).slice(0, 10);
+  const articles = ids
+    .map((id) => ({ id, article: ctx.articleIndex[id] }))
+    .filter((x) => x.article);
+  if (!articles.length) return null;
+  return (
+    <ul className="space-y-3">
+      {articles.map(({ id, article }) => (
+        <li key={id}>
+          <Link
+            href={`/posts/${article?.slug}`}
+            className="flex items-center justify-between p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group"
+          >
+            <div className="flex items-center gap-3">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-400 group-hover:bg-amber-100 group-hover:text-amber-600 transition-colors italic">›</span>
+              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 line-clamp-1">{article?.title}</span>
+            </div>
+            <ChevronRight className="h-4 w-4 text-zinc-300 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function TimelinePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
+  const items = safeArray<{ title: string; text?: string; time?: string; articleId?: string }>(node.props.items);
+  if (!items.length) return null;
+  return (
+    <ol className="relative border-l border-zinc-200 dark:border-zinc-800 ml-3 space-y-8">
+      {items.map((item, i) => {
+        const title = safeString(item.title);
+        const text = safeString(item.text);
+        const time = safeString(item.time);
+        const articleId = safeString(item.articleId);
+        const article = articleId ? ctx.articleIndex[articleId] : null;
+        return (
+          <li key={i} className="mb-0 ml-6">
+            <span className="absolute flex items-center justify-center w-6 h-6 bg-zinc-900 dark:bg-zinc-100 rounded-full -left-3 ring-8 ring-white dark:ring-zinc-950">
+              <span className="text-[10px] font-bold text-white dark:text-zinc-900 italic">{i + 1}</span>
+            </span>
+            <div className="space-y-1">
+              {time && <time className="text-[10px] font-bold uppercase tracking-widest text-amber-500">{time}</time>}
+              <div className="flex flex-col gap-1">
+                {article ? (
+                  <Link
+                    href={`/posts/${article.slug}`}
+                    className="text-sm md:text-base font-bold text-zinc-900 dark:text-zinc-100 hover:text-amber-600 underline decoration-zinc-200 dark:decoration-zinc-800 underline-offset-4"
+                  >
+                    {title || article.title}
+                  </Link>
+                ) : (
+                  <p className="text-sm md:text-base font-bold text-zinc-900 dark:text-zinc-100">{title}</p>
+                )}
+                {text && <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{text}</p>}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
 
 function AirportAnxietyMapPrimitive({ node }: { node: PrimitiveNode }) {
   const airportName = safeString(node.props.airportName);
@@ -494,7 +1138,10 @@ function ArticleEmbedderPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: Ren
   return <ArticleEmbedder articles={articles} />;
 }
 
-// src がブログ自身の /images/ パスであることを確認するホワイトリスト検証
+// ─────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────
+
 function isTrustedImagePath(src: string): boolean {
   return (
     typeof src === "string" &&
@@ -505,233 +1152,9 @@ function isTrustedImagePath(src: string): boolean {
   );
 }
 
-function ComparisonTablePrimitive({ node }: { node: PrimitiveNode }) {
-  const columns = safeArray<string>(node.props.columns);
-  const rows = safeArray<string[]>(node.props.rows);
-  if (!columns.length || !rows.length) return null;
-  return (
-    <div className="overflow-x-auto rounded-xl border border-zinc-100 dark:border-zinc-800">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="bg-zinc-50 dark:bg-zinc-800">
-            {columns.map((col, i) => (
-              <th
-                key={i}
-                className="px-4 py-2 text-left font-medium text-zinc-700 dark:text-zinc-300 border-b border-zinc-100 dark:border-zinc-700"
-              >
-                {safeString(col)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, ri) => (
-            <tr key={ri} className="border-b border-zinc-50 dark:border-zinc-800 last:border-0">
-              {safeArray<string>(row).map((cell, ci) => (
-                <td key={ci} className="px-4 py-2 text-zinc-700 dark:text-zinc-300">
-                  {safeString(cell)}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function ScoreCardPrimitive({ node }: { node: PrimitiveNode }) {
-  const label = safeString(node.props.label);
-  const score = safeNumber(node.props.score, 0, 0, 100);
-  const description = safeString(node.props.description);
-  if (!label) return null;
-  return (
-    <div className="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4 space-y-2">
-      <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{label}</span>
-        <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{score}</span>
-      </div>
-      <div className="h-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800">
-        <div
-          className="h-1.5 rounded-full bg-zinc-900 dark:bg-zinc-100 transition-all"
-          style={{ width: `${score}%` }}
-        />
-      </div>
-      {description && (
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">{description}</p>
-      )}
-    </div>
-  );
-}
-
-function CalloutPrimitive({ node }: { node: PrimitiveNode }) {
-  const title = safeString(node.props.title);
-  const text = safeString(node.props.text);
-  const variant = safeEnum(node.props.variant, ["info", "warning", "tip"], "info");
-  const styles = {
-    info: "bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800",
-    warning: "bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-800",
-    tip: "bg-emerald-50 dark:bg-emerald-950 border-emerald-200 dark:border-emerald-800",
-  };
-  const icons = { info: "ℹ", warning: "⚠", tip: "💡" };
-  return (
-    <div className={`rounded-xl border p-4 space-y-1 ${styles[variant]}`}>
-      {title && (
-        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-          {icons[variant]} {title}
-        </p>
-      )}
-      {text && <p className="text-sm text-zinc-700 dark:text-zinc-300">{text}</p>}
-    </div>
-  );
-}
-
-function TabsPrimitive({
-  node,
-  ctx,
-  depth,
-}: {
-  node: PrimitiveNode;
-  ctx: RendererContext;
-  depth: number;
-}) {
-  const children = node.children ?? [];
-  const [active, setActive] = React.useState(0);
-  if (!children.length) return null;
-  const labels = children.map((c, i) => safeString(c.props.label ?? c.props.title ?? `タブ${i + 1}`));
-  return (
-    <div className="space-y-3">
-      <div className="flex gap-2 flex-wrap">
-        {labels.map((label, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => setActive(i)}
-            className={`px-3 py-1 text-sm rounded-lg transition ${
-              i === active
-                ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"
-                : "border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-      <div>
-        <NodeRenderer node={children[active]} ctx={ctx} depth={depth + 1} />
-      </div>
-    </div>
-  );
-}
-
-function AccordionPrimitive({
-  node,
-  ctx,
-  depth,
-}: {
-  node: PrimitiveNode;
-  ctx: RendererContext;
-  depth: number;
-}) {
-  const [open, setOpen] = React.useState(false);
-  const title = safeString(node.props.title ?? node.props.label);
-  return (
-    <div className="border border-zinc-100 dark:border-zinc-800 rounded-xl overflow-hidden">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition"
-      >
-        <span>{title || "詳細"}</span>
-        <span className="text-zinc-400">{open ? "▲" : "▼"}</span>
-      </button>
-      {open && (
-        <div className="px-4 pb-4 pt-2 bg-white dark:bg-zinc-900 space-y-2">
-          <Children node={node} ctx={ctx} depth={depth} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function TimelinePrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
-  const items = safeArray<{ title: string; text?: string; articleId?: string }>(node.props.items);
-  if (!items.length) return null;
-  return (
-    <ol className="space-y-4">
-      {items.map((item, i) => {
-        const title = safeString(item.title);
-        const text = safeString(item.text);
-        const articleId = safeString(item.articleId);
-        const article = articleId ? ctx.articleIndex[articleId] : null;
-        return (
-          <li key={i} className="flex gap-3">
-            <div className="flex flex-col items-center">
-              <div className="w-6 h-6 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs flex items-center justify-center font-bold flex-shrink-0">
-                {i + 1}
-              </div>
-              {i < items.length - 1 && (
-                <div className="w-px flex-1 bg-zinc-200 dark:bg-zinc-700 mt-1" />
-              )}
-            </div>
-            <div className="pb-4 space-y-1">
-              {article ? (
-                <Link
-                  href={`/posts/${article.slug}`}
-                  className="text-sm font-medium text-zinc-900 dark:text-zinc-100 hover:underline"
-                >
-                  {title || article.title}
-                </Link>
-              ) : (
-                <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{title}</p>
-              )}
-              {text && <p className="text-xs text-zinc-500 dark:text-zinc-400">{text}</p>}
-            </div>
-          </li>
-        );
-      })}
-    </ol>
-  );
-}
-
-function NextActionPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
-  const label = safeString(node.props.label ?? node.props.text);
-  const articleId = safeString(node.props.articleId);
-  const article = articleId ? ctx.articleIndex[articleId] : null;
-  if (!label) return null;
-  if (article) {
-    return (
-      <Link
-        href={`/posts/${article.slug}`}
-        className="flex items-center gap-2 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:shadow-sm transition group"
-      >
-        <div className="flex-1">
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-0.5">次のステップ</p>
-          <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:underline">
-            {label}
-          </p>
-        </div>
-        <span className="text-zinc-400 group-hover:translate-x-0.5 transition-transform">→</span>
-      </Link>
-    );
-  }
-  return (
-    <div className="flex items-center gap-2 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-      <div className="flex-1">
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-0.5">次のステップ</p>
-        <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{label}</p>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Safe type helpers — never trust AI-generated props
-// ─────────────────────────────────────────────
-
 function safeString(value: unknown): string {
   if (typeof value !== "string") return "";
-  return value.replace(/<[^>]*>/g, "").slice(0, 500);
+  return value.replace(/<[^>]*>/g, "").slice(0, 1000);
 }
 
 function safeNumber(value: unknown, fallback: number, min: number, max: number): number {

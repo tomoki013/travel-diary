@@ -114,6 +114,7 @@ function sanitizeNode(node: PrimitiveNode, validArticleIds: Set<string>): Primit
     id: sanitizeString(node.id),
     type: node.type,
     props,
+    reason: node.reason ? sanitizeString(node.reason).slice(0, 200) : undefined,
     children: children && children.length > 0 ? children : undefined,
   };
 }
