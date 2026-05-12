@@ -1,7 +1,6 @@
 import { getPostBySlug, getPostData } from "@/lib/posts";
 import { getAllPosts } from "@/lib/post-metadata";
 import Client from "./Client";
-import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 import ArticleContent from "@/components/features/article/Article";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -123,7 +122,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       ],
     };
 
-    const { content, ...postForClient } = post;
+    const { content, headings, ...postForClient } = post;
 
     return (
       <>
@@ -137,6 +136,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
         />
         <Client
           post={postForClient}
+          headings={headings}
           previousPost={previousPost}
           nextPost={nextPost}
           regionRelatedPosts={regionRelatedPosts}
@@ -150,9 +150,6 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
             currentPostCategory={post.category}
             allPosts={allPosts}
           />
-          <div className="flex justify-center py-10">
-            <InstallPWAButton />
-          </div>
         </Client>
       </>
     );

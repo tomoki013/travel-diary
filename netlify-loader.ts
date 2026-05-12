@@ -11,16 +11,20 @@ const isProduction = process.env.NODE_ENV === "production";
  * @param quality - 指定された画像の品質 (Netlifyの標準CDNでは未使用)
  * @returns Netlifyで変換された画像のURL
  */
-export default function netlifyLoader({ src, width }: ImageLoaderProps): string {
-  // ImageLoaderPropsからqualityも受け取れますが、
-  // Netlifyの基本的な画像変換では使わないため、ここでは含めていません。
+export default function netlifyLoader({ src, width, quality }: ImageLoaderProps): string {
+  const params = new URLSearchParams({
+    url: src,
+    w: String(width),
+  });
 
-  // Next.js requires the loader to handle/mention the width parameter.
-  if (isProduction) {
-    return `/.netlify/images?url=${src}&w=${width}`;
+  if (quality) {
+    params.set("q", String(quality));
   }
 
-  // In development, we return the original src but append width as a dummy param
-  // to avoid "loader does not implement width" console warnings.
-  return `${src}?w=${width}`;
+  if (isProduction) {
+    return `/.netlify/images?${params.toString()}`;
+  }
+
+  // In development, we return the original src but append params
+  return `${src}?${params.toString()}`;
 }

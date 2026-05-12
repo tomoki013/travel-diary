@@ -8,10 +8,19 @@
 
 ### Mobile
 
-- Performance: 49
+- Performance: 41
 - Accessibility: 96
 - Best Practices: 96
 - SEO: 100
+- FCP: 5.1s
+- LCP: 8.0s
+- TBT: 740ms
+- CLS: 0
+- Speed Index: 7.6s
+
+### 以前のMobile計測
+
+- Performance: 49
 - FCP: 5.1s
 - LCP: 7.7s
 - TBT: 390ms
@@ -20,7 +29,7 @@
 
 ### Desktop
 
-- Performance: 73
+- Performance: 63
 - Accessibility: 96
 - Best Practices: 96
 - SEO: 100
@@ -48,15 +57,15 @@
 - Layout
 - Recalculate Style
 - Evaluate Script
+- Forced reflow
 
-## 改善の優先度
+## PageSpeedで確認された主な問題
 
-1. 記事ページのクライアント境界を小さくする
-2. `post.content` をクライアント境界に渡さない
-3. SearchOverlayを遅延読み込みする
-4. 外部scriptを遅延・条件付きロードにする
-5. Backgroundをモバイルで軽量化する
-6. GlobePromoを記事末尾で遅延読み込みする
-7. TOCのDOMスキャンを減らす
-8. アフィリエイトiframeを遅延生成する
-9. 依存関係を棚卸しする
+- Render-blocking CSS estimated savings: 6,400ms
+- Unused CSS: 83.8KiB
+- First-party JS total CPU: 4,402ms
+- Main-thread work: 4.9s
+- Unused JavaScript: 107KiB
+- Forced reflowあり
+- LCP画像に `fetchpriority=high` が必要
+- 大量の `.woff2` がクリティカルパスに乗っている

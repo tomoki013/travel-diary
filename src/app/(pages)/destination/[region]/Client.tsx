@@ -47,9 +47,9 @@ const Client = ({
           src={region.imageURL}
           alt={region.name}
           fill
-          objectFit="cover"
-          className="brightness-50"
+          className="object-cover brightness-50"
           priority
+          sizes="100vw"
         />
         <div className="relative z-10 p-4">
           <h1 className="text-4xl font-bold tracking-tight uppercase md:text-6xl">
@@ -87,8 +87,8 @@ const Client = ({
                         src={child.imageURL}
                         alt={child.name}
                         fill
-                        objectFit="cover"
-                        className="transform transition-transform duration-300 group-hover:scale-110"
+                        className="transform object-cover transition-transform duration-300 group-hover:scale-110"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
                       />
                       <div className="absolute inset-0 transition-colors duration-300" />
                     </div>

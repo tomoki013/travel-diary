@@ -32,15 +32,16 @@ export const LinkCard = ({ href, title, excerpt, imageUrl, variant }: LinkCardPr
         className="group not-prose my-6 flex flex-col items-center rounded-lg border border-gray-200 bg-white/80 p-4 shadow-sm transition-colors md:flex-row md:gap-4"
       >
         {imageUrl && (
-          <p className="flex-shrink-0 md:w-1/4">
+          <div className="flex-shrink-0 md:w-1/4">
             <Image
               src={imageUrl}
               alt={title}
               width={400}
               height={300}
+              sizes="(max-width: 768px) 100vw, 200px"
               className="aspect-video rounded-md object-cover"
             />
-          </p>
+          </div>
         )}
         <p className="flex-grow">
           <p className="text-foreground group-hover:text-muted-foreground font-bold">{title}</p>

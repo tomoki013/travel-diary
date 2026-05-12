@@ -31,10 +31,12 @@ export const scrollToArticleHeading = (id: string) => {
   });
 };
 
-export const useHeadings = () => {
+export const useHeadings = (enabled: boolean = true) => {
   const [headings, setHeadings] = useState<ArticleHeading[]>([]);
 
   useEffect(() => {
+    if (!enabled) return;
+
     const articleElement = document.querySelector("article");
     if (!articleElement) return;
 
@@ -60,7 +62,7 @@ export const useHeadings = () => {
     return () => {
       window.cancelAnimationFrame(frameId);
     };
-  }, []);
+  }, [enabled]);
 
   return headings;
 };
@@ -75,7 +77,7 @@ export const useScrollSync = (
 
   useEffect(() => {
     if (!isEnabled || headings.length === 0) {
-      setActiveId("");
+      if (!isEnabled) setActiveId("");
       return;
     }
 
@@ -111,7 +113,7 @@ export const useScrollSync = (
     return () => {
       headingElements.forEach((el) => observer.unobserve(el));
     };
-  }, [isEnabled, headings, navRef]);
+  }, [isEnabled, headings, navRef, shouldScrollIntoView]);
 
   return activeId;
 };
@@ -209,8 +211,12 @@ const TableOfContent = ({
   const navRef = useRef<HTMLDivElement>(null);
 
   // Fallback to internal state if props are not provided
-  const internalHeadings = useHeadings();
-  const internalActiveId = useScrollSync(internalHeadings, isScrollSyncEnabled, navRef);
+  const internalHeadings = useHeadings(!propHeadings);
+  const internalActiveId = useScrollSync(
+    internalHeadings,
+    isScrollSyncEnabled && !propActiveId,
+    navRef,
+  );
 
   const headings = propHeadings ?? internalHeadings;
   const activeId = propActiveId ?? internalActiveId;
