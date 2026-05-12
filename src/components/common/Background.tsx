@@ -27,7 +27,7 @@ const Background = () => {
     if (isReducedMotion) return [];
 
     // Keep particle count low for performance
-    const count = isSmallScreen ? 12 : 24;
+    const count = isSmallScreen ? 8 : 24;
 
     return Array.from({ length: count }).map((_, i) => {
       const seed = i + 1;
