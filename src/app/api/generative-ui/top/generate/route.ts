@@ -7,6 +7,8 @@ import path from "path";
 import {
   GenerateTopRequestSchema,
   IntentAnalysisSchema,
+  type IntentAnalysis,
+  type SafeArticleContext,
 } from "@/features/generative-ui/top/schema";
 import { selectCandidateArticles } from "@/features/generative-ui/top/selectCandidateArticles";
 import {
@@ -71,10 +73,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const candidates = selectCandidateArticles(
-    index.articles as Parameters<typeof selectCandidateArticles>[0],
-    userInput,
-  );
+  const candidates = selectCandidateArticles(index.articles as SafeArticleContext[], userInput);
 
   const validArticleIds = new Set(candidates.map((a) => a.id));
 
@@ -93,7 +92,7 @@ export async function POST(req: NextRequest) {
   const intentSystemPrompt = buildIntentSystemPrompt();
   const intentUserPayload = buildIntentUserPayload(userInput);
 
-  let intentAnalysisRaw: any;
+  let intentAnalysisRaw: unknown;
   try {
     const { text } = await generateText({
       model: modelFlash,
@@ -116,7 +115,14 @@ export async function POST(req: NextRequest) {
   }
 
   const intentValidation = IntentAnalysisSchema.safeParse(intentAnalysisRaw);
-  const intent = intentValidation.success ? intentValidation.data : intentAnalysisRaw;
+  const intent: IntentAnalysis = intentValidation.success
+    ? intentValidation.data
+    : {
+        primaryGoal: userInput,
+        keyConcerns: [],
+        recommendedTone: "neutral",
+        suggestedLayoutStrategy: "シンプルなリスト形式で表示する",
+      };
 
   // --- STEP 2: UI Composition ---
   console.log("[generative-ui/generate] Step 2: UI Composition starting using PRO model...");

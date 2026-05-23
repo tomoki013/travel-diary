@@ -36,16 +36,20 @@ export function GenerativeTopClient({ articleIndex }: { articleIndex: ArticleInd
 
   // Restore from sessionStorage on mount
   useEffect(() => {
-    const stored = loadGeneratedTop();
-    if (stored) {
-      setUi({
-        phase: "result",
-        schema: stored.schema,
-        expiresAt: stored.expiresAt,
-        restored: true,
-        userInputPreview: stored.userInputPreview,
-      });
-    }
+    const frameId = window.requestAnimationFrame(() => {
+      const stored = loadGeneratedTop();
+      if (stored) {
+        setUi({
+          phase: "result",
+          schema: stored.schema,
+          expiresAt: stored.expiresAt,
+          restored: true,
+          userInputPreview: stored.userInputPreview,
+        });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
   }, []);
 
   const handleGenerate = useCallback(async () => {

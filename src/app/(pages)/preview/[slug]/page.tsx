@@ -53,47 +53,50 @@ const DraftPreviewPage = async (props: { params: Promise<{ slug: string }> }) =>
     redirect(`/preview/login?callbackUrl=/preview/${slug}`);
   }
 
+  let draftPostData: Awaited<ReturnType<typeof import("@/lib/draft-posts").getDraftPostData>>;
   try {
     const { getDraftPostData } = await import("@/lib/draft-posts");
-    const {
-      post,
-      previousPost,
-      nextPost,
-      regionRelatedPosts,
-      allPosts,
-      previousCategoryPost,
-      nextCategoryPost,
-      previousSeriesPost,
-      nextSeriesPost,
-    } = await getDraftPostData(slug);
-
-    return (
-      <div className="relative">
-        <div className="sticky top-0 z-50 bg-yellow-500 py-1 text-center font-bold text-black">
-          PREVIEW MODE - DRAFT POST
-        </div>
-        <Client
-          post={post}
-          previousPost={previousPost}
-          nextPost={nextPost}
-          regionRelatedPosts={regionRelatedPosts}
-          previousCategoryPost={previousCategoryPost}
-          nextCategoryPost={nextCategoryPost}
-          previousSeriesPost={previousSeriesPost}
-          nextSeriesPost={nextSeriesPost}
-        >
-          <ArticleContent
-            content={post.content}
-            currentPostCategory={post.category}
-            allPosts={allPosts}
-          />
-        </Client>
-      </div>
-    );
+    draftPostData = await getDraftPostData(slug);
   } catch (e) {
     console.error("Failed to get draft post data:", e);
     return notFound();
   }
+
+  const {
+    post,
+    previousPost,
+    nextPost,
+    regionRelatedPosts,
+    allPosts,
+    previousCategoryPost,
+    nextCategoryPost,
+    previousSeriesPost,
+    nextSeriesPost,
+  } = draftPostData;
+
+  return (
+    <div className="relative">
+      <div className="sticky top-0 z-50 bg-yellow-500 py-1 text-center font-bold text-black">
+        PREVIEW MODE - DRAFT POST
+      </div>
+      <Client
+        post={post}
+        previousPost={previousPost}
+        nextPost={nextPost}
+        regionRelatedPosts={regionRelatedPosts}
+        previousCategoryPost={previousCategoryPost}
+        nextCategoryPost={nextCategoryPost}
+        previousSeriesPost={previousSeriesPost}
+        nextSeriesPost={nextSeriesPost}
+      >
+        <ArticleContent
+          content={post.content}
+          currentPostCategory={post.category}
+          allPosts={allPosts}
+        />
+      </Client>
+    </div>
+  );
 };
 
 export default DraftPreviewPage;

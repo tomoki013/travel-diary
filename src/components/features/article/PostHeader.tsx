@@ -9,7 +9,6 @@ import { PostMetadata } from "@/types/types";
 import { featuredSeries } from "@/data/series";
 import { getRegionPath, getValidRegionsBySlugs } from "@/lib/regionUtil";
 import { getCategoryTitle, getTravelTopicTitle } from "@/data/categories";
-import { members } from "@/data/member";
 
 interface PostHeaderProps {
   post: PostMetadata;

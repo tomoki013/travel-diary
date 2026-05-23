@@ -77,7 +77,13 @@ export const useScrollSync = (
 
   useEffect(() => {
     if (!isEnabled || headings.length === 0) {
-      if (!isEnabled) setActiveId("");
+      if (!isEnabled) {
+        const frameId = window.requestAnimationFrame(() => {
+          setActiveId("");
+        });
+
+        return () => window.cancelAnimationFrame(frameId);
+      }
       return;
     }
 
