@@ -148,7 +148,7 @@ function NodeRenderer({
     case "text_link":
       return <TextLinkPrimitive node={node} ctx={ctx} />;
     case "action_card":
-      return <ActionCardPrimitive node={node} ctx={ctx} depth={depth} />;
+      return <ActionCardPrimitive node={node} ctx={ctx} />;
     case "floating_action":
       return <FloatingActionPrimitive node={node} />;
 
@@ -798,15 +798,7 @@ function TextLinkPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererCo
   return <span className="text-sm font-bold text-zinc-400">{label}</span>;
 }
 
-function ActionCardPrimitive({
-  node,
-  ctx,
-  depth,
-}: {
-  node: PrimitiveNode;
-  ctx: RendererContext;
-  depth: number;
-}) {
+function ActionCardPrimitive({ node, ctx }: { node: PrimitiveNode; ctx: RendererContext }) {
   const title = safeString(node.props.title);
   const description = safeString(node.props.description);
   const articleId = safeString(node.props.articleId);

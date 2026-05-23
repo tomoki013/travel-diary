@@ -101,10 +101,18 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
       normalized.category ||
       normalized.topic
     ) {
-      fetchSuggestions(debouncedSearchTerm, normalized.category, normalized.topic);
+      const frameId = window.requestAnimationFrame(() => {
+        void fetchSuggestions(debouncedSearchTerm, normalized.category, normalized.topic);
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
     } else {
-      setSuggestions([]);
-      setTotalResults(null);
+      const frameId = window.requestAnimationFrame(() => {
+        setSuggestions([]);
+        setTotalResults(null);
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
     }
   }, [debouncedSearchTerm, selectedCategory, selectedTopic, fetchSuggestions]);
 

@@ -8,7 +8,7 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import CookieBanner from "@/components/common/CookieBanner";
 import Background from "@/components/common/Background";
-import { PRIMARY_SITE_URL } from "@/constants/site";
+import { DEFAULT_SOCIAL_IMAGE_URL, PRIMARY_SITE_URL } from "@/constants/site";
 import { UIProvider } from "@/context/UIContext";
 
 const montserrat = Montserrat({
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "favicon.ico",
+        url: DEFAULT_SOCIAL_IMAGE_URL,
         width: 1200,
-        height: 630,
+        height: 675,
         alt: "ともきちの旅行日記",
       },
     ],
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "ともきちの旅行日記 | Travel Diary",
     description:
       "日本と世界の美しい風景、文化、食べ物を通じて、新しい旅の発見をお届けする旅行ブログ。",
-    images: ["favicon.ico"],
+    images: [DEFAULT_SOCIAL_IMAGE_URL],
   },
   metadataBase: new URL(PRIMARY_SITE_URL),
   alternates: {

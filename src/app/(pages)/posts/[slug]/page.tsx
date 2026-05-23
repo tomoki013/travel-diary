@@ -23,33 +23,42 @@ export async function generateMetadata(props: {
   const params = await props.params;
   try {
     const post = await getPostBySlug(params.slug);
+    const canonicalUrl = `/posts/${post.slug}`;
+    const imageUrl = post.image ? new URL(post.image, PRIMARY_SITE_URL).toString() : undefined;
 
     return {
       title: post.title,
       description: post.excerpt,
       alternates: {
-        canonical: `/posts/${post.slug}`,
+        canonical: canonicalUrl,
       },
       authors: post.author ? [{ name: post.author }] : [],
       openGraph: {
         title: post.title,
         description: post.excerpt,
+        url: canonicalUrl,
         type: "article",
-        images: post.image
+        publishedTime: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
+        modifiedTime: post.dates?.[post.dates.length - 1]
+          ? new Date(post.dates[post.dates.length - 1]).toISOString()
+          : undefined,
+        authors: post.author ? [post.author] : undefined,
+        images: imageUrl
           ? [
               {
-                url: post.image,
+                url: imageUrl,
                 width: 1200,
-                height: 630,
+                height: 675,
                 alt: post.title,
               },
             ]
           : [],
       },
       twitter: {
+        card: "summary_large_image",
         title: post.title,
         description: post.excerpt,
-        images: post.image ? [post.image] : [],
+        images: imageUrl ? [imageUrl] : [],
       },
     };
   } catch {
@@ -65,99 +74,114 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
   const params = await props.params;
   const slug = params.slug;
 
+  let postData: Awaited<ReturnType<typeof getPostData>>;
   try {
-    const {
-      post,
-      previousPost,
-      nextPost,
-      regionRelatedPosts,
-      allPosts,
-      previousCategoryPost,
-      nextCategoryPost,
-      previousSeriesPost,
-      nextSeriesPost,
-    } = await getPostData(slug);
-
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      headline: post.title,
-      image: post.image ? [post.image] : [],
-      datePublished: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
-      dateModified: post.dates?.[post.dates.length - 1]
-        ? new Date(post.dates[post.dates.length - 1]).toISOString()
-        : undefined,
-      author: [
-        {
-          "@type": "Person",
-          name: post.author || "ともきち",
-          url: PRIMARY_SITE_URL,
-        },
-      ],
-      description: post.excerpt,
-    };
-
-    const breadcrumbJsonLd = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: PRIMARY_SITE_URL,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Posts",
-          item: `${PRIMARY_SITE_URL}/posts`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: post.title,
-          item: `${PRIMARY_SITE_URL}/posts/${post.slug}`,
-        },
-      ],
-    };
-
-    const { content, headings, ...postForClient } = post;
-
-    return (
-      <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-        />
-        <Client
-          post={postForClient}
-          headings={headings}
-          previousPost={previousPost}
-          nextPost={nextPost}
-          regionRelatedPosts={regionRelatedPosts}
-          previousCategoryPost={previousCategoryPost}
-          nextCategoryPost={nextCategoryPost}
-          previousSeriesPost={previousSeriesPost}
-          nextSeriesPost={nextSeriesPost}
-        >
-          <ArticleContent
-            content={content}
-            currentPostCategory={post.category}
-            allPosts={allPosts}
-          />
-        </Client>
-      </>
-    );
+    postData = await getPostData(slug);
   } catch (e) {
     // エラーの内容をサーバーコンソールに出力する
     console.error("Failed to get post data:", e);
     return notFound();
   }
+
+  const {
+    post,
+    previousPost,
+    nextPost,
+    regionRelatedPosts,
+    allPosts,
+    previousCategoryPost,
+    nextCategoryPost,
+    previousSeriesPost,
+    nextSeriesPost,
+  } = postData;
+
+  const absolutePostUrl = `${PRIMARY_SITE_URL}/posts/${post.slug}`;
+  const absoluteImageUrl = post.image
+    ? new URL(post.image, PRIMARY_SITE_URL).toString()
+    : undefined;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${absolutePostUrl}#blogposting`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absolutePostUrl,
+    },
+    headline: post.title,
+    image: absoluteImageUrl ? [absoluteImageUrl] : undefined,
+    datePublished: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
+    dateModified: post.dates?.[post.dates.length - 1]
+      ? new Date(post.dates[post.dates.length - 1]).toISOString()
+      : undefined,
+    author: [
+      {
+        "@type": "Person",
+        name: post.author || "ともきち",
+        url: PRIMARY_SITE_URL,
+      },
+    ],
+    publisher: {
+      "@type": "Organization",
+      name: "ともきちの旅行日記",
+      url: PRIMARY_SITE_URL,
+    },
+    description: post.excerpt,
+    url: absolutePostUrl,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: PRIMARY_SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Posts",
+        item: `${PRIMARY_SITE_URL}/posts`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: absolutePostUrl,
+      },
+    ],
+  };
+
+  const { content, headings, ...postForClient } = post;
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Client
+        post={postForClient}
+        headings={headings}
+        previousPost={previousPost}
+        nextPost={nextPost}
+        regionRelatedPosts={regionRelatedPosts}
+        previousCategoryPost={previousCategoryPost}
+        nextCategoryPost={nextCategoryPost}
+        previousSeriesPost={previousSeriesPost}
+        nextSeriesPost={nextSeriesPost}
+      >
+        <ArticleContent content={content} currentPostCategory={post.category} allPosts={allPosts} />
+      </Client>
+    </>
+  );
 };
 
 export default PostPage;

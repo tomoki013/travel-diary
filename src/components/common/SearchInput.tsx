@@ -22,7 +22,11 @@ export const SearchInput = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setQuery(initialValue);
+    const frameId = window.requestAnimationFrame(() => {
+      setQuery(initialValue);
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
   }, [initialValue]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

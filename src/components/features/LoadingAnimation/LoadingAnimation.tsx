@@ -76,14 +76,18 @@ function padCenter(str: string, targetLength: number, padChar = " ") {
 const SplitFlapCharacter = ({ char, flapBG }: { char: string; flapBG: string }) => {
   const [currentChar, setCurrentChar] = useState(" ");
   const [prevChar, setPrevChar] = useState(" ");
-  const [isFlipping, setIsFlipping] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentCharRef = useRef(" ");
 
   useEffect(() => {
-    setIsFlipping(true);
     let i = 0;
     if (intervalRef.current) clearInterval(intervalRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    const frameId = window.requestAnimationFrame(() => {
+      setIsFlipping(true);
+    });
     intervalRef.current = setInterval(() => {
       const nextChar = chars[Math.floor(Math.random() * chars.length)];
       setPrevChar(currentCharRef.current);
@@ -95,11 +99,13 @@ const SplitFlapCharacter = ({ char, flapBG }: { char: string; flapBG: string }) 
         setPrevChar(currentCharRef.current);
         currentCharRef.current = char;
         setCurrentChar(char);
-        setTimeout(() => setIsFlipping(false), 400);
+        timeoutRef.current = setTimeout(() => setIsFlipping(false), 400);
       }
     }, 60);
     return () => {
+      window.cancelAnimationFrame(frameId);
       if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [char]);
 
