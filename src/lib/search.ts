@@ -1,4 +1,5 @@
 import { Post } from "@/types/types";
+import { getRegionPath } from "@/lib/regionUtil";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -43,11 +44,20 @@ export const filterPostsBySearch = (posts: PostMetadata[], query: string): PostM
   const { phrases, notTerms, orGroups } = parseQuery(query);
 
   return posts.filter((post) => {
+    // 各 regionId の祖先リージョン日本語名を展開する
+    // 例: regionIds: ["kuala-lumpur"] → 検索可能フィールドに "マレーシア", "アジア" が追加される
+    const ancestorNames = (post.regionIds || []).flatMap((slug) =>
+      getRegionPath(slug)
+        .slice(0, -1)
+        .map((r) => r.name),
+    );
+
     const searchableFields = [
       post.title,
       post.excerpt,
       post.category,
       post.regionIds,
+      ancestorNames,
       post.author,
       post.series?.slug,
       post.tags,

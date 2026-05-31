@@ -69,7 +69,7 @@ const Footer = () => {
                       rel={content.target === "_blank" ? "noopener noreferrer" : undefined}
                       className="group flex items-center gap-2 text-sm text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-stone-200 transition-all group-hover:w-3 group-hover:bg-amber-500 dark:bg-stone-800" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-stone-200 transition-all group-hover:w-3 group-hover:bg-amber-500 dark:bg-stone-700 dark:group-hover:bg-amber-400" />
                       {content.name}
                       {content.target === "_blank" && (
                         <ExternalLink className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />

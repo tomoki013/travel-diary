@@ -29,7 +29,7 @@ export const LinkCard = ({ href, title, excerpt, imageUrl, variant }: LinkCardPr
     return (
       <Link
         href={href}
-        className="group not-prose my-6 flex flex-col items-center rounded-lg border border-gray-200 bg-white/80 p-4 shadow-sm transition-colors md:flex-row md:gap-4"
+        className="group not-prose my-6 flex flex-col items-center rounded-lg border border-gray-200 bg-white/80 p-4 shadow-sm transition-colors md:flex-row md:gap-4 dark:border-stone-700 dark:bg-stone-900/80 dark:hover:border-stone-600"
       >
         {imageUrl && (
           <div className="flex-shrink-0 md:w-1/4">
@@ -45,7 +45,7 @@ export const LinkCard = ({ href, title, excerpt, imageUrl, variant }: LinkCardPr
         )}
         <p className="flex-grow">
           <p className="text-foreground group-hover:text-muted-foreground font-bold">{title}</p>
-          <Separator />
+          <Separator className="dark:bg-stone-700" />
           {excerpt && (
             <p className="text-foreground group-hover:text-muted-foreground mt-1 line-clamp-2 text-sm">
               {excerpt}
@@ -67,14 +67,14 @@ export const LinkCard = ({ href, title, excerpt, imageUrl, variant }: LinkCardPr
         className="group my-8 block transition-transform duration-300 hover:!rotate-0"
         style={{ transform: `rotate(${getAnalogRotation(href)}deg)` }}
       >
-        <p className="relative rounded-md bg-white p-3 pb-8 shadow-lg">
+        <p className="relative rounded-md bg-white p-3 pb-8 shadow-lg dark:bg-stone-800 dark:shadow-stone-900">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={title}
               width={800}
               height={600}
-              className="aspect-[4/3] rounded-sm border-2 border-gray-100 object-cover"
+              className="aspect-[4/3] rounded-sm border-2 border-gray-100 object-cover dark:border-stone-700"
             />
           )}
           <p className="text-foreground absolute right-0 bottom-2 left-0 mt-3 text-center font-serif font-semibold">
@@ -90,7 +90,7 @@ export const LinkCard = ({ href, title, excerpt, imageUrl, variant }: LinkCardPr
     return (
       <Link
         href={href}
-        className="group border-secondary my-4 block border-l-4 bg-white/80 p-4 transition-colors"
+        className="group border-secondary my-4 block border-l-4 bg-white/80 p-4 transition-colors dark:border-stone-600 dark:bg-stone-900/80 dark:hover:bg-stone-800/80"
       >
         <p className="text-foreground group-hover:text-muted-foreground font-bold">{title}</p>
         <p className="text-muted-foreground mt-1 flex items-center gap-1 text-xs">

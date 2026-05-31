@@ -7,6 +7,7 @@ import { POSTS_PER_PAGE } from "@/constants/constants";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { TravelTopic } from "@/types/types";
 import { BlogDiscoveryView, getPostsForView } from "@/lib/post-discovery";
+import { getRegionAndDescendantSlugs } from "@/lib/regionUtil";
 
 export const metadata: Metadata = {
   title: "全記事一覧 - Blog ",
@@ -61,7 +62,11 @@ const PostsPage = async (props: {
   }
 
   if (region !== "all") {
-    filteredPosts = filteredPosts.filter((post) => post.regionIds?.includes(region));
+    // 指定リージョンの子孫（都市など）も含めて展開してフィルタリングする
+    const regionSlugs = getRegionAndDescendantSlugs(region);
+    filteredPosts = filteredPosts.filter((post) =>
+      post.regionIds?.some((id) => regionSlugs.includes(id)),
+    );
   }
 
   let processedPosts = filteredPosts;
