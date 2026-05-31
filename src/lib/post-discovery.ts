@@ -17,8 +17,7 @@ const ENTRY_TOPIC_SCORES: Record<TravelTopic, number> = {
 
 const DIARY_CATEGORIES = new Set(["series", "itinerary"]);
 
-const getTimestamp = (publishedAt?: string) =>
-  new Date(publishedAt || "1970-01-01").getTime();
+const getTimestamp = (publishedAt?: string) => new Date(publishedAt || "1970-01-01").getTime();
 
 const countOverlap = (left: string[] = [], right: string[] = []) => {
   const rightSet = new Set(right.map((value) => value.toLowerCase()));
@@ -88,7 +87,9 @@ export const getPostEntryScore = (post: PostMetadata) => {
 };
 
 const sortByDateDesc = (posts: PostMetadata[]) =>
-  [...posts].sort((left, right) => getTimestamp(right.publishedAt) - getTimestamp(left.publishedAt));
+  [...posts].sort(
+    (left, right) => getTimestamp(right.publishedAt) - getTimestamp(left.publishedAt),
+  );
 
 export const getRecommendedPosts = (posts: PostMetadata[]) =>
   [...posts].sort((left, right) => {
@@ -289,8 +290,7 @@ export const getContextualRelatedPosts = (
       );
       const sameJourney = Boolean(current.journeyId && current.journeyId === post.journeyId);
       const sameCategory = current.category === post.category;
-      const sameRevenueCategory =
-        inferRevenueCategory(current) === inferRevenueCategory(post);
+      const sameRevenueCategory = inferRevenueCategory(current) === inferRevenueCategory(post);
 
       let score = geo.score;
       score += sharedTopics * 24;

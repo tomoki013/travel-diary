@@ -6,10 +6,7 @@ const path = require("path");
 const matter = require("gray-matter");
 const yaml = require("js-yaml");
 
-const DIRECTORIES = [
-  path.join(process.cwd(), "posts"),
-  path.join(process.cwd(), "draft-posts"),
-];
+const DIRECTORIES = [path.join(process.cwd(), "posts"), path.join(process.cwd(), "draft-posts")];
 
 function migrateData(data) {
   // Already migrated — has publishedAt and no legacy dates field

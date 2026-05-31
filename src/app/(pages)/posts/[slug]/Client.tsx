@@ -135,9 +135,7 @@ const Client = ({
       >
         <PostHeader post={post} variant="full" />
 
-        {post.costReport?.costs?.items && (
-          <CostBreakdown costs={post.costReport.costs.items} />
-        )}
+        {post.costReport?.costs?.items && <CostBreakdown costs={post.costReport.costs.items} />}
 
         <div className="my-12">
           <TableOfContent headings={finalHeadings} activeId={activeId} isScrollSyncEnabled />

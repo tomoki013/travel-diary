@@ -13,7 +13,6 @@ heroImage: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
 author: ともきち
 ---
 
-
 海外旅行は自由度が高いぶん、判断を外すと一気にしんどくなります。
 
 私は細かい旅程より前に、自分なりのルールをいくつか決めておくことが多いです。絶対の正解ではありませんが、このくらい決めておくと旅がかなり崩れにくくなります。

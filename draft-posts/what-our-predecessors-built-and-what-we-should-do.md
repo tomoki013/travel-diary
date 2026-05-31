@@ -12,7 +12,6 @@ heroImage: /images/Singapore/jewel-and-chagee-at-changi-international-airport.jp
 author: ともきち
 ---
 
-
 今の海外旅行は、昔よりかなりやりやすいです。
 
 LCC もありますし、地図アプリもありますし、両替や決済の情報もすぐ手に入ります。でも、それは自然にそうなったわけではなく、先に試して、失敗して、情報を残してくれた人たちがいたからだと思います。だからこそ、いま旅をする側にも最低限の態度は必要です。

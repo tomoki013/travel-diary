@@ -148,8 +148,7 @@ export const calculateScores = (
       terms.forEach((term) => {
         for (const key of [...finalSearchableKeys, "series"] as string[]) {
           const weight =
-            (finalWeights as Record<string, number>)[key] ||
-            (key === "series" ? 3 : 0);
+            (finalWeights as Record<string, number>)[key] || (key === "series" ? 3 : 0);
           const fieldValue = searchableFields[key];
           if (fieldValue) {
             const tf = calculateTermFrequency(fieldValue, term);

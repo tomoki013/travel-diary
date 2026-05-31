@@ -6,4 +6,3 @@ travelDates:
   start: string[];
 category: string;
 ---
-

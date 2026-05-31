@@ -132,9 +132,7 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
   const order = flow[currentCategory];
   const currentTopics = new Set(normalizeTravelTopics(current.travelTopics));
   return allPosts
-    .filter(
-      (post) => post.slug !== current.slug && inferRevenueCategory(post) !== "essay",
-    )
+    .filter((post) => post.slug !== current.slug && inferRevenueCategory(post) !== "essay")
     .map((post) => {
       const postCategory = inferRevenueCategory(post);
       const categoryIndex = order.indexOf(postCategory);
