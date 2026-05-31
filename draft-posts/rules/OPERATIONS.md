@@ -5,40 +5,43 @@
 
 ## 1. Frontmatter
 
-| キー           | 型         | 必須/任意 | 説明                                        | 使用タイミング         |
-| :------------- | :--------- | :-------- | :------------------------------------------ | :--------------------- |
-| `title`        | `string`   | 必須      | 記事タイトル                                | 全記事                 |
-| `dates`        | `string[]` | 必須      | 日付配列。`["2024-03-10"]`                  | 全記事                 |
-| `category`     | `string`   | 必須      | `tourism`, `itinerary`, `series`, `one-off` | 全記事                 |
-| `excerpt`      | `string`   | 任意      | 要約。100 から 150 文字程度                 | 一覧・SEO              |
-| `image`        | `string`   | 必須      | アイキャッチ画像のパス                      | 全記事                 |
-| `tags`         | `string[]` | 任意      | 検索・フリーワード導線用タグ                | 全記事                 |
-| `location`     | `string[]` | 任意      | `src/data/region.ts` の `slug`              | 全記事                 |
-| `author`       | `string`   | 任意      | 著者名。デフォルトは `ともきち`             | 全記事                 |
-| `id`           | `string`   | 任意      | 記事のユニーク ID                           | 管理上必要な場合       |
-| `budget`       | `number`   | 任意      | 旅行の総予算                                | `category: itinerary`  |
-| `costs`        | `Record`   | 任意      | 費用の内訳                                  | `category: itinerary`  |
-| `series`       | `string`   | 任意      | 連載シリーズの slug                         | `category: series`     |
-| `journey`      | `string`   | 任意      | `journey.ts` の ID                          | 旅程に紐づく記事       |
-| `travelTopics` | `string[]` | 任意      | 実用情報ラベル                              | 実用性の高い `tourism` |
-| `isPromotion`  | `boolean`  | 任意      | PR 記事かどうか                             | PR 記事のみ            |
-| `promotionPG`  | `string[]` | 任意      | プロモーション種別やリンク情報              | PR 記事のみ            |
+テンプレートファイル: `draft-posts/temp.md`
+
+| キー                | 型                    | 必須/任意 | 説明                                                                | 使用タイミング               |
+| :------------------ | :-------------------- | :-------- | :------------------------------------------------------------------ | :--------------------------- |
+| `title`             | `string`              | 必須      | 記事タイトル                                                        | 全記事                       |
+| `excerpt`           | `string`              | 任意      | 一覧カード・Introduction セクションに表示する要約。100〜150文字程度 | 全記事                       |
+| `description`       | `string`              | 任意      | SEO 専用の短い説明文。省略時は `excerpt` が代わりに使われる         | SEO を別途制御したい場合のみ |
+| `publishedAt`       | `string` (YYYY-MM-DD) | 必須      | 公開日。旅行実施日またはコンテンツ基準日                            | 全記事                       |
+| `updatedAt`         | `string` (YYYY-MM-DD) | 任意      | 内容を大幅改訂した日                                                | 改訂時のみ                   |
+| `travelDates`       | `{ start, end? }`     | 任意      | 旅行期間。`start` は必須、`end` は複数日の場合のみ                  | 旅行記事全般                 |
+| `category`          | `string`              | 必須      | `tourism` / `itinerary` / `series` / `one-off`                      | 全記事                       |
+| `tags`              | `string[]`            | 任意      | 検索・フリーワード導線用タグ                                        | 全記事                       |
+| `heroImage`         | `string`              | 必須      | アイキャッチ画像のパス（`/images/` から始める）                     | 全記事                       |
+| `heroAlt`           | `string`              | 任意      | アイキャッチ画像の alt テキスト。省略時はタイトルが使われる         | 被写体が分かる場合に設定     |
+| `regionIds`         | `string[]`            | 任意      | `src/data/region.ts` の `slug` と一致させる                         | 全記事                       |
+| `author`            | `string`              | 任意      | 著者名。省略すると「ともきち」として扱われる                        | 全記事                       |
+| `series`            | `{ slug, order? }`    | 任意      | 連載シリーズ情報。`category: series` の場合に必須                   | `category: series`           |
+| `journeyId`         | `string`              | 任意      | `src/data/journey.ts` の ID と一致させる                            | 旅程に紐づく記事             |
+| `costReport`        | `{ budget?, costs? }` | 任意      | 費用レポート。`budget` は想定予算、`costs.items` は実際の支出内訳   | `category: itinerary`        |
+| `promotionPrograms` | `string[]`            | 任意      | PR 記事で紹介しているサービス名の配列。配列が空なら通常記事扱い     | PR 記事のみ                  |
+| `travelTopics`      | `string[]`            | 任意      | 実用情報ラベル。`category: tourism` にのみ付与する                  | 実用性の高い `tourism`       |
+| `draft`             | `boolean`             | 任意      | `true` のままだとビルドのメタデータに含まれない                     | 下書き・未公開記事           |
 
 ## 2. Frontmatter の運用
 
-- `category: itinerary` では `budget` `costs` `journey` を使用可能。
-- `category: series` では `series` が必須。
-- `journey` は全カテゴリで使用可能。
-- ただし、旅程に紐づく記事では `journey` を原則付与する。
-- `series: travel-diary` と `category: itinerary` では `journey` を基本必須として扱う。
-- 特定の旅の移動、空港アクセス、観光実体験に依存する `category: tourism` でも、旅程と結びつくなら `journey` を付与する。
-- 旅程に依存しない一般論や単発の考え方記事では、`journey` はなくてよい。
-- 全記事で `image` を必ず入れる。画像未確定でも `image: /images/` を入れておく。
-- `dates` は 1 つ目を公開日または旅行開始日、2 つ目以降があれば更新日として扱う。
-- `location` は配列で記述し、`src/data/region.ts` に定義された `slug` と一致させる。
-- `location` は、使えるなら国より都市・エリアのような小さい単位を優先する。
+- `category: itinerary` では `costReport`（`budget` + `costs.items`）と `journeyId` を使用する。
+- `category: series` では `series.slug` が必須。`series.order` は省略可（`publishedAt` 順で並ぶ）。
+- `journeyId` は全カテゴリで使用可能。旅程に紐づく記事には原則付与する。
+- `series: { slug: travel-diary }` と `category: itinerary` では `journeyId` を基本必須として扱う。
+- 特定の旅の移動・空港アクセス・観光実体験に依存する `category: tourism` でも、旅程と結びつくなら `journeyId` を付与する。
+- 旅程に依存しない一般論や単発の考え方記事では、`journeyId` はなくてよい。
+- 全記事で `heroImage` を必ず入れる。画像未確定でも `heroImage: /images/` を入れておく。
+- `regionIds` は配列で記述し、`src/data/region.ts` に定義された `slug` と一致させる。
+- `regionIds` は、使えるなら国より都市・エリアのような小さい単位を優先する。
 - 同じ記事で国 `slug` と、その国に含まれる都市・エリア `slug` を併記しない。
 - `src/data/region.ts` に子 `slug` がない場所だけ、国 `slug` 単独を使ってよい。
+- `draft: true` のままだとビルドのメタデータに含まれず、公開もされない。公開する前に必ず削除する。
 
 ## 3. `travelTopics`
 
@@ -53,7 +56,6 @@
 
 - すべて小文字のケバブケースを基本とする。
 - 半角英数字のみを使い、日本語、全角文字、スペースは使わない。
-- frontmatter に `slug` を持つ場合は、ファイル名と一致させる。
 
 ### カテゴリ別
 
@@ -82,7 +84,7 @@
 
 - 既存の `posts/` 記事を修正する場合は、全面的な書き直しではなく必要最低限の修正を基本にする。
 - 新規作成や修正した記事は、いきなり `posts/` へ置かず、必ず一旦 `draft-posts/` に出力して確認を挟む。
-- `series: travel-diary` の修正や新規化では、構成と密度の判断を `TRAVEL_DIARY_RULES.md` に合わせる。
+- `series: { slug: travel-diary }` の修正や新規化では、構成と密度の判断を `TRAVEL_DIARY_RULES.md` に合わせる。
 - 確認可能な客観情報は補正してよいが、体験談の主観や印象そのものは消さない。
 - 喫煙事情の記載は、`category: tourism` の喫煙事情特化記事以外には含めない。
 - 営業時間、料金、運行頻度、入場条件などの変動情報は、原則として著者が現地で直接確認した内容を優先する。
@@ -94,8 +96,8 @@
 - 記事内で紹介した場所やトピックに詳細記事がある場合は、その記事への内部リンクを積極的に設置する。
 - Markdown リンクはカード UI に変換されるため、本文へ埋め込まず独立した段落で配置する。
 - 時系列順に読む読者のため、未来の記事へのリンクは原則として設置しない。
-- ただし、同じ `journey` を持つ既存記事どうしなら、公開日が後でも自然な文脈の補助リンクとして設置してよい。
-- `series: travel-diary` の回リンクは原則として直前回までに留め、前々回以前の回リンクは置かない。
+- ただし、同じ `journeyId` を持つ既存記事どうしなら、公開日が後でも自然な文脈の補助リンクとして設置してよい。
+- `series: { slug: travel-diary }` の回リンクは原則として直前回までに留め、前々回以前の回リンクは置かない。
 
 ## 7. 写真挿入マーカー
 
@@ -124,7 +126,8 @@
 - 外部リンクがある場合、それが公式情報への導線か、不要な誘導かを判別できるか。
 - `[[photo]]` ブロックで `alt` が空欄になっていないか。
 - frontmatter がカテゴリ要件を満たしているか。
-- `image` が未設定になっていないか。
-- `location` が `src/data/region.ts` と一致しているか。
+- `heroImage` が未設定になっていないか。
+- `regionIds` が `src/data/region.ts` と一致しているか。
 - `travelTopics` の付与が過不足なく、`tourism` に限定されているか。
+- `draft: true` が残っていないか（公開時は必ず削除する）。
 - ファイル名と表記が命名規則に準拠しているか。
