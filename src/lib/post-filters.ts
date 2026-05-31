@@ -1,4 +1,5 @@
 import { Post, TravelTopic } from "@/types/types";
+import { getRegionAndDescendantSlugs } from "@/lib/regionUtil";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -59,7 +60,10 @@ export function getPreviousPost(slug: string, allPosts: PostMetadata[]): PostMet
 }
 
 export function getRegionPosts(posts: PostMetadata[], targetSlugs: string[]): PostMetadata[] {
+  // 指定 slug の子孫（都市など）も含めて展開する
+  // 例: ["malaysia"] → ["malaysia", "kuala-lumpur", "penang", ...]
+  const expandedSlugs = new Set(targetSlugs.flatMap(getRegionAndDescendantSlugs));
   return posts.filter(
-    (post) => post.regionIds && post.regionIds.some((loc) => targetSlugs.includes(loc)),
+    (post) => post.regionIds && post.regionIds.some((loc) => expandedSlugs.has(loc)),
   );
 }

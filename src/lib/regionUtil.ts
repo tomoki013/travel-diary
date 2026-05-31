@@ -69,6 +69,48 @@ export const getValidRegionsBySlugs = (slugs: string[]): Region[] => {
 };
 
 /**
+ * 指定した slug 自身 + すべての子孫 slug を返します。
+ * 例: "malaysia" -> ["malaysia", "kuala-lumpur", "penang", ...]
+ * 例: "asia" -> ["asia", "thailand", "bangkok", "malaysia", ...]
+ * 地域フィルターで「マレーシア」を選んだとき「クアラルンプール」の記事も含めるために使います。
+ */
+export const getRegionAndDescendantSlugs = (slug: string): string[] => {
+  const slugs: string[] = [slug];
+
+  for (const continent of regionData) {
+    if (continent.slug === slug) {
+      // 大陸が指定された場合 → 配下の国・都市すべてを返す
+      for (const country of continent.countries) {
+        slugs.push(country.slug);
+        if (country.children) slugs.push(...country.children.map((c) => c.slug));
+      }
+      return slugs;
+    }
+    for (const country of continent.countries) {
+      if (country.slug === slug) {
+        // 国が指定された場合 → 配下の都市すべてを返す
+        if (country.children) slugs.push(...country.children.map((c) => c.slug));
+        return slugs;
+      }
+    }
+  }
+
+  return slugs; // 都市など末端ノードはそのまま返す
+};
+
+/**
+ * 指定した slug の祖先リージョン（大陸・国）の日本語名を返します。
+ * 例: "kuala-lumpur" -> ["アジア", "マレーシア"]
+ * テキスト検索で「マレーシア」と入力したとき、regionIds に "kuala-lumpur" を持つ記事を
+ * ヒットさせるために使います。
+ */
+export const getRegionAncestorNames = (slug: string): string[] => {
+  const path = getRegionPath(slug);
+  // 末端（自分自身）を除いた祖先の名前だけを返す
+  return path.slice(0, -1).map((r) => r.name);
+};
+
+/**
  * slugから階層的な地域情報のパス（パンくずリスト用）を取得します。
  * 例: "paris" -> [Europe, France, Paris]
  * @param slug - 現在の地域のslug
