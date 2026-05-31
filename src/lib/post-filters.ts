@@ -4,14 +4,14 @@ type PostMetadata = Omit<Post, "content">;
 
 export function sortByDate(posts: PostMetadata[]): PostMetadata[] {
   return [...posts].sort((a, b) => {
-    const dateA = new Date(a.dates[0]).getTime();
-    const dateB = new Date(b.dates[0]).getTime();
+    const dateA = new Date(a.publishedAt).getTime();
+    const dateB = new Date(b.publishedAt).getTime();
 
     if (dateB !== dateA) {
       return dateB - dateA;
     }
 
-    return b.dates.length - a.dates.length;
+    return a.slug < b.slug ? -1 : 1;
   });
 }
 
@@ -20,7 +20,7 @@ export function filterByCategory(posts: PostMetadata[], category: string): PostM
 }
 
 export function filterBySeries(posts: PostMetadata[], series: string): PostMetadata[] {
-  return posts.filter((post) => post.series === series);
+  return posts.filter((post) => post.series?.slug === series);
 }
 
 export function filterByTag(posts: PostMetadata[], tag: string): PostMetadata[] {
@@ -60,6 +60,6 @@ export function getPreviousPost(slug: string, allPosts: PostMetadata[]): PostMet
 
 export function getRegionPosts(posts: PostMetadata[], targetSlugs: string[]): PostMetadata[] {
   return posts.filter(
-    (post) => post.location && post.location.some((loc) => targetSlugs.includes(loc)),
+    (post) => post.regionIds && post.regionIds.some((loc) => targetSlugs.includes(loc)),
   );
 }

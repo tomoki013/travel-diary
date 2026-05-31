@@ -16,9 +16,9 @@ interface PostHeaderProps {
 }
 
 const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
-  const series = featuredSeries.find((s) => s.slug === post.series);
-  const regionTags = getValidRegionsBySlugs(post.location || []);
-  const primarySlug = post.location && post.location.length > 0 ? post.location[0] : undefined;
+  const series = featuredSeries.find((s) => s.slug === post.series?.slug);
+  const regionTags = getValidRegionsBySlugs(post.regionIds || []);
+  const primarySlug = post.regionIds && post.regionIds.length > 0 ? post.regionIds[0] : undefined;
   const regionPath = primarySlug ? getRegionPath(primarySlug) : [];
   const country = regionPath.length > 0 ? regionPath[1] : null;
   const categoryTitle = getCategoryTitle(post.category);
@@ -33,7 +33,7 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
         <h1 className="text-foreground mb-2 text-3xl font-bold md:text-5xl">{post.title}</h1>
       ) : (
         <>
-          {post.isPromotion && (
+          {(post.promotionPrograms?.length ?? 0) > 0 && (
             <section className="my-6 flex items-center justify-center rounded-md border border-stone-200 bg-stone-100 py-3 text-xs text-stone-600 md:text-sm dark:border-stone-800 dark:bg-stone-900/50 dark:text-stone-400">
               <p>
                 ※本記事はプロモーションを含みます。詳しくは
@@ -118,7 +118,11 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
                 {getDatePrefix(post.category)}
               </span>
               <span className="font-code text-stone-900 dark:text-stone-300">
-                {post.dates.join(" - ")}
+                {post.travelDates
+                  ? post.travelDates.end
+                    ? `${post.travelDates.start} - ${post.travelDates.end}`
+                    : post.travelDates.start
+                  : post.publishedAt}
               </span>
             </div>
 
@@ -149,11 +153,11 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
             </section>
           )}
 
-          {post.image && (
+          {post.heroImage && (
             <div className="mb-10 overflow-hidden rounded-xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
               <Image
-                src={post.image}
-                alt={post.title}
+                src={post.heroImage}
+                alt={post.heroAlt || post.title}
                 width={1200}
                 height={675}
                 className="aspect-video w-full object-cover transition-transform duration-700 hover:scale-105"

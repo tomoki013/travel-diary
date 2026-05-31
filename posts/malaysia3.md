@@ -1,24 +1,24 @@
 ---
-category: series
 title: バトゥ洞窟とピンクモスクを回り、最後は食べ歩きに着地したクアラルンプール
-dates:
-  - "2026-03-14"
-excerpt: >-
-  観光らしい予定をしっかり入れた3日目。バトゥ洞窟とピンクモスクでは
-  それぞれ小さく失敗しつつ、最後はロティ、クナーファ、ドリアンまで
-  ちゃんと回収して終わったクアラルンプール最終日です。
-image: /images/Malaysia/the-rainbow-stairs-at-batu-caves.jpg
-location:
-  - kuala-lumpur
-  - putrajaya
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: 観光らしい予定をしっかり入れた3日目。バトゥ洞窟とピンクモスクでは それぞれ小さく失敗しつつ、最後はロティ、クナーファ、ドリアンまで ちゃんと回収して終わったクアラルンプール最終日です。
+publishedAt: "2026-03-14"
+travelDates:
+  start: "2026-03-14"
+category: series
 tags:
   - 海外旅行
   - 街歩き
   - グルメ
+heroImage: /images/Malaysia/the-rainbow-stairs-at-batu-caves.jpg
+regionIds:
+  - kuala-lumpur
+  - putrajaya
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
+
 
 この日は観光らしい場所をちゃんと回る日にしました。ただ、終わってみると順調だったというより、少しずつ予定がずれながら進んだ1日でした。
 

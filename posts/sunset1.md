@@ -1,16 +1,10 @@
 ---
-category: series
 title: バンコクで見た夕景の中でも印象に残った、ワット・アルンと夕陽
-dates:
-  - "2025-08-05"
-excerpt: >-
-  タイ・バンコクの「暁の寺」ワット・アルンと夕陽が織りなす幻想的な絶景を紹介します。チャオプラヤー川の対岸から望む夕暮れ時の美しい姿や、ライトアップされた夜の魅力、おすすめの鑑賞スポットまでを解説。三島由紀夫の小説の舞台としても知られるこの寺院で、心に残る特別な夕景を体験してみませんか？
-image: /images/Thai/wat-arun-with-sunset.jpg
-location:
-  - bangkok
-author: ともきち
-series: sunset
-journey: j-2024-03-01
+excerpt: タイ・バンコクの「暁の寺」ワット・アルンと夕陽が織りなす幻想的な絶景を紹介します。チャオプラヤー川の対岸から望む夕暮れ時の美しい姿や、ライトアップされた夜の魅力、おすすめの鑑賞スポットまでを解説。三島由紀夫の小説の舞台としても知られるこの寺院で、心に残る特別な夕景を体験してみませんか？
+publishedAt: "2025-08-05"
+travelDates:
+  start: "2025-08-05"
+category: series
 tags:
   - 海外旅行
   - ワットアルン
@@ -18,7 +12,15 @@ tags:
   - 夕陽
   - チャオプラヤー川
   - 三島由紀夫
+heroImage: /images/Thai/wat-arun-with-sunset.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: sunset
+journeyId: j-2024-03-01
 ---
+
 
 ## はじめに
 

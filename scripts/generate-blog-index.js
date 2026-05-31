@@ -27,25 +27,27 @@ async function generateBlogIndex() {
   for (const fileName of postFiles) {
     const fullPath = path.join(postsDirectory, fileName);
     const fileContents = await fs.readFile(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+    const { data } = matter(fileContents);
 
     if (!data.title) continue;
 
     const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();
+    const seriesSlug =
+      data.series && typeof data.series === "object" ? data.series.slug : undefined;
 
     // Derive themes from category, tags, travelTopics
     const themes = [
       ...ensureStringArray(data.tags),
       ...ensureStringArray(data.travelTopics),
       data.category,
-      data.series,
+      seriesSlug,
     ].filter(Boolean);
 
     // Build a safe AI summary from excerpt (max 120 chars)
     const excerpt = (data.excerpt || "").replace(/\s+/g, " ").trim();
     const summaryForAI = excerpt.length > 120 ? excerpt.slice(0, 117) + "..." : excerpt;
 
-    const locations = ensureStringArray(data.location);
+    const regionIds = ensureStringArray(data.regionIds);
 
     articles.push({
       id: slug,
@@ -54,13 +56,13 @@ async function generateBlogIndex() {
       summaryForAI,
       themes: [...new Set(themes)],
       tags: ensureStringArray(data.tags),
-      area: locations[0] || undefined,
-      country: deriveCountry(locations),
-      city: locations[0] || undefined,
-      heroImageId: data.image || undefined,
+      area: regionIds[0] || undefined,
+      country: deriveCountry(regionIds),
+      city: regionIds[0] || undefined,
+      heroImageId: data.heroImage || undefined,
       category: data.category || undefined,
-      series: data.series || undefined,
-      dates: ensureStringArray(data.dates),
+      series: seriesSlug || undefined,
+      publishedAt: data.publishedAt || undefined,
     });
   }
 

@@ -1,19 +1,20 @@
 ---
-category: tourism
 title: ワット・プラ・ケオの見どころ。王宮と一緒に見るなら最優先候補
-dates:
-  - "2024-03-03"
-excerpt: >-
-  タイ旅行の必見スポット、ワット・プラ・ケオ（エメラルド寺院）の魅力を徹底解説！エメラルド仏像や壮麗な建築、歴史的な壁画など、訪れる際のポイントやアクセス情報も詳しく紹介します。
-image: /images/Thai/thai-royal-palace.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: タイ旅行の必見スポット、ワット・プラ・ケオ（エメラルド寺院）の魅力を徹底解説！エメラルド仏像や壮麗な建築、歴史的な壁画など、訪れる際のポイントやアクセス情報も詳しく紹介します。
+publishedAt: "2024-03-03"
+travelDates:
+  start: "2024-03-03"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
+heroImage: /images/Thai/thai-royal-palace.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 ---
+
 
 三大寺院の中でも、いちばん格式と観光地らしさが強いのがワット・プラ・ケオです。王宮と続けて回る前提ならかなり満足度は高く、初回のバンコクでも優先しやすい場所でした。
 

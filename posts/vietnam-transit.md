@@ -1,21 +1,22 @@
 ---
-category: tourism
 title: ハノイ旧市街はトランジットでも行けるか。短時間観光の組み方
-dates:
-  - "2024-09-24"
-excerpt: >-
-  ハノイでの短いトランジット時間も有効活用！ノイバイ国際空港から旧市街へ、バスやタクシーで簡単にアクセスし、地元市場やエッグコーヒー、ホエンキアム湖など魅力溢れるスポットを効率よく楽しむための完全ガイドです。
-image: /images/Vietnam/vietnam-old-town.jpg
-location:
-  - hanoi
-author: ともきち
-journey: j-2024-09-21
+excerpt: ハノイでの短いトランジット時間も有効活用！ノイバイ国際空港から旧市街へ、バスやタクシーで簡単にアクセスし、地元市場やエッグコーヒー、ホエンキアム湖など魅力溢れるスポットを効率よく楽しむための完全ガイドです。
+publishedAt: "2024-09-24"
+travelDates:
+  start: "2024-09-24"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
+heroImage: /images/Vietnam/vietnam-old-town.jpg
+regionIds:
+  - hanoi
+author: ともきち
+journeyId: j-2024-09-21
 travelTopics:
   - transport
 ---
+
 
 ハノイで数時間の乗継があるなら、旧市街まで出る選択肢は十分あります。実際にやってみると、長居はできなくてもバスで入って食事と散歩をするくらいなら成立しました。
 

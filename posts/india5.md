@@ -1,21 +1,21 @@
 ---
-category: series
 title: スコールの勢いでガンジス川に入り、そのまま夜まで余韻が残った日
-dates:
-  - "2024-09-28"
-  - "2024-09-29"
-excerpt: >-
-  【インド旅行記
-  第6回】スコールをきっかけに急遽決行したガンジス川での沐浴。現地の人々に教わった作法、聖なる水に身を委ねる神秘的な体験、そして川を眺めながらの夜景ディナーまで。バラナシでしか味わえない特別な1日。
-image: /images/India/ganga.jpg
-location:
-  - varanasi
-author: ともきち
-series: travel-diary
-journey: j-2024-09-21
+excerpt: 【インド旅行記 第6回】スコールをきっかけに急遽決行したガンジス川での沐浴。現地の人々に教わった作法、聖なる水に身を委ねる神秘的な体験、そして川を眺めながらの夜景ディナーまで。バラナシでしか味わえない特別な1日。
+publishedAt: "2024-09-28"
+travelDates:
+  start: "2024-09-28"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/India/ganga.jpg
+regionIds:
+  - varanasi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
+
 
 前日のスコールで全身ずぶ濡れになった流れのまま、この日はそのままガンジス川へ入ることになりました。準備万端で臨んだというより、現地の流れに押されて入った形ですが、だからこそ印象に残っています。
 

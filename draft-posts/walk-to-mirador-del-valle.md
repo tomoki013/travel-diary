@@ -1,21 +1,23 @@
 ---
-category: tourism
 title: トレドの絶景展望台「ミラドール・デル・バイエ」まで徒歩で行くルートと注意点
-dates:
-  - "2025-02-24"
 excerpt: トレド旧市街から絶景展望台「ミラドール・デル・バイエ」まで歩いていく方法を解説！約30〜40分のハイキングコースの道中には、他の展望スポットもあり写真撮影に最適。ただし体力的な注意点もあるため、事前にチェックしておきましょう。
-image: /images/Spain/toledo-view.jpg
-location:
-  - toledo
-author: ともきち
+publishedAt: "2025-02-24"
+travelDates:
+  start: "2025-02-24"
+category: tourism
 tags:
   - ヨーロッパ
   - 交通情報
   - 街歩き
-journey: j-2025-02-13
+heroImage: /images/Spain/toledo-view.jpg
+regionIds:
+  - toledo
+author: ともきち
+journeyId: j-2025-02-13
 travelTopics:
   - transport
 ---
+
 
 スペイン・トレドの旧市街を一望できる最高の絶景スポット「ミラドール・デル・バイエ（Mirador del Valle）」。
 

@@ -1,22 +1,22 @@
 ---
-category: tourism
 title: ラマダン中にピンクモスクへ行くなら要注意。通常の観光時間では動けません
-dates:
-  - "2026-03-24"
-excerpt: >-
-  プトラモスクは礼拝の場でもあり、通常時とラマダン期間中で観光時間が変わります。
-  ネットでは通常時の時間が多く、ラマダン中だけ見落としやすかった点を体験ベースで整理します。
-image: /images/Malaysia/exterior-of-the-putra-mosque.jpg
-location:
-  - putrajaya
-author: ともきち
+excerpt: プトラモスクは礼拝の場でもあり、通常時とラマダン期間中で観光時間が変わります。 ネットでは通常時の時間が多く、ラマダン中だけ見落としやすかった点を体験ベースで整理します。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
   - モスク
   - 注意点
-journey: j-2026-03-12
+heroImage: /images/Malaysia/exterior-of-the-putra-mosque.jpg
+regionIds:
+  - putrajaya
+author: ともきち
+journeyId: j-2026-03-12
 ---
+
 
 プトラモスクは、クアラルンプール近郊でもかなり人気のある観光地です。通称ピンクモスクとして知られていて、外観の可愛さを目当てに行く人も多いと思います。
 

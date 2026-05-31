@@ -1,24 +1,26 @@
 ---
-category: series
 title: 私が見た世界の絶景建築3選。サグラダ・ファミリア、ピラミッド、タージ・マハル
-dates:
-  - "2025-08-08"
-excerpt: >-
-  世界中を旅して見てきた絶景建築を紹介するシリーズ第1弾！この記事では、私が実際に旅して感動した世界の建築物の中から、スペインのサグラダ・ファミリア、エジプトのギザの三大ピラミッド、インドのタージ・マハルを厳選して紹介します。その建築のためだけにでも訪れる価値のある、一生に一度は見たい絶景の魅力に迫ります。
-image: /images/India/tajmahal.jpg
-location:
-  - barcelona
-  - giza
-  - agra
-author: ともきち
-series: architecture
+excerpt: 世界中を旅して見てきた絶景建築を紹介するシリーズ第1弾！この記事では、私が実際に旅して感動した世界の建築物の中から、スペインのサグラダ・ファミリア、エジプトのギザの三大ピラミッド、インドのタージ・マハルを厳選して紹介します。その建築のためだけにでも訪れる価値のある、一生に一度は見たい絶景の魅力に迫ります。
+publishedAt: "2025-08-08"
+travelDates:
+  start: "2025-08-08"
+category: series
 tags:
   - 海外旅行
   - 絶景建築
   - サグラダファミリア
   - ピラミッド
   - タージマハル
+heroImage: /images/India/tajmahal.jpg
+regionIds:
+  - barcelona
+  - giza
+  - agra
+author: ともきち
+series:
+  slug: architecture
 ---
+
 
 ## はじめに
 

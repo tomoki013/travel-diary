@@ -1,21 +1,21 @@
 ---
-category: series
 title: 朝から閉園まで詰め込み、上海ディズニーをかなり回れた1日
-dates:
-  - "2025-12-01"
-excerpt: >-
-  上海旅行3日目は、もう一つの目的だった上海ディズニーへ。
-  人気アトラクションを短い待ち時間で何度も楽しみ、朝から閉園まで満喫した
-  1日のルートを時系列でまとめます。
-image: /images/China/shanghai-disney-castle.jpg
-location:
-  - shanghai
-author: ともきち
-series: travel-diary
+excerpt: 上海旅行3日目は、もう一つの目的だった上海ディズニーへ。 人気アトラクションを短い待ち時間で何度も楽しみ、朝から閉園まで満喫した 1日のルートを時系列でまとめます。
+publishedAt: "2025-12-01"
+travelDates:
+  start: "2025-12-01"
+category: series
 tags:
   - 海外旅行
-journey: j-2025-11-29
+heroImage: /images/China/shanghai-disney-castle.jpg
+regionIds:
+  - shanghai
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-11-29
 ---
+
 
 上海旅行3日目は、この旅のもうひとつの目的だった上海ディズニーに行った日です。
 

@@ -1,20 +1,23 @@
 ---
-category: series
 title: ワット・ポーからRCAまで詰め込み、最後は深夜に歩いて帰ったバンコク
-dates:
-  - "2025-06-11"
 excerpt: バンコク滞在2日目。ワット・ポーでの本格タイマッサージやカオサン通りでの食べ歩きを満喫後、バンコク随一のクラブエリア「RCA」へ。しかし終バスを逃し、深夜のバンコクを1時間歩いて帰るという洗礼を受けることに...。
-image: /images/Thai/wat-pho-massage.jpg
-location:
-  - bangkok
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-11"
+travelDates:
+  start: "2025-06-11"
+category: series
 tags:
   - アジア
   - バックパッカー
   - トラブル
+heroImage: /images/Thai/wat-pho-massage.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 前日の波乱の到着から一夜明けて、この日は王道の観光と夜の街をまとめて回る日にしました。
 

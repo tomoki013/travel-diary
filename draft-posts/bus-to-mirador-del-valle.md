@@ -1,21 +1,23 @@
 ---
-category: tourism
 title: 激安で快適！ローカルバスで行くトレド展望台「ミラドール・デル・バイエ」
-dates:
-  - "2025-02-24"
 excerpt: トレドの絶景スポット「ミラドール・デル・バイエ」へ、たった2.5ユーロで行けるローカルバス（L71）の乗り方を解説。乗車場所や降車バス停、支払い方法など、バックパッカー向けの賢いアクセス術を紹介します。
-image: /images/Spain/toledo-view.jpg
-location:
-  - toledo
-author: ともきち
+publishedAt: "2025-02-24"
+travelDates:
+  start: "2025-02-24"
+category: tourism
 tags:
   - ヨーロッパ
   - 交通情報
   - 節約
-journey: j-2025-02-13
+heroImage: /images/Spain/toledo-view.jpg
+regionIds:
+  - toledo
+author: ともきち
+journeyId: j-2025-02-13
 travelTopics:
   - transport
 ---
+
 
 トレド旧市街の絶景を一望できる「ミラドール・デル・バイエ」。
 そこへ行くための手段として、観光客に人気なのはソコトレイン（観光列車）やタクシーですが、「費用を極力抑えつつ、歩くのは避けたい」というバックパッカーに全力でおすすめしたいのが**ローカルバス**を利用する方法です。

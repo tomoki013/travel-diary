@@ -1,21 +1,22 @@
 ---
-category: series
 title: 寝台列車を越えてバラナシへ入り、雨季の街に足を踏み入れた日
-dates:
-  - "2024-09-28"
-excerpt: >-
-  【インド旅行記
-  第5回】快適な寝台列車での車窓の旅、バラナシ到着後のローカルな朝食体験、そして突然のスコールまで。インドの日常と非日常が交差する街での最初の1日。ガンジス川での沐浴を前に期待が高まる聖地バラナシでの冒険。
-image: /images/India/train-view1.jpg
-location:
+excerpt: 【インド旅行記 第5回】快適な寝台列車での車窓の旅、バラナシ到着後のローカルな朝食体験、そして突然のスコールまで。インドの日常と非日常が交差する街での最初の1日。ガンジス川での沐浴を前に期待が高まる聖地バラナシでの冒険。
+publishedAt: "2024-09-28"
+travelDates:
+  start: "2024-09-28"
+category: series
+tags:
+  - 海外旅行
+heroImage: /images/India/train-view1.jpg
+regionIds:
   - jaipur
   - varanasi
 author: ともきち
-series: travel-diary
-journey: j-2024-09-21
-tags:
-  - 海外旅行
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
+
 
 インド旅の前半を終え、この日は寝台列車を使ってバラナシへ入ります。過酷そうな印象があったのですが、実際の2等寝台は思っていたより快適で、移動自体もかなり面白かったです。
 インドの寝台列車は過酷だと聞いていたのですが、座席はゆったりとした作りで、思っていた以上に快適でした。  

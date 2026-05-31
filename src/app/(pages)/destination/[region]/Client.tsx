@@ -165,7 +165,7 @@ const Client = ({
                 >
                   {seriesPosts.map((post, index) => (
                     <motion.div
-                      key={post.id}
+                      key={post.slug}
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.1 }}
@@ -200,7 +200,7 @@ const Client = ({
                 >
                   {tourismPosts.map((post, index) => (
                     <motion.div
-                      key={post.id}
+                      key={post.slug}
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.1 }}
@@ -235,7 +235,7 @@ const Client = ({
                 >
                   {itineraryPosts.map((post, index) => (
                     <motion.div
-                      key={post.id}
+                      key={post.slug}
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.1 }}
@@ -268,7 +268,7 @@ const Client = ({
                 >
                   {oneOffPosts.map((post, index) => (
                     <motion.div
-                      key={post.id}
+                      key={post.slug}
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.1 }}

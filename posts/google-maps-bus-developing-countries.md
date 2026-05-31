@@ -1,24 +1,24 @@
 ---
-category: one-off
 title: 発展途上国のバスはGoogleマップを信用しすぎると危ない話
-dates:
-  - "2026-03-24"
-excerpt: >-
-  海外旅行ではGoogleマップが便利ですが、発展途上国寄りの地域のバスはそのまま信じると危ないことがあります。
-  タイ、ベトナム、マレーシア、エジプトで感じたズレをもとに、使い方の距離感を整理します。
-image: /images/Thai/bangkok-red-bus.jpg
-location:
-  - putrajaya
-  - bangkok
-  - hanoi
-  - egypt
-author: ともきち
+excerpt: 海外旅行ではGoogleマップが便利ですが、発展途上国寄りの地域のバスはそのまま信じると危ないことがあります。 タイ、ベトナム、マレーシア、エジプトで感じたズレをもとに、使い方の距離感を整理します。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: one-off
 tags:
   - 海外旅行
   - バス
   - Googleマップ
   - 交通情報
+heroImage: /images/Thai/bangkok-red-bus.jpg
+regionIds:
+  - putrajaya
+  - bangkok
+  - hanoi
+  - egypt
+author: ともきち
 ---
+
 
 海外旅行中、Googleマップはかなり便利です。徒歩や電車では助かる場面が多いですし、バスでも路線を把握するには役立ちます。
 

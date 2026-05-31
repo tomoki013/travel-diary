@@ -1,21 +1,23 @@
 ---
-category: tourism
 title: 浦東空港から上海市内へリニアで行くべき？Maglev の乗り方と向いている人
-dates:
-  - "2025-11-29"
 excerpt: 浦東空港から上海市内へ向かうとき、Maglev はかなり面白い選択肢でした。料金、割引、乗り方、龍陽路駅からの乗り継ぎを実体験ベースで整理します。
-image: /images/China/shanghai-airport-food.jpg
-location:
-  - shanghai
-author: ともきち
+publishedAt: "2025-11-29"
+travelDates:
+  start: "2025-11-29"
+category: tourism
 tags:
   - アジア
   - 交通情報
   - 移動
-journey: j-2025-11-29
+heroImage: /images/China/shanghai-airport-food.jpg
+regionIds:
+  - shanghai
+author: ともきち
+journeyId: j-2025-11-29
 travelTopics:
   - transport
 ---
+
 
 中国・上海の空の玄関口である「浦東（プドン）国際空港」。ここから上海市内（中心部）までの距離は約30kmあり、タクシーや地下鉄だとかなり時間がかかってしまいます。
 

@@ -125,7 +125,7 @@ export const CustomLink = ({ href, children, allPosts }: CustomLinkProps) => {
         href={`/posts/${linkedPost.slug}`}
         title={linkedPost.title}
         excerpt={linkedPost.excerpt}
-        imageUrl={linkedPost.image}
+        imageUrl={linkedPost.heroImage}
         variant="standard"
       />
     );

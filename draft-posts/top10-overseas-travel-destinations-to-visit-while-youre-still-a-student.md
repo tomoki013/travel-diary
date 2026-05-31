@@ -1,16 +1,18 @@
 ---
-category: one-off
 title: 学生のうちに行きたい海外旅行先10選
-dates:
-  - "2025-11-22"
 excerpt: 学生のうちに行きやすい海外旅行先を、予算、体力、旅の濃さの観点で 10 か国に絞りました。初めての海外から、若いうちに行っておきたい重めの旅先まで整理します。
-image: /images/Introduce/introduce.jpg
-author: ともきち
+publishedAt: "2025-11-22"
+travelDates:
+  start: "2025-11-22"
+category: one-off
 tags:
   - 海外旅行
   - バックパッカー
   - まとめ
+heroImage: /images/Introduce/introduce.jpg
+author: ともきち
 ---
+
 
 学生のうちに海外へ行くなら、行き先選びはかなり大事です。
 

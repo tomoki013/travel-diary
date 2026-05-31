@@ -10,7 +10,7 @@ export type GetAllPostsOptions = {
   series?: string;
   tag?: string;
   region?: string[];
-  journey?: string;
+  journeyId?: string;
   topic?: TravelTopic;
   limit?: number;
 };
@@ -45,8 +45,8 @@ export const getAllPosts = cache(
     if (options.region) {
       posts = postFilters.getRegionPosts(posts, options.region);
     }
-    if (options.journey) {
-      posts = posts.filter((post) => post.journey === options.journey);
+    if (options.journeyId) {
+      posts = posts.filter((post) => post.journeyId === options.journeyId);
     }
     if (options.topic) {
       posts = postFilters.filterByTravelTopic(posts, options.topic);

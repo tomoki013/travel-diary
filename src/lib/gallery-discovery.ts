@@ -11,19 +11,19 @@ const normalizeText = (value: string) =>
   value
     .toLowerCase()
     .replace(/\s+/g, "")
-    .replace(/[・、。"'`’“”]/g, "");
+    .replace(/[・、。"'`'""]/g, "");
 
 export const findRelatedPostForPhoto = (
   photo: Photo,
   posts: PostMetadata[],
 ): PostMetadata | null => {
-  const exactImageMatch = posts.find((post) => post.image === photo.path);
+  const exactImageMatch = posts.find((post) => post.heroImage === photo.path);
   if (exactImageMatch) {
     return exactImageMatch;
   }
 
   const normalizedPhotoTitle = normalizeText(photo.title);
-  const locationMatches = posts.filter((post) => post.location?.includes(photo.location));
+  const locationMatches = posts.filter((post) => post.regionIds?.includes(photo.location));
 
   const exactTitleMatch = locationMatches.find((post) => {
     const normalizedPostTitle = normalizeText(post.title);

@@ -1,19 +1,21 @@
 ---
-category: tourism
 title: バンコクの激安宿 Do Dee Cafe はあり？室内テント泊だった実体験を整理
-dates:
-  - "2025-06-22"
 excerpt: バンコクの激安宿 Do Dee Cafe に泊まったら、寝床はまさかの室内テントでした。料金、設備、水回り、向いている人を実体験ベースで整理します。
-image: /images/Thai/do-dee-cafe.jpg
-location:
-  - bangkok
-author: ともきち
+publishedAt: "2025-06-22"
+travelDates:
+  start: "2025-06-22"
+category: tourism
 tags:
   - アジア
   - 節約
   - バックパッカー
-journey: j-2025-06-10
+heroImage: /images/Thai/do-dee-cafe.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2025-06-10
 ---
+
 
 バンコクで宿代をかなり抑えたいなら、Do Dee Cafe は候補に入ります。
 

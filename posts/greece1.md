@@ -1,21 +1,24 @@
 ---
-category: series
 title: カイロ空港で11時間止まり、それでもアテネで持ち直せた初日
-dates:
-  - "2025-06-22"
 excerpt: アスワンでの恐怖体験を乗り越え、いよいよエジプトを脱出してギリシャ・アテネへ。しかしカイロ空港では何もないエリアで11時間の足止めを食らう羽目に。アテネ到着後は、荘厳なパルテノン神殿と絶品のギリシャ料理（スブラキ・ギロ）に癒やされました。
-image: /images/Greece/parthenon.jpg
-location:
-  - athens
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-22"
+travelDates:
+  start: "2025-06-22"
+category: series
 tags:
   - ヨーロッパ
   - 街歩き
   - 歴史
   - トラブル
+heroImage: /images/Greece/parthenon.jpg
+regionIds:
+  - athens
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 アスワンでのきつい出来事を引きずったまま、ようやくエジプトを抜けてギリシャへ向かいます。気分としては早く国を出たいだけだったのですが、最後にカイロ空港で長時間止まることになりました。
 

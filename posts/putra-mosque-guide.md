@@ -1,25 +1,25 @@
 ---
-category: tourism
 title: プトラモスク観光ガイド｜見学時間・行き方・ラマダン中の注意点
-dates:
-  - "2026-03-24"
-excerpt: >-
-  クアラルンプール近郊の人気観光地、プトラモスクについて体験ベースで整理しました。
-  通常時の見学時間、ラマダン中の注意点、駅からの行き方、現金のみのバス事情までまとめます。
-image: /images/Malaysia/exterior-of-the-putra-mosque.jpg
-location:
-  - putrajaya
-author: ともきち
+excerpt: クアラルンプール近郊の人気観光地、プトラモスクについて体験ベースで整理しました。 通常時の見学時間、ラマダン中の注意点、駅からの行き方、現金のみのバス事情までまとめます。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - モスク
   - プトラジャヤ
-journey: j-2026-03-12
+heroImage: /images/Malaysia/exterior-of-the-putra-mosque.jpg
+regionIds:
+  - putrajaya
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
   - money
 ---
+
 
 クアラルンプール近郊の人気観光地、プトラモスク。通称ピンクモスクとして知られていて、外観の可愛さを目当てに行く人も多いと思います。
 

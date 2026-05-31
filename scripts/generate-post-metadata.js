@@ -21,7 +21,6 @@ function ensureStringArray(value) {
 function extractHeadings(content) {
   const lines = content.split("\n");
   const headings = [];
-  let index = 0;
 
   for (const line of lines) {
     const match = line.match(/^(#{2,3})\s+(.*)$/);
@@ -58,46 +57,34 @@ async function generatePostsMetadata() {
       const slug = fileName.replace(/\.(md|mdx)$/, "").toLowerCase();
       const headings = extractHeadings(content);
 
-      postsMetadata.push({
+      const metadata = {
         slug,
         title: data.title || "",
-        dates: ensureStringArray(data.dates),
+        publishedAt: data.publishedAt || "",
+        updatedAt: data.updatedAt || undefined,
+        travelDates: data.travelDates || undefined,
         category: data.category || "",
+        description: data.description || undefined,
         excerpt: data.excerpt || "",
-        image: data.image || undefined,
         tags: ensureStringArray(data.tags),
-        location: ensureStringArray(data.location),
+        heroImage: data.heroImage || undefined,
+        heroAlt: data.heroAlt || undefined,
+        regionIds: ensureStringArray(data.regionIds),
         author: data.author || undefined,
-        budget: data.budget,
-        costs: data.costs,
         series: data.series || undefined,
-        isPromotion: data.isPromotion,
-        promotionPG: ensureStringArray(data.promotionPG),
-        journey: data.journey || undefined,
-        revenueCategory: data.revenueCategory || undefined,
+        journeyId: data.journeyId || undefined,
+        costReport: data.costReport || undefined,
+        promotionPrograms: ensureStringArray(data.promotionPrograms),
         travelTopics: ensureStringArray(data.travelTopics),
-      });
+        draft: data.draft || undefined,
+      };
+
+      postsMetadata.push(metadata);
 
       postsContent[slug] = {
-        slug,
-        title: data.title || "",
-        dates: ensureStringArray(data.dates),
+        ...metadata,
         content,
-        headings, // Pre-parsed headings
-        category: data.category || "",
-        excerpt: data.excerpt || "",
-        image: data.image || undefined,
-        tags: ensureStringArray(data.tags),
-        location: ensureStringArray(data.location),
-        author: data.author || undefined,
-        budget: data.budget,
-        costs: data.costs,
-        series: data.series || undefined,
-        isPromotion: data.isPromotion,
-        promotionPG: ensureStringArray(data.promotionPG),
-        journey: data.journey || undefined,
-        revenueCategory: data.revenueCategory || undefined,
-        travelTopics: ensureStringArray(data.travelTopics),
+        headings,
       };
     }
 

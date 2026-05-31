@@ -1,21 +1,24 @@
 ---
-category: series
 title: サントリーニ島の白い街並みと、待ったぶんだけ強かったイアの夕日
-dates:
-  - "2025-06-24"
 excerpt: アテネから国内線で、憧れのリゾート地「サントリーニ島」へ！白と青のコントラストが美しいイアの街並み散策や、2時間前から場所取りをしたイア城での感動的なサンセット、そして島内でのリアルな物価・食事事情をお届けします。
-image: /images/Greece/oia-castle-sunset-view.jpg
-location:
-  - santorini
-  - athens
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-24"
+travelDates:
+  start: "2025-06-24"
+category: series
 tags:
   - ヨーロッパ
   - 絶景
   - リゾート
+heroImage: /images/Greece/oia-castle-sunset-view.jpg
+regionIds:
+  - santorini
+  - athens
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 アテネを離れ、この旅の終盤でいちばん楽しみにしていたサントリーニ島へ向かいました。写真で見慣れていた場所でしたが、実際に歩くと白い街並みの密度と海の青さが想像以上でした。
 

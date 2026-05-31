@@ -43,12 +43,12 @@ export default async function JourneyDetailsPage({ params }: PageProps) {
     notFound();
   }
 
-  const posts = (await getAllPosts({ journey: journey.id }))
-    .filter((post) => post.category === "series" && post.series === "travel-diary")
+  const posts = (await getAllPosts({ journeyId: journey.id }))
+    .filter((post) => post.category === "series" && post.series?.slug === "travel-diary")
     .sort(
       (left, right) =>
-        new Date(left.dates[0] || "1970-01-01").getTime() -
-        new Date(right.dates[0] || "1970-01-01").getTime(),
+        new Date(left.publishedAt || "1970-01-01").getTime() -
+        new Date(right.publishedAt || "1970-01-01").getTime(),
     );
 
   return (

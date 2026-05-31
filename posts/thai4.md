@@ -1,18 +1,21 @@
 ---
-category: series
 title: 3時間遅れで始まり、テント泊まで転がり込んだバンコク初日
-dates:
-  - "2025-06-10"
 excerpt: タイ・トルコ・エジプト・ギリシャ周遊旅行記の第1回。関空のシステムエラーで出発が3時間遅れる波乱の幕開け。バンコク到着後、レートの良い両替所や激安ローカルバスを駆使し、1泊900円の宿「Do Dee Cafe」での驚きのテント泊まで、ハプニング満載の初日をレポートします。
-image: /images/Thai/do-dee-cafe.jpg
-location:
-  - bangkok
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-10"
+travelDates:
+  start: "2025-06-10"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/Thai/do-dee-cafe.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 今回の旅はタイ、トルコ、エジプト、ギリシャをつなぐ長めの周遊でした。
 

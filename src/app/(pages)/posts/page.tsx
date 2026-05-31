@@ -61,7 +61,7 @@ const PostsPage = async (props: {
   }
 
   if (region !== "all") {
-    filteredPosts = filteredPosts.filter((post) => post.location?.includes(region));
+    filteredPosts = filteredPosts.filter((post) => post.regionIds?.includes(region));
   }
 
   let processedPosts = filteredPosts;

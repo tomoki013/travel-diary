@@ -1,21 +1,22 @@
 ---
-category: series
 title: ヴェルサイユ宮殿の規模に削られ、夜は重めのフレンチで締めた日
-dates:
-  - "2025-02-16"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第3回】ベルサイユ宮殿への日帰り旅。壮大な宮殿と「鏡の間」の圧倒的な美しさ、広大な庭園、大小トリアノン宮殿までの散策体験。入場の待ち時間や園内移動のコツ、観光客の少ない出口周辺の地元の雰囲気、そして夜はパリに戻って本場フランス料理を堪能した充実の一日を綴ります。
-image: /images/France/chateau-de-versailles.jpg
-location:
-  - paris
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第3回】ベルサイユ宮殿への日帰り旅。壮大な宮殿と「鏡の間」の圧倒的な美しさ、広大な庭園、大小トリアノン宮殿までの散策体験。入場の待ち時間や園内移動のコツ、観光客の少ない出口周辺の地元の雰囲気、そして夜はパリに戻って本場フランス料理を堪能した充実の一日を綴ります。
+publishedAt: "2025-02-16"
+travelDates:
+  start: "2025-02-16"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/France/chateau-de-versailles.jpg
+regionIds:
+  - paris
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
+
 
 この日はパリ中心部を離れてヴェルサイユ宮殿へ向かいました。宮殿も庭園も想像以上に広く、豪華さというより規模そのものに押される感覚が強かったです。
 

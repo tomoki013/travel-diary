@@ -1,24 +1,24 @@
 ---
-category: tourism
 title: バトゥ洞窟観光ガイド｜行き方・料金・現地で迷いやすいポイント
-dates:
-  - "2026-03-24"
-excerpt: >-
-  クアラルンプール近郊の定番観光地、バトゥ洞窟について体験ベースでまとめました。
-  行き方、無料エリアと有料エリアの違い、現地で迷いやすかったポイントを整理します。
-image: /images/Malaysia/the-rainbow-stairs-at-batu-caves.jpg
-location:
-  - kuala-lumpur
-author: ともきち
+excerpt: クアラルンプール近郊の定番観光地、バトゥ洞窟について体験ベースでまとめました。 行き方、無料エリアと有料エリアの違い、現地で迷いやすかったポイントを整理します。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
   - バトゥ洞窟
   - クアラルンプール
-journey: j-2026-03-12
+heroImage: /images/Malaysia/the-rainbow-stairs-at-batu-caves.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---
+
 
 クアラルンプール近郊の定番スポットといえば、やはりバトゥ洞窟です。カラフルな階段と巨大な黄金像の景色は、実物で見るとかなりテンションが上がります。
 

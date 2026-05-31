@@ -1,24 +1,25 @@
 ---
-category: tourism
 title: アスワンからアブシンベル神殿への行き方。バス・ツアー・飛行機の比較
-dates:
-  - "2025-06-20"
-excerpt: >-
-  アスワンからアブシンベル神殿へ行く方法を、バス、ツアー、タクシー、飛行機で比較しました。金曜運休や駅からバスステーションへの動き方など、現地で詰まりやすい点も整理しています。
-image: /images/Egypt/abusimbel-temple.jpg
-location:
-  - aswan
-  - abu-simbel
-author: ともきち
-journey: j-2025-06-10
+excerpt: アスワンからアブシンベル神殿へ行く方法を、バス、ツアー、タクシー、飛行機で比較しました。金曜運休や駅からバスステーションへの動き方など、現地で詰まりやすい点も整理しています。
+publishedAt: "2025-06-20"
+travelDates:
+  start: "2025-06-20"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
   - 交通情報
+heroImage: /images/Egypt/abusimbel-temple.jpg
+regionIds:
+  - aswan
+  - abu-simbel
+author: ともきち
+journeyId: j-2025-06-10
 travelTopics:
   - transport
   - booking
 ---
+
 
 アブシンベル神殿はエジプト旅行の中でもかなり強い目的地ですが、アスワンからの移動は分かりやすいとは言いにくいです。結論としては、安さならバス、楽さならツアー、時間優先なら飛行機で考えるのが基本になります。
 

@@ -1,15 +1,10 @@
 ---
-category: series
 title: 京都でまず見てほしい景色3つ。清水寺、嵐山、祇園祭
-dates:
-  - "2025-08-12"
-excerpt: >-
-  京都在住の大学生が、地元目線で京都の有名観光スポットを紹介！京都に来たら行って欲しいおすすめを3つ厳選しました。多くの観光客で賑わう清水寺の幻想的なライトアップや、四季折々の顔を持つ嵐山の魅力、そして日本三大祭りの一つである祇園祭の熱気をお届けします。人混みの実情にも触れつつ、古都・京都のリアルな景色と魅力を綴ります。
-image: /images/Kyoto/kiyomizu-temple-autumn-leaves-lightup.jpg
-location:
-  - kyoto
-author: ともきち
-series: kyoto
+excerpt: 京都在住の大学生が、地元目線で京都の有名観光スポットを紹介！京都に来たら行って欲しいおすすめを3つ厳選しました。多くの観光客で賑わう清水寺の幻想的なライトアップや、四季折々の顔を持つ嵐山の魅力、そして日本三大祭りの一つである祇園祭の熱気をお届けします。人混みの実情にも触れつつ、古都・京都のリアルな景色と魅力を綴ります。
+publishedAt: "2025-08-12"
+travelDates:
+  start: "2025-08-12"
+category: series
 tags:
   - 国内旅行
   - 京都観光
@@ -18,7 +13,14 @@ tags:
   - 祇園祭
   - 紅葉
   - 日本三大祭
+heroImage: /images/Kyoto/kiyomizu-temple-autumn-leaves-lightup.jpg
+regionIds:
+  - kyoto
+author: ともきち
+series:
+  slug: kyoto
 ---
+
 
 ## はじめに
 

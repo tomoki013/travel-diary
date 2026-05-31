@@ -1,23 +1,23 @@
 ---
-category: tourism
 title: ジョグジャカルタ空港から市内とその逆はどう動く？空港鉄道を軸に考えると楽です
-dates:
-  - "2026-03-26"
-excerpt: >-
-  ジョグジャカルタ国際空港と市内の往復アクセスを、空港鉄道を軸に整理しました。
-  到着後に市内へ入る動きと、出発日に空港へ戻る動きの両方を一気にまとめます。
-image: /images/Indonesia/yogyakarta-airport-train-platform.jpg
-location:
-  - yogyakarta
-author: ともきち
+excerpt: ジョグジャカルタ国際空港と市内の往復アクセスを、空港鉄道を軸に整理しました。 到着後に市内へ入る動きと、出発日に空港へ戻る動きの両方を一気にまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Indonesia/yogyakarta-airport-train-platform.jpg
+regionIds:
+  - yogyakarta
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---
+
 
 ジョグジャカルタ空港と市内の移動は、先に空港鉄道を軸に考えておくとかなり楽です。
 

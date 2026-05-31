@@ -1,21 +1,23 @@
 ---
-category: series
 title: マドリードを離れ、ブリュッセル経由で一人旅を閉じた帰国日
-dates:
-  - "2025-02-25"
-excerpt: >-
-  【ヨーロッパ旅行記第10回】スペイン最終日からブリュッセル経由帰国まで。マドリード最後の食事とお土産探し、空港移動でのハプニング。ブリュッセルでグランプラス、サン・ミッシェル大聖堂観光、シェ・レオンでベルギービールとエスカルゴ堪能。13日間のヨーロッパ一人旅を締めくくる充実エピローグ
-image: /images/Belgium/galeries-royales-saint-hubert.jpg
-location:
-  - madrid
-  - brussels
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記第10回】スペイン最終日からブリュッセル経由帰国まで。マドリード最後の食事とお土産探し、空港移動でのハプニング。ブリュッセルでグランプラス、サン・ミッシェル大聖堂観光、シェ・レオンでベルギービールとエスカルゴ堪能。13日間のヨーロッパ一人旅を締めくくる充実エピローグ
+publishedAt: "2025-02-25"
+travelDates:
+  start: "2025-02-25"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Belgium/galeries-royales-saint-hubert.jpg
+regionIds:
+  - madrid
+  - brussels
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
+
 
 初めての一人旅も、この日で帰路に入ります。スペインを離れる時点ですでにかなり満足度は高かったのですが、最後にブリュッセルで少し歩けたことで、帰国日までちゃんと旅の密度が残りました。
 

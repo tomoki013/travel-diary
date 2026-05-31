@@ -1,22 +1,23 @@
 ---
-category: tourism
 title: 関空から梅田・難波・京都へ行くなら。目的地別のアクセス比較
-dates:
-  - "2025-07-04"
-excerpt: >-
-  関西国際空港から梅田、難波、京都へ向かうときの移動手段を目的地別に整理しました。はるか、ラピート、関空快速、リムジンバスの向き不向きが分かるようにまとめています。
-image: /images/Osaka/kansai-airport.jpg
-location:
-  - osaka
-  - kyoto
-author: ともきち
+excerpt: 関西国際空港から梅田、難波、京都へ向かうときの移動手段を目的地別に整理しました。はるか、ラピート、関空快速、リムジンバスの向き不向きが分かるようにまとめています。
+publishedAt: "2025-07-04"
+travelDates:
+  start: "2025-07-04"
+category: tourism
 tags:
   - 国内旅行
   - 交通情報
   - 空港アクセス
+heroImage: /images/Osaka/kansai-airport.jpg
+regionIds:
+  - osaka
+  - kyoto
+author: ともきち
 travelTopics:
   - transport
 ---
+
 
 関空からの移動は、目的地によって最適解がかなり変わります。梅田、難波、京都を同じ感覚で選ぶと遠回りになりやすいので、到着後の最初の判断だけ先に整理しておくと楽です。
 

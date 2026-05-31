@@ -1,23 +1,23 @@
 ---
-category: series
 title: アロー通りの熱気と深夜マッサージで始まったクアラルンプール
-dates:
-  - "2026-03-12"
-excerpt: >-
-  東南アジア周遊の最初の夜はクアラルンプール。雨の到着から始まり、
-  KLIA Expressで市内へ入り、アロー通りの熱気に飲まれ、深夜の
-  マッサージと夜ご飯まで一気に駆け抜けた1日でした。
-image: /images/Malaysia/people-enjoying-the-food-stalls-along-arrow-street-at-night.jpg
-location:
-  - kuala-lumpur
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: 東南アジア周遊の最初の夜はクアラルンプール。雨の到着から始まり、 KLIA Expressで市内へ入り、アロー通りの熱気に飲まれ、深夜の マッサージと夜ご飯まで一気に駆け抜けた1日でした。
+publishedAt: "2026-03-12"
+travelDates:
+  start: "2026-03-12"
+category: series
 tags:
   - 海外旅行
   - 街歩き
   - グルメ
+heroImage: /images/Malaysia/people-enjoying-the-food-stalls-along-arrow-street-at-night.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
+
 
 東南アジア周遊のスタートはクアラルンプールでした。飛行機を降りた瞬間から空気が重くて、しかも雨で、まだ何も始まっていないのに一気に現地へ入った感じがありました。
 

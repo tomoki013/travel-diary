@@ -1,21 +1,23 @@
 ---
-category: tourism
 title: 中国旅行で Alipay は必要？上海で使って分かった便利な点と準備
-dates:
-  - "2025-11-28"
 excerpt: 中国・上海旅行では Alipay がかなり役立ちました。支払い、地下鉄、DiDi、モバイルオーダーまで実際に使って分かった便利な点と事前準備を整理します。
-image: /images/China/shanghai-airport-food.jpg
-location:
-  - shanghai
-author: ともきち
+publishedAt: "2025-11-28"
+travelDates:
+  start: "2025-11-28"
+category: tourism
 tags:
   - アジア
   - 旅の知恵
   - トラブル回避
-journey: j-2025-11-29
+heroImage: /images/China/shanghai-airport-food.jpg
+regionIds:
+  - shanghai
+author: ともきち
+journeyId: j-2025-11-29
 travelTopics:
   - money
 ---
+
 
 中国旅行では、Alipay を先に入れておくとかなり動きやすくなります。
 

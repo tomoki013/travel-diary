@@ -1,20 +1,23 @@
 ---
-category: series
 title: アスワンで行き先を外し、逃げ場のない島に連れて行かれかけた日
-dates:
-  - "2025-06-21"
 excerpt: エジプト旅行最大のトラブル発生。アスワン市内で配車アプリが使えずトゥクトゥクに乗ったところ、頼んでもいないのにボートに乗せられ、ヌビア人（先住民）の島へ強制的に連行されるという、密室で逃げ場のない恐怖体験をしました。
-image: /images/Egypt/aswan-morning-nile-view.jpg
-location:
-  - aswan
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-21"
+travelDates:
+  start: "2025-06-21"
+category: series
 tags:
   - アフリカ
   - トラブル
   - 街歩き
+heroImage: /images/Egypt/aswan-morning-nile-view.jpg
+regionIds:
+  - aswan
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 前日のアブシンベル往復でかなり消耗していたので、この日は昼ごろまでゆっくり寝ていました。友人は先に帰国し、私は翌朝の便までアスワンに残る予定だったので、別のホテルへ移ってひとりで少し観光するつもりでした。
 

@@ -29,7 +29,7 @@ const groupPostsByYearMonth = (posts: PostMetadata[]): YearMonthPosts => {
   // 年月ごとにグループ化
   const grouped: Record<string, Record<string, PostMetadata[]>> = {};
   posts.forEach((post) => {
-    const date = new Date(post.dates[0]);
+    const date = new Date(post.publishedAt);
     const year = date.getFullYear().toString();
     const month = `${date.getMonth() + 1}月`;
     if (!grouped[year]) grouped[year] = {};

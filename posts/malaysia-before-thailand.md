@@ -1,22 +1,22 @@
 ---
-category: one-off
 title: 初海外ならタイよりマレーシアの方がいいかもしれないと思った
-dates:
-  - "2026-03-24"
-excerpt: >-
-  初海外でタイがしんどかった私が、マレーシアへ行って感じた違いを整理しました。
-  刺激が強すぎる旅先が不安な人には、入口としてマレーシアの方が合うかもしれません。
-image: /images/Malaysia/petronas-twin-towers.jpg
-location:
-  - kuala-lumpur
-  - bangkok
-author: ともきち
+excerpt: 初海外でタイがしんどかった私が、マレーシアへ行って感じた違いを整理しました。 刺激が強すぎる旅先が不安な人には、入口としてマレーシアの方が合うかもしれません。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: one-off
 tags:
   - 海外旅行
   - マレーシア
   - タイ
   - 初海外
+heroImage: /images/Malaysia/petronas-twin-towers.jpg
+regionIds:
+  - kuala-lumpur
+  - bangkok
+author: ともきち
 ---
+
 
 初海外の候補としてタイが先に挙がりやすいのは自然ですが、入口としての入りやすさだけで見ると、マレーシアの方が合う人はかなり多いと思います。
 

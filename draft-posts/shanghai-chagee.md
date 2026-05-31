@@ -1,19 +1,21 @@
 ---
-category: tourism
 title: 上海で CHAGEE は飲む価値がある？毎日飲んで分かった定番メニューと注文の楽さ
-dates:
-  - "2025-12-05"
 excerpt: 上海で毎日のように飲んだ CHAGEE は、味だけでなく注文のしやすさもよかったです。おすすめメニュー、店の雰囲気、Alipay での頼みやすさを整理します。
-image: /images/China/shanghai.jpg
-location:
-  - shanghai
-author: ともきち
+publishedAt: "2025-12-05"
+travelDates:
+  start: "2025-12-05"
+category: tourism
 tags:
   - アジア
   - グルメ
   - カフェ
-journey: j-2025-11-29
+heroImage: /images/China/shanghai.jpg
+regionIds:
+  - shanghai
+author: ともきち
+journeyId: j-2025-11-29
 ---
+
 
 先日、3泊4日の上海旅行に行ってきました。
 

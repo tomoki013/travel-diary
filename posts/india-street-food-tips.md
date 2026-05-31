@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: インドに行って気付いた、お腹を壊さない屋台の選び方
-dates:
-  - "2025-12-04"
-excerpt: >-
-  インド旅行で実際に試して学んだ、屋台選びのポイントを3つに整理しました。
-  加熱の有無や現地の人の集まり方など、
-  お腹を壊しにくくするための実体験ベースの考え方を紹介します。
-image: /images/India/chai1.jpg
-location:
-  - india
-author: ともきち
-journey: j-2024-09-21
+excerpt: インド旅行で実際に試して学んだ、屋台選びのポイントを3つに整理しました。 加熱の有無や現地の人の集まり方など、 お腹を壊しにくくするための実体験ベースの考え方を紹介します。
+publishedAt: "2025-12-04"
+travelDates:
+  start: "2025-12-04"
+category: tourism
 tags:
   - 海外旅行
+heroImage: /images/India/chai1.jpg
+regionIds:
+  - india
+author: ともきち
+journeyId: j-2024-09-21
 ---
+
 
 今回は、私が実際にインドに行って学んだ「お腹を壊しにくい屋台の選び方」を紹介します。
 屋台に挑戦してみたい方は、ぜひ参考にしてみてください。

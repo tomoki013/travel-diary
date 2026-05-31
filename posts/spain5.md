@@ -1,22 +1,22 @@
 ---
-category: series
 title: 観光を減らし、マドリードの生活リズムに寄せて過ごした2日間
-dates:
-  - "2025-02-23"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第8回】マドリード市民生活体験記。ラスベンタス闘牛場とセバダ市場巡り、サンミゲル市場で本場生ハム堪能。VIANDASの生ハムサンドやGoconutのチュロス、Puerto
-  Ricoでタコグリルを満喫。観光を忘れて地元の雰囲気に溶け込んだ2日間のスペイン一人旅記録。
-image: /images/Spain/royal-palace-in-the-daytime.jpg
-location:
-  - madrid
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第8回】マドリード市民生活体験記。ラスベンタス闘牛場とセバダ市場巡り、サンミゲル市場で本場生ハム堪能。VIANDASの生ハムサンドやGoconutのチュロス、Puerto Ricoでタコグリルを満喫。観光を忘れて地元の雰囲気に溶け込んだ2日間のスペイン一人旅記録。
+publishedAt: "2025-02-23"
+travelDates:
+  start: "2025-02-23"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Spain/royal-palace-in-the-daytime.jpg
+regionIds:
+  - madrid
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
+
 
 前日でマドリードの空気がかなり気に入ってしまい、このあたりから明確に観光優先ではなくなりました。市場やカフェやお気に入りの広場を回りつつ、街のリズムに寄せて過ごした2日間です。
 

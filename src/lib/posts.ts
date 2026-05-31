@@ -61,8 +61,9 @@ export async function processPostNavigation(
 
   // --- Series-specific navigation ---
   let previousSeriesPost, nextSeriesPost;
-  if (post.series) {
-    const seriesPosts = navigationPosts.filter((p) => p.series === post.series);
+  if (post.series?.slug) {
+    const seriesSlug = post.series.slug;
+    const seriesPosts = navigationPosts.filter((p) => p.series?.slug === seriesSlug);
     const previousSeriesPostData = postFilters.getPreviousPost(slug, seriesPosts);
     const nextSeriesPostData = postFilters.getNextPost(slug, seriesPosts);
 

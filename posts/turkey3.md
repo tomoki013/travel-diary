@@ -1,21 +1,24 @@
 ---
-category: series
 title: 気球サンライズの余韻のまま、エジプトの洗礼へ落とされた日
-dates:
-  - "2025-06-16"
 excerpt: カッパドキア旅行のハイライト、気球の上から見る感動的なサンライズ！一生の思い出を作った後は、空路でエジプト・カイロへ大移動。しかし到着早々、空港での大喧嘩や強烈な客引きなど「世界一うざい国」の洗礼を浴びることになります。
-image: /images/Turkey/balloons-in-cappadocia.jpg
-location:
-  - cappadocia
-  - cairo
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-16"
+travelDates:
+  start: "2025-06-16"
+category: series
 tags:
   - 絶景
   - アクティビティ
   - トラブル
+heroImage: /images/Turkey/balloons-in-cappadocia.jpg
+regionIds:
+  - cappadocia
+  - cairo
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 前日の予約トラブルを何とか乗り越え、この日はカッパドキアの気球ツアーへ向かう朝でした。
 

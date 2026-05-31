@@ -1,5 +1,6 @@
 import { getRegionPath } from "./regionUtil";
 import { Post, TravelTopic } from "@/types/types";
+import { inferRevenueCategory } from "./revenue";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -16,7 +17,8 @@ const ENTRY_TOPIC_SCORES: Record<TravelTopic, number> = {
 
 const DIARY_CATEGORIES = new Set(["series", "itinerary"]);
 
-const getTimestamp = (dates?: string[]) => new Date(dates?.[0] || "1970-01-01").getTime();
+const getTimestamp = (publishedAt?: string) =>
+  new Date(publishedAt || "1970-01-01").getTime();
 
 const countOverlap = (left: string[] = [], right: string[] = []) => {
   const rightSet = new Set(right.map((value) => value.toLowerCase()));
@@ -24,13 +26,13 @@ const countOverlap = (left: string[] = [], right: string[] = []) => {
 };
 
 const getMonthsOld = (post: PostMetadata) => {
-  const timestamp = getTimestamp(post.dates);
+  const timestamp = getTimestamp(post.publishedAt);
   const now = Date.now();
   const diffMs = Math.max(0, now - timestamp);
   return diffMs / (1000 * 60 * 60 * 24 * 30);
 };
 
-const getPrimaryLocation = (post: PostMetadata) => post.location?.[0]?.toLowerCase().trim();
+const getPrimaryLocation = (post: PostMetadata) => post.regionIds?.[0]?.toLowerCase().trim();
 
 const getLocationDepth = (slug: string) => getRegionPath(slug).length;
 
@@ -57,7 +59,7 @@ export const getPostEntryScore = (post: PostMetadata) => {
   if (post.category === "itinerary") score += 14;
   if (post.category === "series") score -= 22;
   if (post.category === "one-off") score -= 12;
-  if (post.revenueCategory === "essay") score -= 10;
+  if (inferRevenueCategory(post) === "essay") score -= 10;
 
   for (const topic of post.travelTopics || []) {
     score += ENTRY_TOPIC_SCORES[topic] || 0;
@@ -68,8 +70,8 @@ export const getPostEntryScore = (post: PostMetadata) => {
   if (post.tags?.includes("初海外")) score += 24;
   if (post.tags?.includes("空港アクセス")) score += 18;
   if (post.tags?.includes("交通情報")) score += 12;
-  if (post.location?.length) score += 8;
-  if (post.journey) score += 6;
+  if (post.regionIds?.length) score += 8;
+  if (post.journeyId) score += 6;
 
   const primaryLocation = getPrimaryLocation(post);
   if (primaryLocation) {
@@ -86,7 +88,7 @@ export const getPostEntryScore = (post: PostMetadata) => {
 };
 
 const sortByDateDesc = (posts: PostMetadata[]) =>
-  [...posts].sort((left, right) => getTimestamp(right.dates) - getTimestamp(left.dates));
+  [...posts].sort((left, right) => getTimestamp(right.publishedAt) - getTimestamp(left.publishedAt));
 
 export const getRecommendedPosts = (posts: PostMetadata[]) =>
   [...posts].sort((left, right) => {
@@ -95,7 +97,7 @@ export const getRecommendedPosts = (posts: PostMetadata[]) =>
       return scoreDiff;
     }
 
-    return getTimestamp(right.dates) - getTimestamp(left.dates);
+    return getTimestamp(right.publishedAt) - getTimestamp(left.publishedAt);
   });
 
 const takeDiversePosts = (posts: PostMetadata[], limit: number) => {
@@ -190,13 +192,13 @@ type GeoContext = {
   locationDepths: Map<string, number>;
 };
 
-const buildGeoContext = (post: Pick<PostMetadata, "location">): GeoContext => {
+const buildGeoContext = (post: Pick<PostMetadata, "regionIds">): GeoContext => {
   const raw = new Set<string>();
   const cities = new Set<string>();
   const countries = new Set<string>();
   const locationDepths = new Map<string, number>();
 
-  for (const value of post.location || []) {
+  for (const value of post.regionIds || []) {
     const slug = value.toLowerCase().trim();
     if (!slug) continue;
 
@@ -222,8 +224,8 @@ const buildGeoContext = (post: Pick<PostMetadata, "location">): GeoContext => {
 };
 
 export const getGeoRelationship = (
-  current: Pick<PostMetadata, "location">,
-  candidate: Pick<PostMetadata, "location">,
+  current: Pick<PostMetadata, "regionIds">,
+  candidate: Pick<PostMetadata, "regionIds">,
 ) => {
   const currentContext = buildGeoContext(current);
   const candidateContext = buildGeoContext(candidate);
@@ -282,11 +284,13 @@ export const getContextualRelatedPosts = (
       const geo = getGeoRelationship(current, post);
       const sharedTopics = countOverlap(currentTopics, post.travelTopics || []);
       const sharedTags = countOverlap(currentTags, post.tags || []);
-      const sameSeries = Boolean(current.series && current.series === post.series);
-      const sameJourney = Boolean(current.journey && current.journey === post.journey);
+      const sameSeries = Boolean(
+        current.series?.slug && current.series?.slug === post.series?.slug,
+      );
+      const sameJourney = Boolean(current.journeyId && current.journeyId === post.journeyId);
       const sameCategory = current.category === post.category;
       const sameRevenueCategory =
-        Boolean(current.revenueCategory) && current.revenueCategory === post.revenueCategory;
+        inferRevenueCategory(current) === inferRevenueCategory(post);
 
       let score = geo.score;
       score += sharedTopics * 24;
@@ -310,7 +314,7 @@ export const getContextualRelatedPosts = (
       return {
         post,
         score,
-        timestamp: getTimestamp(post.dates),
+        timestamp: getTimestamp(post.publishedAt),
       };
     })
     .filter(

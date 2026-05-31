@@ -1,21 +1,21 @@
-﻿---
-category: series
+---
 title: 3時間遅延でも南京東路と外灘まで駆け抜けた上海初日
-dates:
-  - "2025-11-29"
-excerpt: >-
-  エアバスのソフトウェア改修による3時間遅延という波乱の幕開けから、
-  南京東路の食べ歩き、CHAGEE での休憩、外灘の夜景まで、
-  上海初日をたっぷり楽しんだ1日をまとめます。
-image: /images/China/the-night-view-of-the-bund.jpg
-location:
-  - shanghai
-author: ともきち
-series: travel-diary
+excerpt: エアバスのソフトウェア改修による3時間遅延という波乱の幕開けから、 南京東路の食べ歩き、CHAGEE での休憩、外灘の夜景まで、 上海初日をたっぷり楽しんだ1日をまとめます。
+publishedAt: "2025-11-29"
+travelDates:
+  start: "2025-11-29"
+category: series
 tags:
   - 海外旅行
-journey: j-2025-11-29
+heroImage: /images/China/the-night-view-of-the-bund.jpg
+regionIds:
+  - shanghai
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-11-29
 ---
+
 
 3泊4日の上海旅行は、空港での3時間遅延から始まりました。
 

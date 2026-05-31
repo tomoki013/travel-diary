@@ -1,22 +1,25 @@
 ---
-category: series
 title: サントリーニ発の搭乗券トラブルと、アテネ空港泊を挟んだ帰国日
-dates:
-  - "2025-06-26"
 excerpt: 19日間にわたる壮大な大陸横断旅行もついにフィナーレ。サントリーニ島での搭乗券消失トラブルに冷や汗をかきつつアテネへ戻り、空港泊を経てシンガポール・チャンギ空港でのトランジットを満喫し、無事に関西国際空港へ帰還するまでの帰国編です。
-image: /images/Greece/santorini-view.jpg
-location:
-  - athens
-  - santorini
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-26"
+travelDates:
+  start: "2025-06-26"
+category: series
 tags:
   - ヨーロッパ
   - バックパッカー
   - トランジット
   - トラブル
+heroImage: /images/Greece/santorini-view.jpg
+regionIds:
+  - athens
+  - santorini
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 バンコクから始めて中国、トルコ、エジプト、ギリシャと回ってきた19日間の旅も、この日で終わりです。最後は静かに締まるかと思っていましたが、サントリーニ空港で搭乗券が消えるという小さくないトラブルが入りました。
 

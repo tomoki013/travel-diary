@@ -1,22 +1,24 @@
 ---
-category: series
 title: 初めての海外でバンコクに着いた日。日本の当たり前が一気に崩れた話
-dates:
-  - "2025-07-31"
-excerpt: >-
-  海外旅行にハマるきっかけとなった、初めてのタイ・バンコク旅行の体験談。日本との違いに「臭い、汚い、暑い」と感じた強烈な第一印象と、当時のカルチャーショックを正直に綴ります。海外旅行の価値観が変わった瞬間や、1年後の再訪で感じた変化とは？旅の原点となったバンコクでのエピソードを紹介します。
-image: /images/Thai/wat-arun-right-up.jpg
-location:
-  - bangkok
-author: ともきち
-series: travel-history
-journey: j-2024-03-01
+excerpt: 海外旅行にハマるきっかけとなった、初めてのタイ・バンコク旅行の体験談。日本との違いに「臭い、汚い、暑い」と感じた強烈な第一印象と、当時のカルチャーショックを正直に綴ります。海外旅行の価値観が変わった瞬間や、1年後の再訪で感じた変化とは？旅の原点となったバンコクでのエピソードを紹介します。
+publishedAt: "2025-07-31"
+travelDates:
+  start: "2025-07-31"
+category: series
 tags:
   - 海外旅行
   - 初海外
   - 旅の原点
   - 国内旅行と海外旅行の違い
+heroImage: /images/Thai/wat-arun-right-up.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: travel-history
+journeyId: j-2024-03-01
 ---
+
 
 ## はじめに
 

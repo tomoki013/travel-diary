@@ -1,21 +1,22 @@
 ---
-category: tourism
 title: バンコクの赤バスの乗り方。8バーツ路線を使う前に知っておくこと
-dates:
-  - "2025-06-12"
-excerpt: >-
-  【2025年最新】バンコクの交通費を劇的に節約！どこまで乗っても8バーツの激安ローカルバス（赤バス）の乗り方を解説します。Googleマップの使い方から、渋滞やルート変更といったリアルな注意点まで完全網羅。あなたのバンコク旅行がもっとディープに、面白くなる究極の節約術。
-image: /images/Thai/bangkok-red-bus.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: 【2025年最新】バンコクの交通費を劇的に節約！どこまで乗っても8バーツの激安ローカルバス（赤バス）の乗り方を解説します。Googleマップの使い方から、渋滞やルート変更といったリアルな注意点まで完全網羅。あなたのバンコク旅行がもっとディープに、面白くなる究極の節約術。
+publishedAt: "2025-06-12"
+travelDates:
+  start: "2025-06-12"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/Thai/bangkok-red-bus.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 travelTopics:
   - transport
 ---
+
 
 バンコクの赤バスは安さだけ見るとかなり強いのですが、旅行者向けに分かりやすい乗り物ではありません。それでも路線が合えば移動費をかなり抑えられるので、使いどころを知っておく価値はあります。
 

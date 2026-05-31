@@ -1,21 +1,22 @@
 ---
-category: series
 title: 4万歩で詰め込み、パリの強さをまとめて浴びた1日
-dates:
-  - "2025-02-15"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第2回】パリ観光1日目の全行程。朝のクロワッサンからルーブル美術館でのモナリザ鑑賞、エッフェル塔登頂の苦労と絶景、そして夜のシャンパンフラッシュ観賞まで。凱旋門からの夜景も堪能した4万歩の充実した一日。実際の割引情報や穴場スポットなど、パリ観光の実用的なヒントも満載。
-image: /images/France/louvre-museum1.jpg
-location:
-  - paris
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第2回】パリ観光1日目の全行程。朝のクロワッサンからルーブル美術館でのモナリザ鑑賞、エッフェル塔登頂の苦労と絶景、そして夜のシャンパンフラッシュ観賞まで。凱旋門からの夜景も堪能した4万歩の充実した一日。実際の割引情報や穴場スポットなど、パリ観光の実用的なヒントも満載。
+publishedAt: "2025-02-15"
+travelDates:
+  start: "2025-02-15"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/France/louvre-museum1.jpg
+regionIds:
+  - paris
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
+
 
 パリ2日目は、美術館も街歩きも夜景も全部まとめて入れ込む日になりました。あとから歩数を見ると4万歩を超えていて、さすがにやりすぎでしたが、そのぶんパリの密度はかなり感じられました。
 

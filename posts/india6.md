@@ -1,20 +1,21 @@
 ---
-category: series
 title: バラナシの路地と火葬場を歩き、街の濃さを最後に浴びた日
-dates:
-  - "2024-09-29"
-excerpt: >-
-  【インド旅行記
-  第7回】牛が闊歩する迷路のような路地、ローカルな買い物体験、本場のタンドリーチキン、そして火葬場まで。インドの聖地バラナシで触れた、観光地とは一味違う等身大の街の姿。最後の1日に詰め込まれた様々な体験をお届けします。
-image: /images/India/varanasi-alley4.jpg
-location:
-  - varanasi
-author: ともきち
-series: travel-diary
-journey: j-2024-09-21
+excerpt: 【インド旅行記 第7回】牛が闊歩する迷路のような路地、ローカルな買い物体験、本場のタンドリーチキン、そして火葬場まで。インドの聖地バラナシで触れた、観光地とは一味違う等身大の街の姿。最後の1日に詰め込まれた様々な体験をお届けします。
+publishedAt: "2024-09-29"
+travelDates:
+  start: "2024-09-29"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/India/varanasi-alley4.jpg
+regionIds:
+  - varanasi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
+
 
 バラナシ最終日は、体調に少し不安を抱えたまま街を歩き回る日になりました。それでも路地、買い物、食事、火葬場まで含めて、この街の濃さを最後にもう一度浴びる感覚がありました。
 

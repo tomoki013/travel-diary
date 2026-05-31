@@ -1,24 +1,24 @@
 ---
-category: tourism
 title: チャンギ空港で液体は持ち込める？搭乗前検査と空ボトル持参のすすめ
-dates:
-  - "2026-03-24"
-excerpt: >-
-  チャンギ空港では出発前に必ず保安検査があり、液体の持ち込みルールも把握しておいた方が安心です。
-  搭乗前に飲み物で困らないよう、空ボトル持参を含めた対策を体験ベースでまとめます。
-image: /images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg
-location:
-  - changi
-author: ともきち
+excerpt: チャンギ空港では出発前に必ず保安検査があり、液体の持ち込みルールも把握しておいた方が安心です。 搭乗前に飲み物で困らないよう、空ボトル持参を含めた対策を体験ベースでまとめます。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: tourism
 tags:
   - 海外旅行
   - 空港
   - 液体持ち込み
   - シンガポール
-journey: j-2026-03-12
+heroImage: /images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg
+regionIds:
+  - changi
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---
+
 
 シンガポールのチャンギ空港はかなり快適な空港ですが、出発前の保安検査だけは先に知っておいた方がいいです。
 

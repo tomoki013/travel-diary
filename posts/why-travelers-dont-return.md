@@ -1,18 +1,18 @@
 ---
-category: one-off
 title: なぜ旅好きは同じところに二度行かないのか？
-dates:
-  - "2025-12-06"
-excerpt: >-
-  旅好きが再訪より新規開拓を選びがちな理由を、体験ベースで整理しました。
-  刺激、初回体験の価値、思い出との向き合い方など、
-  個人の視点で掘り下げます。
-image: /images/Spain/toledo-view.jpg
-location: global
-author: ともきち
+excerpt: 旅好きが再訪より新規開拓を選びがちな理由を、体験ベースで整理しました。 刺激、初回体験の価値、思い出との向き合い方など、 個人の視点で掘り下げます。
+publishedAt: "2025-12-06"
+travelDates:
+  start: "2025-12-06"
+category: one-off
 tags:
   - 海外旅行
+heroImage: /images/Spain/toledo-view.jpg
+regionIds:
+  - global
+author: ともきち
 ---
+
 
 旅好きな人ほど、一度行った場所に再訪しないことがあります。自分もそのタイプなので、なぜそうなるのかを整理すると、だいたい「行きたい場所が多すぎる」に収束しました。
 

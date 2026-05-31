@@ -1,20 +1,23 @@
 ---
-category: series
 title: インフレに驚きつつ、モスクと海峡クルーズで始まったイスタンブール
-dates:
-  - "2025-06-13"
 excerpt: アジアからヨーロッパへの玄関口、トルコ・イスタンブールに到着。荘厳なブルーモスクや美しいボスポラス海峡クルーズを満喫する一方で、数ヶ月で激変した現地飲食店の「超インフレ価格」に衝撃を受けました。
-image: /images/Turkey/meidens-tower.jpg
-location:
-  - istanbul
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-13"
+travelDates:
+  start: "2025-06-13"
+category: series
 tags:
   - ヨーロッパ
   - 街歩き
   - トラブル
+heroImage: /images/Turkey/meidens-tower.jpg
+regionIds:
+  - istanbul
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
+
 
 中国での過酷なトランジットを経て、朝一番でトルコ最大の都市イスタンブールに到着しました。
 
