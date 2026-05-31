@@ -1,21 +1,20 @@
 ---
-category: tourism
 title: Touch'n Goカードは必要？買い方・使い方・チャージ額の目安をまとめました
-dates:
-  - "2026-03-24"
-excerpt: >-
-  クアラルンプール観光で便利だったTouch'n Goカードについて、買い方・使い方・チャージ額の目安をまとめました。
-  電車・市内バスでの使いどころ、KL中心部のバス事情、50RM入れすぎた失敗談、郊外で現金が必要だった点まで整理します。
-image: /images/Malaysia/touch-n-go-card.jpg
-location:
-  - kuala-lumpur
-author: ともきち
+excerpt: クアラルンプール観光で便利だったTouch'n Goカードについて、買い方・使い方・チャージ額の目安をまとめました。 電車・市内バスでの使いどころ、KL中心部のバス事情、50RM入れすぎた失敗談、郊外で現金が必要だった点まで整理します。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - キャッシュレス
   - クアラルンプール
-journey: j-2026-03-12
+heroImage: /images/Malaysia/touch-n-go-card.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - money
   - transport

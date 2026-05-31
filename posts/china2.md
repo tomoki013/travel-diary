@@ -1,20 +1,19 @@
 ---
-category: series
 title: 静安寺から予園の夜まで、中華と洋風が交差した上海
-dates:
-  - "2025-11-30"
-excerpt: >-
-  Starbucks Reserve Roastery、静安寺、張園、田子坊、
-  そして夜の予園まで。中華とヨーロッパの空気が混ざり合う
-  上海の1日をまとめます。
-image: /images/China/yuen-garden-illuminated-at-night.jpg
-location:
-  - shanghai
-author: ともきち
-series: travel-diary
+excerpt: Starbucks Reserve Roastery、静安寺、張園、田子坊、 そして夜の予園まで。中華とヨーロッパの空気が混ざり合う 上海の1日をまとめます。
+publishedAt: "2025-11-30"
+travelDates:
+  start: "2025-11-30"
+category: series
 tags:
   - 海外旅行
-journey: j-2025-11-29
+heroImage: /images/China/yuen-garden-illuminated-at-night.jpg
+regionIds:
+  - shanghai
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-11-29
 ---
 
 前日に外灘まで歩いた流れの続きで、この日は上海の街をもう少し深く見て回る日にしました。

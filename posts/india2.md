@@ -1,20 +1,20 @@
 ---
-category: series
 title: タージマハルの強さに圧倒され、そのままジャイプルまで流れた日
-dates:
-  - "2024-09-26"
-excerpt: >-
-  【インド旅行記
-  第3回】デリーからアグラへの道中で見たインドの道路事情、待望のタージマハルとの出会いと感動の瞬間、そしてジャイプルでの心温まる家庭料理体験まで。インドの壮大な建築美と人々の温かさに触れた充実の1日。
-image: /images/India/tajmahal.jpg
-location:
+excerpt: 【インド旅行記 第3回】デリーからアグラへの道中で見たインドの道路事情、待望のタージマハルとの出会いと感動の瞬間、そしてジャイプルでの心温まる家庭料理体験まで。インドの壮大な建築美と人々の温かさに触れた充実の1日。
+publishedAt: "2024-09-26"
+travelDates:
+  start: "2024-09-26"
+category: series
+tags:
+  - 海外旅行
+heroImage: /images/India/tajmahal.jpg
+regionIds:
   - agra
   - jaipur
 author: ともきち
-series: travel-diary
-journey: j-2024-09-21
-tags:
-  - 海外旅行
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
 
 インド2日目は、デリーを離れてタージマハルを見に行く日でした。写真では見慣れていたはずなのに、実物は普通にそれを超えてきて、ここまで来た意味がきちんとある場所だと感じました。

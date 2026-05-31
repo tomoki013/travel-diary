@@ -1,19 +1,20 @@
 ---
-category: series
 title: 初海外のバンコクで、ローカル食堂と赤バスが旅の見方を変えた話
-dates:
-  - "2025-08-01"
-excerpt: >-
-  「帰りたかった」初海外バンコク旅行の続き。友人に連れ出され、意を決して入った地元のレストランでの食事が旅の転機に。激安ローカルバス「赤バス」に乗り、タリンチャン水上マーケットを巡るなど、次第にタイの魅力に引き込まれていく様子を綴ります。カルチャーショックを乗り越え、旅の楽しさを見出すまでの体験記です。
-image: /images/Thai/wat-phra-kaew2.jpg
-location:
-  - bangkok
-author: ともきち
-series: travel-history
-journey: j-2024-03-01
+excerpt: 「帰りたかった」初海外バンコク旅行の続き。友人に連れ出され、意を決して入った地元のレストランでの食事が旅の転機に。激安ローカルバス「赤バス」に乗り、タリンチャン水上マーケットを巡るなど、次第にタイの魅力に引き込まれていく様子を綴ります。カルチャーショックを乗り越え、旅の楽しさを見出すまでの体験記です。
+publishedAt: "2025-08-01"
+travelDates:
+  start: "2025-08-01"
+category: series
 tags:
   - 海外旅行
   - 海外旅行が好きな理由
+heroImage: /images/Thai/wat-phra-kaew2.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: travel-history
+journeyId: j-2024-03-01
 ---
 
 ## はじめに

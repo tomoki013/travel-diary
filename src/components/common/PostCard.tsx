@@ -41,7 +41,7 @@ const PostCard = ({
     .filter((title): title is string => Boolean(title))
     .slice(0, isCompact ? 2 : 3);
   const discoveryNote = showDiscoveryNote ? getPostDiscoveryNote(post) : undefined;
-  const primaryLocation = post.location?.[0];
+  const primaryLocation = post.regionIds?.[0];
   const primaryLocationLabel = primaryLocation
     ? getRegionBySlug(primaryLocation)?.name || primaryLocation
     : undefined;
@@ -85,11 +85,11 @@ const PostCard = ({
                   : "aspect-[16/10] rounded-2xl shadow-lg ring-1 ring-orange-200/20 transition-all duration-500 group-hover:ring-amber-200/30 dark:ring-orange-700/20 dark:group-hover:ring-amber-600/30"
             }`}
           >
-            {post.image && (
+            {post.heroImage && (
               <>
                 <Image
-                  src={post.image}
-                  alt={post.title}
+                  src={post.heroImage}
+                  alt={post.heroAlt || post.title}
                   fill
                   sizes={
                     isHorizontal
@@ -189,7 +189,11 @@ const PostCard = ({
                   <span
                     className={`inline-block rounded-full bg-orange-400/70 dark:bg-amber-500/70 ${isCompact ? "h-1 w-1" : "h-1 w-1"}`}
                   />
-                  {post.dates.join(" ~ ")}
+                  {post.travelDates
+                    ? post.travelDates.end
+                      ? `${post.travelDates.start} ~ ${post.travelDates.end}`
+                      : post.travelDates.start
+                    : post.publishedAt}
                 </span>
                 {primaryLocationLabel && (
                   <span

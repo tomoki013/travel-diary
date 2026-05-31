@@ -1,21 +1,21 @@
 ---
-category: series
 title: 韓国で一泊してから、ようやくパリの夜に着いた旅の初日
-dates:
-  - "2025-02-14"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第1回】韓国トランジットからパリへの旅の始まり。仁川空港での1泊から15時間のフライトを経てパリに到着。RER電車での市内移動、地下鉄Navigoカードの便利さ、初めて見た夜のエッフェル塔の感動まで。2025年2月のスペイン旅行の序章として、パリ初日の体験と実用的な交通情報をお届けします。
-image: /images/Korea/monument.jpg
-location:
-  - seoul
-  - paris
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第1回】韓国トランジットからパリへの旅の始まり。仁川空港での1泊から15時間のフライトを経てパリに到着。RER電車での市内移動、地下鉄Navigoカードの便利さ、初めて見た夜のエッフェル塔の感動まで。2025年2月のスペイン旅行の序章として、パリ初日の体験と実用的な交通情報をお届けします。
+publishedAt: "2025-02-14"
+travelDates:
+  start: "2025-02-14"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Korea/monument.jpg
+regionIds:
+  - seoul
+  - paris
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
 
 大学の春休みを使って、初めての一人旅でフランスとスペインを回ることにしました。ずっと行ってみたかったヨーロッパなので、出発前からかなり気分は上がっていました。

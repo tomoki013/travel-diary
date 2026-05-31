@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: ワット・ポーの見どころ。涅槃仏と境内の歩きやすさが強い寺院
-dates:
-  - "2024-03-03"
-excerpt: >-
-  タイのバンコク三大寺院の一つ、ワット・ポーを徹底解説！圧倒的な存在感の寝釈迦仏や美しい仏塔群、タイマッサージの本場で心身を癒す体験ができる魅力的なスポット。アクセス情報や訪問時のポイントも紹介。
-image: /images/Thai/wat-pho-nirvana-buddha.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: タイのバンコク三大寺院の一つ、ワット・ポーを徹底解説！圧倒的な存在感の寝釈迦仏や美しい仏塔群、タイマッサージの本場で心身を癒す体験ができる魅力的なスポット。アクセス情報や訪問時のポイントも紹介。
+publishedAt: "2024-03-03"
+travelDates:
+  start: "2024-03-03"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
+heroImage: /images/Thai/wat-pho-nirvana-buddha.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 ---
 
 ワット・ポーは、三大寺院の中でも観光しやすさがかなり高い場所です。巨大な涅槃仏の分かりやすい強さに加えて、境内全体も歩きやすく、初回の寺院巡りでも疲れにくいと感じました。

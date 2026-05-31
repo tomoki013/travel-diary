@@ -1,19 +1,19 @@
 ---
-category: tourism
 title: サントリーニ空港からフィラ・イアへの移動方法。バスと送迎の使い分け
-dates:
-  - "2025-06-25"
-excerpt: >-
-  【2025年最新】サントリーニ空港からフィラ、イアへの行き方を徹底解説！イアへは乗り換え必須の格安バス、捕まえるのが困難なタクシー、安心のホテル送迎や事前予約サービス、レンタカーまで。料金や所要時間を比較し、あなたの予算やスタイルに最適な移動手段をご提案します。旅の計画に必須の情報が満載です。
-image: /images/Greece/fira-view.jpg
-location:
-  - santorini
-author: ともきち
-journey: j-2025-06-10
+excerpt: 【2025年最新】サントリーニ空港からフィラ、イアへの行き方を徹底解説！イアへは乗り換え必須の格安バス、捕まえるのが困難なタクシー、安心のホテル送迎や事前予約サービス、レンタカーまで。料金や所要時間を比較し、あなたの予算やスタイルに最適な移動手段をご提案します。旅の計画に必須の情報が満載です。
+publishedAt: "2025-06-25"
+travelDates:
+  start: "2025-06-25"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
+heroImage: /images/Greece/fira-view.jpg
+regionIds:
+  - santorini
+author: ともきち
+journeyId: j-2025-06-10
 travelTopics:
   - transport
   - booking

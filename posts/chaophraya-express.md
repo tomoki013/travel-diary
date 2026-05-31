@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: チャオプラヤエクスプレスの使い方。寺院巡りで使うならまずこれ
-dates:
-  - "2025-06-12"
-excerpt: >-
-  バンコク観光の移動はチャオプラヤエクスプレスが最強！渋滞知らずでワットアルンや王宮へ。2025年最新の料金、簡単な乗り方、路線図、主要観光地へのアクセスを徹底解説。オレンジ旗の格安ボートから快適なツーリストボートまで、この完全ガイドで乗りこなし術をマスター。
-image: /images/Thai/interior-of-chao-phraya-express.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: バンコク観光の移動はチャオプラヤエクスプレスが最強！渋滞知らずでワットアルンや王宮へ。2025年最新の料金、簡単な乗り方、路線図、主要観光地へのアクセスを徹底解説。オレンジ旗の格安ボートから快適なツーリストボートまで、この完全ガイドで乗りこなし術をマスター。
+publishedAt: "2025-06-12"
+travelDates:
+  start: "2025-06-12"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/Thai/interior-of-chao-phraya-express.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 travelTopics:
   - transport
 ---

@@ -5,24 +5,36 @@ export type RevenueCategory = TravelTopic | "guide" | "essay";
 export interface Post {
   slug: string;
   title: string;
-  dates: string[];
   content: string;
   headings?: { id: string; text: string; level: number }[];
-  category: string;
-  id?: string;
+
+  publishedAt: string;
+  updatedAt?: string;
+  travelDates?: { start: string; end?: string };
+
+  category: PostType;
+  description?: string;
   excerpt?: string;
-  image?: string;
   tags?: string[];
-  location?: string[];
+
+  heroImage?: string;
+  heroAlt?: string;
+
+  regionIds?: string[];
   author?: string;
-  budget?: number;
-  costs?: Record<string, number>;
-  series?: string;
-  isPromotion?: boolean;
-  promotionPG?: string[];
-  journey?: string;
-  revenueCategory?: RevenueCategory;
+
+  series?: { slug: string; order?: number };
+  journeyId?: string;
+
+  costReport?: {
+    budget?: { amount: number; currency: string };
+    costs?: { currency: string; items: Record<string, number> };
+  };
+
+  promotionPrograms?: string[];
+
   travelTopics?: TravelTopic[];
+  draft?: boolean;
 }
 
 export type PostMetadata = Omit<Post, "content">;

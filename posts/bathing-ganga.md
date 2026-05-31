@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: ガンジス川で沐浴する前に知っておきたい作法と注意点
-dates:
-  - "2024-09-29"
-excerpt: >-
-  インドの聖地バラナシでガンジス川の沐浴を体験したい方必見！現地の作法や服装、注意点、安全対策まで、初心者にも分かりやすく徹底解説します。安心して神秘的な体験を楽しむための完全ガイド。
-image: /images/India/ganga.jpg
-location:
-  - varanasi
-author: ともきち
-journey: j-2024-09-21
+excerpt: インドの聖地バラナシでガンジス川の沐浴を体験したい方必見！現地の作法や服装、注意点、安全対策まで、初心者にも分かりやすく徹底解説します。安心して神秘的な体験を楽しむための完全ガイド。
+publishedAt: "2024-09-29"
+travelDates:
+  start: "2024-09-29"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
+heroImage: /images/India/ganga.jpg
+regionIds:
+  - varanasi
+author: ともきち
+journeyId: j-2024-09-21
 ---
 
 ガンジス川の沐浴は、観光アクティビティというより宗教儀礼の場に入らせてもらう感覚で考えたほうが安全です。観光客でも入れますが、作法と衛生面を知らないまま入るのは勧めにくいです。

@@ -1,17 +1,10 @@
 ---
-category: series
 title: 実際に見て忘れにくかった世界の風景3選。サントリーニ、トレド、カッパドキア
-dates:
-  - "2025-08-04"
-excerpt: >-
-  世界の絶景を紹介する新シリーズ！街並み・風景編の第1弾では、「人生で一度は見て欲しい」王道の絶景を厳選。世界一と称されるサントリーニ島の夕陽、スペインの古都トレドの美しい旧市街、そしてトルコ・カッパドキアの気球が織りなす幻想的な朝の景色。筆者が旅で出会った息をのむほどの風景の魅力をお届けします。
-image: /images/Spain/toledo-view.jpg
-location:
-  - santorini
-  - toledo
-  - cappadocia
-author: ともきち
-series: landscape
+excerpt: 世界の絶景を紹介する新シリーズ！街並み・風景編の第1弾では、「人生で一度は見て欲しい」王道の絶景を厳選。世界一と称されるサントリーニ島の夕陽、スペインの古都トレドの美しい旧市街、そしてトルコ・カッパドキアの気球が織りなす幻想的な朝の景色。筆者が旅で出会った息をのむほどの風景の魅力をお届けします。
+publishedAt: "2025-08-04"
+travelDates:
+  start: "2025-08-04"
+category: series
 tags:
   - 海外旅行
   - 絶景
@@ -20,6 +13,14 @@ tags:
   - カッパドキア
   - 夕陽
   - 気球
+heroImage: /images/Spain/toledo-view.jpg
+regionIds:
+  - santorini
+  - toledo
+  - cappadocia
+author: ともきち
+series:
+  slug: landscape
 ---
 
 ## はじめに

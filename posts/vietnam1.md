@@ -1,19 +1,19 @@
 ---
-category: series
 title: インドへ向かう途中、ハノイ旧市街を数時間だけ歩いた初日
-dates:
-  - "2024-09-24"
-excerpt: >-
-  【インド旅行記
-  第1回】関空からインドへの道中、7時間のトランジットを活用してベトナム・ハノイを観光。旧市街でバインミーを味わい、ホエンキエム湖を眺めながらベトナムコーヒーを楽しむ予期せぬ寄り道の記録。インドへの期待が高まる旅の序章。
-image: /images/Vietnam/dong-kinh-nghia-thuc-square.jpg
-location:
-  - hanoi
-author: ともきち
-series: travel-diary
-journey: j-2024-09-21
+excerpt: 【インド旅行記 第1回】関空からインドへの道中、7時間のトランジットを活用してベトナム・ハノイを観光。旧市街でバインミーを味わい、ホエンキエム湖を眺めながらベトナムコーヒーを楽しむ予期せぬ寄り道の記録。インドへの期待が高まる旅の序章。
+publishedAt: "2024-09-24"
+travelDates:
+  start: "2024-09-24"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/Vietnam/dong-kinh-nghia-thuc-square.jpg
+regionIds:
+  - hanoi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
 
 今回の旅の目的地はインドですが、初日はその前にベトナム・ハノイの旧市街を数時間だけ歩くところから始まりました。関空からインドへ直行しづらく、ベトナム経由になったので、その乗継時間をそのまま街歩きに使った形です。

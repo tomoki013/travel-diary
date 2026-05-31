@@ -1,20 +1,20 @@
 ---
-category: series
 title: ガウディ建築と地中海を同じ日に詰め込み、バルセロナを掴んだ日
-dates:
-  - "2025-02-19"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第5回】バルセロナ一人旅でガウディ建築の傑作カサ・ミラとサグラダ・ファミリアを巡る詳細体験記。カサ・ミラの曲線美と屋上からの絶景、未完の大聖堂サグラダファミリアの圧倒的スケールに感動。本場のチュロス・コン・チョコラテ、絶品生ハム、濃厚イカ墨パエリアなどスペイン料理グルメも満喫。
-image: /images/Spain/sagrada-familia.jpg
-location:
-  - barcelona
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第5回】バルセロナ一人旅でガウディ建築の傑作カサ・ミラとサグラダ・ファミリアを巡る詳細体験記。カサ・ミラの曲線美と屋上からの絶景、未完の大聖堂サグラダファミリアの圧倒的スケールに感動。本場のチュロス・コン・チョコラテ、絶品生ハム、濃厚イカ墨パエリアなどスペイン料理グルメも満喫。
+publishedAt: "2025-02-19"
+travelDates:
+  start: "2025-02-19"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Spain/sagrada-familia.jpg
+regionIds:
+  - barcelona
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
 
 バルセロナで最初にやりたかったのは、やはりガウディ建築を自分の目で見ることでした。カサ・ミラもサグラダ・ファミリアも、写真で見るより実物のほうがはるかに情報量が多く、街全体の印象を決める強さがありました。

@@ -1,21 +1,23 @@
 ---
-category: series
 title: ピラミッドビューの宿から入り、内部まで潜ったギザの日
-dates:
-  - "2025-06-18"
 excerpt: エジプト旅行のメインイベント、ギザのピラミッド観光へ！目の前にピラミッドが広がる絶景宿のルーフトップでシーシャを楽しみ、翌日はピラミッド内部への潜入やラクダ乗りに挑戦しました。夜はアスワン行きの寝台列車で発券トラブルに見舞われます。
-image: /images/Egypt/the-three-great-pyramids-of-giza-with-sunset.jpg
-location:
-  - giza
-  - cairo
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-18"
+travelDates:
+  start: "2025-06-18"
+category: series
 tags:
   - アフリカ
   - 絶景
   - 歴史
   - トラブル
+heroImage: /images/Egypt/the-three-great-pyramids-of-giza-with-sunset.jpg
+regionIds:
+  - giza
+  - cairo
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
 
 前日のカイロ観光を終え、いよいよこの旅の大きな山場だったギザのピラミッドへ向かいました。

@@ -1,20 +1,20 @@
 ---
-category: series
 title: マドリードを歩き続け、気づいたらかなり好きになっていた日
-dates:
-  - "2025-02-21"
-excerpt: >-
-  マドリードを本格的に歩き始めた日。朝のカフェや街歩き、レティーロ公園、プラド美術館前の撤退判断まで含めて、
-  観光名所よりも街そのものの居心地の良さに引かれ始めた転換点でした。
-image: /images/Spain/prado-museum.jpg
-location:
-  - madrid
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: マドリードを本格的に歩き始めた日。朝のカフェや街歩き、レティーロ公園、プラド美術館前の撤退判断まで含めて、 観光名所よりも街そのものの居心地の良さに引かれ始めた転換点でした。
+publishedAt: "2025-02-21"
+travelDates:
+  start: "2025-02-21"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Spain/prado-museum.jpg
+regionIds:
+  - madrid
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
 
 この日からマドリード観光を本格的に始めたのですが、観光名所そのものより、街の歩きやすさや空気の流れ方にかなり引かれました。あとから振り返ると、この日がマドリードを好きになった起点だったと思います。

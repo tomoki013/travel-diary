@@ -1,23 +1,24 @@
 ---
-category: series
 title: 王道から穴場まで、実際に見てよかった世界の建築3選。エッフェル塔、アブシンベル、ワット・パクナム
-dates:
-  - "2025-08-09"
-excerpt: >-
-  世界中を旅して見てきた絶景建築を紹介するシリーズ第2弾！今回は、パリの象徴エッフェル塔、エジプトの秘境アブシンベル神殿、そしてSNSで話題のタイのワット・パクナムをピックアップ。王道の観光名所から、静かに楽しめる穴場まで、それぞれの建築が持つ特別な魅力と感動を、筆者の実体験と共にお届けします。
-image: /images/France/eiffel-tower.jpg
-location:
-  - paris
-  - abu-simbel
-  - bangkok
-author: ともきち
-series: architecture
+excerpt: 世界中を旅して見てきた絶景建築を紹介するシリーズ第2弾！今回は、パリの象徴エッフェル塔、エジプトの秘境アブシンベル神殿、そしてSNSで話題のタイのワット・パクナムをピックアップ。王道の観光名所から、静かに楽しめる穴場まで、それぞれの建築が持つ特別な魅力と感動を、筆者の実体験と共にお届けします。
+publishedAt: "2025-08-09"
+travelDates:
+  start: "2025-08-09"
+category: series
 tags:
   - 海外旅行
   - 絶景建築
   - エッフェル塔
   - アブシンベル神殿
   - ワットパクナム
+heroImage: /images/France/eiffel-tower.jpg
+regionIds:
+  - paris
+  - abu-simbel
+  - bangkok
+author: ともきち
+series:
+  slug: architecture
 ---
 
 ## はじめに

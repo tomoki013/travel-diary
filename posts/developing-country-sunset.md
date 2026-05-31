@@ -1,17 +1,16 @@
 ---
-category: one-off
 title: 発展途上国で見る夕陽って綺麗に見えるよね
-dates:
-  - "2025-12-03"
-excerpt: >-
-  発展途上国で見る夕陽が印象的に感じられる理由を、
-  科学面と心理面の両方から考えてみます。
-  旅先での体験をもとにした考察記事です。
-image: /images/India/indian-gate-at-night.jpg
-location: global
-author: ともきち
+excerpt: 発展途上国で見る夕陽が印象的に感じられる理由を、 科学面と心理面の両方から考えてみます。 旅先での体験をもとにした考察記事です。
+publishedAt: "2025-12-03"
+travelDates:
+  start: "2025-12-03"
+category: one-off
 tags:
   - 海外旅行
+heroImage: /images/India/indian-gate-at-night.jpg
+regionIds:
+  - global
+author: ともきち
 ---
 
 発展途上国寄りの場所で見る夕陽は、なぜか強く見えることがあります。理由を考えると、空気中の粒子の話だけでなく、旅先でこちらが置かれている心理状態もかなり効いている気がします。

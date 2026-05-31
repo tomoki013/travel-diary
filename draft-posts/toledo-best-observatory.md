@@ -1,18 +1,19 @@
 ---
-category: tourism
 title: トレド旧市街を一望！「ミラドール・デル・バイエ」までの道中にある展望台を徹底比較
-dates:
-  - "2025-02-24"
 excerpt: スペインの古都トレド。絶景スポットとして有名な「ミラドール・デル・バイエ」ですが、実はそこへ至る道中にも複数の展望台が存在します。サン・マルティン橋から歩いて巡った実体験をもとに、各展望台の特徴と「結局どこから見るのが一番おすすめか」を解説します。
-image: /images/Spain/toledo-view2.jpg
-location:
-  - toledo
-author: ともきち
+publishedAt: "2025-02-24"
+travelDates:
+  start: "2025-02-24"
+category: tourism
 tags:
   - ヨーロッパ
   - 絶景
   - 観光スポット
-journey: j-2025-02-13
+heroImage: /images/Spain/toledo-view2.jpg
+regionIds:
+  - toledo
+author: ともきち
+journeyId: j-2025-02-13
 ---
 
 「もし1日しかスペインに滞在できないなら、迷わずトレドに行け」と言われるほど美しい古都トレド。

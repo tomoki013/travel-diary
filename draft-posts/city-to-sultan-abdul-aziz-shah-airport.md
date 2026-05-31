@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: クアラルンプール市内からスルタン空港へ行くなら？バスとGrabの使い分け
-dates:
-  - "2026-03-26"
-excerpt: >-
-  クアラルンプール市内からスルタン・アブドゥル・アジズ・シャー空港へ向かう方法を整理しました。
-  Touch'n Go 前提のバス利用と、Grab を選ぶべき場面を分けてまとめます。
-image: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
-location:
-  - kuala-lumpur
-author: ともきち
+excerpt: クアラルンプール市内からスルタン・アブドゥル・アジズ・シャー空港へ向かう方法を整理しました。 Touch'n Go 前提のバス利用と、Grab を選ぶべき場面を分けてまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---

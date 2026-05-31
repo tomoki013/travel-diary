@@ -1,22 +1,21 @@
 ---
-category: series
 title: Nu SentralからKLCCまで、寝坊のあとに街を横断したクアラルンプール
-dates:
-  - "2026-03-13"
-excerpt: >-
-  盛大に寝坊したクアラルンプール滞在の中日。それでもNu Sentral、セントラルマーケット、
-  パビリオン、KLCCまでしっかり歩いて、クアラルンプールの街の便利さと
-  華やかさが両方見えた1日でした。
-image: /images/Malaysia/petronas-twin-towers.jpg
-location:
-  - kuala-lumpur
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: 盛大に寝坊したクアラルンプール滞在の中日。それでもNu Sentral、セントラルマーケット、 パビリオン、KLCCまでしっかり歩いて、クアラルンプールの街の便利さと 華やかさが両方見えた1日でした。
+publishedAt: "2026-03-13"
+travelDates:
+  start: "2026-03-13"
+category: series
 tags:
   - 海外旅行
   - 街歩き
   - 夜景
+heroImage: /images/Malaysia/petronas-twin-towers.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 この日は見事に寝坊しました。起きた時点でだいぶ時間が過ぎていて、ちょっともったいない気持ちにもなりましたが、こういう立て直しも含めて旅行記になるところがあります。

@@ -1,20 +1,21 @@
 ---
-category: series
 title: カッパドキアへ移動し、気球予約の判断を外した日
-dates:
-  - "2025-06-14"
-excerpt: >-
-  イスタンブールから飛行機を乗り継ぎ、奇岩群の絶景が広がるカッパドキア（ギョレメ）へ大移動。しかし現地到着後、のんびりしすぎたせいで翌朝の気球ツアーが「満席」になるという痛恨のミスを犯してしまいます。
-image: /images/Turkey/balloons-in-cappadocia.jpg
-location:
-  - cappadocia
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+excerpt: イスタンブールから飛行機を乗り継ぎ、奇岩群の絶景が広がるカッパドキア（ギョレメ）へ大移動。しかし現地到着後、のんびりしすぎたせいで翌朝の気球ツアーが「満席」になるという痛恨のミスを犯してしまいます。
+publishedAt: "2025-06-14"
+travelDates:
+  start: "2025-06-14"
+category: series
 tags:
   - 移動
   - アクティビティ
   - トラブル
+heroImage: /images/Turkey/balloons-in-cappadocia.jpg
+regionIds:
+  - cappadocia
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 travelTopics:
   - booking
   - transport

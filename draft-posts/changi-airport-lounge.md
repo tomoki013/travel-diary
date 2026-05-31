@@ -1,18 +1,19 @@
 ---
-category: tourism
 title: チャンギ空港のラウンジは使う価値がある？深夜トランジットで助かった点を整理
-dates:
-  - "2025-06-28"
 excerpt: チャンギ空港で深夜トランジットしたときに、Plaza Premium Lounge がかなり助かりました。食事、シャワー、座席、無料利用の考え方を実体験ベースで整理します。
-image: /images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg
-location:
-  - changi
-author: ともきち
+publishedAt: "2025-06-28"
+travelDates:
+  start: "2025-06-28"
+category: tourism
 tags:
   - 空港ラウンジ
   - トランジット
   - 東南アジア
-journey: j-2025-06-10
+heroImage: /images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg
+regionIds:
+  - changi
+author: ともきち
+journeyId: j-2025-06-10
 ---
 
 チャンギ空港で深夜の乗り継ぎがあるなら、ラウンジはかなり有力です。

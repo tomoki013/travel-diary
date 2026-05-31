@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: デンパサール空港からスミニャックへ行くなら？到着直後に迷いにくい動き方
-dates:
-  - "2026-03-26"
-excerpt: >-
-  デンパサール空港からスミニャックへ向かう方法を、タクシーと配車アプリ中心に整理しました。
-  到着直後に両替や SIM をどう考えるかも含めて、初回で外しにくい動き方をまとめます。
-image: /images/Indonesia/seminyak-beach-at-night.jpg
-location:
-  - seminyak
-author: ともきち
+excerpt: デンパサール空港からスミニャックへ向かう方法を、タクシーと配車アプリ中心に整理しました。 到着直後に両替や SIM をどう考えるかも含めて、初回で外しにくい動き方をまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Indonesia/seminyak-beach-at-night.jpg
+regionIds:
+  - seminyak
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---

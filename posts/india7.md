@@ -1,19 +1,19 @@
 ---
-category: series
 title: バラナシの祭りを見届けたあと、体調を崩したまま帰国した最終日
-dates:
-  - "2024-09-30"
-excerpt: >-
-  【インド旅行記
-  最終回】土器チャイとラッシーで味わう本場の味、ガンジス川沿いのお祭りでの感動、そして予期せぬ体調不良での長い帰国の道のり。苦楽を共にしたインド旅行、その最後の思い出と次回への期待を込めて。
-image: /images/India/festival-of-ganga1.jpg
-location:
-  - varanasi
-author: ともきち
-series: travel-diary
-journey: j-2024-09-21
+excerpt: 【インド旅行記 最終回】土器チャイとラッシーで味わう本場の味、ガンジス川沿いのお祭りでの感動、そして予期せぬ体調不良での長い帰国の道のり。苦楽を共にしたインド旅行、その最後の思い出と次回への期待を込めて。
+publishedAt: "2024-09-30"
+travelDates:
+  start: "2024-09-30"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/India/festival-of-ganga1.jpg
+regionIds:
+  - varanasi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
 
 インド旅行の最後は、バラナシの祭りを見てから帰国する日でした。ところが終盤で一気に体調を崩し、コルカタでもバンコクでもほとんど動けず、そのまま日本へ戻るかなり長い帰路になりました。

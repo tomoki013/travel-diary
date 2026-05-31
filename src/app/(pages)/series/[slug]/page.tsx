@@ -36,7 +36,7 @@ const eachSeries = async (props: { params: Promise<{ slug: string }> }) => {
   if (!series) return notFound();
 
   const allSeriesPosts = await getAllPosts({ category: "series" });
-  const allPosts = allSeriesPosts.filter((post) => post.series === slug);
+  const allPosts = allSeriesPosts.filter((post) => post.series?.slug === slug);
 
   return <Client allPosts={allPosts} series={series} />;
 };

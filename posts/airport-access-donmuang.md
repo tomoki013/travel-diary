@@ -1,19 +1,19 @@
 ---
-category: tourism
 title: ドンムアン空港からバンコク市内へのアクセス比較。電車・空港バス・タクシーの選び方
-dates:
-  - "2025-06-10"
-excerpt: >-
-  ドンムアン空港からバンコク市内へ入る方法を比較しました。SRTレッドライン、空港バス、タクシーの使い分けと、目的地別に選びやすい考え方を整理しています。
-image: /images/Thai/victory-monument.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: ドンムアン空港からバンコク市内へ入る方法を比較しました。SRTレッドライン、空港バス、タクシーの使い分けと、目的地別に選びやすい考え方を整理しています。
+publishedAt: "2025-06-10"
+travelDates:
+  start: "2025-06-10"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
+heroImage: /images/Thai/victory-monument.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 travelTopics:
   - transport
 ---

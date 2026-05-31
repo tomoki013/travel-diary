@@ -1,21 +1,20 @@
 ---
-category: one-off
 title: クアラルンプールは夜が強い。屋台街と夜景の振れ幅がかなり大きかった
-dates:
-  - "2026-03-24"
-excerpt: >-
-  クアラルンプールを歩いていて印象に残ったのは、夜の街の強さでした。
-  ライトアップ、ショッピングモール、屋台街まで含めて、夜に街がちゃんと生きている感じをまとめます。
-image: /images/Malaysia/the-illuminated-lights-spreading-across-downtown-kuala-lumpur-at-night.jpg
-location:
-  - kuala-lumpur
-author: ともきち
+excerpt: クアラルンプールを歩いていて印象に残ったのは、夜の街の強さでした。 ライトアップ、ショッピングモール、屋台街まで含めて、夜に街がちゃんと生きている感じをまとめます。
+publishedAt: "2026-03-24"
+travelDates:
+  start: "2026-03-24"
+category: one-off
 tags:
   - 海外旅行
   - 夜景
   - クアラルンプール
   - 街歩き
-journey: j-2026-03-12
+heroImage: /images/Malaysia/the-illuminated-lights-spreading-across-downtown-kuala-lumpur-at-night.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+journeyId: j-2026-03-12
 ---
 
 クアラルンプールに行って意外だったのが、夜の街の強さでした。

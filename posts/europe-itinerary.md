@@ -1,29 +1,35 @@
 ---
 title: ヨーロッパ13泊15日ひとり旅の旅程と総費用まとめ
-dates:
-  - "2025-02-13"
 excerpt: フランスとスペインを巡った13泊15日のひとり旅について、日ごとの動きと総費用をまとめました。都市間移動、宿泊費、現地交通、食費まで実額ベースで整理しています。
-image: /images/France/louvre-museum1.jpg
-location:
+publishedAt: "2025-02-13"
+travelDates:
+  start: "2025-02-13"
+category: itinerary
+tags:
+  - 海外旅行
+  - 一人旅
+heroImage: /images/France/louvre-museum1.jpg
+regionIds:
   - paris
   - barcelona
   - madrid
   - toledo
 author: ともきち
-budget: 368509
-category: itinerary
-journey: j-2025-02-13
-costs:
-  flight: 123940
-  train: 5180
-  hotel: 116328
-  transport: 17939
-  sightseeing: 17126
-  food: 78346
-  other: 9650
-tags:
-  - 海外旅行
-  - 一人旅
+journeyId: j-2025-02-13
+costReport:
+  budget:
+    amount: 368509
+    currency: JPY
+  costs:
+    currency: JPY
+    items:
+      flight: 123940
+      train: 5180
+      hotel: 116328
+      transport: 17939
+      sightseeing: 17126
+      food: 78346
+      other: 9650
 ---
 
 2025年2月13日から2月27日にかけて、フランスとスペインを巡る15日間のヨーロッパ一人旅の記録です。実際に巡ったルートや、かかった費用をまとめました。

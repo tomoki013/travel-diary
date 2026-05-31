@@ -1,15 +1,16 @@
 ---
-category: tourism
 title: 海外旅行の両替はどう考えるか。現地両替と日本両替の基本整理
-dates:
-  - "2025-07-07"
-excerpt: >-
-  海外旅行での両替を、日本で替えるべき通貨と現地で替えるべき通貨に分けて整理しました。余った外貨の扱いや、海外キャッシングを含めた考え方もまとめています。
-image: /images/Thai/exchange-rate-at-suvarnabhumi.jpg
-location: japan
-author: ともきち
+excerpt: 海外旅行での両替を、日本で替えるべき通貨と現地で替えるべき通貨に分けて整理しました。余った外貨の扱いや、海外キャッシングを含めた考え方もまとめています。
+publishedAt: "2025-07-07"
+travelDates:
+  start: "2025-07-07"
+category: tourism
 tags:
   - 海外旅行
+heroImage: /images/Thai/exchange-rate-at-suvarnabhumi.jpg
+regionIds:
+  - japan
+author: ともきち
 travelTopics:
   - money
 ---

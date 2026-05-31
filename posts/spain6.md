@@ -1,20 +1,20 @@
 ---
-category: series
 title: トレドを昼も夜も見て、日帰りでも強烈に残った1日
-dates:
-  - "2025-02-24"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第9回】世界遺産トレドへの日帰り旅。中世の街並みを探索し、トレド大聖堂の荘厳さに感動。「ミラドール・デル・バイエ」からの絶景、タホ川上空を滑空する「Flyトレド」体験、伝統料理「カルカムサス」と名物「マサパン」を堪能。昼と夜で異なる表情を見せる古都の魅力を満喫した一日。
-image: /images/Spain/toledo-view.jpg
-location:
-  - toledo
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第9回】世界遺産トレドへの日帰り旅。中世の街並みを探索し、トレド大聖堂の荘厳さに感動。「ミラドール・デル・バイエ」からの絶景、タホ川上空を滑空する「Flyトレド」体験、伝統料理「カルカムサス」と名物「マサパン」を堪能。昼と夜で異なる表情を見せる古都の魅力を満喫した一日。
+publishedAt: "2025-02-24"
+travelDates:
+  start: "2025-02-24"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Spain/toledo-view.jpg
+regionIds:
+  - toledo
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
 
 トレドは前から評判を見ていて期待値が高かったのですが、実際に行くとその期待を普通に超えてきました。旧市街の密度、展望台からの見え方、夜景まで含めて、日帰りでも十分強く残る街でした。

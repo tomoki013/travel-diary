@@ -1,23 +1,22 @@
 ---
-category: series
 title: セントーサの風とラオパサの夜、王道を詰め込んだシンガポール
-dates:
-  - "2026-03-16"
-excerpt: >-
-  セントーサでLugeを楽しみ、ハリーポッターの世界に入り込み、
-  ラオパサで夜ご飯を食べて、最後はガーデンズ・バイ・ザ・ベイまで。
-  王道をしっかり回ったシンガポール滞在の日です。
-image: /images/Singapore/the-nighttime-view-of-gardens-by-the-bay.jpg
-location:
-  - sentosa
-  - singapore-city
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: セントーサでLugeを楽しみ、ハリーポッターの世界に入り込み、 ラオパサで夜ご飯を食べて、最後はガーデンズ・バイ・ザ・ベイまで。 王道をしっかり回ったシンガポール滞在の日です。
+publishedAt: "2026-03-16"
+travelDates:
+  start: "2026-03-16"
+category: series
 tags:
   - 海外旅行
   - 街歩き
   - グルメ
+heroImage: /images/Singapore/the-nighttime-view-of-gardens-by-the-bay.jpg
+regionIds:
+  - sentosa
+  - singapore-city
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 朝はそのままセントーサへ向かいました。シンガポールは整いすぎていて少し緊張することもあるのですが、この日は純粋に遊ぶ方向の楽しさが多くて、かなり気分よく回れました。

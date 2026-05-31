@@ -1,17 +1,18 @@
 ---
-category: series
 title: はじめまして。旅ブログを始めた理由と、このブログで書いていくこと
-dates:
-  - "2024-01-03"
-excerpt: >-
-  ともきちが旅ブログを始めた理由と、このブログで書いていく内容をまとめた最初の記事です。旅行記だけでなく、移動の工夫や現地で感じたことも含めて、あとから振り返れる形で残していく方針を整理しています。
-image: /images/Introduce/introduce.jpg
-location:
-  - kyoto
-author: ともきち
-series: travel-diary
+excerpt: ともきちが旅ブログを始めた理由と、このブログで書いていく内容をまとめた最初の記事です。旅行記だけでなく、移動の工夫や現地で感じたことも含めて、あとから振り返れる形で残していく方針を整理しています。
+publishedAt: "2024-01-03"
+travelDates:
+  start: "2024-01-03"
+category: series
 tags:
   - その他
+heroImage: /images/Introduce/introduce.jpg
+regionIds:
+  - kyoto
+author: ともきち
+series:
+  slug: travel-diary
 ---
 
 ## はじめに

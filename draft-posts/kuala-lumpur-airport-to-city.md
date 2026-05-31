@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: クアラルンプール空港から市内へ行くなら何が楽？KLIA Express・バス・Grabの選び方
-dates:
-  - "2026-03-26"
-excerpt: >-
-  クアラルンプール国際空港から市内へ移動する方法を、KLIA Express、バス、Grabの3つで整理しました。
-  初めてでも外しにくい選び方と、到着直後に迷いやすいポイントをまとめます。
-image: /images/Malaysia/petronas-twin-towers.jpg
-location:
-  - kuala-lumpur
-author: ともきち
+excerpt: クアラルンプール国際空港から市内へ移動する方法を、KLIA Express、バス、Grabの3つで整理しました。 初めてでも外しにくい選び方と、到着直後に迷いやすいポイントをまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Malaysia/petronas-twin-towers.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---

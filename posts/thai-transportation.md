@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: バンコク市内移動の選び方。BTS・MRT・川船・バスの使い分け
-dates:
-  - "2024-03-03"
-excerpt: >-
-  初めてでも安心！バンコク観光におすすめの交通手段を紹介！BTSやMRTなど、電車での移動が快適で効率的。タクシーやトゥクトゥクも魅力的!バスやチャオプラヤエクスプレスボートで現地の雰囲気を味わうのもおすすめです。それぞれの料金や特徴を詳しく解説し、観光スポットとの組み合わせ方もご紹介します。
-image: /images/Thai/suvarnabhumi1.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: 初めてでも安心！バンコク観光におすすめの交通手段を紹介！BTSやMRTなど、電車での移動が快適で効率的。タクシーやトゥクトゥクも魅力的!バスやチャオプラヤエクスプレスボートで現地の雰囲気を味わうのもおすすめです。それぞれの料金や特徴を詳しく解説し、観光スポットとの組み合わせ方もご紹介します。
+publishedAt: "2024-03-03"
+travelDates:
+  start: "2024-03-03"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/Thai/suvarnabhumi1.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 travelTopics:
   - transport
 ---

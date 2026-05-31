@@ -1,18 +1,19 @@
 ---
-category: tourism
 title: 上海ディズニーランドは回りやすい？1日で乗れたアトラクションと注意点
-dates:
-  - "2025-12-01"
 excerpt: 上海ディズニーランドを朝から閉園まで回ってみると、思った以上に乗れました。待ち時間の感覚、印象に残ったアトラクション、終電まわりの注意点を整理します。
-image: /images/China/shanghai-airport-food.jpg
-location:
-  - shanghai
-author: ともきち
+publishedAt: "2025-12-01"
+travelDates:
+  start: "2025-12-01"
+category: tourism
 tags:
   - アジア
   - テーマパーク
   - 観光スポット
-journey: j-2025-11-29
+heroImage: /images/China/shanghai-airport-food.jpg
+regionIds:
+  - shanghai
+author: ともきち
+journeyId: j-2025-11-29
 ---
 
 中国・上海旅行の大きな目玉の一つといえば、アジア最大級の規模を誇り、世界最先端のアトラクションが集結する**「上海ディズニーランド（Shanghai Disneyland）」**です。

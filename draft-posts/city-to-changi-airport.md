@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: シンガポール市内からチャンギ空港へ行くなら？MRT・バス・Grabの考え方
-dates:
-  - "2026-03-26"
-excerpt: >-
-  シンガポール市内からチャンギ空港へ向かう移動を、MRT、バス、Grabで整理しました。
-  早めに着くべき理由と、Jewel に寄るかどうかも含めて考え方をまとめます。
-image: /images/Singapore/jewel-rain-vortex.jpg
-location:
-  - changi
-author: ともきち
+excerpt: シンガポール市内からチャンギ空港へ向かう移動を、MRT、バス、Grabで整理しました。 早めに着くべき理由と、Jewel に寄るかどうかも含めて考え方をまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Singapore/jewel-rain-vortex.jpg
+regionIds:
+  - changi
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---

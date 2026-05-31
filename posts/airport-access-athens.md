@@ -1,19 +1,19 @@
 ---
-category: tourism
 title: アテネ空港から市内へのアクセス比較。メトロ・バス・タクシーの使い分け
-dates:
-  - "2025-06-22"
-excerpt: >-
-  【2025年最新】アテネ空港から市内へのアクセスで迷っていませんか？この記事では、シンタグマ広場へ直通のメトロ、24時間運行で格安なバス、定額料金で安心なタクシーの料金・時間・乗り場を徹底比較！あなたの予算や旅のスタイルに最適な移動手段が必ず見つかります。アテネ旅行のスタートをスムーズに。
-image: /images/Greece/parthenon.jpg
-location:
-  - athens
-author: ともきち
-journey: j-2025-06-10
+excerpt: 【2025年最新】アテネ空港から市内へのアクセスで迷っていませんか？この記事では、シンタグマ広場へ直通のメトロ、24時間運行で格安なバス、定額料金で安心なタクシーの料金・時間・乗り場を徹底比較！あなたの予算や旅のスタイルに最適な移動手段が必ず見つかります。アテネ旅行のスタートをスムーズに。
+publishedAt: "2025-06-22"
+travelDates:
+  start: "2025-06-22"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
+heroImage: /images/Greece/parthenon.jpg
+regionIds:
+  - athens
+author: ともきち
+journeyId: j-2025-06-10
 travelTopics:
   - transport
 ---

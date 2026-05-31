@@ -1,21 +1,21 @@
 ---
-category: series
 title: パリを離れてバルセロナへ入り、ガウディ建築を外から浴びた日
-dates:
-  - "2025-02-18"
-excerpt: >-
-  【ヨーロッパ旅行記
-  第4回】パリ最終日のガレット朝食とショッピング、コスパ抜群のフランス料理店での夕食からバルセロナへの移動まで。EU内フライトでの免税手続き注意点、バルセロナ到着後のガウディ建築巡り、初めてのパエリアとサングリア体験。フランスからスペインへと旅が進む中での文化の違いを感じる一日。
-image: /images/Spain/casa-mira.jpg
-location:
-  - paris
-  - barcelona
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: 【ヨーロッパ旅行記 第4回】パリ最終日のガレット朝食とショッピング、コスパ抜群のフランス料理店での夕食からバルセロナへの移動まで。EU内フライトでの免税手続き注意点、バルセロナ到着後のガウディ建築巡り、初めてのパエリアとサングリア体験。フランスからスペインへと旅が進む中での文化の違いを感じる一日。
+publishedAt: "2025-02-18"
+travelDates:
+  start: "2025-02-18"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Spain/casa-mira.jpg
+regionIds:
+  - paris
+  - barcelona
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
 
 パリ滞在の最終日を過ごしたあと、この旅の後半であるスペインへ移動します。街の空気も食事もかなり違うので、ここから旅のテンポがもう一段変わる感覚がありました。

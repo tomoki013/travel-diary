@@ -2,10 +2,13 @@ import { Post, RevenueCategory, TravelTopic } from "@/types/types";
 import { getGeoRelationship } from "./post-discovery";
 
 type PostMetadata = Omit<Post, "content">;
-type RevenueInferenceSource = Pick<
-  Post,
-  "title" | "excerpt" | "category" | "tags" | "travelTopics" | "revenueCategory"
->;
+type RevenueInferenceSource = {
+  title: string;
+  excerpt?: string;
+  category: string;
+  tags?: string[];
+  travelTopics?: TravelTopic[];
+};
 
 const HIGH_INTENT: TravelTopic[] = ["money", "visa", "transport", "booking", "sim", "insurance"];
 
@@ -101,14 +104,12 @@ export const enrichPostRevenueCategory = <
     excerpt?: string;
     category: string;
     tags?: string[];
-    revenueCategory?: RevenueCategory;
     travelTopics?: TravelTopic[];
   },
 >(
   post: T,
-): T & { revenueCategory: RevenueCategory; travelTopics: TravelTopic[] } => ({
+): T & { travelTopics: TravelTopic[] } => ({
   ...post,
-  revenueCategory: post.revenueCategory || inferRevenueCategory(post),
   travelTopics: inferTravelTopics(post),
 });
 
@@ -127,12 +128,13 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
     essay: ["booking", "transport", "money"],
   };
 
-  const order = flow[current.revenueCategory || "guide"];
+  const currentCategory = inferRevenueCategory(current);
+  const order = flow[currentCategory];
   const currentTopics = new Set(normalizeTravelTopics(current.travelTopics));
   return allPosts
-    .filter((post) => post.slug !== current.slug && (post.revenueCategory || "guide") !== "essay")
+    .filter((post) => post.slug !== current.slug && inferRevenueCategory(post) !== "essay")
     .map((post) => {
-      const postCategory = post.revenueCategory || "guide";
+      const postCategory = inferRevenueCategory(post);
       const categoryIndex = order.indexOf(postCategory);
       if (categoryIndex === -1) {
         return null;
@@ -142,8 +144,10 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
       const sharedTopics = normalizeTravelTopics(post.travelTopics).filter((topic) =>
         currentTopics.has(topic),
       ).length;
-      const sameSeries = Boolean(current.series && post.series === current.series);
-      const sameJourney = Boolean(current.journey && post.journey === current.journey);
+      const sameSeries = Boolean(
+        current.series?.slug && post.series?.slug === current.series?.slug,
+      );
+      const sameJourney = Boolean(current.journeyId && post.journeyId === current.journeyId);
       const hasStrongContextMatch = sameJourney || geo.sameSpecificLocation || geo.sameCountry;
 
       if (!hasStrongContextMatch) {
@@ -162,7 +166,7 @@ export const getNextActionPosts = (current: PostMetadata, allPosts: PostMetadata
         return null;
       }
 
-      const recency = new Date(post.dates?.[0] || "1970-01-01").getTime();
+      const recency = new Date(post.publishedAt || "1970-01-01").getTime();
 
       return { post, score, recency };
     })

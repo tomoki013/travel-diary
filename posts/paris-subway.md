@@ -1,19 +1,18 @@
 ---
-category: tourism
 title: パリのメトロとRERの使い方。チケットの違いと旅行者向けの選び方
-dates:
-  - "2025-02-14"
-excerpt: >-
-  2025年の新料金体系を徹底解説！パリのメトロ、RER、バス、トラムなどの乗り方や各種チケット、そして旅行者におすすめの「Navigo
-  Easy」の購入方法まで、パリの交通情報を分かりやすくまとめました。
-image: /images/France/airport-metro-station.jpg
-location:
-  - paris
-author: ともきち
-journey: j-2025-02-13
+excerpt: 2025年の新料金体系を徹底解説！パリのメトロ、RER、バス、トラムなどの乗り方や各種チケット、そして旅行者におすすめの「Navigo Easy」の購入方法まで、パリの交通情報を分かりやすくまとめました。
+publishedAt: "2025-02-14"
+travelDates:
+  start: "2025-02-14"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/France/airport-metro-station.jpg
+regionIds:
+  - paris
+author: ともきち
+journeyId: j-2025-02-13
 travelTopics:
   - transport
 ---

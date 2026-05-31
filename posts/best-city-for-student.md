@@ -1,20 +1,20 @@
 ---
-category: one-off
 title: 学生のうちに行っておいてよかった都市を3つに絞るなら
-dates:
-  - "2025-08-03"
-excerpt: >-
-  時間はあるけどお金がない学生必見！世界10ヶ国20都市を旅した筆者が、体力と時間がある学生のうちに絶対行くべき海外都市をランキング形式で厳選。社会人になったら行けない？価値観を揺さぶる強烈な体験ができる旅先とは。次の休みの旅行先に迷っている方はぜひ参考にしてください。
-image: /images/Turkey/balloons-in-cappadocia.jpg
-location:
+excerpt: 時間はあるけどお金がない学生必見！世界10ヶ国20都市を旅した筆者が、体力と時間がある学生のうちに絶対行くべき海外都市をランキング形式で厳選。社会人になったら行けない？価値観を揺さぶる強烈な体験ができる旅先とは。次の休みの旅行先に迷っている方はぜひ参考にしてください。
+publishedAt: "2025-08-03"
+travelDates:
+  start: "2025-08-03"
+category: one-off
+tags:
+  - 海外旅行
+heroImage: /images/Turkey/balloons-in-cappadocia.jpg
+regionIds:
   - new-delhi
   - cappadocia
   - cairo
   - giza
   - varanasi
 author: ともきち
-tags:
-  - 海外旅行
 ---
 
 ## 結論

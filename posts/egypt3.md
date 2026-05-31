@@ -1,20 +1,22 @@
 ---
-category: series
 title: 砂漠のミニバスに揺られ、アブシンベル神殿まで往復で削られた日
-dates:
-  - "2025-06-20"
 excerpt: 寝台列車でエジプト南部の都市アスワンへ到着。金曜日で長距離バスが運休という誤算の中、エアコンなしのすし詰めミニバスで砂漠を激走し、ピラミッドに匹敵する大迫力のアブシンベル神殿へ向かいます。
-image: /images/Egypt/abusimbel-temple.jpg
-location:
-  - aswan
-  - abu-simbel
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-20"
+travelDates:
+  start: "2025-06-20"
+category: series
 tags:
   - アフリカ
   - 絶景
   - 移動
+heroImage: /images/Egypt/abusimbel-temple.jpg
+regionIds:
+  - aswan
+  - abu-simbel
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
 
 寝台列車の揺れで何度も目が覚めたまま、朝7時ごろにアスワンへ着きました。ここからは、エジプト南部でも特に行きたかったアブシンベル神殿を日帰りで往復します。

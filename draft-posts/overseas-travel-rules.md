@@ -1,15 +1,16 @@
 ---
-category: one-off
 title: 海外旅行で自分なりに決めているルール
-dates:
-  - "2026-03-26"
 excerpt: 海外旅行で判断を崩しにくくするために、自分なりに決めているルールを整理しました。初日、空港アクセス、睡眠、現金、酒、現地での構え方までまとめます。
-image: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
-author: ともきち
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: one-off
 tags:
   - 海外旅行
   - 旅の考え方
   - 持ち物
+heroImage: /images/Malaysia/daytime-views-of-urban-areas-in-kuala-lumpur.jpg
+author: ともきち
 ---
 
 海外旅行は自由度が高いぶん、判断を外すと一気にしんどくなります。

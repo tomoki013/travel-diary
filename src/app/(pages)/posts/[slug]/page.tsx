@@ -24,24 +24,28 @@ export async function generateMetadata(props: {
   try {
     const post = await getPostBySlug(params.slug);
     const canonicalUrl = `/posts/${post.slug}`;
-    const imageUrl = post.image ? new URL(post.image, PRIMARY_SITE_URL).toString() : undefined;
+    const imageUrl = post.heroImage
+      ? new URL(post.heroImage, PRIMARY_SITE_URL).toString()
+      : undefined;
 
     return {
       title: post.title,
-      description: post.excerpt,
+      description: post.description || post.excerpt,
       alternates: {
         canonical: canonicalUrl,
       },
       authors: post.author ? [{ name: post.author }] : [],
       openGraph: {
         title: post.title,
-        description: post.excerpt,
+        description: post.description || post.excerpt,
         url: canonicalUrl,
         type: "article",
-        publishedTime: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
-        modifiedTime: post.dates?.[post.dates.length - 1]
-          ? new Date(post.dates[post.dates.length - 1]).toISOString()
-          : undefined,
+        publishedTime: post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined,
+        modifiedTime: post.updatedAt
+          ? new Date(post.updatedAt).toISOString()
+          : post.publishedAt
+            ? new Date(post.publishedAt).toISOString()
+            : undefined,
         authors: post.author ? [post.author] : undefined,
         images: imageUrl
           ? [
@@ -96,8 +100,8 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
   } = postData;
 
   const absolutePostUrl = `${PRIMARY_SITE_URL}/posts/${post.slug}`;
-  const absoluteImageUrl = post.image
-    ? new URL(post.image, PRIMARY_SITE_URL).toString()
+  const absoluteImageUrl = post.heroImage
+    ? new URL(post.heroImage, PRIMARY_SITE_URL).toString()
     : undefined;
 
   const jsonLd = {
@@ -110,10 +114,12 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
     },
     headline: post.title,
     image: absoluteImageUrl ? [absoluteImageUrl] : undefined,
-    datePublished: post.dates?.[0] ? new Date(post.dates[0]).toISOString() : undefined,
-    dateModified: post.dates?.[post.dates.length - 1]
-      ? new Date(post.dates[post.dates.length - 1]).toISOString()
-      : undefined,
+    datePublished: post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined,
+    dateModified: post.updatedAt
+      ? new Date(post.updatedAt).toISOString()
+      : post.publishedAt
+        ? new Date(post.publishedAt).toISOString()
+        : undefined,
     author: [
       {
         "@type": "Person",
@@ -126,7 +132,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
       name: "ともきちの旅行日記",
       url: PRIMARY_SITE_URL,
     },
-    description: post.excerpt,
+    description: post.description || post.excerpt,
     url: absolutePostUrl,
   };
 

@@ -1,14 +1,15 @@
 ---
-category: one-off
 title: 先に旅してきた人たちのおかげで、今の海外旅行はやりやすい
-dates:
-  - "2026-03-26"
 excerpt: 今の海外旅行がかなりやりやすいのは、先に動いて情報や仕組みを残してくれた人たちがいたからです。その上にいる自分たちがどう振る舞うべきかを考えます。
-image: /images/Singapore/jewel-and-chagee-at-changi-international-airport.jpg
-author: ともきち
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: one-off
 tags:
   - 海外旅行
   - 旅の考え方
+heroImage: /images/Singapore/jewel-and-chagee-at-changi-international-airport.jpg
+author: ともきち
 ---
 
 今の海外旅行は、昔よりかなりやりやすいです。

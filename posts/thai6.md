@@ -1,19 +1,21 @@
 ---
-category: series
 title: ワット・パクナムを見て出国し、成都で厳しい乗り継ぎに削られた日
-dates:
-  - "2025-06-12"
 excerpt: バンコク最終日は、幻想的な天井画で有名なワット・パクナムへ。その後はタイを出国し、経由地である中国の成都天府国際空港へ。そこで待ち受けていたのは、靴の中まで確認される想像以上に厳格な手荷物・ボディチェックでした。
-image: /images/Thai/ceiling-at-wat-pak-nam.jpg
-location:
-  - bangkok
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-12"
+travelDates:
+  start: "2025-06-12"
+category: series
 tags:
   - アジア
   - トランジット
   - 絶景
+heroImage: /images/Thai/ceiling-at-wat-pak-nam.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
 
 深夜の徒歩帰宅の疲労もあり、バンコク最終日の朝は10時半と遅めの起床でした。

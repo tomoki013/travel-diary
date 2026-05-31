@@ -1,18 +1,19 @@
 ---
-category: tourism
 title: アテネ国際空港の手荷物預かり所は使うべき？島旅前に荷物を置いて身軽になる方法
-dates:
-  - "2025-06-27"
 excerpt: アテネからサントリーニ島などへ向かう前に、空港でスーツケースを預けて身軽に動く方法をまとめました。場所、料金感、使い方を実体験ベースで整理します。
-image: /images/Greece/parthenon.jpg
-location:
-  - athens
-author: ともきち
+publishedAt: "2025-06-27"
+travelDates:
+  start: "2025-06-27"
+category: tourism
 tags:
   - ヨーロッパ
   - 空港情報
   - トラブル回避
-journey: j-2025-06-10
+heroImage: /images/Greece/parthenon.jpg
+regionIds:
+  - athens
+author: ともきち
+journeyId: j-2025-06-10
 travelTopics:
   - transport
 ---

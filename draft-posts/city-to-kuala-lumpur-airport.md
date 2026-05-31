@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: クアラルンプール市内から空港へ戻るならどう動く？早朝便でも崩れにくい行き方
-dates:
-  - "2026-03-26"
-excerpt: >-
-  クアラルンプール市内から KLIA へ戻る動き方を、KLIA Express、バス、Grab で整理しました。
-  早朝便や渋滞が気になるときに、どの手段を選ぶと崩れにくいかをまとめます。
-image: /images/Malaysia/the-illuminated-lights-spreading-across-downtown-kuala-lumpur-at-night.jpg
-location:
-  - kuala-lumpur
-author: ともきち
+excerpt: クアラルンプール市内から KLIA へ戻る動き方を、KLIA Express、バス、Grab で整理しました。 早朝便や渋滞が気になるときに、どの手段を選ぶと崩れにくいかをまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Malaysia/the-illuminated-lights-spreading-across-downtown-kuala-lumpur-at-night.jpg
+regionIds:
+  - kuala-lumpur
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---

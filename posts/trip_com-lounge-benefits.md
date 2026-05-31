@@ -1,22 +1,21 @@
 ---
-category: tourism
 title: Trip.com会員特典の空港ラウンジは使えるか。実際に使った範囲での整理
-dates:
-  - "2025-09-21"
-excerpt: >-
-  Trip.com のプラチナ以上で使える空港ラウンジ特典について、実際に使った範囲で整理しました。24時間前予約や2時間制限など、先に知っておきたい条件もまとめています。
-image: /images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg
-location:
-  - bangkok
-  - singapore
-author: ともきち
+excerpt: Trip.com のプラチナ以上で使える空港ラウンジ特典について、実際に使った範囲で整理しました。24時間前予約や2時間制限など、先に知っておきたい条件もまとめています。
+publishedAt: "2025-09-21"
+travelDates:
+  start: "2025-09-21"
+category: tourism
 tags:
   - 海外旅行
   - Trip.com
   - 空港ラウンジ
   - 会員特典
-isPromotion: true
-promotionPG:
+heroImage: /images/Singapore/changi-international-airport-lounge-plaza-premium-lounge.jpg
+regionIds:
+  - bangkok
+  - singapore
+author: ともきち
+promotionPrograms:
   - Trip.com
 travelTopics:
   - booking

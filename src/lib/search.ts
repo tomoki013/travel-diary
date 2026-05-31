@@ -47,9 +47,9 @@ export const filterPostsBySearch = (posts: PostMetadata[], query: string): PostM
       post.title,
       post.excerpt,
       post.category,
-      post.location,
+      post.regionIds,
       post.author,
-      post.series,
+      post.series?.slug,
       post.tags,
       post.travelTopics,
     ]
@@ -102,9 +102,8 @@ export const calculateScores = (
     title: 10,
     excerpt: 5,
     category: 3,
-    location: 3,
+    regionIds: 3,
     author: 3,
-    series: 3,
     tags: 3,
     travelTopics: 6,
     ...weights,
@@ -114,9 +113,8 @@ export const calculateScores = (
     "title",
     "excerpt",
     "category",
-    "location",
+    "regionIds",
     "author",
-    "series",
     "tags",
     "travelTopics",
   ];
@@ -141,11 +139,17 @@ export const calculateScores = (
       }
     });
 
+    // Also score series slug
+    if (post.series?.slug) {
+      searchableFields["series"] = post.series.slug.toLowerCase();
+    }
+
     const processTerms = (terms: string[], multiplier = 1) => {
       terms.forEach((term) => {
-        for (const key of finalSearchableKeys) {
-          const weight = finalWeights[key as keyof typeof finalWeights] || 0;
-          const fieldValue = searchableFields[key as string];
+        for (const key of [...finalSearchableKeys, "series"] as string[]) {
+          const weight =
+            (finalWeights as Record<string, number>)[key] || (key === "series" ? 3 : 0);
+          const fieldValue = searchableFields[key];
           if (fieldValue) {
             const tf = calculateTermFrequency(fieldValue, term);
             score += tf * weight * multiplier;

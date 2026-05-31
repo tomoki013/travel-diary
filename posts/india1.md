@@ -1,19 +1,19 @@
 ---
-category: series
 title: 深夜のデリーで詰まりかけたのに、最後は人の親切さに救われた初日
-dates:
-  - "2024-09-25"
-excerpt: >-
-  【インド旅行記
-  第2回】入国時のビザトラブルに始まり、深夜のタクシーハプニング。しかし親切な現地の人々との出会いで一転、本場のマサラチャイとカレーを堪能し、インド門やロータス寺院など名所を巡る。予想外の展開から始まったデリーでの温かな1日。
-image: /images/India/indian-gate-at-noon.jpg
-location:
-  - new-delhi
-author: ともきち
-series: travel-diary
-journey: j-2024-09-21
+excerpt: 【インド旅行記 第2回】入国時のビザトラブルに始まり、深夜のタクシーハプニング。しかし親切な現地の人々との出会いで一転、本場のマサラチャイとカレーを堪能し、インド門やロータス寺院など名所を巡る。予想外の展開から始まったデリーでの温かな1日。
+publishedAt: "2024-09-25"
+travelDates:
+  start: "2024-09-25"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/India/indian-gate-at-noon.jpg
+regionIds:
+  - new-delhi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
 
 ベトナムでの乗継を終え、ようやくインドに入りました。ここからが本番のはずだったのですが、到着初日から入国、深夜移動、街歩きまで全部まとめて振れ幅の大きい日になりました。

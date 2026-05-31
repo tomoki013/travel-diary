@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: スペインで回った、あしゅみな聖地巡礼の記録
-dates:
-  - "2025-02-27"
-excerpt: >-
-  「AbemaTVの『乃木坂世界旅
-  今野さんほっといてよ！』で齋藤飛鳥さん＆星野みなみさん（あしゅみな）が訪れたスペインの聖地巡礼レポート！オペラ座、サンタ・エウラリア、サン・ミゲル市場、トレドなど2人の足跡をたどって、スペインの魅力をたっぷり紹介しています。乃木坂ファン＆旅行好き必見！」
-image: /images/Spain/toledo-view.jpg
-location:
-  - madrid
-  - toledo
-author: ともきち
-journey: j-2025-02-13
+excerpt: 「AbemaTVの『乃木坂世界旅 今野さんほっといてよ！』で齋藤飛鳥さん＆星野みなみさん（あしゅみな）が訪れたスペインの聖地巡礼レポート！オペラ座、サンタ・エウラリア、サン・ミゲル市場、トレドなど2人の足跡をたどって、スペインの魅力をたっぷり紹介しています。乃木坂ファン＆旅行好き必見！」
+publishedAt: "2025-02-27"
+travelDates:
+  start: "2025-02-27"
+category: tourism
 tags:
   - 海外旅行
   - 聖地巡礼
+heroImage: /images/Spain/toledo-view.jpg
+regionIds:
+  - madrid
+  - toledo
+author: ともきち
+journeyId: j-2025-02-13
 ---
 
 AbemaTV の「#乃木坂世界旅 今野さんほっといてよ！」で、齋藤飛鳥さんと星野みなみさんが回っていたスペインの場所を実際に辿りました。番組の順番に近い形で回れる場所が多く、通常の観光とも組み合わせやすかったです。

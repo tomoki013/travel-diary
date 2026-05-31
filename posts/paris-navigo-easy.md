@@ -1,20 +1,18 @@
 ---
-category: tourism
 title: Navigo Easyの使い方。パリ旅行で短期滞在ならまずこれで足りる
-dates:
-  - "2025-02-14"
-excerpt: >-
-  パリ旅行の新定番ICカード「Navigo
-  Easy」を徹底解説。2025年最新の料金や、券売機・スマホアプリでの簡単な購入・チャージ方法、使い方までこの記事一本で解決！メトロやバス移動の不安をなくし、Navigo
-  Easyを賢く使って快適なパリ観光を実現しましょう。【2025年最新版】
-image: /images/France/navigo-easy.jpg
-location:
-  - paris
-author: ともきち
-journey: j-2025-02-13
+excerpt: パリ旅行の新定番ICカード「Navigo Easy」を徹底解説。2025年最新の料金や、券売機・スマホアプリでの簡単な購入・チャージ方法、使い方までこの記事一本で解決！メトロやバス移動の不安をなくし、Navigo Easyを賢く使って快適なパリ観光を実現しましょう。【2025年最新版】
+publishedAt: "2025-02-14"
+travelDates:
+  start: "2025-02-14"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/France/navigo-easy.jpg
+regionIds:
+  - paris
+author: ともきち
+journeyId: j-2025-02-13
 travelTopics:
   - transport
 ---

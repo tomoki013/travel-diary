@@ -1,19 +1,21 @@
 ---
-category: series
 title: 学生証の強さとバザールの混沌で始まったカイロ観光
-dates:
-  - "2025-06-17"
 excerpt: エジプト観光初日！カイロ市内の移動は激安タクシーがおすすめ。日本の学生証で半額になるエジプト考古学博物館や、ジョジョの聖地「ディオの館」、そしてアラビアンな活気に満ちたバザールでの買い物とローカルフードを満喫しました。
-image: /images/Egypt/the-three-great-pyramids-of-giza-with-sunset.jpg
-location:
-  - cairo
-author: ともきち
-series: travel-diary
-journey: j-2025-06-10
+publishedAt: "2025-06-17"
+travelDates:
+  start: "2025-06-17"
+category: series
 tags:
   - アフリカ
   - 街歩き
   - 歴史
+heroImage: /images/Egypt/the-three-great-pyramids-of-giza-with-sunset.jpg
+regionIds:
+  - cairo
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-06-10
 ---
 
 到着早々の強烈な洗礼から一夜明けて、この日は本格的にカイロ市内を回る日にしました。

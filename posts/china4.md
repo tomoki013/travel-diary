@@ -1,20 +1,19 @@
 ---
-category: series
 title: 蟹料理と昼の予園で締めた、少し慌ただしい上海最終日
-dates:
-  - "2025-12-02"
-excerpt: >-
-  最終日は成隆行蟹王府のリベンジから昼の豫園、
-  そして空港での最後の CHAGEE まで。3泊4日の上海旅を締めくくった
-  1日を振り返ります。
-image: /images/China/chenglong-hang-crab-palace.jpg
-location:
-  - shanghai
-author: ともきち
-series: travel-diary
-journey: j-2025-11-29
+excerpt: 最終日は成隆行蟹王府のリベンジから昼の豫園、 そして空港での最後の CHAGEE まで。3泊4日の上海旅を締めくくった 1日を振り返ります。
+publishedAt: "2025-12-02"
+travelDates:
+  start: "2025-12-02"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/China/chenglong-hang-crab-palace.jpg
+regionIds:
+  - shanghai
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-11-29
 ---
 
 上海旅行の最終日です。前日の上海ディズニーの疲れが残っていて、朝から完璧に動けたわけではありませんでした。

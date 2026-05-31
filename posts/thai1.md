@@ -1,20 +1,21 @@
 ---
-category: series
 title: 初めての海外でバンコクに着き、最初の違和感から始まった旅
-dates:
-  - "2024-03-01"
-excerpt: >-
-  【タイ旅行記第1回】初めての海外旅行に挑戦する大学生のリアルな日記。パスポート取得のドタバタ劇から始まり、想像とは全く違うバンコクの独特な雰囲気に圧倒され、現地の衛生事情に戸惑いながらも、少しずつ慣れていく過程をありのままに公開！熱気、喧騒、そして絶品グルメ！五感で味わう刺激的な毎日をレポートします。
-image: /images/Thai/river-view-from-the-hotel-at-noon.jpg
-location:
-  - bangkok
-author: ともきち
-series: travel-diary
-journey: j-2024-03-01
+excerpt: 【タイ旅行記第1回】初めての海外旅行に挑戦する大学生のリアルな日記。パスポート取得のドタバタ劇から始まり、想像とは全く違うバンコクの独特な雰囲気に圧倒され、現地の衛生事情に戸惑いながらも、少しずつ慣れていく過程をありのままに公開！熱気、喧騒、そして絶品グルメ！五感で味わう刺激的な毎日をレポートします。
+publishedAt: "2024-03-01"
+travelDates:
+  start: "2024-03-01"
+category: series
 tags:
   - 海外旅行
   - タイ旅行記
   - 初海外
+heroImage: /images/Thai/river-view-from-the-hotel-at-noon.jpg
+regionIds:
+  - bangkok
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-03-01
 ---
 
 20歳のとき、初めての海外旅行で選んだのがタイ・バンコクでした。今ならもう少し落ち着いて選ぶと思いますが、このときは「とにかく一度日本の外へ出てみたい」という気持ちが先にありました。

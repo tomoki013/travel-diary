@@ -1,19 +1,19 @@
 ---
-category: series
 title: 小樽の雪景色と食事を詰め込み、最後まで北海道らしさが濃かった日
-dates:
-  - "2024-02-28"
-excerpt: >-
-  【北海道旅行記
-  第2回】二条市場の絶品海鮮丼から始まり、小樽運河の雪景色とオルゴール堂の癒しの音色を堪能。夜は札幌で名物ジンギスカンを味わい、セイコーマートのご当地グルメまで。最終日は人気の回転寿司で締めくくった、食と観光の贅沢な北海道旅行記。
-image: /images/Hokkaido/susukino-crossing.jpg
-location:
-  - hokkaido
-author: ともきち
-series: travel-diary
-journey: j-2024-02-26
+excerpt: 【北海道旅行記 第2回】二条市場の絶品海鮮丼から始まり、小樽運河の雪景色とオルゴール堂の癒しの音色を堪能。夜は札幌で名物ジンギスカンを味わい、セイコーマートのご当地グルメまで。最終日は人気の回転寿司で締めくくった、食と観光の贅沢な北海道旅行記。
+publishedAt: "2024-02-28"
+travelDates:
+  start: "2024-02-28"
+category: series
 tags:
   - 国内旅行
+heroImage: /images/Hokkaido/susukino-crossing.jpg
+regionIds:
+  - hokkaido
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-02-26
 ---
 
 北海道2日目は、海鮮、小樽、ジンギスカン、セイコーマートまで、食事の印象がかなり強い日でした。観光地としては王道ですが、雪の小樽と札幌の食事をまとめて入れると満足度はかなり高かったです。

@@ -1,20 +1,20 @@
 ---
-category: series
 title: バルセロナからマドリードへ移り、広場とアヒージョで掴まれた日
-dates:
-  - "2025-02-20"
-excerpt: >-
-  バルセロナから高速列車でマドリードへ移動した日。マヨール広場やサン・ミゲル市場を通って街の第一印象を掴み、La
-  Casa del Abueloのアヒージョと王宮前広場の空気で、マドリードの相性の良さを強く感じた1日です。
-image: /images/Spain/plaza-de-mayor.jpg
-location:
-  - madrid
-author: ともきち
-series: travel-diary
-journey: j-2025-02-13
+excerpt: バルセロナから高速列車でマドリードへ移動した日。マヨール広場やサン・ミゲル市場を通って街の第一印象を掴み、La Casa del Abueloのアヒージョと王宮前広場の空気で、マドリードの相性の良さを強く感じた1日です。
+publishedAt: "2025-02-20"
+travelDates:
+  start: "2025-02-20"
+category: series
 tags:
   - 海外旅行
   - 一人旅
+heroImage: /images/Spain/plaza-de-mayor.jpg
+regionIds:
+  - madrid
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2025-02-13
 ---
 
 この旅で最初に行こうと決めていたのはマドリードでした。バルセロナから高速列車で入り、広場の雰囲気や夜の空気を見た時点で、ここはかなり相性がいい街だと感じました。

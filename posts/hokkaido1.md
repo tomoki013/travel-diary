@@ -1,19 +1,19 @@
 ---
-category: series
 title: 雪と寒さに振り回されながら、札幌の初日を回った日
-dates:
-  - "2024-02-27"
-excerpt: >-
-  【北海道旅行記
-  第1回】新千歳空港での絶品味噌ラーメンから始まり、さっぽろ羊ヶ丘展望台での雪景色、札幌テレビ塔のライトアップ、そして行列必至の人気回転寿司店まで。冬の札幌を満喫した旅行初日の記録。厳しい寒さと格闘しながら、北海道ならではのグルメと絶景を堪能した一日をご紹介します。
-image: /images/Hokkaido/sapporo-tv-tower.jpg
-location:
-  - hokkaido
-author: ともきち
-series: travel-diary
-journey: j-2024-02-26
+excerpt: 【北海道旅行記 第1回】新千歳空港での絶品味噌ラーメンから始まり、さっぽろ羊ヶ丘展望台での雪景色、札幌テレビ塔のライトアップ、そして行列必至の人気回転寿司店まで。冬の札幌を満喫した旅行初日の記録。厳しい寒さと格闘しながら、北海道ならではのグルメと絶景を堪能した一日をご紹介します。
+publishedAt: "2024-02-27"
+travelDates:
+  start: "2024-02-27"
+category: series
 tags:
   - 国内旅行
+heroImage: /images/Hokkaido/sapporo-tv-tower.jpg
+regionIds:
+  - hokkaido
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-02-26
 ---
 
 初めての北海道は、空港に着いた瞬間の冷気だけでかなり印象に残りました。雪景色には普通に上がったのですが、そのぶん寒さの強さも想像以上で、この日はずっと景色と気温の両方に振り回されていました。

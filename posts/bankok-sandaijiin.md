@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: バンコク三大寺院の回り方。ワット・プラ・ケオ、ワット・ポー、ワット・アルン
-dates:
-  - "2024-03-03"
-excerpt: >-
-  バンコク三大寺院「ワット・プラケオ」「ワット・ポー」「ワット・アルン」を巡る旅ガイド！歴史や文化、アクセス方法、入場料情報を詳しく紹介。タイ観光の魅力を体験しよう！
-image: /images/Thai/wat-arun-right-up.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: バンコク三大寺院「ワット・プラケオ」「ワット・ポー」「ワット・アルン」を巡る旅ガイド！歴史や文化、アクセス方法、入場料情報を詳しく紹介。タイ観光の魅力を体験しよう！
+publishedAt: "2024-03-03"
+travelDates:
+  start: "2024-03-03"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
+heroImage: /images/Thai/wat-arun-right-up.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 ---
 
 ## バンコク三大寺院って？

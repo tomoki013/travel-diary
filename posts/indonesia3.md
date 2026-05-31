@@ -1,23 +1,22 @@
 ---
-category: series
 title: マリオボロ通りを歩き、空港鉄道で抜けたジョグジャカルタ
-dates:
-  - "2026-03-19"
-excerpt: >-
-  夜行移動のあとジョグジャカルタに到着。先に空港鉄道を押さえてから
-  マリオボロ通りを歩き、最後はノンストップの空港鉄道で空港へ戻る、
-  短いながらも旅らしさの濃い1日でした。
-image: /images/Indonesia/malioboro-street.jpg
-location:
-  - yogyakarta
-  - changi
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: 夜行移動のあとジョグジャカルタに到着。先に空港鉄道を押さえてから マリオボロ通りを歩き、最後はノンストップの空港鉄道で空港へ戻る、 短いながらも旅らしさの濃い1日でした。
+publishedAt: "2026-03-19"
+travelDates:
+  start: "2026-03-19"
+category: series
 tags:
   - 海外旅行
   - 長距離移動
   - 街歩き
+heroImage: /images/Indonesia/malioboro-street.jpg
+regionIds:
+  - yogyakarta
+  - changi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 朝、ジョグジャカルタの MTrans オフィスに着きました。夜行移動のあとなので体は少し重くて、頭もまだ少し鈍いままです。

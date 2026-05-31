@@ -1,22 +1,21 @@
 ---
-category: series
 title: ラクサとマリーナベイ、夜はナイトサファリまで駆け抜けたシンガポール
-dates:
-  - "2026-03-15"
-excerpt: >-
-  クアラルンプールから移動して、そのままシンガポール観光へ。ラクサ、
-  アラブ通り、マリーナベイ、ナイトサファリまで、移動日とは思えない
-  密度で動き続けた1日です。
-image: /images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg
-location:
-  - singapore-city
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: クアラルンプールから移動して、そのままシンガポール観光へ。ラクサ、 アラブ通り、マリーナベイ、ナイトサファリまで、移動日とは思えない 密度で動き続けた1日です。
+publishedAt: "2026-03-15"
+travelDates:
+  start: "2026-03-15"
+category: series
 tags:
   - 海外旅行
   - 街歩き
   - 動物園
+heroImage: /images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg
+regionIds:
+  - singapore-city
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 朝、クアラルンプールを出てシンガポールへ向かいました。移動日なのにかなり詰め込んでいて、気づけば夜はナイトサファリにいました。

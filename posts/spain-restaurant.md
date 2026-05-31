@@ -1,20 +1,20 @@
 ---
-category: tourism
 title: スペインおすすめレストランガイド
-dates:
-  - "2025-02-27"
-excerpt: >-
-  スペイン各都市の特色を活かした絶品グルメを堪能できる、食の旅ガイド。マドリードの老舗タパスバー、バルセロナの洗練された創作料理、トレドの伝統的なビアレストランなど、旅の計画に役立つおすすめレストランを厳選紹介。
-image: /images/Spain/la-casa-del-abuelos-ajilo.jpg
-location:
+excerpt: スペイン各都市の特色を活かした絶品グルメを堪能できる、食の旅ガイド。マドリードの老舗タパスバー、バルセロナの洗練された創作料理、トレドの伝統的なビアレストランなど、旅の計画に役立つおすすめレストランを厳選紹介。
+publishedAt: "2025-02-27"
+travelDates:
+  start: "2025-02-27"
+category: tourism
+tags:
+  - 海外旅行
+  - グルメ
+heroImage: /images/Spain/la-casa-del-abuelos-ajilo.jpg
+regionIds:
   - madrid
   - barcelona
   - toledo
 author: ともきち
-journey: j-2025-02-13
-tags:
-  - 海外旅行
-  - グルメ
+journeyId: j-2025-02-13
 ---
 
 スペインは都市ごとに食事の雰囲気がかなり違いました。ここではマドリード、バルセロナ、トレドで実際に入って印象が残った店だけをまとめています。

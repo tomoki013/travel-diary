@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: スワンナプーム空港でARLに乗るまでの動線と両替の考え方
-dates:
-  - "2025-06-12"
-excerpt: >-
-  スワンナプーム空港に着いたら、もう迷わない！到着ロビーから地下1階のエアポートリンク駅までのルートを写真付きで徹底解説します。レートの良い両替所の選び方から、現金のみのチケット購入方法まで、知っているだけで得をする情報が満載。スマートなバンコク旅行はここから始まります。
-image: /images/Thai/suvarnabhumi1.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: スワンナプーム空港に着いたら、もう迷わない！到着ロビーから地下1階のエアポートリンク駅までのルートを写真付きで徹底解説します。レートの良い両替所の選び方から、現金のみのチケット購入方法まで、知っているだけで得をする情報が満載。スマートなバンコク旅行はここから始まります。
+publishedAt: "2025-06-12"
+travelDates:
+  start: "2025-06-12"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/Thai/suvarnabhumi1.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 travelTopics:
   - transport
   - money

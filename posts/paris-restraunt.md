@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: パリで入ってよかったレストランとカフェ5軒
-dates:
-  - "2025-02-20"
-excerpt: >-
-  パリ旅行で訪れたいおすすめのレストラン＆カフェ5選をご紹介。エッフェル塔近くのビストロから、スイーツが絶品の老舗カフェ、クレープの名店まで、美味しいと雰囲気が両方楽しめるスポットを厳選しました。
-image: /images/France/steak-at-le-vieux-bistrot.jpg
-location:
-  - paris
-author: ともきち
-journey: j-2025-02-13
+excerpt: パリ旅行で訪れたいおすすめのレストラン＆カフェ5選をご紹介。エッフェル塔近くのビストロから、スイーツが絶品の老舗カフェ、クレープの名店まで、美味しいと雰囲気が両方楽しめるスポットを厳選しました。
+publishedAt: "2025-02-20"
+travelDates:
+  start: "2025-02-20"
+category: tourism
 tags:
   - 海外旅行
   - グルメ
+heroImage: /images/France/steak-at-le-vieux-bistrot.jpg
+regionIds:
+  - paris
+author: ともきち
+journeyId: j-2025-02-13
 ---
 
 パリでは有名店に寄りすぎなくても、観光の動線上で満足度の高い店にかなり当たれました。ここでは実際に入って印象が良かった店だけを5軒に絞ってまとめます。

@@ -1,22 +1,21 @@
 ---
-category: series
 title: チャンギ空港で夜を越え、静かに関空へ戻った旅の終わり
-dates:
-  - "2026-03-20"
-excerpt: >-
-  ジョグジャカルタから戻った夜はチャンギ空港で過ごし、そのまま朝の便で
-  関空へ。派手な観光はないけれど、旅が閉じていく感じがしっかり残った
-  東南アジア周遊の最終日です。
-image: /images/Singapore/jewel-and-chagee-at-changi-international-airport.jpg
-location:
-  - changi
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: ジョグジャカルタから戻った夜はチャンギ空港で過ごし、そのまま朝の便で 関空へ。派手な観光はないけれど、旅が閉じていく感じがしっかり残った 東南アジア周遊の最終日です。
+publishedAt: "2026-03-20"
+travelDates:
+  start: "2026-03-20"
+category: series
 tags:
   - 海外旅行
   - 空港泊
   - 帰国
+heroImage: /images/Singapore/jewel-and-chagee-at-changi-international-airport.jpg
+regionIds:
+  - changi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 ジョグジャカルタから戻って、ついにこの旅も最後です。派手な観光があるわけではありませんが、空港で夜を越えてそのまま日本へ戻る時間には、長い旅の終わりらしい静けさがありました。

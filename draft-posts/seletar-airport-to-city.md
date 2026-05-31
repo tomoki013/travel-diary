@@ -1,20 +1,19 @@
 ---
-category: tourism
 title: セレター空港から市内へ行くならどうする？バスとMRTで崩れにくく入る方法
-dates:
-  - "2026-03-26"
-excerpt: >-
-  シンガポールのセレター空港から市内へ向かう方法を、実際の移動感覚ベースで整理しました。
-  102番バスと MRT をつなぐルートを軸に、Grab とどちらが向くかもまとめます。
-image: /images/Singapore/seletar-airport-arrival.jpg
-location:
-  - singapore-city
-author: ともきち
+excerpt: シンガポールのセレター空港から市内へ向かう方法を、実際の移動感覚ベースで整理しました。 102番バスと MRT をつなぐルートを軸に、Grab とどちらが向くかもまとめます。
+publishedAt: "2026-03-26"
+travelDates:
+  start: "2026-03-26"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
-journey: j-2026-03-12
+heroImage: /images/Singapore/seletar-airport-arrival.jpg
+regionIds:
+  - singapore-city
+author: ともきち
+journeyId: j-2026-03-12
 travelTopics:
   - transport
 ---

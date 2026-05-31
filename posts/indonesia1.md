@@ -1,23 +1,22 @@
 ---
-category: series
 title: Jewelを見送ってバリへ、スミニャックの夜に旅の速度が緩んだ
-dates:
-  - "2026-03-17"
-excerpt: >-
-  シンガポールからバリへ移動し、スミニャックで街歩き。KYND、
-  両替、スパ、ビーチ、夜ご飯まで、旅のテンポが少しゆるく変わっていく
-  感覚がそのまま残った日でした。
-image: /images/Indonesia/the-interior-design-of-a-spa-in-bali.jpg
-location:
-  - seminyak
-  - changi
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: シンガポールからバリへ移動し、スミニャックで街歩き。KYND、 両替、スパ、ビーチ、夜ご飯まで、旅のテンポが少しゆるく変わっていく 感覚がそのまま残った日でした。
+publishedAt: "2026-03-17"
+travelDates:
+  start: "2026-03-17"
+category: series
 tags:
   - 海外旅行
   - 街歩き
   - グルメ
+heroImage: /images/Indonesia/the-interior-design-of-a-spa-in-bali.jpg
+regionIds:
+  - seminyak
+  - changi
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 シンガポールを出て、次はバリです。同じ東南アジアでも、ここから一気に旅の呼吸が変わりました。

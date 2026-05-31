@@ -1,19 +1,19 @@
 ---
-category: tourism
 title: イアのサンセットを見るなら。場所取りの目安と混雑の実感
-dates:
-  - "2025-06-25"
-excerpt: >-
-  世界一と謳われるサントリーニ島・イアの夕陽。白い街並みがオレンジ色に染まるその絶景を快適に楽しむための旅行ガイドです。空港からのアクセス手段を料金や時間で比較し、混雑必至の「イア城跡」での場所取りのコツから注意点まで具体的に解説。一生忘れられない感動旅行の計画にお役立てください。
-image: /images/Greece/oia-castle-sunset-view.jpg
-location:
-  - santorini
-author: ともきち
-journey: j-2025-06-10
+excerpt: 世界一と謳われるサントリーニ島・イアの夕陽。白い街並みがオレンジ色に染まるその絶景を快適に楽しむための旅行ガイドです。空港からのアクセス手段を料金や時間で比較し、混雑必至の「イア城跡」での場所取りのコツから注意点まで具体的に解説。一生忘れられない感動旅行の計画にお役立てください。
+publishedAt: "2025-06-25"
+travelDates:
+  start: "2025-06-25"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
   - 交通情報
+heroImage: /images/Greece/oia-castle-sunset-view.jpg
+regionIds:
+  - santorini
+author: ともきち
+journeyId: j-2025-06-10
 ---
 
 イアの夕日は確かに強いですが、実際に行くと重要なのは景色そのものよりも、どこで待つかと何分前に動くかです。人気スポットは想像より早く埋まります。

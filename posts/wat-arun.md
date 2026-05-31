@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: ワット・アルンの見どころ。夕景で見るなら外さなくていい場所
-dates:
-  - "2024-03-02"
-excerpt: >-
-  バンコク三大寺院の一つ、ワット・アルン（暁の寺）の魅力を徹底解説！壮大な仏塔や美しい装飾、ライトアップなど、訪れるべき理由が満載。朝焼けや夕焼けに映える神秘的な寺院を堪能しよう。
-image: /images/Thai/wat-arun-with-sunset.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: バンコク三大寺院の一つ、ワット・アルン（暁の寺）の魅力を徹底解説！壮大な仏塔や美しい装飾、ライトアップなど、訪れるべき理由が満載。朝焼けや夕焼けに映える神秘的な寺院を堪能しよう。
+publishedAt: "2024-03-02"
+travelDates:
+  start: "2024-03-02"
+category: tourism
 tags:
   - 海外旅行
   - 観光スポット
+heroImage: /images/Thai/wat-arun-with-sunset.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 ---
 
 バンコクの寺院でどこを優先するか迷うなら、ワット・アルンはかなり上位に置いていい場所です。境内そのものより、川越しや夕景まで含めて見え方が強い寺院でした。

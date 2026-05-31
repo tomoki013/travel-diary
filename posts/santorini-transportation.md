@@ -1,18 +1,18 @@
 ---
-category: tourism
 title: サントリーニ島内の移動手段比較。バス・レンタカー・バギーの向き不向き
-dates:
-  - "2025-06-25"
-excerpt: >-
-  サントリーニ島の旅行計画に必須！島内の移動手段を徹底解説します。格安な路線バスから、自由なレンタカー、人気のバギー（ATV）、タクシーまで、料金やメリット・デメリットを分かりやすく比較。あなたの旅のスタイルにぴったりの移動方法を見つけて、サントリーニ観光を120%楽しみましょう！
-image: /images/Greece/oia-castle-view.jpg
-location:
-  - santorini
-author: ともきち
-journey: j-2025-06-10
+excerpt: サントリーニ島の旅行計画に必須！島内の移動手段を徹底解説します。格安な路線バスから、自由なレンタカー、人気のバギー（ATV）、タクシーまで、料金やメリット・デメリットを分かりやすく比較。あなたの旅のスタイルにぴったりの移動方法を見つけて、サントリーニ観光を120%楽しみましょう！
+publishedAt: "2025-06-25"
+travelDates:
+  start: "2025-06-25"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
+heroImage: /images/Greece/oia-castle-view.jpg
+regionIds:
+  - santorini
+author: ともきち
+journeyId: j-2025-06-10
 travelTopics:
   - transport
 ---

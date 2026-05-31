@@ -1,22 +1,21 @@
 ---
-category: series
 title: Sisterfieldsの朝と夜行バス、本土へ向かう長い移動
-dates:
-  - "2026-03-18"
-excerpt: >-
-  スミニャックでの最後の朝ご飯と買い物を終えたあと、MTransの夜行バスと
-  フェリーで本土へ移動。思ったより快適だった車内と、想像以上に寒かった
-  夜の移動が強く印象に残った日でした。
-image: /images/Indonesia/the-rice-fields-of-bali-and-the-ocean-visible-in-the-distance.jpg
-location:
-  - seminyak
-author: ともきち
-series: travel-diary
-journey: j-2026-03-12
+excerpt: スミニャックでの最後の朝ご飯と買い物を終えたあと、MTransの夜行バスと フェリーで本土へ移動。思ったより快適だった車内と、想像以上に寒かった 夜の移動が強く印象に残った日でした。
+publishedAt: "2026-03-18"
+travelDates:
+  start: "2026-03-18"
+category: series
 tags:
   - 海外旅行
   - 長距離移動
   - グルメ
+heroImage: /images/Indonesia/the-rice-fields-of-bali-and-the-ocean-visible-in-the-distance.jpg
+regionIds:
+  - seminyak
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2026-03-12
 ---
 
 この日はスミニャックを離れて、本土へ向かう移動日でした。少し面倒な気持ちもありましたが、こういう泥くさい移動が入ると旅全体の輪郭はむしろはっきりします。

@@ -1,19 +1,19 @@
 ---
-category: series
 title: ジャイプルを駆け足で見て、そのまま寝台列車でバラナシへ向かった日
-dates:
-  - "2024-09-27"
-excerpt: >-
-  【インド旅行記
-  第4回】壮大なアンベール城、湖に浮かぶジャル・マハル、そしてピンク色に染まる街並みまで。ラジャスタンの古都ジャイプルを堪能した後は、インドならではの寝台列車でバラナシへ。歴史と活気が交差する街での最後の1日。
-image: /images/India/amber-palace1.jpg
-location:
-  - jaipur
-author: ともきち
-series: travel-diary
-journey: j-2024-09-21
+excerpt: 【インド旅行記 第4回】壮大なアンベール城、湖に浮かぶジャル・マハル、そしてピンク色に染まる街並みまで。ラジャスタンの古都ジャイプルを堪能した後は、インドならではの寝台列車でバラナシへ。歴史と活気が交差する街での最後の1日。
+publishedAt: "2024-09-27"
+travelDates:
+  start: "2024-09-27"
+category: series
 tags:
   - 海外旅行
+heroImage: /images/India/amber-palace1.jpg
+regionIds:
+  - jaipur
+author: ともきち
+series:
+  slug: travel-diary
+journeyId: j-2024-09-21
 ---
 
 インド3日目は、ジャイプルを少しだけ回ってから寝台列車でバラナシへ向かう日でした。観光時間は短かったものの、アンベール城やピンクシティの色はしっかり印象に残りました。

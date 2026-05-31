@@ -98,9 +98,9 @@ const Client = ({
       });
     }
 
-    // 2. From promotionPG (mapping services to categories)
-    if (post.promotionPG) {
-      post.promotionPG.forEach((pg) => {
+    // 2. From promotionPrograms (mapping services to categories)
+    if (post.promotionPrograms) {
+      post.promotionPrograms.forEach((pg) => {
         const affiliate = affiliates.find((a) => a.name === pg);
         if (affiliate?.categories) {
           affiliate.categories.forEach((cat) => {
@@ -124,7 +124,7 @@ const Client = ({
 
   // Use location data for map query params if available
   const queryParams =
-    post.location && post.location.length > 0 ? { region: post.location[0] } : undefined;
+    post.regionIds && post.regionIds.length > 0 ? { region: post.regionIds[0] } : undefined;
 
   return (
     <div className="relative">
@@ -135,7 +135,7 @@ const Client = ({
       >
         <PostHeader post={post} variant="full" />
 
-        {post.costs && <CostBreakdown costs={post.costs} />}
+        {post.costReport?.costs?.items && <CostBreakdown costs={post.costReport.costs.items} />}
 
         <div className="my-12">
           <TableOfContent headings={finalHeadings} activeId={activeId} isScrollSyncEnabled />
@@ -149,7 +149,7 @@ const Client = ({
           <InstallPWAButton />
         </div>
 
-        {post.isPromotion && post.promotionPG && (
+        {(post.promotionPrograms?.length ?? 0) > 0 && (
           <div className="my-16">
             <h2 className="font-heading mb-8 text-center text-2xl font-bold tracking-wide text-stone-800 dark:text-stone-200">
               この記事で紹介したサービス
@@ -158,7 +158,8 @@ const Client = ({
               {affiliates
                 .filter(
                   (affiliate) =>
-                    post.promotionPG?.includes(affiliate.name) && affiliate.status === "ready",
+                    post.promotionPrograms?.includes(affiliate.name) &&
+                    affiliate.status === "ready",
                 )
                 .map((affiliate) => (
                   <AffiliateCard key={affiliate.name} affiliate={affiliate} type={affiliate.type} />
@@ -196,7 +197,7 @@ const Client = ({
                   nextCategoryPost={nextCategoryPost}
                   previousSeriesPost={previousSeriesPost}
                   nextSeriesPost={nextSeriesPost}
-                  series={post.series}
+                  series={post.series?.slug}
                   category={post.category}
                 />
               </div>
@@ -303,7 +304,7 @@ const Client = ({
                         <Calendar className="h-3.5 w-3.5" />
                         Visited:{" "}
                         <span className="font-bold text-stone-600 dark:text-stone-300">
-                          {post.dates[0]}
+                          {post.travelDates?.start || post.publishedAt}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-stone-400">

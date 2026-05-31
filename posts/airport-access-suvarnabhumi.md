@@ -1,19 +1,19 @@
 ---
-category: tourism
 title: スワンナプーム空港からバンコク市内へのアクセス比較。ARLとタクシーの使い分け
-dates:
-  - "2025-06-12"
-excerpt: >-
-  【2025年最新】スワンナプーム空港からバンコク市内への行き方を完全解説！渋滞知らずで格安なエアポートリンク、楽々なタクシー、節約派のバスなど、あなたに最適な交通手段が必ず見つかります。料金や乗り場、注意点を分かりやすく比較し、スムーズな旅のスタートをサポートします。
-image: /images/Thai/suvarnabhumi1.jpg
-location:
-  - bangkok
-author: ともきち
-journey: j-2024-03-01
+excerpt: 【2025年最新】スワンナプーム空港からバンコク市内への行き方を完全解説！渋滞知らずで格安なエアポートリンク、楽々なタクシー、節約派のバスなど、あなたに最適な交通手段が必ず見つかります。料金や乗り場、注意点を分かりやすく比較し、スムーズな旅のスタートをサポートします。
+publishedAt: "2025-06-12"
+travelDates:
+  start: "2025-06-12"
+category: tourism
 tags:
   - 海外旅行
   - 交通情報
   - 空港アクセス
+heroImage: /images/Thai/suvarnabhumi1.jpg
+regionIds:
+  - bangkok
+author: ともきち
+journeyId: j-2024-03-01
 travelTopics:
   - transport
 ---
