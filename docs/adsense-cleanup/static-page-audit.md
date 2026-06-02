@@ -7,13 +7,13 @@
 
 ## サマリー
 
-| ページ | noindex | sitemap掲載 | navigation | footer | 推奨判定 |
-|---|---|---|---|---|---|
-| `/social` | **あり** | 未掲載（noindexのため） | なし | なし | **現状維持** |
-| `/roadmap` | **なし** | **掲載中** | なし | なし | **noindex追加 + footer削除確認** |
-| `/travel-essentials` | **あり** | 未掲載（noindexのため） | なし | footerあり | **現状維持（footer動線は検討）** |
-| `/affiliates` | **なし** | **掲載中** | なし | **footerあり（legalセクション）** | **noindex追加 or legalページとして維持** |
-| `/request` | **あり** | 未掲載（noindexのため） | なし | footerあり | **現状維持** |
+| ページ               | noindex  | sitemap掲載             | navigation | footer                            | 推奨判定                                 |
+| -------------------- | -------- | ----------------------- | ---------- | --------------------------------- | ---------------------------------------- |
+| `/social`            | **あり** | 未掲載（noindexのため） | なし       | なし                              | **現状維持**                             |
+| `/roadmap`           | **なし** | **掲載中**              | なし       | なし                              | **noindex追加 + footer削除確認**         |
+| `/travel-essentials` | **あり** | 未掲載（noindexのため） | なし       | footerあり                        | **現状維持（footer動線は検討）**         |
+| `/affiliates`        | **なし** | **掲載中**              | なし       | **footerあり（legalセクション）** | **noindex追加 or legalページとして維持** |
+| `/request`           | **あり** | 未掲載（noindexのため） | なし       | footerあり                        | **現状維持**                             |
 
 ---
 
@@ -93,15 +93,16 @@ noindex設定済み、フッター・ナビ非掲載。AdSense審査担当者が
 
 アフィリエイトリンクが設定されているサービス:
 
-| サービス名 | カテゴリ |
-|---|---|
-| Trip.com | flight / hotel / train |
-| Klook | activity |
-| GetYourGuide | activity |
-| Omio | transport |
-| 一休.com | hotel |
+| サービス名   | カテゴリ               |
+| ------------ | ---------------------- |
+| Trip.com     | flight / hotel / train |
+| Klook        | activity               |
+| GetYourGuide | activity               |
+| Omio         | transport              |
+| 一休.com     | hotel                  |
 
 掲載候補（`status: "pending"`、アフィリエイトURL未設定）:
+
 - Booking.com、Airbnb、SkyScanner、Trifa — URLが `YOUR_AFFILIATE_LINK_HERE` のまま
 
 ### 評価
@@ -146,11 +147,13 @@ noindex設定済み、フッター・ナビ非掲載。AdSense審査担当者が
 以下の2択。
 
 **案A（推奨）: noindex追加**
+
 - `metadata.robots.index = false` を追加する
 - フッターの legalリンクとして存在は維持する（削除しない）
 - AdSense審査担当者からは見えなくなる
 
 **案B: `/editorial-policy` に統合**
+
 - `/editorial-policy` の「広告・アフィリエイトとの関係」セクションを充実させ、`/affiliates` の内容を吸収する
 - `/affiliates` は 301リダイレクト（`/editorial-policy`向け）にする
 - フッターのリンクは `/editorial-policy` に変更する
@@ -187,7 +190,7 @@ noindex設定済み。フッターからのリンクのみ。AdSense審査には
 
 ```
 / → Home
-/posts → Blog  
+/posts → Blog
 /gallery → Gallery
 /destination → Destination
 /contact → Contact
@@ -198,12 +201,12 @@ noindex設定済み。フッターからのリンクのみ。AdSense審査には
 
 ### フッター
 
-| セクション | ページ |
-|---|---|
-| コンテンツ | /posts, /gallery, /destination, /series, /journey, /map |
-| サイトについて | /about, /travel-essentials, /sitemap |
-| コミュニティ | /faq, /contact, /request |
-| Legal | /privacy, /terms, **/affiliates**, /editorial-policy, /cookie-policy |
+| セクション     | ページ                                                               |
+| -------------- | -------------------------------------------------------------------- |
+| コンテンツ     | /posts, /gallery, /destination, /series, /journey, /map              |
+| サイトについて | /about, /travel-essentials, /sitemap                                 |
+| コミュニティ   | /faq, /contact, /request                                             |
+| Legal          | /privacy, /terms, **/affiliates**, /editorial-policy, /cookie-policy |
 
 **要確認**: `/affiliates` がフッターのlegalセクションにある。noindex追加後もフッターリンクは維持してよい（legalページとして必要）。
 
@@ -211,7 +214,7 @@ noindex設定済み。フッターからのリンクのみ。AdSense審査には
 
 ## すぐ対応が必要なもの
 
-| 対象 | 対応 | 実装難易度 |
-|---|---|---|
-| `/roadmap` | noindex追加（layout.tsx新設 or ファイル構造変更） | 低 |
-| `/affiliates` | noindex追加（metadata export 追加） | 低 |
+| 対象          | 対応                                              | 実装難易度 |
+| ------------- | ------------------------------------------------- | ---------- |
+| `/roadmap`    | noindex追加（layout.tsx新設 or ファイル構造変更） | 低         |
+| `/affiliates` | noindex追加（metadata export 追加）               | 低         |

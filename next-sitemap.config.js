@@ -9,9 +9,7 @@ let noindexPostPaths = new Set();
 try {
   const postsMetadata = require("./.posts.metadata.json");
   noindexPostPaths = new Set(
-    postsMetadata
-      .filter((p) => p.noindex === true)
-      .map((p) => `/posts/${p.slug}`),
+    postsMetadata.filter((p) => p.noindex === true).map((p) => `/posts/${p.slug}`),
   );
 } catch {
   // prebuild前など、ファイルが存在しない場合は空セットで続行
