@@ -48,6 +48,9 @@ public/sitemap-*.xml
 # Image index files
 /public/images/**/index.json
 
+# Generated files (pnpm prebuild)
+/public/generated/
+
 # Draft posts
 /draft_posts
 

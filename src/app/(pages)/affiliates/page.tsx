@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { affiliates } from "@/constants/affiliates";
 import { Separator } from "@/components/ui/separator";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 const Affiliates = () => {
   const appsToShow = affiliates.filter((aff) => aff.status === "ready");

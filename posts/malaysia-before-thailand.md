@@ -15,6 +15,7 @@ regionIds:
   - kuala-lumpur
   - bangkok
 author: ともきち
+noindex: true
 ---
 
 初海外の候補としてタイが先に挙がりやすいのは自然ですが、入口としての入りやすさだけで見ると、マレーシアの方が合う人はかなり多いと思います。

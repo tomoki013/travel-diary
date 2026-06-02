@@ -77,6 +77,7 @@ async function generatePostsMetadata() {
         promotionPrograms: ensureStringArray(data.promotionPrograms),
         travelTopics: ensureStringArray(data.travelTopics),
         draft: data.draft || undefined,
+        noindex: data.noindex === true ? true : undefined,
       };
 
       postsMetadata.push(metadata);

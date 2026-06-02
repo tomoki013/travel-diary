@@ -11,6 +11,7 @@ heroImage: /images/Spain/toledo-view.jpg
 regionIds:
   - global
 author: ともきち
+noindex: true
 ---
 
 旅好きな人ほど、一度行った場所に再訪しないことがあります。自分もそのタイプなので、なぜそうなるのかを整理すると、だいたい「行きたい場所が多すぎる」に収束しました。

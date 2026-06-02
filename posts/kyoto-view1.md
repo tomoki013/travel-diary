@@ -19,6 +19,7 @@ regionIds:
 author: ともきち
 series:
   slug: kyoto
+noindex: true
 ---
 
 ## はじめに

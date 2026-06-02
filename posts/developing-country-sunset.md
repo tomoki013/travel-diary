@@ -11,6 +11,7 @@ heroImage: /images/India/indian-gate-at-night.jpg
 regionIds:
   - global
 author: ともきち
+noindex: true
 ---
 
 発展途上国寄りの場所で見る夕陽は、なぜか強く見えることがあります。理由を考えると、空気中の粒子の話だけでなく、旅先でこちらが置かれている心理状態もかなり効いている気がします。

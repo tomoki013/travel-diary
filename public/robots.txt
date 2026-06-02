@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://tomokichidiary.com
-
-# Sitemaps
-Sitemap: https://tomokichidiary.com/sitemap.xml

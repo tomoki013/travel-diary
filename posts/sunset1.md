@@ -19,6 +19,7 @@ author: ともきち
 series:
   slug: sunset
 journeyId: j-2024-03-01
+noindex: true
 ---
 
 ## はじめに

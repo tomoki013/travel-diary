@@ -35,6 +35,7 @@ export interface Post {
 
   travelTopics?: TravelTopic[];
   draft?: boolean;
+  noindex?: boolean;
 }
 
 export type PostMetadata = Omit<Post, "content">;
