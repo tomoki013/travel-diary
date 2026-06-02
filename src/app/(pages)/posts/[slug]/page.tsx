@@ -34,6 +34,12 @@ export async function generateMetadata(props: {
       alternates: {
         canonical: canonicalUrl,
       },
+      ...(post.noindex && {
+        robots: {
+          index: false,
+          follow: true,
+        },
+      }),
       authors: post.author ? [{ name: post.author }] : [],
       openGraph: {
         title: post.title,

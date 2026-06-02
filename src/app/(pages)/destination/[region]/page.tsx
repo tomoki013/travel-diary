@@ -1,4 +1,4 @@
-import { getRegionBySlug, getAllRegionSlugs } from "@/lib/regionUtil";
+import { getRegionBySlug, getAllRegionSlugs, getRegionAndDescendantSlugs } from "@/lib/regionUtil";
 import Client from "./Client";
 import { notFound } from "next/navigation";
 import { regionData } from "@/data/region";
@@ -22,8 +22,19 @@ export async function generateMetadata(props: {
   const regionSlug = params.region;
   const currentRegion = getRegionBySlug(regionSlug);
 
+  // 記事数が1件以下の地域ページは noindex にする
+  const targetSlugs = getRegionAndDescendantSlugs(regionSlug);
+  const allRegionPosts = await getAllPosts({ region: targetSlugs });
+  const shouldNoIndex = allRegionPosts.length <= 1;
+
   return {
     title: currentRegion ? `${currentRegion.name}の旅行記` : "地域別一覧",
+    ...(shouldNoIndex && {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    }),
   };
 }
 
