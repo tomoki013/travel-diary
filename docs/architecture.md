@@ -39,5 +39,5 @@
 
 ## 重要な前提
 
-- ブログ記事が主役です。AI プランナー、Globe、Gallery は補助導線として扱います。
+- ブログ記事が主役です。Globe、Gallery は補助導線として扱います。
 - 地域 slug は `src/data/region.ts` と `src/lib/regionUtil.ts` を基準に揃えます。

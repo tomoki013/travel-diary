@@ -59,8 +59,12 @@ public/sitemap-*.xml
 .posts.metadata.json
 .posts.content.json
 
-# Service worker
-/public/sw.js
+# Lighthouse reports
+/lighthouse-report.report.html
+/lighthouse-report.report.json
+/lighthouse-*.json
+/lighthouse-*.html
+/.lighthouseci/
 
 # Local Netlify folder
 .netlify

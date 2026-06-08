@@ -1,0 +1,15 @@
+# Normalize line endings to LF for all text files on commit.
+# Prevents CRLF/LF churn between Windows and CI (Linux) and keeps
+# Prettier's format:check stable across platforms.
+* text=auto eol=lf
+
+# Binary assets: never normalize.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary

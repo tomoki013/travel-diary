@@ -1,18 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import GlobePromo from "@/components/features/promo/GlobePromo";
 
 const HomeUtilitySection = () => {
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-      className="mx-auto max-w-6xl px-6 py-24 md:px-8"
-    >
+    <Reveal as="section" className="mx-auto max-w-6xl px-6 py-24 md:px-8">
       <div className="mb-10 text-center">
         <p className="text-muted-foreground text-sm font-semibold tracking-[0.24em]">UTILITIES</p>
         <h2 className="font-heading text-foreground mt-3 text-4xl font-bold md:text-5xl">
@@ -26,7 +17,7 @@ const HomeUtilitySection = () => {
       <div className="grid gap-6">
         <GlobePromo compact className="px-0" />
       </div>
-    </motion.section>
+    </Reveal>
   );
 };
 

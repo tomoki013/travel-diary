@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/common/Reveal";
 import { JOURNEY_DATA, JourneyItem } from "@/data/journey";
 import { cn } from "@/lib/utils";
 import { MapPin, Tag } from "lucide-react";
@@ -10,11 +8,12 @@ const JourneyCard = ({ item, index }: { item: JourneyItem; index: number }) => {
   const isEven = index % 2 === 0;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+    <Reveal
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: index * 0.1 } },
+      }}
       className={cn(
         "relative mx-auto mb-24 flex w-full max-w-5xl flex-col items-center gap-8 last:mb-0 md:flex-row",
         isEven ? "md:flex-row" : "md:flex-row-reverse",
@@ -88,7 +87,7 @@ const JourneyCard = ({ item, index }: { item: JourneyItem; index: number }) => {
 
       {/* Empty Side for Balance */}
       <div className="hidden w-1/2 md:block" />
-    </motion.div>
+    </Reveal>
   );
 };
 

@@ -8,7 +8,7 @@ import { allRegions } from "@/lib/regionUtil";
 const WorldMap = dynamic(() => import("../features/worldMap/WorldMap"), {
   ssr: false,
   loading: () => (
-    <div className="flex aspect-square w-full items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center">
       <LoadingAnimation variant="mapRoute" />
     </div>
   ),
@@ -64,7 +64,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="relative w-full max-w-xl flex-shrink-0 drop-shadow-2xl md:w-1/2">
+        <div className="relative aspect-[8/5] w-full max-w-xl flex-shrink-0 drop-shadow-2xl md:w-1/2">
           <WorldMap highlightedRegions={allCountryNames} isClickable={false} />
         </div>
       </div>

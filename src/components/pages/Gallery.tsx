@@ -2,16 +2,54 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-
-// 変更点 1: Gridモジュールを削除し、Autoplayのみインポート
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-
-// 変更点 2: Grid用のCSSインポートを削除
-import "swiper/css";
 import Button from "../common/Button";
 
 import { sectionVariants } from "../common/animation";
+
+type GalleryPhoto = { path: string; title: string };
+
+// Swiper を廃し、framer-motion による連続マーキーで写真を自動横スクロールさせる。
+// items を2回描画し x を 0%↔-50% で動かすことでシームレスにループする。
+const MarqueeRow = ({
+  items,
+  direction = "left",
+  priorityCount = 0,
+}: {
+  items: GalleryPhoto[];
+  direction?: "left" | "right";
+  priorityCount?: number;
+}) => {
+  const loopItems = [...items, ...items];
+  // 1枚あたり約3秒のペースでゆっくりスクロール。
+  const duration = Math.max(items.length, 1) * 3;
+  const keyframes = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
+
+  return (
+    <div className="w-full overflow-hidden">
+      <motion.div
+        className="flex w-max gap-4 md:gap-5 lg:gap-6"
+        animate={{ x: keyframes }}
+        transition={{ duration, ease: "linear", repeat: Infinity }}
+      >
+        {loopItems.map((item, index) => (
+          <div
+            key={`${item.path}-${index}`}
+            className="h-[268px] w-[260px] shrink-0 overflow-hidden rounded-md md:w-[300px] lg:w-[360px]"
+          >
+            <Image
+              src={item.path}
+              alt={item.title}
+              width={400}
+              height={300}
+              className="h-full w-full object-cover transition-transform duration-300 ease-out hover:scale-[1.03]"
+              priority={index < priorityCount}
+            />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
 const photos = [
   {
@@ -141,115 +179,13 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
         <div className="bg-secondary mx-auto mt-6 h-0.5 w-30" />
       </div>
 
-      {/* スライダー全体の幅を制御するためのコンテナ */}
-      {/* 変更点 4: 2つのスライダーを縦に並べるためのコンテナを追加 */}
+      {/* 2段のマーキーを縦に並べる。上段は右→左、下段は左→右へ流れる。 */}
       <div className="mx-auto flex max-w-6xl flex-col space-y-6 px-4">
-        {/* --- 上の段のスライダー (右から左へ) --- */}
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          // こちらは通常方向のまま
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-            reverseDirection: true, // 右から左へスクロール
-          }}
-          speed={1500}
-          slidesPerView={3}
-          slidesPerGroup={3}
-          spaceBetween={24}
-          grabCursor={true}
-          className="h-[268px] w-full"
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-              slidesPerGroup: 1,
-              spaceBetween: 16,
-            },
-            768: {
-              slidesPerView: 2,
-              slidesPerGroup: 2,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,
-              slidesPerGroup: 3,
-              spaceBetween: 24,
-            },
-          }}
-        >
-          {visibleTopGallery.map((item) => (
-            <SwiperSlide key={item.path}>
-              <motion.div
-                className="h-full overflow-hidden rounded-md"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <Image
-                  src={item.path}
-                  alt={item.title}
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover"
-                  priority={visibleTopGallery.indexOf(item) < 3}
-                />
-              </motion.div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {/* --- 上の段 (右から左へ) --- */}
+        <MarqueeRow items={visibleTopGallery} direction="left" priorityCount={3} />
 
-        {!teaser && (
-          <Swiper
-            modules={[Autoplay]}
-            loop={true}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            speed={1500}
-            slidesPerView={3}
-            slidesPerGroup={3}
-            spaceBetween={24}
-            grabCursor={true}
-            className="h-[268px] w-full"
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                slidesPerGroup: 1,
-                spaceBetween: 16,
-              },
-              768: {
-                slidesPerView: 2,
-                slidesPerGroup: 2,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 3,
-                slidesPerGroup: 3,
-                spaceBetween: 24,
-              },
-            }}
-          >
-            {visibleBottomGallery.map((item) => (
-              <SwiperSlide key={item.path}>
-                <motion.div
-                  className="h-full overflow-hidden rounded-md"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                  <Image
-                    src={item.path}
-                    alt={item.title}
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover"
-                    priority={visibleBottomGallery.indexOf(item) < 3}
-                  />
-                </motion.div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
+        {/* --- 下の段 (左から右へ) --- */}
+        <MarqueeRow items={visibleBottomGallery} direction="right" priorityCount={3} />
       </div>
 
       {/* ボタン */}

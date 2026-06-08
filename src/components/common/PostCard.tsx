@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Post } from "@/types/types";
 import Link from "next/link";

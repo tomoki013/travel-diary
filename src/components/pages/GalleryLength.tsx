@@ -1,7 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import Button from "../common/Button";
 
 interface GalleryLengthProps {
@@ -10,13 +7,7 @@ interface GalleryLengthProps {
 
 const GalleryLength = ({ galleryLength }: GalleryLengthProps) => {
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-      className="mx-auto max-w-5xl px-6 py-24 md:px-8"
-    >
+    <Reveal as="section" className="mx-auto max-w-5xl px-6 py-24 md:px-8">
       <div className="mb-16 text-center">
         <h2 className="font-heading text-foreground text-3xl font-bold md:text-4xl">
           世界で出会った景色
@@ -33,7 +24,7 @@ const GalleryLength = ({ galleryLength }: GalleryLengthProps) => {
         </p>
       </div>
       <Button href={`/gallery`}>写真から記事を探す</Button>
-    </motion.section>
+    </Reveal>
   );
 };
 

@@ -51,10 +51,6 @@ const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"
   ),
 });
 
-const InstallPWAButton = dynamic(() => import("@/components/features/pwa/InstallPWAButton"), {
-  ssr: false,
-});
-
 const Client = ({
   children,
   post,
@@ -143,10 +139,6 @@ const Client = ({
 
         <div className="mt-12 w-full">
           <article className="max-w-none">{children}</article>
-        </div>
-
-        <div className="flex justify-center py-10">
-          <InstallPWAButton />
         </div>
 
         {(post.promotionPrograms?.length ?? 0) > 0 && (

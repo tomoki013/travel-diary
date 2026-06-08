@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { staggerContainer } from "@/components/common/animation";
 import HeroSection from "@/components/pages/HeroSection";
 
 interface ClientProps {
@@ -20,10 +16,7 @@ const Client = ({ children }: ClientProps) => {
       />
 
       {/* ==================== Series List ==================== */}
-      <motion.section
-        variants={staggerContainer()}
-        className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8"
-      >
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-muted-foreground mx-auto mb-12 max-w-3xl space-y-4 text-center">
           <p>
             「ともきちの旅行日記」では、様々な国や地域での体験をいくつかのテーマに沿って「シリーズ」としてまとめています。
@@ -37,7 +30,7 @@ const Client = ({ children }: ClientProps) => {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">{children}</div>
-      </motion.section>
+      </section>
     </div>
   );
 };

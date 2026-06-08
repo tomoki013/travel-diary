@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/common/Reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Tag } from "lucide-react";
@@ -152,12 +150,13 @@ export default function UpdateList() {
 
       <div className="space-y-6">
         {UPDATES.map((item, index) => (
-          <motion.div
+          <Reveal
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            amount={0}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { delay: index * 0.1 } },
+            }}
           >
             <Card className="border-l-primary overflow-hidden border-l-4 transition-shadow duration-300 hover:shadow-lg">
               <CardContent className="p-6">
@@ -205,7 +204,7 @@ export default function UpdateList() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </Reveal>
         ))}
       </div>
     </section>

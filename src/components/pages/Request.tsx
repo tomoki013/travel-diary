@@ -1,18 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { sectionVariants } from "../common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import Button from "../common/Button";
 
 const Request = () => {
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-      className="bg-background text-foreground py-12 md:py-16"
-    >
+    <Reveal as="section" className="bg-background text-foreground py-12 md:py-16">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <h2 className="mb-4 text-3xl font-bold md:text-4xl">あなたの見たい景色はどこですか？</h2>
         <p className="text-muted-foreground mx-auto mb-8 max-w-2xl text-lg leading-relaxed">
@@ -23,7 +14,7 @@ const Request = () => {
         </p>
         <Button href={`/request`}>リクエストを送る</Button>
       </div>
-    </motion.section>
+    </Reveal>
   );
 };
 

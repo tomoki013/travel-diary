@@ -1,12 +1,10 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { Reveal, RevealStagger } from "@/components/common/Reveal";
 import { Region, Post, AllDestinationProps } from "@/types/types";
 type PostMetadata = Omit<Post, "content">;
 import PostCard from "@/components/common/PostCard";
-import { sectionVariants, slideFadeIn, staggerContainer } from "@/components/common/animation";
+import { slideFadeIn } from "@/components/common/animation";
 import { Wind } from "lucide-react";
 import AllDestination from "@/components/features/destination/allDestination";
 import GlobePromo from "@/components/features/promo/GlobePromo";
@@ -60,27 +58,16 @@ const Client = ({
 
       {/* ==================== Child Regions Section ==================== */}
       {hasChildren && country?.children && (
-        <motion.section
-          className="bg-background"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={sectionVariants}
-        >
+        <Reveal as="section" className="bg-background">
           <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
             <h2 className="mb-12 text-center text-3xl font-bold">この国のエリア</h2>
-            <motion.div
+            <RevealStagger
               className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-4"
-              variants={staggerContainer(0.1, 0.1)}
+              staggerChildren={0.1}
+              delayChildren={0.1}
             >
               {country.children.map((child) => (
-                <motion.div
-                  key={child.slug}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.1 }}
-                  variants={sectionVariants}
-                >
+                <Reveal key={child.slug}>
                   <Link href={`/destination/${child.slug}`} className="group block">
                     <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                       <Image
@@ -96,19 +83,16 @@ const Client = ({
                       {child.name}
                     </h3>
                   </Link>
-                </motion.div>
+                </Reveal>
               ))}
-            </motion.div>
+            </RevealStagger>
           </div>
-        </motion.section>
+        </Reveal>
       )}
 
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         {noPosts ? (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
+          <Reveal
             variants={slideFadeIn()}
             className="bg-background rounded-xl border-2 border-dashed border-slate-300 p-8 text-center md:p-12"
           >
@@ -121,16 +105,11 @@ const Client = ({
               <br />
               新しい冒険の記録が追加されるのをお楽しみに！
             </p>
-          </motion.div>
+          </Reveal>
         ) : (
           <div className="space-y-16">
             {/* ==================== イントロダクション ==================== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={sectionVariants}
-            >
+            <Reveal as="section">
               <div className="mx-auto max-w-3xl space-y-4 text-center">
                 <p className="text-foreground text-xl font-medium md:text-2xl">
                   {region.name}の旅行ガイド・記
@@ -146,144 +125,88 @@ const Client = ({
                   </p>
                 )}
               </div>
-            </motion.section>
+            </Reveal>
 
             {/* ==================== 関連シリーズセクション ==================== */}
             {seriesPosts.length > 0 && (
-              <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                variants={sectionVariants}
-              >
+              <Reveal as="section">
                 <h2 className="mb-8 text-center text-3xl font-bold">
                   この地域が登場するシリーズ記事
                 </h2>
-                <motion.div
-                  className="grid grid-cols-1 gap-8 md:grid-cols-2"
-                  variants={staggerContainer()}
-                >
+                <RevealStagger className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   {seriesPosts.map((post, index) => (
-                    <motion.div
-                      key={post.slug}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.1 }}
-                      variants={sectionVariants}
-                    >
+                    <Reveal key={post.slug}>
                       <PostCard
                         post={post}
                         isReversed={index % 2 !== 0}
                         showMetadata
                         variant="relate"
                       />
-                    </motion.div>
+                    </Reveal>
                   ))}
-                </motion.div>
-              </motion.section>
+                </RevealStagger>
+              </Reveal>
             )}
 
             {/* ==================== 観光情報セクション ==================== */}
             {tourismPosts.length > 0 && (
-              <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={sectionVariants}
-              >
+              <Reveal as="section" amount={0.2}>
                 <h2 className="mb-8 text-center text-3xl font-bold">
                   観光情報 - Tourist Information
                 </h2>
-                <motion.div
-                  className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-                  variants={staggerContainer()}
-                >
+                <RevealStagger className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                   {tourismPosts.map((post, index) => (
-                    <motion.div
-                      key={post.slug}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.1 }}
-                      variants={sectionVariants}
-                    >
+                    <Reveal key={post.slug}>
                       <PostCard
                         post={post}
                         isReversed={index % 2 !== 0}
                         showMetadata
                         variant="relate"
                       />
-                    </motion.div>
+                    </Reveal>
                   ))}
-                </motion.div>
-              </motion.section>
+                </RevealStagger>
+              </Reveal>
             )}
 
             {/* ==================== 旅程&費用セクション ==================== */}
             {itineraryPosts.length > 0 && (
-              <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                variants={sectionVariants}
-              >
+              <Reveal as="section">
                 <h2 className="mb-8 text-center text-3xl font-bold">
                   旅程&費用 - Itinerary & Cost
                 </h2>
-                <motion.div
-                  className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-                  variants={staggerContainer()}
-                >
+                <RevealStagger className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                   {itineraryPosts.map((post, index) => (
-                    <motion.div
-                      key={post.slug}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.1 }}
-                      variants={sectionVariants}
-                    >
+                    <Reveal key={post.slug}>
                       <PostCard
                         post={post}
                         isReversed={index % 2 !== 0}
                         showMetadata
                         variant="relate"
                       />
-                    </motion.div>
+                    </Reveal>
                   ))}
-                </motion.div>
-              </motion.section>
+                </RevealStagger>
+              </Reveal>
             )}
 
             {/* ==================== 単発企画セクション ==================== */}
             {oneOffPosts.length > 0 && (
-              <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                variants={sectionVariants}
-              >
+              <Reveal as="section">
                 <h2 className="mb-8 text-center text-3xl font-bold">単発企画 - one-off project</h2>
-                <motion.div
-                  className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-                  variants={staggerContainer()}
-                >
+                <RevealStagger className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                   {oneOffPosts.map((post, index) => (
-                    <motion.div
-                      key={post.slug}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.1 }}
-                      variants={sectionVariants}
-                    >
+                    <Reveal key={post.slug}>
                       <PostCard
                         post={post}
                         isReversed={index % 2 !== 0}
                         showMetadata
                         variant="relate"
                       />
-                    </motion.div>
+                    </Reveal>
                   ))}
-                </motion.div>
-              </motion.section>
+                </RevealStagger>
+              </Reveal>
             )}
           </div>
         )}
