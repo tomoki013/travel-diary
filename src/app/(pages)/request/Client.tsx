@@ -1,7 +1,4 @@
-"use client"; // アニメーションのためClient Componentとします
-
-import { sectionVariants } from "@/components/common/animation";
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/common/Reveal";
 import { Lightbulb, CheckCircle, FileText } from "lucide-react";
 
 export default function Client() {
@@ -23,13 +20,7 @@ export default function Client() {
 
       <div className="mx-auto max-w-4xl space-y-20 px-4 py-16 sm:px-6 lg:px-8">
         {/* ==================== 挨拶・趣旨説明 ==================== */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={sectionVariants}
-          className="text-center"
-        >
+        <Reveal as="section" className="text-center">
           <h2 className="mb-4 text-3xl font-bold">このページについて</h2>
           <p className="text-foreground text-lg leading-relaxed">
             いつもブログを読んでくださりありがとうございます！
@@ -38,15 +29,10 @@ export default function Client() {
             <br />
             あなたの素朴な疑問や知りたいことが、他の誰かの助けになるかもしれません。お気軽に投稿してくださいね。
           </p>
-        </motion.section>
+        </Reveal>
 
         {/* ==================== 募集テーマの例 ==================== */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={sectionVariants}
-        >
+        <Reveal as="section">
           <h2 className="mb-8 text-center text-3xl font-bold">
             例えば、こんなテーマを募集しています
           </h2>
@@ -80,52 +66,10 @@ export default function Client() {
               </div>
             </div>
           </div>
-        </motion.section>
-
-        {/* ==================== 過去に採用した記事 ==================== */}
-        {/* <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <h2 className="text-3xl font-bold text-center mb-8">
-            あなたの声が記事になりました！
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {requestedPosts.map((post) => (
-              <Link
-                href={`/blog/${post.slug}`}
-                key={post.slug}
-                className="group"
-              >
-                <div className="rounded-lg overflow-hidden shadow-lg">
-                  <Image
-                    src={post.imageUrl}
-                    alt={post.title}
-                    width={800}
-                    height={600}
-                    className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <h3 className="text-lg font-bold mt-4 group-hover:text-teal-600">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-gray-500">
-                  （{post.requestedBy}のリクエストより）
-                </p>
-              </Link>
-            ))}
-          </div>
-        </motion.section> */}
+        </Reveal>
 
         {/* ==================== 投稿フォーム ==================== */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={sectionVariants}
-        >
+        <Reveal as="section">
           <h2 className="mb-8 text-center text-3xl font-bold">リクエストフォーム</h2>
           <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-100 p-8 text-center">
             <div className="rounded-lg bg-gray-100 p-2 shadow-inner">
@@ -142,16 +86,10 @@ export default function Client() {
             </div>
             <p className="mt-2 text-gray-500">皆さんの声をお待ちしております！</p>
           </div>
-        </motion.section>
+        </Reveal>
 
         {/* ==================== 注意事項 ==================== */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={sectionVariants}
-          className="rounded-lg bg-gray-50 p-6 text-sm text-gray-600"
-        >
+        <Reveal as="section" className="rounded-lg bg-gray-50 p-6 text-sm text-gray-600">
           <h3 className="mb-4 text-center text-lg font-bold">注意事項</h3>
           <ul className="list-inside list-disc space-y-2">
             <li>いただいたテーマ全てを記事にできるわけではありません。ご了承ください。</li>
@@ -163,22 +101,16 @@ export default function Client() {
             </li>
             <li>個人情報や、他人を傷つけるような内容はご遠慮ください。</li>
           </ul>
-        </motion.section>
+        </Reveal>
 
         {/* ==================== 締めのメッセージ ==================== */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="text-center"
-        >
+        <Reveal as="section" amount={0.3} className="text-center">
           <p className="text-foreground text-xl font-semibold">
             あなたの声が、このブログの未来を作ります。
             <br />
             お気軽に投稿いただけると嬉しいです！
           </p>
-        </motion.section>
+        </Reveal>
       </div>
     </div>
   );

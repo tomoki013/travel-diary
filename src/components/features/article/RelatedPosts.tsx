@@ -1,10 +1,8 @@
-"use client";
-
 import { Post } from "@/types/types";
 type PostMetadata = Omit<Post, "content">;
 import PostCard from "@/components/common/PostCard";
-import { motion } from "framer-motion";
-import { fadeIn, sectionVariants, staggerContainer } from "@/components/common/animation";
+import { Reveal, RevealStagger } from "@/components/common/Reveal";
+import { fadeIn } from "@/components/common/animation";
 
 interface RelatedPostsProps {
   posts: PostMetadata[];
@@ -16,39 +14,21 @@ const RelatedPosts = ({ posts }: RelatedPostsProps) => {
   }
 
   return (
-    <motion.section
-      className="mt-12"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={sectionVariants}
-    >
+    <Reveal as="section" className="mt-12" amount={0.2}>
       <h2 className="text-foreground mb-2 text-center text-2xl font-bold sm:text-left">
         次に読むなら
       </h2>
       <p className="text-muted-foreground mb-6 text-center text-sm sm:text-left">
         同じ都市や国、近い準備フェーズの記事を優先して並べています。
       </p>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={staggerContainer()}
-        className="grid gap-5"
-      >
+      <RevealStagger className="grid gap-5">
         {posts.map((post) => (
-          <motion.div
-            key={post.slug}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeIn()}
-          >
+          <Reveal key={post.slug} variants={fadeIn()}>
             <PostCard post={post} variant="relate" layout="horizontal" />
-          </motion.div>
+          </Reveal>
         ))}
-      </motion.div>
-    </motion.section>
+      </RevealStagger>
+    </Reveal>
   );
 };
 

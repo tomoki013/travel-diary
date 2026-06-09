@@ -2,7 +2,11 @@
 
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { useRouter } from "next/navigation";
-import * as d3 from "d3";
+import { select, pointer } from "d3-selection";
+import { zoom, zoomIdentity, type ZoomBehavior } from "d3-zoom";
+import { geoMercator, geoPath } from "d3-geo";
+import { json } from "d3-fetch";
+import "d3-transition";
 import * as topojson from "topojson-client";
 import { Topology, GeometryCollection } from "topojson-specification";
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
@@ -36,7 +40,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
     ref,
   ) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
+    const zoomRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showZoomHint, setShowZoomHint] = useState(false);
@@ -54,19 +58,19 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
     useImperativeHandle(ref, () => ({
       resetZoom: () => {
         if (svgRef.current && zoomRef.current) {
-          const svg = d3.select(svgRef.current);
-          svg.transition().duration(750).call(zoomRef.current.transform, d3.zoomIdentity);
+          const svg = select(svgRef.current);
+          svg.transition().duration(750).call(zoomRef.current.transform, zoomIdentity);
         }
       },
       zoomIn: () => {
         if (svgRef.current && zoomRef.current) {
-          const svg = d3.select(svgRef.current);
+          const svg = select(svgRef.current);
           zoomRef.current.scaleBy(svg.transition().duration(750), 1.5);
         }
       },
       zoomOut: () => {
         if (svgRef.current && zoomRef.current) {
-          const svg = d3.select(svgRef.current);
+          const svg = select(svgRef.current);
           zoomRef.current.scaleBy(svg.transition().duration(750), 0.5);
         }
       },
@@ -118,31 +122,28 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
         const width = 960;
         const height = 600;
 
-        const svg = d3
-          .select(svgRef.current)
+        const svg = select(svgRef.current)
           .attr("viewBox", `0 0 ${width} ${height}`)
           .attr("class", "w-full h-auto mx-auto");
 
         svg.selectAll("*").remove();
         const g = svg.append("g");
 
-        const projection = d3
-          .geoMercator()
+        const projection = geoMercator()
           .rotate([-163, 0])
           .scale(150)
           .translate([width / 2, height / 1.5]);
 
-        const pathGenerator = d3.geoPath().projection(projection);
+        const pathGenerator = geoPath().projection(projection);
 
-        const tooltip = d3
-          .select("body")
+        const tooltip = select("body")
           .append("div")
           .attr("class", "tooltip")
           .style("opacity", 0)
           .style("pointer-events", "none");
 
         try {
-          const world = (await d3.json("/data/world-110m.json")) as WorldTopology;
+          const world = (await json("/data/world-110m.json")) as WorldTopology;
           const countries = topojson.feature(
             world,
             world.objects.countries,
@@ -172,7 +173,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
           // イベント設定は前回同様、デバイスタイプで分岐
           if (isTouchDevice) {
             paths.each(function (d) {
-              const path = d3.select(this);
+              const path = select(this);
               let touchTimer: NodeJS.Timeout;
               let isLongPress = false;
 
@@ -190,7 +191,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
                     const countryData = allCountries.find((c) => c.slug === countryName);
 
                     if (countryData) {
-                      const [x, y] = d3.pointer(event, document.body);
+                      const [x, y] = pointer(event, document.body);
                       tooltip.transition().duration(200).style("opacity", 0.9);
                       tooltip
                         .html(
@@ -265,14 +266,13 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
 
           // このブロックは分岐の外にあるので、必ず実行される
           if (isZoomable) {
-            const zoom = d3
-              .zoom<SVGSVGElement, unknown>()
+            const zoomBehavior = zoom<SVGSVGElement, unknown>()
               .scaleExtent([1, 8])
               .on("zoom", (event) => {
                 g.attr("transform", event.transform.toString());
                 setCurrentZoom(event.transform.k);
               });
-            zoomRef.current = zoom;
+            zoomRef.current = zoomBehavior;
             svg.call(zoomRef.current);
           }
 
@@ -286,7 +286,7 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
       drawMap();
 
       return () => {
-        d3.select(".tooltip").remove();
+        select(".tooltip").remove();
       };
     }, [
       isMounted, // ★変更点: isMountedを依存配列に追加

@@ -6,11 +6,6 @@
   command = "next dev"
 
 [[headers]]
-  for = "/generative-ui/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-[[headers]]
   for = "/_next/static/*"
 
   [headers.values]

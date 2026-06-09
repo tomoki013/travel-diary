@@ -10,7 +10,6 @@ import { getPhotos } from "@/lib/photo";
 import Affiliates from "@/components/pages/Affiliates";
 import HighIntentSection from "@/components/pages/HighIntentSection";
 import { getHighIntentPosts } from "@/lib/revenue";
-import InstallPWAButton from "@/components/features/pwa/InstallPWAButton";
 import EntryPostsSection from "@/components/pages/EntryPostsSection";
 import HomeUtilitySection from "@/components/pages/HomeUtilitySection";
 import HomeAboutSection from "@/components/pages/HomeAboutSection";
@@ -45,9 +44,6 @@ export default async function HomePage() {
       <Request />
       <PostsLength posts={allPosts} />
       <GalleryLength galleryLength={photoLength} />
-      <div className="mt-10 flex justify-center pb-20">
-        <InstallPWAButton />
-      </div>
     </>
   );
 }

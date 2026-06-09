@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { featuredSeries } from "@/data/series";
 import { ChevronLeft, ChevronRight, ListOrdered } from "lucide-react";

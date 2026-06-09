@@ -1,7 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import { AllDestinationProps } from "@/types/types";
 import ContinentSection from "./ContinentSection";
 
@@ -12,12 +9,7 @@ interface PageProps extends AllDestinationProps {
 
 const AllDestination = ({ regionData, className, countryStyle }: PageProps) => {
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-    >
+    <Reveal as="section">
       <div className={`${className}`}>
         {regionData.map((continent) => (
           <ContinentSection
@@ -27,7 +19,7 @@ const AllDestination = ({ regionData, className, countryStyle }: PageProps) => {
           />
         ))}
       </div>
-    </motion.section>
+    </Reveal>
   );
 };
 

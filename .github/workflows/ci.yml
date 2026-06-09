@@ -48,3 +48,12 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Check JS bundle size
+        run: pnpm bundle:check
+
+      - name: Lighthouse CI (performance)
+        run: pnpm lhci
+        env:
+          # 任意。設定すると PR にステータスチェックを表示。未設定でも公開ストレージに結果を残す。
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

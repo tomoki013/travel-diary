@@ -1,5 +1,3 @@
-"use client";
-
 import {
   FOOTER_CONTENTS_LIST,
   FOOTER_ABOUT_LIST,

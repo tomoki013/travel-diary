@@ -1,0 +1,75 @@
+/* ローディング画面（紙飛行機）専用スタイル。globals.css から co-locate。 */
+.loader-container {
+  width: 200px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-plane {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: flight-path 4s ease-in-out infinite;
+}
+
+.plane-body {
+  fill: var(--primary);
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes flight-path {
+  0% {
+    left: 0;
+    transform: translateY(-50%) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    left: 40%;
+    transform: translateY(-100%) rotate(20deg);
+  }
+  80% {
+    left: 60%;
+    transform: translateY(0) rotate(-10deg);
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    transform: translateY(-50%) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+.trail {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary));
+  opacity: 0;
+  animation: trail-effect 4s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes trail-effect {
+  0% {
+    width: 0;
+    left: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    width: 100%;
+    left: 0;
+    opacity: 0;
+  }
+}

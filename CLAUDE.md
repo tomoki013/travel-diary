@@ -72,12 +72,10 @@ Many pages follow a Server Component + Client Component pattern:
 
 ### Key Integrations
 
-- **PWA**: Serwist for service worker (`src/app/sw.ts`)
 - **Images**: Custom Netlify loader (`netlify-loader.ts`) with Netlify Image CDN
 - **Theming**: next-themes with light/dark mode
 - **Animations**: framer-motion
 - **Forms**: react-hook-form + zod validation
-- **AI Chat**: Vercel AI SDK with Google AI (`src/app/api/chat/`)
 
 ## Blogging Mandates (AI Rules)
 

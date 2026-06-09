@@ -32,7 +32,7 @@
 
 ### プロキシ設定 (`src/proxy.ts`)
 
-- 外部 API（Google AI SDK 等）との通信を中継または制御するためのプロキシロジックが配置されています。
+- リクエストパスを小文字へ正規化（308 リダイレクト）する Next.js プロキシ（ミドルウェア）です。
 
 ## MCP (Model Context Protocol)
 

@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { ContinentData } from "@/types/types";
 

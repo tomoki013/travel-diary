@@ -1,7 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import { PostMetadata } from "@/types/types";
 import Button from "../common/Button";
 
@@ -12,13 +9,7 @@ interface PostsLengthProps {
 const PostsLength = ({ posts }: PostsLengthProps) => {
   const postsLength = posts.length;
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-      className="mx-auto max-w-5xl px-6 py-24 md:px-8"
-    >
+    <Reveal as="section" className="mx-auto max-w-5xl px-6 py-24 md:px-8">
       <div className="mb-16 text-center">
         <h2 className="font-heading text-foreground text-3xl font-bold md:text-4xl">
           これまでの旅の記録
@@ -35,7 +26,7 @@ const PostsLength = ({ posts }: PostsLengthProps) => {
         </p>
       </div>
       <Button href={`/posts`}>すべての記事を見る</Button>
-    </motion.section>
+    </Reveal>
   );
 };
 

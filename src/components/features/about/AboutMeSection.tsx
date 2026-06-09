@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import WorldMap from "../worldMap/WorldMap";
 import { regionData } from "@/data/region";
 
@@ -16,13 +13,7 @@ const AboutMeSection = () => {
   const totalCountries = 196;
 
   return (
-    <motion.section
-      className="py-20 md:py-28"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-    >
+    <Reveal as="section" className="py-20 md:py-28">
       <div className="text-foreground mx-auto max-w-5xl px-6">
         <h2 className="mb-16 text-center text-3xl font-bold md:text-4xl">
           中の人について - About Me
@@ -82,7 +73,7 @@ const AboutMeSection = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </Reveal>
   );
 };
 

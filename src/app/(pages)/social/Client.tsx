@@ -1,12 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/common/Reveal";
 import { FaYoutube, FaTiktok, FaGithub, FaPenNib, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiZenn, SiQiita } from "react-icons/si";
 import { ConnpassIcon } from "@/components/common/icons/ConnpassIcon";
-import { sectionVariants } from "@/components/common/animation";
 import HeroSection from "@/components/pages/HeroSection";
 
 // --- Data ---
@@ -116,62 +113,42 @@ export default function Client() {
 
       <div className="mx-auto max-w-4xl space-y-20 px-4 py-16 sm:px-6 lg:px-8">
         {/* ==================== SNS Cards List ==================== */}
-        {socialAccounts.map((account, idx) => {
-          const motionProps =
-            idx === 0
-              ? {
-                  initial: { opacity: 0, y: 30 },
-                  animate: { opacity: 1, y: 0 },
-                  transition: { duration: 0.8 },
-                }
-              : {
-                  initial: "hidden",
-                  whileInView: "visible",
-                  viewport: { once: true, amount: 0.3 },
-                  transition: { duration: 0.8 },
-                };
-          return (
-            <motion.section
-              key={account.name}
-              {...motionProps}
-              className="rounded-lg bg-gray-50 p-8 shadow-md"
-            >
-              <div className="mb-6 flex items-center gap-4">
-                <account.IconComponent className={`text-5xl ${account.iconColor}`} />
-                <h2 className="text-4xl font-bold">{account.name}</h2>
-              </div>
+        {socialAccounts.map((account) => (
+          <Reveal
+            as="section"
+            key={account.name}
+            amount={0.3}
+            className="rounded-lg bg-gray-50 p-8 shadow-md"
+          >
+            <div className="mb-6 flex items-center gap-4">
+              <account.IconComponent className={`text-5xl ${account.iconColor}`} />
+              <h2 className="text-4xl font-bold">{account.name}</h2>
+            </div>
 
-              <div className="pl-2">
-                <h3 className="mb-2 text-xl font-semibold text-teal-600">{account.conceptTitle}</h3>
-                <p className="mb-6 leading-relaxed text-gray-700">{account.description}</p>
+            <div className="pl-2">
+              <h3 className="mb-2 text-xl font-semibold text-teal-600">{account.conceptTitle}</h3>
+              <p className="mb-6 leading-relaxed text-gray-700">{account.description}</p>
 
-                <Link
-                  href={account.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-8 inline-block rounded-full bg-gray-800 px-8 py-3 font-bold text-white transition-colors hover:bg-gray-700"
-                >
-                  {account.ctaText} →
-                </Link>
-              </div>
-            </motion.section>
-          );
-        })}
+              <Link
+                href={account.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-block rounded-full bg-gray-800 px-8 py-3 font-bold text-white transition-colors hover:bg-gray-700"
+              >
+                {account.ctaText} →
+              </Link>
+            </div>
+          </Reveal>
+        ))}
 
         {/* ==================== 締めのメッセージ ==================== */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="py-10 text-center"
-        >
+        <Reveal as="section" amount={0.3} className="py-10 text-center">
           <p className="text-xl font-semibold text-gray-800">
             お好きなプラットフォームで、お気軽にフォローしてください！
             <br />
             あなたのフォローが、活動の大きな励みになります。
           </p>
-        </motion.section>
+        </Reveal>
       </div>
     </div>
   );

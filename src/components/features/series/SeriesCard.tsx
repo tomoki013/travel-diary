@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import {
   Castle,
   Sunset,
@@ -36,10 +33,7 @@ interface SeriesCardProps {
 const SeriesCard = ({ series, postsLength, recentPosts = [] }: SeriesCardProps) => {
   const IconComponent = iconMap[series.IconComponent];
   return (
-    <motion.div
-      variants={sectionVariants}
-      className="bg-card border-border flex flex-col overflow-hidden rounded-xl border shadow-sm transition-shadow duration-300 hover:shadow-md"
-    >
+    <Reveal className="bg-card border-border flex flex-col overflow-hidden rounded-xl border shadow-sm transition-shadow duration-300 hover:shadow-md">
       {/* Thumbnail Section */}
       <Link
         href={`/series/${series.slug}`}
@@ -109,7 +103,7 @@ const SeriesCard = ({ series, postsLength, recentPosts = [] }: SeriesCardProps) 
           <ChevronRight size={16} className="ml-1" />
         </Link>
       </div>
-    </motion.div>
+    </Reveal>
   );
 };
 

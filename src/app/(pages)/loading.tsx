@@ -1,10 +1,12 @@
+import styles from "./loading.module.css";
+
 export default function Loading() {
   return (
     <div className="bg-background/80 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
-      <div className="loader-container">
-        <svg className="paper-plane" viewBox="0 0 24 24">
+      <div className={styles["loader-container"]}>
+        <svg className={styles["paper-plane"]} viewBox="0 0 24 24">
           <path
-            className="plane-body"
+            className={styles["plane-body"]}
             d="M22 2L11 13"
             stroke="var(--primary)"
             strokeWidth="1.5"
@@ -19,7 +21,7 @@ export default function Loading() {
             />
           </path>
         </svg>
-        <div className="trail"></div>
+        <div className={styles.trail}></div>
       </div>
       <p className="text-primary mt-6 animate-pulse text-lg font-semibold">
         最高の旅を計画しています...

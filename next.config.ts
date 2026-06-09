@@ -1,30 +1,12 @@
 import type { NextConfig } from "next";
-import withSerwistInit from "@serwist/next";
-
-const revision =
-  process.env.COMMIT_REF?.slice(0, 7) ||
-  process.env.GITHUB_SHA?.slice(0, 7) ||
-  process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ||
-  process.env.npm_package_version ||
-  "local";
-
-const withSerwist = withSerwistInit({
-  cacheOnNavigation: false,
-  reloadOnOnline: false,
-  swSrc: "src/app/sw.ts",
-  swDest: "public/sw.js",
-  disable: process.env.NODE_ENV === "development",
-  additionalPrecacheEntries: [
-    { url: "/", revision },
-    // オプション
-    { url: "/offline", revision },
-  ],
-});
 
 const AI_PLANNER_EXTERNAL_URL = "https://tabide.ai/";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // Pin the file-tracing root to this project so Next does not infer a parent
+  // workspace root when multiple lockfiles are present (e.g. git worktrees).
+  outputFileTracingRoot: process.cwd(),
   images: {
     loader: "custom",
     loaderFile: "./netlify-loader.ts",
@@ -66,4 +48,4 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
-export default withSerwist(nextConfig);
+export default nextConfig;

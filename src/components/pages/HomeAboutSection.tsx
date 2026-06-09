@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { sectionVariants } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import { members } from "@/data/member";
 
 const HomeAboutSection = () => {
@@ -14,13 +11,7 @@ const HomeAboutSection = () => {
   }
 
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-      className="mx-auto max-w-4xl px-6 py-20 md:px-8"
-    >
+    <Reveal as="section" className="mx-auto max-w-4xl px-6 py-20 md:px-8">
       <div className="border-border/60 bg-card/60 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:p-10">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
           <Image
@@ -57,7 +48,7 @@ const HomeAboutSection = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </Reveal>
   );
 };
 
