@@ -19,6 +19,14 @@
     "check": "pnpm lint && pnpm typecheck && pnpm format:check",
     "ci": "pnpm prebuild && pnpm check && pnpm build"
   },
+  "browserslist": [
+    "chrome >= 96",
+    "edge >= 96",
+    "firefox >= 96",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "not dead"
+  ],
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-accordion": "^1.2.12",
