@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Montserrat, Playfair_Display, Noto_Sans_JP } from "next/font/google";
+import {
+  Caveat,
+  Montserrat,
+  Playfair_Display,
+  Noto_Sans_JP,
+  Shippori_Mincho,
+} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import Header from "@/components/layouts/Header";
@@ -37,6 +43,21 @@ const notoSansJp = Noto_Sans_JP({
   weight: ["400", "700"],
   variable: "--font-noto-sans-jp",
   display: "swap",
+  // メインの日本語フォント。約40分割スライスを critical path で
+  // 一斉プリロードすると帯域を食い潰し LCP を阻害するため preload は無効化し、
+  // display: "swap" でフォールバック即時描画 → 到着後に差し替える。
+  preload: false,
+});
+
+// 見出し用の日本語明朝。欧文 Playfair Display と組み合わせ、日本語見出しを
+// 全環境で同一の明朝体に統一する。本文同様、約40分割スライスの一斉プリロードを
+// 避けるため preload は無効化し display: "swap" で描画後に差し替える。
+const shipporiMincho = Shippori_Mincho({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-shippori-mincho",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -102,8 +123,15 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body
-        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
+        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} ${shipporiMincho.variable} antialiased`}
       >
+        {/* 第三者ドメインへの事前接続（React 19 が <head> へホイストする）。
+            フォントは自己ホスト＝同一オリジンのため preconnect 不要。 */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://widget.getyourguide.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
         {/* GetYourGuide Analytics */}
         <Script
           async
