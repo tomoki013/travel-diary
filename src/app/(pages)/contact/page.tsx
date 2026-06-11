@@ -1,20 +1,13 @@
 import ContactForm from "./ContactForm";
-import { Metadata } from "next";
 import { Mail, Github } from "lucide-react";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "お問い合わせ",
   description: "ご質問、ご意見、ご提案などがございましたら、お気軽にお問い合わせください。",
-  openGraph: {
-    title: "お問い合わせ",
-    description: "ご質問、ご意見、ご提案などがございましたら、お気軽にお問い合わせください。",
-  },
-  twitter: {
-    title: "お問い合わせ",
-    description: "ご質問、ご意見、ご提案などがございましたら、お気軽にお問い合わせください。",
-  },
-};
+  path: "/contact",
+});
 
 const ContactPage = () => {
   return (

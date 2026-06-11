@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
 import { Post, Series } from "@/types/types";
 type PostMetadata = Omit<Post, "content">;
 import PostCard from "@/components/common/PostCard";
-import { sectionVariants, staggerContainer } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import HeroSection from "@/components/pages/HeroSection";
 import Button from "@/components/common/Button";
 
@@ -97,32 +96,21 @@ const Client = ({ allPosts, series }: SeriesPageProps) => {
         </div>
 
         {/* ==================== Article List ==================== */}
-        <motion.section
-          key={currentPage}
-          variants={staggerContainer()}
-          className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
-        >
-          {paginatedPosts.map((post) => {
-            const motionProps =
-              currentPage === 1
-                ? {
-                    initial: { opacity: 0, y: 30 },
-                    animate: { opacity: 1, y: 0 },
-                    transition: { duration: 0.8 },
-                  }
-                : {
-                    initial: "hidden",
-                    whileInView: "visible",
-                    viewport: { once: true, amount: 0.3 },
-                    transition: { duration: 0.8 },
-                  };
-            return (
-              <motion.div key={post.slug} {...motionProps} variants={sectionVariants}>
+        <section key={currentPage} className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6">
+          {paginatedPosts.map((post) =>
+            currentPage === 1 ? (
+              // 1ページ目はマウント時に即フェードイン(CSS animation)
+              <div key={post.slug} className="animate-fade-up-mount">
                 <PostCard post={post} showDiscoveryNote={true} size="compact" />
-              </motion.div>
-            );
-          })}
-        </motion.section>
+              </div>
+            ) : (
+              // 2ページ目以降はスクロールで画面に入ったらフェードイン
+              <Reveal key={post.slug} amount={0.3} duration={0.8}>
+                <PostCard post={post} showDiscoveryNote={true} size="compact" />
+              </Reveal>
+            ),
+          )}
+        </section>
 
         {/* ==================== Pagination ==================== */}
         <section className="mt-16 flex items-center justify-center gap-2">

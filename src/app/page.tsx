@@ -14,6 +14,13 @@ import EntryPostsSection from "@/components/pages/EntryPostsSection";
 import HomeUtilitySection from "@/components/pages/HomeUtilitySection";
 import HomeAboutSection from "@/components/pages/HomeAboutSection";
 import { getHomepageEntryPosts } from "@/lib/post-discovery";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 const Gallery = dynamic(() => import("@/components/pages/Gallery"));
 const Destination = dynamic(() => import("@/components/pages/Destination"));

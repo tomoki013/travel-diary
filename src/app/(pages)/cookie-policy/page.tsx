@@ -1,26 +1,13 @@
 import { Separator } from "@/components/ui/separator";
-import { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "クッキーポリシー",
   description:
     "ともきちの旅行日記のクッキーポリシーです。Cookieの使用目的、種類、および管理方法について詳しく説明しています。",
-  openGraph: {
-    title: "クッキーポリシー",
-    description:
-      "ともきちの旅行日記のクッキーポリシーです。Cookieの使用目的、種類、および管理方法について詳しく説明しています。",
-  },
-  twitter: {
-    title: "クッキーポリシー",
-    description:
-      "ともきちの旅行日記のクッキーポリシーです。Cookieの使用目的、種類、および管理方法について詳しく説明しています。",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+  path: "/cookie-policy",
+});
 
 const CookiePolicyPage = () => {
   return (

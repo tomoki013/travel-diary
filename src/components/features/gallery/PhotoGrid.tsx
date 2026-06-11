@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { GalleryPhotoEntry } from "@/lib/gallery-discovery";
 
 interface PhotoGridProps {
@@ -11,13 +11,13 @@ interface PhotoGridProps {
 
 const PhotoGrid = ({ photos, onSelectPhoto }: PhotoGridProps) => {
   return (
-    <motion.div layout className="columns-2 gap-4 md:columns-3 lg:columns-4">
+    <m.div layout className="columns-2 gap-4 md:columns-3 lg:columns-4">
       <AnimatePresence initial={false}>
         {photos.map((entry) => {
           const { photo } = entry;
 
           return (
-            <motion.div
+            <m.div
               layout
               key={photo.id}
               initial={{ opacity: 0 }}
@@ -39,11 +39,11 @@ const PhotoGrid = ({ photos, onSelectPhoto }: PhotoGridProps) => {
                   <p className="text-sm leading-snug font-semibold">{photo.title}</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 };
 

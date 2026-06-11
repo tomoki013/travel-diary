@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { X, ArrowLeft, ArrowRight, MapPin, BookOpenText } from "lucide-react";
@@ -33,7 +33,7 @@ const PhotoModal = ({
   return (
     <AnimatePresence>
       {selectedPhoto && (
-        <motion.div
+        <m.div
           key="modal-overlay"
           variants={modal.overlay}
           initial="hidden"
@@ -49,7 +49,7 @@ const PhotoModal = ({
             </div>
           </div>
 
-          <motion.div
+          <m.div
             key="modal-content"
             variants={modal.content}
             initial="hidden"
@@ -180,8 +180,8 @@ const PhotoModal = ({
                 </button>
               </>
             )}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

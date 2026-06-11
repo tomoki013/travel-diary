@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, Map } from "lucide-react";
 import { sectionVariants } from "@/components/common/animation";
 
 const RoadmapPromo = () => {
   return (
-    <motion.section
+    <m.section
       className="bg-card/50 py-16 md:py-24"
       initial="hidden"
       whileInView="visible"
@@ -32,7 +32,7 @@ const RoadmapPromo = () => {
           私たちの旅の計画を、ぜひ覗いてみてください。
         </p>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -46,9 +46,9 @@ const RoadmapPromo = () => {
             ロードマップを見る
             <ArrowRight className="h-4 w-4" />
           </Link>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 

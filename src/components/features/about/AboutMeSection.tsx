@@ -21,13 +21,15 @@ const AboutMeSection = () => {
         {/* 設計書のジグザグレイアウトを実装 */}
         <div className="space-y-20">
           <div className="flex flex-col items-center gap-10 md:flex-row md:gap-16">
-            <div className="w-full md:w-1/2">
+            {/* CSS(max-h)で高さだけ変えると next/image がアスペクト比警告を
+                出すため、コンテナ+fill で明示的に切り抜く */}
+            <div className="relative h-100 w-full overflow-hidden rounded-lg shadow-lg md:w-1/2">
               <Image
                 src="/images/Introduce/introduce.jpg"
                 alt="ともきちのプロフィール写真"
-                width={600}
-                height={600}
-                className="max-h-100 overflow-hidden rounded-lg object-cover shadow-lg"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
             <div className="w-full md:w-1/2">

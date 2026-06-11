@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { articleCategories, travelTopicOptions } from "@/data/categories";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, Loader2, SearchIcon, XIcon } from "lucide-react";
 import { useMemo } from "react";
 import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
@@ -123,13 +123,13 @@ const SearchSuggestions = ({
       )}
 
       {!isLoading && displayedSuggestions.length > 0 && (
-        <motion.ul variants={listVariants} initial="hidden" animate="visible" exit="hidden">
+        <m.ul variants={listVariants} initial="hidden" animate="visible" exit="hidden">
           {displayedSuggestions.map((post) => (
-            <motion.li key={post.slug} variants={itemVariants} onTap={onClose}>
+            <m.li key={post.slug} variants={itemVariants} onTap={onClose}>
               <LinkCard href={`/posts/${post.slug}`} title={post.title} variant="minimal" />
-            </motion.li>
+            </m.li>
           ))}
-        </motion.ul>
+        </m.ul>
       )}
 
       {!isLoading && showSeeAllButton && (
@@ -182,12 +182,12 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           {...ANIMATION_CONFIG.overlay}
           className="fixed inset-0 z-[110] overflow-y-auto bg-black/80 backdrop-blur-sm"
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             {...ANIMATION_CONFIG.modal}
             className="bg-background relative mx-auto mt-20 w-full max-w-2xl rounded-lg p-6 shadow-xl"
             onClick={(e) => e.stopPropagation()}
@@ -257,8 +257,8 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
               onClose={onClose}
               totalResults={totalResults}
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

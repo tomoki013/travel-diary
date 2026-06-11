@@ -1,50 +1,14 @@
 "use client";
 
-import {
-  Caveat,
-  Montserrat,
-  Playfair_Display,
-  Noto_Sans_JP,
-  Shippori_Mincho,
-} from "next/font/google";
 import "./globals.css";
 import { useEffect } from "react";
 import ErrorDisplay from "@/components/common/ErrorDisplay";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-montserrat",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  weight: "700",
-  variable: "--font-playfair-display",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  weight: "700",
-  variable: "--font-caveat",
-});
-
-const notoSansJp = Noto_Sans_JP({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-noto-sans-jp",
-  display: "swap",
-  preload: false,
-});
-
-const shipporiMincho = Shippori_Mincho({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-shippori-mincho",
-  display: "swap",
-  preload: false,
-});
-
+// NOTE: ここで next/font を読み込んではいけない。
+// global-error はルートレイアウトとは別エントリのため、ここでフォントを
+// 定義するとレイアウト側と重複した @font-face CSS(日本語フォントで
+// 数百KB)が全ページのクリティカルパスに含まれてしまう。
+// エラー画面は globals.css のフォールバック(システムフォント)で表示する。
 export default function GlobalError({
   error,
   reset,
@@ -58,9 +22,7 @@ export default function GlobalError({
 
   return (
     <html lang="ja">
-      <body
-        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} ${shipporiMincho.variable} antialiased`}
-      >
+      <body className="antialiased">
         <ErrorDisplay reset={reset} />
       </body>
     </html>

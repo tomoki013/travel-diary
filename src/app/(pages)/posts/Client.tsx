@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
 import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
-import { sectionVariants, staggerContainer } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import { CustomSelect } from "@/components/common/CustomSelect";
 import { useSearchParams, useRouter } from "next/navigation";
 import HeroSection from "@/components/pages/HeroSection";
@@ -530,32 +529,24 @@ const BlogClient = ({
         </h2>
 
         {posts.length > 0 ? (
-          <motion.section
+          <section
             key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}-${viewParam}-${regionParam}`}
-            variants={staggerContainer()}
             className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
           >
-            {posts.map((post) => {
-              const motionProps =
-                currentPage === 1
-                  ? {
-                      initial: { opacity: 0, y: 30 },
-                      animate: { opacity: 1, y: 0 },
-                      transition: { duration: 0.8 },
-                    }
-                  : {
-                      initial: "hidden",
-                      whileInView: "visible",
-                      viewport: { once: true, amount: 0.3 },
-                      transition: { duration: 0.8 },
-                    };
-              return (
-                <motion.div key={post.slug} {...motionProps} variants={sectionVariants}>
+            {posts.map((post) =>
+              currentPage === 1 ? (
+                // 1ページ目はマウント時に即フェードイン(CSS animation)
+                <div key={post.slug} className="animate-fade-up-mount">
                   <PostCard post={post} showDiscoveryNote size="compact" />
-                </motion.div>
-              );
-            })}
-          </motion.section>
+                </div>
+              ) : (
+                // 2ページ目以降はスクロールで画面に入ったらフェードイン
+                <Reveal key={post.slug} amount={0.3} duration={0.8}>
+                  <PostCard post={post} showDiscoveryNote size="compact" />
+                </Reveal>
+              ),
+            )}
+          </section>
         ) : (
           <div className="bg-card rounded-2xl border px-6 py-16 text-center">
             <p className="text-foreground text-xl">該当する記事が見つかりませんでした。</p>

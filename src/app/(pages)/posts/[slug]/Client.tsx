@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { slideFadeIn } from "@/components/common/animation";
+import { Reveal } from "@/components/common/Reveal";
 import { members } from "@/data/member";
 import { Post } from "@/types/types";
 import RelatedPosts from "@/components/features/article/RelatedPosts";
@@ -36,13 +35,6 @@ interface ClientProps {
   previousSeriesPost?: { href: string; title: string };
   nextSeriesPost?: { href: string; title: string };
 }
-
-const FOCUS_SECTION_TRANSITION = {
-  type: "spring",
-  stiffness: 210,
-  damping: 32,
-  mass: 1,
-} as const;
 
 const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"), {
   ssr: false,
@@ -125,10 +117,8 @@ const Client = ({
   return (
     <div className="relative">
       <FloatingTableOfContent headings={finalHeadings} activeId={activeId} />
-      <motion.div
-        transition={FOCUS_SECTION_TRANSITION}
-        className="relative z-40 mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8"
-      >
+      {/* 旧 motion.div は transition のみ指定で animate 対象がなく実質静的だった */}
+      <div className="relative z-40 mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         <PostHeader post={post} variant="full" />
 
         {post.costReport?.costs?.items && <CostBreakdown costs={post.costReport.costs.items} />}
@@ -160,13 +150,7 @@ const Client = ({
           </div>
         )}
 
-        <motion.footer
-          className="mt-24 space-y-24"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          variants={slideFadeIn()}
-        >
+        <Reveal as="footer" className="mt-24 space-y-24" amount={0.05}>
           {/* Section 1: Next Journeys - Single Column Focused Flow */}
           <div className="relative">
             <div className="absolute inset-0 -mx-4 rounded-[3rem] bg-stone-50/50 sm:-mx-8 lg:-mx-12 dark:bg-stone-900/20" />
@@ -344,8 +328,8 @@ const Client = ({
               </div>
             </div>
           </div>
-        </motion.footer>
-      </motion.div>
+        </Reveal>
+      </div>
     </div>
   );
 };

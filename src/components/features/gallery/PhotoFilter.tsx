@@ -1,6 +1,6 @@
 "use client";
 import { sectionVariants } from "@/components/common/animation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 interface PhotoFilterProps {
   filterList: string[];
@@ -10,7 +10,7 @@ interface PhotoFilterProps {
 
 const PhotoFilter = ({ filterList, activeFilter, setActiveFilter }: PhotoFilterProps) => {
   return (
-    <motion.div variants={sectionVariants} className="mb-12 flex flex-wrap justify-center gap-2">
+    <m.div variants={sectionVariants} className="mb-12 flex flex-wrap justify-center gap-2">
       {filterList.map((filter) => (
         <button
           key={filter}
@@ -20,7 +20,7 @@ const PhotoFilter = ({ filterList, activeFilter, setActiveFilter }: PhotoFilterP
           }`}
         >
           {activeFilter === filter && (
-            <motion.div
+            <m.div
               layoutId="active-filter-background"
               className="absolute inset-0 rounded-full bg-teal-600"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -31,7 +31,7 @@ const PhotoFilter = ({ filterList, activeFilter, setActiveFilter }: PhotoFilterP
           </span>
         </button>
       ))}
-    </motion.div>
+    </m.div>
   );
 };
 

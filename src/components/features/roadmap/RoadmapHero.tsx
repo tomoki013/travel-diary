@@ -1,8 +1,8 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
+// 旧 framer-motion のマウント時フェードイン+スクロールインジケータの
+// バウンスを CSS animation で同一再現。transform の競合を避けるため、
+// 位置決め(-translate-x-1/2)は外側、バウンスは内側の要素に分離している。
 export default function RoadmapHero() {
   return (
     <section className="relative flex h-[80vh] flex-col items-center justify-center p-6 text-center">
@@ -13,11 +13,7 @@ export default function RoadmapHero() {
         <div className="bg-accent/50 animate-blob animation-delay-4000 absolute bottom-20 left-1/2 h-64 w-64 rounded-full mix-blend-multiply blur-3xl" />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <div className="animate-fade-up-mount">
         <h1 className="font-heading text-primary mb-6 text-4xl font-bold tracking-tight md:text-6xl">
           Updates & Roadmap
         </h1>
@@ -28,18 +24,21 @@ export default function RoadmapHero() {
           <br />
           一緒に旅を楽しみましょう。
         </p>
-      </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-12 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 1, duration: 2, repeat: Infinity }}
+      <div
+        className="animate-fade-in-mount absolute bottom-12 left-1/2 -translate-x-1/2"
+        style={{ animationDelay: "1s", animationDuration: "1s" }}
       >
-        <span className="font-code text-muted-foreground text-sm">Scroll to Explore</span>
-        <ChevronDown className="text-primary h-6 w-6" />
-      </motion.div>
+        <div
+          className="animate-bounce-y flex flex-col items-center gap-2"
+          style={{ animationDelay: "1s" }}
+        >
+          <span className="font-code text-muted-foreground text-sm">Scroll to Explore</span>
+          <ChevronDown className="text-primary h-6 w-6" />
+        </div>
+      </div>
     </section>
   );
 }

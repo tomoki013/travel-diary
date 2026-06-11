@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { sectionVariants } from "@/components/common/animation";
 
 const CommunitySection = () => {
   return (
-    <motion.section
+    <m.section
       className="bg-foreground text-background py-20 md:py-28"
       initial="hidden"
       whileInView="visible"
@@ -23,23 +23,23 @@ const CommunitySection = () => {
           SNSでの交流や、記事テーマの提案など、お気軽にご参加ください。
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <motion.div
+          <m.div
             className="inline-block rounded-full border-2 border-orange-400 bg-transparent px-8 py-3 font-bold text-orange-400 transition-colors duration-300 hover:bg-orange-400 hover:text-gray-900"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <Link href={`/social`}>SNSで繋がる</Link>
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             className="inline-block rounded-full border-2 border-orange-400 bg-transparent px-8 py-3 font-bold text-orange-400 transition-colors duration-300 hover:bg-orange-400 hover:text-gray-900"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <Link href={`/request`}>記事テーマを提案する</Link>
-          </motion.div>
+          </m.div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 

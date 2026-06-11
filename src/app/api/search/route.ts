@@ -16,6 +16,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Query or filter parameter is missing" }, { status: 400 });
   }
 
+  if (query && query.length > 100) {
+    return NextResponse.json({ error: "Query is too long" }, { status: 400 });
+  }
+
   try {
     const allPosts = await getAllPosts();
     let postsToSearch = allPosts;

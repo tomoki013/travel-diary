@@ -74,7 +74,7 @@ Many pages follow a Server Component + Client Component pattern:
 
 - **Images**: Custom Netlify loader (`netlify-loader.ts`) with Netlify Image CDN
 - **Theming**: next-themes with light/dark mode
-- **Animations**: framer-motion
+- **Animations**: スクロール連動フェードインは CSS + IntersectionObserver (`src/components/common/Reveal.tsx`)。退場アニメーション(`AnimatePresence`)・共有要素(`layoutId`)・FLIP(`layout`)が必要な箇所のみ framer-motion を使用し、必ず `LazyMotion` 配下で `m.*` を使うこと(`motion.*` は使用禁止。`src/components/common/MotionProvider.tsx` 参照)
 - **Forms**: react-hook-form + zod validation
 
 ## Blogging Mandates (AI Rules)

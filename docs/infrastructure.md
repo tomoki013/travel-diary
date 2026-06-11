@@ -10,6 +10,17 @@
 - **公開ディレクトリ**: `.next`
 - **キャッシュ制御**: `_next/static/*` は 1 年間の長期キャッシュ、それ以外は `must-revalidate` 設定となっています。
 
+### セキュリティヘッダー
+
+- `netlify.toml` の `[[headers]]` で全レスポンスに以下を付与しています。
+  - `Strict-Transport-Security`(HTTPS 強制・1 年)
+  - `X-Content-Type-Options: nosniff`
+  - `X-Frame-Options: SAMEORIGIN`(クリックジャッキング対策)
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+  - `Permissions-Policy`(camera / microphone / geolocation 無効)
+- `/map` 配下は外部アプリのプロキシ表示のため `X-Robots-Tag: noindex` を付与しています。
+- CSP (Content-Security-Policy) は未導入。導入する場合は Report-Only で影響確認後に強制すること。
+
 ### リダイレクト運用
 
 - `netlify.toml` の `[[redirects]]` セクションで、以下のリダイレクトを管理しています。
@@ -21,6 +32,7 @@
 
 - Netlify Image CDN を利用するためのカスタムローダーです。
 - 本番環境 (`production`) では `/.netlify/images?url=...` 形式の URL を生成し、エッジでの画像リサイズと最適化を実現しています。
+- 品質パラメータ未指定時はデフォルトで `q=60` を付与します(転送量削減のため)。
 
 ## AI エージェント基盤
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import RoadmapHero from "@/components/features/roadmap/RoadmapHero";
 import RoadmapTimeline from "@/components/features/roadmap/RoadmapTimeline";
 import UpdateList from "@/components/features/roadmap/UpdateList";
@@ -27,7 +27,7 @@ export default function RoadmapPage() {
           <p className="text-muted-foreground">旅はまだ始まったばかり。</p>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -40,7 +40,7 @@ export default function RoadmapPage() {
           >
             新しい旅を始める
           </Link>
-        </motion.div>
+        </m.div>
       </section>
     </main>
   );

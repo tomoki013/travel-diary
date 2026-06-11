@@ -37,18 +37,33 @@ import { sendContactForm } from "@/services/contactService";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "お名前は2文字以上で入力してください。",
-  }),
+  name: z
+    .string()
+    .min(2, {
+      message: "お名前は2文字以上で入力してください。",
+    })
+    .max(100, {
+      message: "お名前は100文字以内で入力してください。",
+    }),
   email: z.string().email({
     message: "有効なメールアドレスを入力してください。",
   }),
-  subject: z.string().min(5, {
-    message: "件名は5文字以上で入力してください。",
-  }),
-  message: z.string().min(10, {
-    message: "メッセージは10文字以上で入力してください。",
-  }),
+  subject: z
+    .string()
+    .min(5, {
+      message: "件名は5文字以上で入力してください。",
+    })
+    .max(200, {
+      message: "件名は200文字以内で入力してください。",
+    }),
+  message: z
+    .string()
+    .min(10, {
+      message: "メッセージは10文字以上で入力してください。",
+    })
+    .max(5000, {
+      message: "メッセージは5000文字以内で入力してください。",
+    }),
   inquiryType: z.string().min(1, {
     message: "お問い合わせの種類を選択してください。",
   }),

@@ -1,19 +1,20 @@
 import { getAllPosts } from "@/lib/post-metadata";
 import BlogClient from "./Client";
 import { Suspense } from "react";
-import { Metadata } from "next";
 import { LoadingAnimation } from "@/components/features/LoadingAnimation/LoadingAnimation";
 import { POSTS_PER_PAGE } from "@/constants/constants";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { TravelTopic } from "@/types/types";
 import { BlogDiscoveryView, getPostsForView } from "@/lib/post-discovery";
 import { getRegionAndDescendantSlugs } from "@/lib/regionUtil";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "全記事一覧 - Blog ",
   description:
     "「ともきちの旅行日記」の記事一覧です。新着だけでなく、初めて読む人向けのおすすめ、実用情報、旅行記から入口を選べます。",
-};
+  path: "/posts",
+});
 
 const normalizeFilters = (
   category: string,

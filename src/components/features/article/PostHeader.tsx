@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ChevronRight, MapPin } from "lucide-react";
 import { getDatePrefix } from "@/lib/dateFormat";
 import { PostMetadata } from "@/types/types";
@@ -28,7 +27,7 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
   const isTitleOnly = variant === "titleOnly";
 
   return (
-    <motion.header initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+    <header className="animate-fade-in-mount">
       {isTitleOnly ? (
         <h1 className="text-foreground mb-2 text-3xl font-bold md:text-5xl">{post.title}</h1>
       ) : (
@@ -168,7 +167,7 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
           )}
         </>
       )}
-    </motion.header>
+    </header>
   );
 };
 

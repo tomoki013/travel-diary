@@ -9,7 +9,7 @@ const JourneyCard = ({ item, index }: { item: JourneyItem; index: number }) => {
 
   return (
     <Reveal
-      viewport={{ once: true, margin: "-100px" }}
+      margin="-100px"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: index * 0.1 } },

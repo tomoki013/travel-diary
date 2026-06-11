@@ -11,6 +11,7 @@ export default function NotFound() {
           src="/images/Greece/oia-castle-sunset-view.jpg"
           alt="Travel Landscape"
           fill
+          sizes="100vw"
           className="h-full w-full object-cover opacity-40 transition-transform duration-1000 hover:scale-105"
         />
         {/* グラデーションオーバーレイ：文字の可読性を確保しつつ、雰囲気を出す */}

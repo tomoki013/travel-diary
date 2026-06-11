@@ -1,26 +1,13 @@
 import { Separator } from "@/components/ui/separator";
-import { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "執筆・編集ポリシー",
   description:
     "ともきちの旅行日記の記事がどのような基準で書かれ、更新されているかをまとめたページです。体験談と実用情報の扱い、情報確認の方針、公式リンクの考え方などを説明しています。",
-  openGraph: {
-    title: "執筆・編集ポリシー",
-    description:
-      "ともきちの旅行日記の記事がどのような基準で書かれ、更新されているかをまとめたページです。体験談と実用情報の扱い、情報確認の方針、公式リンクの考え方などを説明しています。",
-  },
-  twitter: {
-    title: "執筆・編集ポリシー",
-    description:
-      "ともきちの旅行日記の記事がどのような基準で書かれ、更新されているかをまとめたページです。体験談と実用情報の扱い、情報確認の方針、公式リンクの考え方などを説明しています。",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+  path: "/editorial-policy",
+});
 
 const EditorialPolicyPage = () => {
   return (

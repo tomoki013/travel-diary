@@ -17,6 +17,7 @@ const SeriesCard = ({ series }: SeriesCardProps) => {
               src={series.imageUrl}
               alt={series.title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
           </div>

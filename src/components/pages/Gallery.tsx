@@ -1,15 +1,13 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import Button from "../common/Button";
-
-import { sectionVariants } from "../common/animation";
+import { Reveal } from "../common/Reveal";
 
 type GalleryPhoto = { path: string; title: string };
 
-// Swiper を廃し、framer-motion による連続マーキーで写真を自動横スクロールさせる。
-// items を2回描画し x を 0%↔-50% で動かすことでシームレスにループする。
+// CSS @keyframes (globals.css の animate-marquee-*) による連続マーキー。
+// items を2回描画し translateX を 0%↔-50% で動かすことでシームレスにループする。
+// 以前は framer-motion の animate={{x}} で実装していたが、線形無限ループは
+// CSS で同一に再現できるためメインスレッド負荷の低い CSS へ移行した。
 const MarqueeRow = ({
   items,
   direction = "left",
@@ -22,14 +20,14 @@ const MarqueeRow = ({
   const loopItems = [...items, ...items];
   // 1枚あたり約3秒のペースでゆっくりスクロール。
   const duration = Math.max(items.length, 1) * 3;
-  const keyframes = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
 
   return (
     <div className="w-full overflow-hidden">
-      <motion.div
-        className="flex w-max gap-4 md:gap-5 lg:gap-6"
-        animate={{ x: keyframes }}
-        transition={{ duration, ease: "linear", repeat: Infinity }}
+      <div
+        className={`flex w-max gap-4 md:gap-5 lg:gap-6 ${
+          direction === "left" ? "animate-marquee-left" : "animate-marquee-right"
+        }`}
+        style={{ animationDuration: `${duration}s` }}
       >
         {loopItems.map((item, index) => (
           <div
@@ -46,7 +44,7 @@ const MarqueeRow = ({
             />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
@@ -158,14 +156,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
   const visibleBottomGallery = teaser ? bottomRowGallery.slice(0, 12) : bottomRowGallery;
 
   return (
-    <motion.section
-      id="gallery"
-      className={teaser ? "py-16" : "py-24"}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-    >
+    <Reveal as="section" id="gallery" className={teaser ? "py-16" : "py-24"}>
       {/* セクションタイトル */}
       <div className="mb-16 px-6 text-center md:px-8">
         <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">
@@ -192,7 +183,7 @@ const Gallery = ({ teaser = false }: GalleryProps) => {
       <Button href={`/gallery`}>
         {teaser ? "写真から記事を探す" : "写真から旅先の記事を探す"}
       </Button>
-    </motion.section>
+    </Reveal>
   );
 };
 

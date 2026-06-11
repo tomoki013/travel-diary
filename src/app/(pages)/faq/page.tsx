@@ -1,17 +1,14 @@
-import { Metadata } from "next";
 import { getAllPosts } from "@/lib/post-metadata";
 import FaqClient from "@/components/pages/faq/FaqClient";
-import { PRIMARY_SITE_URL } from "@/constants/site";
 import { FAQS } from "@/data/faq";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "FAQ | ともきちの旅行日記",
   description:
     "記事の探し方、旅行記と実用記事の違い、Gallery や補助機能の使い方など、ともきちの旅行日記に関するよくある質問をまとめています。",
-  alternates: {
-    canonical: new URL("/faq", PRIMARY_SITE_URL),
-  },
-};
+  path: "/faq",
+});
 
 export default async function FaqPage() {
   const allPosts = await getAllPosts();

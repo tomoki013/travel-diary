@@ -14,8 +14,9 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import CookieBanner from "@/components/common/CookieBanner";
 import Background from "@/components/common/Background";
-import { DEFAULT_SOCIAL_IMAGE_URL, PRIMARY_SITE_URL } from "@/constants/site";
+import { DEFAULT_SOCIAL_IMAGE_URL, ENABLE_AFFILIATES, PRIMARY_SITE_URL } from "@/constants/site";
 import { UIProvider } from "@/context/UIContext";
+import MotionProvider from "@/components/common/MotionProvider";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -52,9 +53,12 @@ const notoSansJp = Noto_Sans_JP({
 // 見出し用の日本語明朝。欧文 Playfair Display と組み合わせ、日本語見出しを
 // 全環境で同一の明朝体に統一する。本文同様、約40分割スライスの一斉プリロードを
 // 避けるため preload は無効化し display: "swap" で描画後に差し替える。
+// weight は 700 のみ。`.font-heading` の全使用箇所が font-bold / font-semibold
+// であることを確認済みで、500 を読み込むと @font-face CSS と woff2 が
+// 1ウェイト分(gzip 約33KB + フォント実体)丸ごと無駄になる。
 const shipporiMincho = Shippori_Mincho({
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: "700",
   variable: "--font-shippori-mincho",
   display: "swap",
   preload: false,
@@ -91,10 +95,10 @@ export const metadata: Metadata = {
       "日本と世界の美しい風景、文化、食べ物を通じて、新しい旅の発見をお届けする旅行ブログ。",
     images: [DEFAULT_SOCIAL_IMAGE_URL],
   },
+  // NOTE: ここに alternates.canonical を置いてはいけない。ルートレイアウトの
+  // metadata は全ページへ継承されるため、全ページがトップページを正規URLと
+  // 宣言してしまい検索エンジンから重複ページ扱いされる(AdSense審査にも影響)。
   metadataBase: new URL(PRIMARY_SITE_URL),
-  alternates: {
-    canonical: "/",
-  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -121,25 +125,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
+    // data-scroll-behavior: globals.css の scroll-behavior:smooth を
+    // Next.js のルート遷移時に無効化させるための宣言(コンソール警告対応)
+    <html lang="ja" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
         className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} ${shipporiMincho.variable} antialiased`}
       >
-        {/* 第三者ドメインへの事前接続（React 19 が <head> へホイストする）。
-            フォントは自己ホスト＝同一オリジンのため preconnect 不要。 */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        {/* 第三者ドメインへのDNS事前解決（React 19 が <head> へホイストする）。
+            スクリプトは lazyOnload で遅延読み込みするため preconnect は
+            接続がアイドルタイムアウトして無駄になる（Lighthouse 指摘）。
+            軽量な dns-prefetch のみ残す。フォントは自己ホスト＝同一オリジン。 */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://widget.getyourguide.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-        {/* GetYourGuide Analytics */}
-        <Script
-          async
-          defer
-          src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
-          data-gyg-partner-id="GTNOM0E"
-          strategy="lazyOnload"
-        />
+        {/* GetYourGuide Analytics（アフィリエイト有効時のみ読み込む） */}
+        {ENABLE_AFFILIATES && (
+          <Script
+            async
+            defer
+            src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
+            data-gyg-partner-id="GTNOM0E"
+            strategy="lazyOnload"
+          />
+        )}
 
         {/* Google Analytics */}
         <Script
@@ -162,16 +170,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <UIProvider>
-            <Background />
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1 text-sm md:text-base">{children}</main>
-              <Footer />
-            </div>
-            <CookieBanner />
-            <Toaster />
-          </UIProvider>
+          <MotionProvider>
+            <UIProvider>
+              <Background />
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <main className="flex-1 text-sm md:text-base">{children}</main>
+                <Footer />
+              </div>
+              <CookieBanner />
+              <Toaster />
+            </UIProvider>
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>
