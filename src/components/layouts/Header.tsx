@@ -5,7 +5,7 @@ import { NAV_LINKS } from "@/constants/navigation";
 import { useMobileMenu } from "@/hooks/useMobileMenu";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useUI } from "@/context/UIContext";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import {
   SearchIcon,
   Sparkles,
@@ -227,13 +227,25 @@ const Header = () => {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <m.div
             ref={menuRef}
             key="mobile-menu"
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(16px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.3 }}
+            animate={{
+              opacity: 1,
+              backdropFilter: "blur(16px)",
+              transition: { duration: 0.3 },
+            }}
+            // 閉じるときは項目が逆順に退場し終わるのを待ってからフェードアウトする
+            // (開きの完全な逆再生)。
+            // NOTE: 親のopacityが先に下がると子のスライドアウトが覆い隠されて
+            // 「全部一気にフェード」に見えるため、delay は項目退場の合計
+            // (逆順delay最大0.25s + duration 0.2s ≈ 0.45s)に合わせること。
+            exit={{
+              opacity: 0,
+              backdropFilter: "blur(0px)",
+              transition: { duration: 0.3, delay: 0.45 },
+            }}
             className="bg-background/95 fixed inset-0 z-[90] flex touch-none flex-col md:hidden"
           >
             <div className="from-background/50 to-background pointer-events-none absolute inset-0 bg-gradient-to-b" />
@@ -243,11 +255,23 @@ const Header = () => {
                 {NAV_LINKS.map((link, index) => {
                   const Icon = NAV_ICONS[link.label] || Sparkles;
                   return (
-                    <motion.div
+                    <m.div
                       key={link.label}
                       initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + index * 0.05, type: "spring" }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                        transition: { delay: 0.1 + index * 0.05, type: "spring" },
+                      }}
+                      // 開きの逆再生: 最後に入った項目から順に左へスライドアウト
+                      exit={{
+                        opacity: 0,
+                        x: -20,
+                        transition: {
+                          delay: (NAV_LINKS.length - 1 - index) * 0.05,
+                          duration: 0.2,
+                        },
+                      }}
                     >
                       <Link
                         href={link.href}
@@ -261,15 +285,16 @@ const Header = () => {
                           {link.label}
                         </span>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
               </nav>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                animate={{ opacity: 1, y: 0, transition: { delay: 0.4 } }}
+                // 最後に入る要素なので、閉じるときは最初に退場する
+                exit={{ opacity: 0, y: 20, transition: { duration: 0.2 } }}
                 className="mx-auto flex w-full max-w-sm flex-col items-center gap-y-4"
               >
                 <div className="bg-border/50 h-px w-full" />
@@ -277,9 +302,9 @@ const Header = () => {
                   <span className="text-muted-foreground text-sm font-bold">Theme</span>
                   <ModeToggle />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 

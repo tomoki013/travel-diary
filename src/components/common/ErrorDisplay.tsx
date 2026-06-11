@@ -16,6 +16,7 @@ export default function ErrorDisplay({ reset }: ErrorDisplayProps) {
           src="/images/India/tajmahal.jpg"
           alt="Travel Landscape"
           fill
+          sizes="100vw"
           className="h-full w-full object-cover opacity-40 transition-transform duration-1000 hover:scale-105"
         />
         {/* Gradient Overlay */}

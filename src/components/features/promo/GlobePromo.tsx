@@ -1,10 +1,21 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Globe, Map as MapIcon, ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { MAP_URL } from "@/constants/site";
+import { Reveal } from "@/components/common/Reveal";
+
+// 旧 framer-motion の whileInView と同じ値(y:20 / scale:0.8、duration 0.6/0.8)。
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 20 },
+  visible: { transition: { duration: 0.6, delay } },
+});
+
+const globeIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { transition: { duration: 0.8 } },
+};
 
 interface GlobePromoProps {
   className?: string;
@@ -64,12 +75,7 @@ const GlobePromo = ({ className, compact = false, queryParams }: GlobePromoProps
         >
           {/* Text Content */}
           <div className="space-y-6 text-center md:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <Reveal variants={fadeUp()} ease="ease-in-out">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/20 px-3 py-1 text-xs font-medium text-amber-200 backdrop-blur-sm">
                 <MapIcon className="h-3 w-3" />
                 <span>{compact ? "Map Utility" : "New App Release"}</span>
@@ -92,14 +98,9 @@ const GlobePromo = ({ className, compact = false, queryParams }: GlobePromoProps
                   </>
                 )}
               </p>
-            </motion.div>
+            </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <Reveal variants={fadeUp(0.2)} ease="ease-in-out">
               <Link
                 href={mapUrl}
                 target="_blank"
@@ -112,7 +113,7 @@ const GlobePromo = ({ className, compact = false, queryParams }: GlobePromoProps
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 <ExternalLink className="ml-1 h-3 w-3 opacity-50" />
               </Link>
-            </motion.div>
+            </Reveal>
           </div>
 
           {/* Graphic/Visual */}
@@ -120,13 +121,7 @@ const GlobePromo = ({ className, compact = false, queryParams }: GlobePromoProps
             className={`relative flex items-center justify-center ${compact ? "min-h-[200px] md:min-h-[240px]" : "min-h-[250px] md:min-h-[300px]"}`}
           >
             {/* Spinning Globe Representation */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative"
-            >
+            <Reveal variants={globeIn} ease="ease-in-out" className="relative">
               {/* Glow effects */}
               <div className="absolute inset-0 rounded-full bg-amber-500/30 blur-3xl" />
 
@@ -134,14 +129,10 @@ const GlobePromo = ({ className, compact = false, queryParams }: GlobePromoProps
               <div
                 className={`relative ${compact ? "h-40 w-40 md:h-48 md:w-48" : "h-48 w-48 md:h-64 md:w-64"}`}
               >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="h-full w-full text-amber-300/20"
+                {/* 20秒/周の線形回転(旧 animate={{ rotate: 360 }} と同一) */}
+                <div
+                  className="h-full w-full animate-spin text-amber-300/20"
+                  style={{ animationDuration: "20s" }}
                 >
                   {/* Abstract Globe Lines using SVG */}
                   <svg
@@ -163,41 +154,29 @@ const GlobePromo = ({ className, compact = false, queryParams }: GlobePromoProps
                     <path d="M10 30 Q 50 40 90 30" />
                     <path d="M10 70 Q 50 60 90 70" />
                   </svg>
-                </motion.div>
+                </div>
 
                 {/* Central Highlight/Content */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
+                  <div className="animate-float-y">
                     <Globe
                       className={`text-amber-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] ${compact ? "h-20 w-20 md:h-24 md:w-24" : "h-24 w-24 md:h-32 md:w-32"}`}
                       strokeWidth={1}
                     />
-                  </motion.div>
+                  </div>
                 </div>
 
-                {/* Orbiting Elements */}
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{ rotate: -360 }}
-                  transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
+                {/* Orbiting Elements: 15秒/周の逆回転(旧 rotate: -360 と同一) */}
+                <div
+                  className="absolute inset-0 animate-spin"
+                  style={{ animationDuration: "15s", animationDirection: "reverse" }}
                 >
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2">
                     <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
                   </div>
-                </motion.div>
+                </div>
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </div>
       </div>

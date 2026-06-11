@@ -20,6 +20,109 @@
     animation: particle-animation var(--duration) linear infinite;
     animation-delay: var(--delay);
   }
+
+  /* Gallery のマーキー(自動横スクロール)。コンテンツを2回描画した上で
+     50% 移動→先頭に戻すことでシームレスにループする。
+     framer-motion の animate={{ x }} 線形無限ループと同一の動き。 */
+  @keyframes marquee-left {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+
+  .animate-marquee-left {
+    animation: marquee-left linear infinite;
+  }
+
+  .animate-marquee-right {
+    animation: marquee-right linear infinite;
+  }
+
+  /* 記事カードのマウント時フェードイン(旧 framer-motion の
+     initial={opacity:0,y:30} → animate={opacity:1,y:0} duration:0.8 相当)。 */
+  @keyframes fade-up-mount {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .animate-fade-up-mount {
+    animation: fade-up-mount 0.8s ease-in-out both;
+  }
+
+  /* GlobePromo の地球儀アイコンがゆっくり上下に浮遊する動き
+     (旧 framer-motion の animate={{ y: [0, -10, 0] }} 4s easeInOut 無限ループ)。 */
+  @keyframes float-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float-y {
+    animation: float-y 4s ease-in-out infinite;
+  }
+
+  /* マウント時のシンプルなフェードイン(旧 framer-motion の
+     initial={opacity:0} → animate={opacity:1} 相当)。duration は用途別に指定。 */
+  @keyframes fade-in-mount {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in-mount {
+    animation: fade-in-mount 0.8s ease-in-out both;
+  }
+
+  /* スクロールインジケータの上下バウンス
+     (旧 framer-motion の animate={{ y: [0, 10, 0] }} 2s 無限ループ)。 */
+  @keyframes bounce-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+  }
+
+  .animate-bounce-y {
+    animation: bounce-y 2s ease-in-out infinite;
+  }
+
+  /* FAQ ダッシュボードの横棒チャートが左から伸びるマウント時アニメーション */
+  @keyframes bar-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
 @plugin "@tailwindcss/typography";

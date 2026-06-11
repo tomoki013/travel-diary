@@ -1,22 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, Cookie, CheckCircle } from "lucide-react"; // CookieとCheckCircleアイコンをインポート
 
 const CookieBanner = () => {
-  const [showBanner, setShowBanner] = useState(() => {
-    if (typeof window === "undefined") {
-      return false;
-    }
+  // NOTE: useState の初期化関数内で typeof window 分岐をすると、
+  // サーバー(非表示)とクライアント(表示)で初回描画が食い違い
+  // ハイドレーションエラーになる。必ずマウント後に判定する。
+  const [showBanner, setShowBanner] = useState(false);
 
-    const consent = localStorage.getItem("cookie_consent");
-    const dismissed = sessionStorage.getItem("cookie_dismissed");
+  useEffect(() => {
+    // rAF で1フレーム遅らせて effect 内の同期 setState を避ける
+    // (react-hooks/set-state-in-effect 対応。表示は AnimatePresence で
+    // どのみちスライドインするため体感差はない)
+    const id = requestAnimationFrame(() => {
+      const consent = localStorage.getItem("cookie_consent");
+      const dismissed = sessionStorage.getItem("cookie_dismissed");
 
-    return consent !== "true" && dismissed !== "true";
-  });
+      if (consent !== "true" && dismissed !== "true") {
+        setShowBanner(true);
+      }
+    });
+
+    return () => cancelAnimationFrame(id);
+  }, []);
   const [isAgreed, setIsAgreed] = useState(false); // 同意状態を管理
 
   // 「同意する」ボタンの処理
@@ -39,7 +49,7 @@ const CookieBanner = () => {
   return (
     <AnimatePresence>
       {showBanner && (
-        <motion.div
+        <m.div
           initial={{ y: "100%" }} // 初期状態（画面下外）
           animate={{ y: 0 }} // 表示状態（画面下）
           exit={{ y: "100%" }} // 終了状態（画面下外へ）
@@ -59,7 +69,7 @@ const CookieBanner = () => {
             <div className="flex items-center gap-x-3">
               {/* アイコンの切り替え */}
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={isAgreed ? "check" : "cookie"}
                   initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
                   animate={{ scale: 1, opacity: 1, rotate: 0 }}
@@ -71,7 +81,7 @@ const CookieBanner = () => {
                   ) : (
                     <Cookie className="text-primary h-6 w-6" />
                   )}
-                </motion.div>
+                </m.div>
               </AnimatePresence>
               <p className="text-foreground text-center text-sm sm:text-left">
                 {isAgreed
@@ -80,7 +90,7 @@ const CookieBanner = () => {
               </p>
             </div>
 
-            <motion.div
+            <m.div
               animate={{ opacity: isAgreed ? 0 : 1 }} // 同意後はボタンをフェードアウト
               transition={{ duration: 0.2 }}
               className="flex flex-shrink-0 items-center gap-x-2"
@@ -97,9 +107,9 @@ const CookieBanner = () => {
               <Button onClick={handleAccept} size="sm" disabled={isAgreed}>
                 同意する
               </Button>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

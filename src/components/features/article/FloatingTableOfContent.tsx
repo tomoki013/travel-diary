@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { List, X } from "lucide-react";
 import {
   TableOfContentNav,
@@ -79,7 +79,7 @@ const FloatingTableOfContent = ({
     <>
       <AnimatePresence>
         {isVisible && !isOpen && (
-          <motion.button
+          <m.button
             type="button"
             aria-label="目次を開く"
             aria-expanded={isOpen}
@@ -93,13 +93,13 @@ const FloatingTableOfContent = ({
           >
             <List className="h-5 w-5" strokeWidth={2.5} />
             <span>目次</span>
-          </motion.button>
+          </m.button>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-[80] flex items-end justify-center px-3 pb-3 sm:px-6 sm:pb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -111,7 +111,7 @@ const FloatingTableOfContent = ({
               className="absolute inset-0 bg-stone-950/50 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            <motion.div
+            <m.div
               id="floating-table-of-content"
               role="dialog"
               aria-modal="true"
@@ -153,8 +153,8 @@ const FloatingTableOfContent = ({
                   listClassName="sm:grid-cols-1"
                 />
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

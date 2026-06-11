@@ -42,9 +42,9 @@ const SeriesCard = ({ series, postsLength, recentPosts = [] }: SeriesCardProps) 
         <Image
           src={series.imageUrl}
           alt={series.title}
-          layout="fill"
-          objectFit="cover"
-          className="transition-transform duration-500 ease-out group-hover:scale-105"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         {IconComponent && (
           <div className="absolute top-4 right-4 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm">

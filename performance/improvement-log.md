@@ -69,3 +69,63 @@
 - 実際に Netlify 上で計測し、Mobile Performance が 41 から向上しているか確認。
 - Forced reflow のさらなる調査 (Header のスクロール処理など)。
 - 未使用 JS chunk の詳細分析。
+
+## 2026-06 Font CSS Deduplication + Security/SEO Hardening
+
+### 変更内容
+
+- **Fonts (Root Cause Fix)**: `global-error.tsx` が `next/font/google` で5書体を再定義しており(しかも Noto Sans JP は layout と異なる 400/500/700 構成)、レイアウト側と重複した @font-face CSS が全ページのクリティカルパスに含まれていた。global-error からフォント定義を削除しシステムフォントにフォールバック。
+- **SEO**: ルートレイアウトの `alternates.canonical: "/"` が全ページに継承され、ほぼ全ページが「トップページの複製」を宣言していた問題を修正(本番 /about /contact /posts で実証)。`src/lib/page-metadata.ts` の `createPageMetadata()` を新設し、静的ページ約10ページへ個別 canonical を付与。journey の実在しない OG 画像参照も削除。
+- **Security**: netlify.toml に HSTS / nosniff / X-Frame-Options / Referrer-Policy / Permissions-Policy を追加。/map(外部アプリのプロキシ)に X-Robots-Tag: noindex。send-email API に zod 検証・レート制限(5通/時/IP)・from 固定+replyTo 化。JSON-LD の `<` エスケープ。postcss の既知脆弱性(GHSA-qx2v-qp2m-jg93)を override で解消。`poweredByHeader: false`。
+- **Images**: netlify-loader に品質デフォルト `q=60` を追加。
+- **Scripts**: GetYourGuide 計測タグを `ENABLE_AFFILIATES` 有効時のみ読み込みに変更。未使用 preconnect 2件を削除(lazyOnload のため接続が無駄になっていた)。
+
+### 計測結果(ローカルビルド実測)
+
+- トップページ参照 CSS: 8ファイル/約318KB(gzip) → 5ファイル/約162KB(gzip)。**約156KB(49%)削減**。
+  - 削除されたチャンク: Noto Sans JP 3ウェイト分(283KB raw / 約90KB gzip)、Shippori Mincho 重複分(189KB raw / 約66KB gzip)
+- pnpm audit: 1 moderate → 0件。
+
+### 次に見ること
+
+- デプロイ後に本番 Lighthouse(低速4G・Moto G Power)で FCP/LCP を再計測(前回: FCP 7.7s / LCP 10.7s / TBT 770ms)。
+- さらに削る場合は Shippori Mincho 500 の削除(見た目要確認)で残りフォント CSS を約半減できる。
+- TBT は framer-motion(Reveal/Header/CookieBanner)の LazyMotion 化が次の候補。
+- Search Console で「重複しています」判定ページの再インデックス推移を確認。
+
+## 2026-06 Font Weight Reduction (Shippori Mincho 500)
+
+### 変更内容
+
+- `layout.tsx` の Shippori Mincho を `weight: ["500","700"]` → `"700"` に削減。`.font-heading` 全38箇所が `font-bold`/`font-semibold` 付きであることを確認済みのため見た目への影響なし(500はどこからも要求されていなかった)。
+
+### 計測結果(ローカルビルド実測)
+
+- Shippori Mincho の @font-face CSS: gzip 66.5KB → 33.4KB(半減)
+- トップページの全CSS(gzip): 約162KB → 約129KB
+- 修正前(canonical/global-error修正前)比では 約318KB → 約129KB で **59%削減**
+- JSバンドル合計(gzip): 632.7KB(予算700KB内)。最大チャンクは recharts を含む 99.9KB(FAQページ専用)
+
+## 2026-06 Animation CSS Migration + recharts Removal + Light CSP
+
+### 変更内容
+
+- **framer-motion 部分撤廃**: スクロール連動のワンショットフェード(Reveal/RevealStagger と直接 motion 使用の計11ファイル)を CSS transition + IntersectionObserver へ完全互換移行(`src/components/common/Reveal.tsx` を書き換え、API・イージング・遅延値は同一)。Gallery のマーキー、PostHeader/JourneyHero/RoadmapHero/GlobePromo のマウントアニメも CSS @keyframes 化。
+- **LazyMotion 化**: 退場アニメ(AnimatePresence)・共有要素(layoutId)・FLIP(layout)を使う残留14ファイルは完全再現がCSSで不可能なため framer-motion を維持しつつ、`m.*` + `LazyMotion(domMax, strict)` に移行(`MotionProvider` を layout に追加)。今後 `motion.*` は使用禁止。
+- **recharts 撤廃**: FAQ のドーナツ/横棒チャートを手書き SVG + CSS(`src/components/pages/faq/charts.tsx`)に置換し、依存から削除。ツールチップ・凡例・ホバー・マウントアニメは維持(ツールチップはマウス追従を自前実装)。
+- **ライトCSP**: netlify.toml に `object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'` を追加。AdSense が許可リスト式CSPを公式サポートしないため script-src は制限しない方針(公式: nonce式 strict CSP のみサポート)。
+- **Speed Index 対策(S1)**: Hero/WorldMap のローディング表示を「動き続けるアニメーション」から静的な世界地図シルエット(`WorldMapPlaceholder`)に変更。splitFlap の停止(S2)は演出維持のため見送り。
+- next.config.ts に `NEXT_DIST_DIR` による distDir 切り替えを追加(Windows で .next がロックされた際の検証ビルド用)。
+
+### 計測結果(ローカルビルド実測・gzip)
+
+- 全JSチャンク合計: **632.7KB → 532KB(−100.7KB)**。recharts チャンク(99.9KB)が消滅。
+- FAQページ参照JS: 117KB(recharts 参照ゼロを確認)。
+- トップページ参照JS: 153KB(バイト数は不変。効果はハイドレーション削減側)。
+- トップページCSS: 127KB(5ファイル)。セッション開始時 318KB から **60%削減**。
+- ローカル Lighthouse はマシン負荷による分散が大きすぎ比較不能(TBT が同条件2連続で 4,750ms ↔ 9,310ms)。**本番デプロイ後に PageSpeed Insights で再計測すること**。
+
+### 次に見ること
+
+- デプロイ後 PSI: FCP/LCP/TBT/SI(基準: 2026-06-10 の FCP 7.7s / LCP 10.7s / TBT 770ms / SI 9.9s)
+- AdSense 再審査前に docs/adsense-cleanup の A1記事28件の対応判断

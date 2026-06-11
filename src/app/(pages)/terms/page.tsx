@@ -1,26 +1,13 @@
 import { Separator } from "@/components/ui/separator";
-import { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "利用規約",
   description:
     "ともきちの旅行日記の利用規約です。サイトの利用条件や禁止事項、免責事項などを詳しく説明しています。",
-  openGraph: {
-    title: "利用規約",
-    description:
-      "ともきちの旅行日記の利用規約です。サイトの利用条件や禁止事項、免責事項などを詳しく説明しています。",
-  },
-  twitter: {
-    title: "利用規約",
-    description:
-      "ともきちの旅行日記の利用規約です。サイトの利用条件や禁止事項、免責事項などを詳しく説明しています。",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+  path: "/terms",
+});
 
 const TermsPage = () => {
   return (

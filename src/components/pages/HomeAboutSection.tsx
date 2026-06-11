@@ -14,12 +14,14 @@ const HomeAboutSection = () => {
     <Reveal as="section" className="mx-auto max-w-4xl px-6 py-20 md:px-8">
       <div className="border-border/60 bg-card/60 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:p-10">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
+          {/* flex で片方の辺だけ縮むと next/image がアスペクト比警告を出すため
+              両辺を固定し shrink-0 を付ける */}
           <Image
             src={author.image}
             alt={author.name}
             width={112}
             height={112}
-            className="rounded-full object-cover"
+            className="h-28 w-28 shrink-0 rounded-full object-cover"
           />
           <div className="text-center md:text-left">
             <p className="text-muted-foreground text-sm font-semibold tracking-[0.24em]">

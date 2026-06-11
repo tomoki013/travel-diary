@@ -32,6 +32,8 @@ AI生成コンテンツと差別化するため、以下の情報を積極的に
 ## 4. 技術SEO / AIO
 
 - **Canonical URL:** 重複コンテンツを避けるため、常に正規URL（`https://tomokichidiary.com/posts/...`）を参照します。
+  - 静的ページの metadata は `src/lib/page-metadata.ts` の `createPageMetadata()` で生成し、ページ自身のパスを canonical に設定します。
+  - **禁止事項:** ルートレイアウト（`src/app/layout.tsx`）に `alternates.canonical` を置かないこと。全ページへ継承され、サイト全体がトップページの重複として扱われる事故につながります（2026-06 に実際に発生し修正済み）。
 - **llms.txt:** AIエージェント向けに、サイトの概要と主要ページを `/llms.txt` で提供します。
 - **構造化データ (JSON-LD):** `BlogPosting` や `BreadcrumbList` を適切に出力し、検索結果でのリッチリザルト表示を支援します。
 - **画像SEO:** すべての画像に、内容を自然に説明する `alt` 属性を付与します。

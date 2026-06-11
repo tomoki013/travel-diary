@@ -76,3 +76,4 @@ public/sitemap-*.xml
 
 # Log files
 *.log
+/.next-verify/

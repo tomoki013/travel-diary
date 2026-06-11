@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Map } from "lucide-react";
 import { sectionVariants } from "@/components/common/animation";
 
 const JourneyTeaser = () => {
   return (
-    <motion.section
+    <m.section
       className="w-full px-4 py-16"
       initial="hidden"
       whileInView="visible"
@@ -33,7 +33,7 @@ const JourneyTeaser = () => {
               </p>
             </div>
 
-            <motion.div
+            <m.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex-shrink-0"
@@ -45,11 +45,11 @@ const JourneyTeaser = () => {
                 <span>軌跡を辿る</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 

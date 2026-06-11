@@ -1,23 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FAQ_CATEGORIES, FaqItem } from "@/data/faq";
-import { useHydrated } from "@/hooks/useHydrated";
+import { DonutChart, PhaseBarChart } from "./charts";
 
 type FaqClientProps = {
   distributionData: { name: string; value: number }[];
@@ -25,17 +13,7 @@ type FaqClientProps = {
   faqs: FaqItem[];
 };
 
-// Colors from globals.css variables (approximated for Recharts)
-const COLORS = [
-  "var(--chart-1)",
-  "var(--chart-2)",
-  "var(--chart-3)",
-  "var(--chart-4)",
-  "var(--chart-5)",
-];
-
 export default function FaqClient({ distributionData, phaseData, faqs }: FaqClientProps) {
-  const hydrated = useHydrated();
   const [currentCategory, setCurrentCategory] = useState("all");
   const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -130,33 +108,7 @@ export default function FaqClient({ distributionData, phaseData, faqs }: FaqClie
               記事カテゴリーの割合
             </h4>
             <div className="h-[300px] w-full">
-              {hydrated ? (
-                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={300}>
-                  <PieChart>
-                    <Pie
-                      data={distributionData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={80}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {distributionData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "var(--popover)",
-                        borderColor: "var(--border)",
-                        color: "var(--popover-foreground)",
-                      }}
-                    />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              ) : null}
+              <DonutChart data={distributionData} />
             </div>
             <p className="text-muted-foreground mt-4 text-center text-sm">
               旅行記、観光ガイド、モデルコースなどの構成をひと目で見られます。
@@ -169,34 +121,7 @@ export default function FaqClient({ distributionData, phaseData, faqs }: FaqClie
               旅行フェーズ別おすすめ記事
             </h4>
             <div className="h-[300px] w-full">
-              {hydrated ? (
-                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={300}>
-                  <BarChart
-                    layout="vertical"
-                    data={phaseData}
-                    margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
-                  >
-                    <XAxis type="number" hide />
-                    <YAxis dataKey="name" type="category" width={80} tick={{ fontSize: 12 }} />
-                    <Tooltip
-                      cursor={{ fill: "transparent" }}
-                      content={({ active, payload }) => {
-                        if (active && payload && payload.length) {
-                          const data = payload[0].payload;
-                          return (
-                            <div className="bg-popover border-border text-popover-foreground rounded border p-2 text-sm shadow-md">
-                              <p className="font-bold">{data.name}</p>
-                              <p>{data.tips}</p>
-                            </div>
-                          );
-                        }
-                        return null;
-                      }}
-                    />
-                    <Bar dataKey="value" fill="var(--primary)" radius={[0, 4, 4, 0]} barSize={20} />
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : null}
+              <PhaseBarChart data={phaseData} />
             </div>
             <p className="text-muted-foreground mt-4 text-center text-sm">
               行き先選びから現地移動まで、読むタイミングの目安を整理しています。

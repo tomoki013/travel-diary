@@ -11,11 +11,45 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# セキュリティヘッダー(全レスポンス共通)
 [[headers]]
   for = "/*"
 
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+    # HTTPS を強制(1年)。サブドメインにも適用。
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    # Content-Type の推測(MIMEスニッフィング)を禁止
+    X-Content-Type-Options = "nosniff"
+    # 外部サイトからの iframe 埋め込みを禁止(クリックジャッキング対策)
+    X-Frame-Options = "SAMEORIGIN"
+    # 外部リンク先にはオリジンのみ送信(URLパスを漏らさない)
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # 使用しないブラウザ機能を明示的に無効化
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # ライトCSP: script-src を制限しない安全なディレクティブのみ。
+    # AdSense はドメイン許可リスト方式のCSPを公式にサポートしないため
+    # (nonce方式のstrict CSPのみサポート)、広告・GA・アフィリエイトに
+    # 干渉しない範囲で防御層を追加する。
+    # - object-src 'none': Flash等プラグインの実行を禁止
+    # - base-uri 'self': <base>タグ改ざんによる相対URL乗っ取りを禁止
+    # - frame-ancestors 'self': 他サイトからのiframe埋め込みを禁止
+    # - form-action 'self': フォーム送信先を自オリジンに限定
+    Content-Security-Policy = "object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"
+
+# /map は外部アプリ(travel-map)をプロキシ表示しているため、
+# 自ドメインのコンテンツとしてインデックスさせない(重複コンテンツ対策)
+[[headers]]
+  for = "/map/*"
+
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/map"
+
+  [headers.values]
+    X-Robots-Tag = "noindex"
 
 [[redirects]]
   from = "https://tomokichidiary.netlify.app/*"

@@ -1,9 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { sectionVariants } from "../common/animation";
 import WorldMap, { WorldMapHandle } from "../features/worldMap/WorldMap";
-import { motion } from "framer-motion";
+import { Reveal } from "../common/Reveal";
 import { regionData } from "@/data/region";
 import Button from "../common/Button";
 
@@ -93,13 +92,7 @@ const Destination = ({
   };
 
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={sectionVariants}
-      className="mx-auto max-w-5xl px-6 py-24 md:px-8"
-    >
+    <Reveal as="section" className="mx-auto max-w-5xl px-6 py-24 md:px-8">
       <div className="mb-16 text-center">
         <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">{title}</h2>
         <p className="text-muted-foreground mx-auto mt-4 max-w-2xl leading-relaxed">
@@ -142,7 +135,7 @@ const Destination = ({
         </div>
       </div>
       <Button href={`/destination`}>{buttonLabel}</Button>
-    </motion.section>
+    </Reveal>
   );
 };
 

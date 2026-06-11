@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, RefObject, useCallback, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ChevronDown, Check } from "lucide-react";
 
 interface Option {
@@ -109,7 +109,7 @@ export const CustomSelect = ({ options, value, onChange, labelPrefix }: CustomSe
 
   return (
     <div ref={wrapperRef} className="relative isolate z-40 w-full font-sans">
-      <motion.button
+      <m.button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className="focus:ring-secondary relative z-10 flex w-full items-center justify-between rounded-xl border border-gray-200/80 bg-white/80 p-4 text-left shadow-sm transition-all duration-300 hover:border-gray-300 focus:ring-2 focus:ring-offset-2 focus:outline-none"
@@ -121,19 +121,19 @@ export const CustomSelect = ({ options, value, onChange, labelPrefix }: CustomSe
           </span>
           <span className="text-lg font-semibold text-gray-800">{selectedOption?.title}</span>
         </div>
-        <motion.div
+        <m.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ type: "spring", stiffness: 350, damping: 25 }}
         >
           <ChevronDown className="text-gray-500" size={24} />
-        </motion.div>
-      </motion.button>
+        </m.div>
+      </m.button>
 
       {canUsePortal &&
         createPortal(
           <AnimatePresence>
             {isOpen && menuPosition && (
-              <motion.ul
+              <m.ul
                 ref={menuRef}
                 variants={listVariants}
                 initial="closed"
@@ -147,7 +147,7 @@ export const CustomSelect = ({ options, value, onChange, labelPrefix }: CustomSe
                 }}
               >
                 {options.map((option) => (
-                  <motion.li
+                  <m.li
                     key={option.slug}
                     variants={itemVariants}
                     onClick={() => {
@@ -160,13 +160,13 @@ export const CustomSelect = ({ options, value, onChange, labelPrefix }: CustomSe
                       {option.title}
                     </span>
                     {value === option.slug && (
-                      <motion.div layoutId="selected-check">
+                      <m.div layoutId="selected-check">
                         <Check className="text-secondary" size={20} />
-                      </motion.div>
+                      </m.div>
                     )}
-                  </motion.li>
+                  </m.li>
                 ))}
-              </motion.ul>
+              </m.ul>
             )}
           </AnimatePresence>,
           document.body,

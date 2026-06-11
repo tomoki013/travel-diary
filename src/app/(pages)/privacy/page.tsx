@@ -1,26 +1,13 @@
 import { Separator } from "@/components/ui/separator"; // 推奨されるインポートパス
-import { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "プライバシーポリシー",
   description:
     "ともきちの旅行日記のプライバシーポリシーです。個人情報の取り扱いやCookieの使用について詳しく説明しています。",
-  openGraph: {
-    title: "プライバシーポリシー",
-    description:
-      "ともきちの旅行日記のプライバシーポリシーです。個人情報の取り扱いやCookieの使用について詳しく説明しています。",
-  },
-  twitter: {
-    title: "プライバシーポリシー",
-    description:
-      "ともきちの旅行日記のプライバシーポリシーです。個人情報の取り扱いやCookieの使用について詳しく説明しています。",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+  path: "/privacy",
+});
 
 const PrivacyPage = () => {
   return (

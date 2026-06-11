@@ -171,13 +171,17 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
 
   return (
     <>
+      {/* "<" を Unicode エスケープし、本文由来の文字列で </script> が
+          構成されてスクリプトを閉じられる(XSS)のを防ぐ */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       <Client
         post={postForClient}

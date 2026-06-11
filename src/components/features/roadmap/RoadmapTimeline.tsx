@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ROADMAP_DATA, RoadmapItem } from "@/data/roadmap";
@@ -214,7 +214,7 @@ export default function RoadmapTimeline() {
           />
 
           {/* Animated Progress Path (Only main part) */}
-          <motion.path
+          <m.path
             d={mainPath}
             stroke="currentColor"
             strokeWidth="2"
@@ -249,7 +249,7 @@ export default function RoadmapTimeline() {
           const rowClass = isEven ? "flex-row-reverse" : "flex-row";
 
           return (
-            <motion.div
+            <m.div
               key={item.id}
               className={cn("relative flex items-center gap-4 md:gap-8", rowClass)}
               initial={{ opacity: 0, y: 50 }}
@@ -333,7 +333,7 @@ export default function RoadmapTimeline() {
 
               {/* Balancer */}
               <div className="hidden w-1/2 md:block" />
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

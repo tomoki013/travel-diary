@@ -1,8 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Plane } from "lucide-react";
 
+// 旧 framer-motion のマウント時フェードイン(y:20 / 0.8s easeOut、
+// スクロールインジケータは 1s 遅延フェード)を CSS animation で同一再現。
 const JourneyHero = () => {
   return (
     <section className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 md:h-[70vh]">
@@ -15,11 +14,9 @@ const JourneyHero = () => {
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="space-y-6"
+        <div
+          className="animate-fade-up-mount space-y-6"
+          style={{ animationTimingFunction: "ease-out" }}
         >
           <div className="mb-4 inline-flex items-center justify-center rounded-full bg-amber-100/10 p-3 backdrop-blur-sm">
             <Plane className="h-6 w-6 rotate-[-45deg] text-amber-200" />
@@ -34,21 +31,19 @@ const JourneyHero = () => {
             <br />
             訪れた場所、出会った風景、そして心に残った瞬間のアーカイブ。
           </p>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+      <div
+        className="animate-fade-in-mount absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+        style={{ animationDuration: "1s", animationDelay: "1s" }}
       >
         <span className="text-xs tracking-widest text-amber-200/50 uppercase">
           Scroll to explore
         </span>
         <div className="h-12 w-[1px] bg-gradient-to-b from-amber-200/50 to-transparent" />
-      </motion.div>
+      </div>
     </section>
   );
 };
