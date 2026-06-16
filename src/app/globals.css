@@ -233,7 +233,11 @@
 }
 
 .font-heading {
-  font-family: var(--font-playfair-display), var(--font-shippori-mincho), serif;
+  /* 欧文は Playfair、日本語見出しは OS 搭載の明朝(ヒラギノ明朝 / 游明朝)を使い、
+     日本語 Web フォントは配らない。Android は明朝非搭載のため serif にフォールバック。 */
+  font-family:
+    var(--font-playfair-display), "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho",
+    "YuMincho", "Noto Serif JP", serif;
 }
 .font-code {
   font-family: var(--font-caveat), cursive;
