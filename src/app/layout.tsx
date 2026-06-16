@@ -1,11 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Caveat,
-  Montserrat,
-  Playfair_Display,
-  Noto_Sans_JP,
-  Shippori_Mincho,
-} from "next/font/google";
+import { Caveat, Montserrat, Playfair_Display, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import Header from "@/components/layouts/Header";
@@ -41,28 +35,24 @@ const caveat = Caveat({
 
 const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "400",
   variable: "--font-noto-sans-jp",
   display: "swap",
-  // メインの日本語フォント。約40分割スライスを critical path で
-  // 一斉プリロードすると帯域を食い潰し LCP を阻害するため preload は無効化し、
+  // メインの日本語フォント。約100分割の unicode-range スライスを 1ウェイトごとに
+  // 持つため、ウェイトを増やすほど @font-face CSS(レンダリングブロック)と
+  // 表示時に取得される woff2 本数が線形に増える。本文の太字は合成ボールドで
+  // 代替し、Web フォントは 400 の 1ウェイトのみに限定する。
+  // preload は無効化(一斉プリロードで帯域を食い潰し LCP を阻害するため)、
   // display: "swap" でフォールバック即時描画 → 到着後に差し替える。
   preload: false,
 });
 
-// 見出し用の日本語明朝。欧文 Playfair Display と組み合わせ、日本語見出しを
-// 全環境で同一の明朝体に統一する。本文同様、約40分割スライスの一斉プリロードを
-// 避けるため preload は無効化し display: "swap" で描画後に差し替える。
-// weight は 700 のみ。`.font-heading` の全使用箇所が font-bold / font-semibold
-// であることを確認済みで、500 を読み込むと @font-face CSS と woff2 が
-// 1ウェイト分(gzip 約33KB + フォント実体)丸ごと無駄になる。
-const shipporiMincho = Shippori_Mincho({
-  subsets: ["latin"],
-  weight: "700",
-  variable: "--font-shippori-mincho",
-  display: "swap",
-  preload: false,
-});
+// NOTE: 日本語見出しの明朝は Web フォント(Shippori Mincho)を配らず、OS 搭載の
+// 明朝(macOS/iOS: ヒラギノ明朝、Windows: 游明朝)を `.font-heading` のフォント
+// スタックで使う。日本語 Web フォント 1 ファミリーは unicode-range 約100スライスで
+// @font-face CSS だけで 94KB raw(≒30KB gzip)あり、レンダリングブロック CSS と
+// woff2 取得本数の最大級の要因になるため。Android は明朝が標準搭載されないため
+// 見出しは serif フォールバック(実質ゴシック)になる点は許容済み。
 
 export const metadata: Metadata = {
   title: {
@@ -129,7 +119,7 @@ export default function RootLayout({
     // Next.js のルート遷移時に無効化させるための宣言(コンソール警告対応)
     <html lang="ja" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
-        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} ${shipporiMincho.variable} antialiased`}
+        className={`${montserrat.variable} ${playfairDisplay.variable} ${caveat.variable} ${notoSansJp.variable} antialiased`}
       >
         {/* 第三者ドメインへのDNS事前解決（React 19 が <head> へホイストする）。
             スクリプトは lazyOnload で遅延読み込みするため preconnect は

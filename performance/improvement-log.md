@@ -129,3 +129,33 @@
 
 - デプロイ後 PSI: FCP/LCP/TBT/SI(基準: 2026-06-10 の FCP 7.7s / LCP 10.7s / TBT 770ms / SI 9.9s)
 - AdSense 再審査前に docs/adsense-cleanup の A1記事28件の対応判断
+
+## 2026-06-16 日本語フォント大幅削減(レンダリングブロックCSS / woff2 本数)
+
+### 背景(PSI 指摘)
+
+- レンダリングブロックCSS 推定削減 7,720ms、未使用CSS 88KiB(font CSS チャンク `16jn…`/`0y4l…`)、クリティカルチェーンに woff2 約50本。
+- ビルド実測で原因を確定: **全CSS(raw)の 50.5% が `@font-face`、そのうち 97% が日本語2ファミリー(Noto Sans JP / Shippori Mincho)**。欧文フォント(Playfair/Montserrat/Caveat 計約5KB)・アプリCSS(Tailwind 185KB, font-face ゼロ)・レガシーJS 13KB(browserslist 既に除外、core-js 同梱の依存由来)・GTM は削りどころ薄く対象外。日本語 Web フォントは 1 ファミリー1ウェイトでも unicode-range 約100スライスで `@font-face` だけ 94KB raw という構造的な重さ。
+
+### 変更内容
+
+- **Noto Sans JP**: `weight: ["400","700"]` → `"400"`(本文の太字は合成ボールド化)。
+- **Shippori Mincho を完全撤廃**: layout.tsx の定義・`--font-shippori-mincho` 変数・body className を削除。`.font-heading`(globals.css)を OS 明朝スタックへ: `var(--font-playfair-display), "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", "YuMincho", "Noto Serif JP", serif`。
+  - 見出しの明朝は iPhone/Mac=ヒラギノ明朝、Windows=游明朝で維持。**Android のみ serif フォールバック(実質ゴシック)になる点はユーザー承認済み**。post タイトルは動的でサブセット化不可のためこの方式を選択。
+
+### 計測結果(`NEXT_DIST_DIR=.next-perf` のローカル本番ビルド実測)
+
+|                                    | @font-face CSS(raw)   | woff2(ビルド全体)           |
+| ---------------------------------- | --------------------- | --------------------------- |
+| 開始時(Noto 400+700, Shippori 700) | 約289KB(JP3セット)    | 約381本 / 約10.8MB          |
+| Noto 700 削除後                    | 194,550 B(JP2セット)  | 259本 / 6.99MB              |
+| **Shippori 削除後(最終)**          | **約96KB(JP1セット)** | **137本 / 3.15MB(−3.84MB)** |
+
+- 全CSS raw: 384,931 B(Noto 700削除時)→ 290,277 B(Shippori削除後)。Shippori のフォントCSSチャンク(94KB raw / ≒30KB gzip)が**ビルドから丸ごと消滅**。PSI 名指しの `0y4l…css` が消える。
+- lint / typecheck パス。
+
+### 次に見ること
+
+- デプロイ後 PSI でレンダリングブロックCSS・未使用CSS・woff2 本数の改善を再計測。
+- 見た目確認: Android 実機での見出し(ゴシックフォールバック)と、Win/Mac/iOS での明朝表示。
+- さらに削るなら本文 Noto Sans JP 自体を OS フォント化する案もあるが、本文は全環境で確実なゴシックが必要なため現状維持が無難。
