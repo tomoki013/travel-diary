@@ -9,9 +9,9 @@ interface Props {
 
 const LineButton = ({ url, title }: Props) => {
   const shareOnLine = () => {
-    const text = encodeURIComponent(title);
-    const shareUrl = encodeURIComponent(url);
-    window.open(`https://social-plugins.line.me/lineit/share?url=${shareUrl}&text=${text}`);
+    // 新しい LINE 共有形式 (line.me/R/share)。旧 lineit/share は非推奨。
+    const text = encodeURIComponent(`${title}\n${url}`);
+    window.open(`https://line.me/R/share?text=${text}`);
   };
 
   return (
