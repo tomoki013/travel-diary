@@ -116,7 +116,9 @@ const Client = ({
         </div>
 
         <div className="mt-12 w-full">
-          <article className="max-w-none">{children}</article>
+          <article id="post-article-body" className="max-w-none">
+            {children}
+          </article>
         </div>
 
         {/* 記事終わり直後の共有セクション(自己紹介カードから独立) */}
@@ -267,15 +269,21 @@ const Client = ({
                 <div className="flex flex-wrap gap-6 pt-2">
                   <div className="flex items-center gap-2 text-xs text-stone-400">
                     <Calendar className="h-3.5 w-3.5" />
-                    Visited:{" "}
+                    訪問日:{" "}
                     <span className="font-bold text-stone-600 dark:text-stone-300">
-                      {post.travelDates?.start || post.publishedAt}
+                      {post.travelDates
+                        ? post.travelDates.end
+                          ? `${post.travelDates.start} - ${post.travelDates.end}`
+                          : post.travelDates.start
+                        : post.publishedAt}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-stone-400">
                     <CheckCircle className="h-3.5 w-3.5 text-teal-600" />
-                    Verified:{" "}
-                    <span className="font-bold text-stone-600 dark:text-stone-300">記事公開時</span>
+                    最終更新:{" "}
+                    <span className="font-bold text-stone-600 dark:text-stone-300">
+                      {post.updatedAt || post.publishedAt}
+                    </span>
                   </div>
                 </div>
               </div>

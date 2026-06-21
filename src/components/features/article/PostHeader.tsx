@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, MapPin } from "lucide-react";
-import { getDatePrefix } from "@/lib/dateFormat";
 import { PostMetadata } from "@/types/types";
 import { featuredSeries } from "@/data/series";
 import { getRegionPath, getValidRegionsBySlugs } from "@/lib/regionUtil";
@@ -112,17 +111,21 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
           </h1>
 
           <div className="mb-8 flex flex-col justify-between gap-4 border-y border-stone-200 py-4 text-sm font-medium text-stone-600 sm:flex-row sm:items-center dark:border-stone-800 dark:text-stone-400">
-            <div className="flex items-center gap-2">
-              <span className="text-xs tracking-widest uppercase opacity-80">
-                {getDatePrefix(post.category)}
-              </span>
-              <span className="font-code text-stone-900 dark:text-stone-300">
-                {post.travelDates
-                  ? post.travelDates.end
-                    ? `${post.travelDates.start} - ${post.travelDates.end}`
-                    : post.travelDates.start
-                  : post.publishedAt}
-              </span>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs tracking-widest uppercase opacity-80">公開日</span>
+                <span className="font-code text-stone-900 dark:text-stone-300">
+                  {post.publishedAt}
+                </span>
+              </div>
+              {post.updatedAt && (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs tracking-widest uppercase opacity-80">更新日</span>
+                  <span className="font-code text-stone-900 dark:text-stone-300">
+                    {post.updatedAt}
+                  </span>
+                </div>
+              )}
             </div>
 
             {regionTags.length > 0 && (

@@ -10,8 +10,6 @@ import {
   type ArticleHeading,
 } from "@/components/features/article/TableOfContent";
 
-const SCROLL_TRIGGER_OFFSET = 120;
-
 interface FloatingTableOfContentProps {
   headings?: ArticleHeading[];
   activeId?: string;
@@ -37,21 +35,29 @@ const FloatingTableOfContent = ({
 
   const activeId = propActiveId ?? localActiveId;
 
+  // 本文(記事 body)が読み取り領域に入っている間だけボタンを表示する。
+  // 本文に入る前(ヘッダー付近)と、本文を読み終えた後(共有/関連記事/フッター)は非表示。
   useEffect(() => {
-    const handleScroll = () => {
-      const shouldShow = window.scrollY > SCROLL_TRIGGER_OFFSET;
+    const target = document.getElementById("post-article-body");
+    if (!target) return;
 
-      setIsVisible(shouldShow);
-      if (!shouldShow) {
-        setIsOpen(false);
-      }
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const shouldShow = entry.isIntersecting;
+        setIsVisible(shouldShow);
+        if (!shouldShow) {
+          setIsOpen(false);
+        }
+      },
+      // 本文のごく端(最初の1行/最後の1行が画面端をかすめる瞬間)では出さず、
+      // しっかり読書領域に入ってから出す/抜けたら消すfor自然な出入り。
+      { rootMargin: "-72px 0px -72px 0px", threshold: 0 },
+    );
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    observer.observe(target);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
   }, []);
 
@@ -85,10 +91,10 @@ const FloatingTableOfContent = ({
             aria-expanded={isOpen}
             aria-controls="floating-table-of-content"
             className="fixed right-4 bottom-6 z-[70] inline-flex h-14 items-center gap-2 rounded-full border border-amber-200 bg-stone-950 px-5 text-sm font-bold text-amber-50 shadow-2xl ring-1 shadow-stone-950/20 ring-white/20 transition-colors hover:bg-stone-900 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none sm:right-6 dark:border-amber-500/30 dark:bg-amber-500 dark:text-stone-950 dark:hover:bg-amber-400"
-            initial={{ opacity: 0, y: 18, scale: 0.94 }}
+            initial={{ opacity: 0, y: 24, scale: 0.82 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 18, scale: 0.94 }}
-            transition={{ type: "spring", stiffness: 320, damping: 26 }}
+            exit={{ opacity: 0, y: 16, scale: 0.82 }}
+            transition={{ type: "spring", stiffness: 380, damping: 24, mass: 0.7 }}
             onClick={() => setIsOpen(true)}
           >
             <List className="h-5 w-5" strokeWidth={2.5} />

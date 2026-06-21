@@ -31,13 +31,25 @@ Post files use Markdown (.md/.mdx) with gray-matter frontmatter:
 
 ```yaml
 title: string
-dates: string[]
+publishedAt: string                       # 記事公開日 (YYYY-MM-DD)
+updatedAt?: string                        # 記事更新日 (YYYY-MM-DD) ※更新時のみ設定
+travelDates?: { start: string; end?: string }  # 訪問日 (旅行期間)
 category: "tourism" | "itinerary" | "series" | "one-off"
-series?: string        # Links posts into a series
-location?: string[]    # Region tags for destination filtering
+description?: string   # SEO/メタ用の説明
+excerpt?: string       # 一覧・導入文用の抜粋
 tags?: string[]
-journey?: string       # Links to journey data
+heroImage?: string     # アイキャッチ画像パス
+heroAlt?: string
+regionIds?: string[]   # Region tags for destination filtering
+author?: string
+series?: { slug: string; order?: number } # Links posts into a series
+journeyId?: string     # Links to journey data
+travelTopics?: ("money" | "visa" | "transport" | "booking" | "sim" | "insurance")[]
+draft?: boolean
+noindex?: boolean
 ```
+
+> **日付は3種を区別する**: `publishedAt`(公開日) / `updatedAt`(更新日) / `travelDates`(訪問日)。これらは別概念なので混同しないこと。UI では公開日・更新日を記事ヘッダーに、訪問日を記事末尾の自己紹介カードに表示する。
 
 **Post Loading**: `src/lib/markdown.ts` reads posts from configured directories. `src/lib/posts.ts` provides filtered/sorted access via React `cache()` functions.
 

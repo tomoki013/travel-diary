@@ -1,6 +1,6 @@
 {
   "name": "travel-diary",
-  "version": "4.7.0",
+  "version": "4.7.1",
   "private": true,
   "packageManager": "pnpm@10.27.0",
   "scripts": {
