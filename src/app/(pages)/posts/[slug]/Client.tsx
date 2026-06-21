@@ -18,7 +18,6 @@ import ShareButtons from "@/components/features/article/ShareButtons";
 import AffiliateCard from "@/components/common/AffiliateCard";
 import { affiliates } from "@/constants/affiliates";
 import CostBreakdown from "@/components/features/article/CostBreakdown";
-import dynamic from "next/dynamic";
 import { AlertCircle, Calendar, CheckCircle, Info, ArrowRight, ChevronRight } from "lucide-react";
 
 type ClientPost = Omit<Post, "content">;
@@ -35,13 +34,6 @@ interface ClientProps {
   previousSeriesPost?: { href: string; title: string };
   nextSeriesPost?: { href: string; title: string };
 }
-
-const GlobePromo = dynamic(() => import("@/components/features/promo/GlobePromo"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-64 animate-pulse rounded-[2.5rem] bg-stone-100 dark:bg-stone-900" />
-  ),
-});
 
 const Client = ({
   children,
@@ -110,10 +102,6 @@ const Client = ({
 
   const relevantEssentials = getRelevantEssentials();
 
-  // Use location data for map query params if available
-  const queryParams =
-    post.regionIds && post.regionIds.length > 0 ? { region: post.regionIds[0] } : undefined;
-
   return (
     <div className="relative">
       <FloatingTableOfContent headings={finalHeadings} activeId={activeId} />
@@ -129,6 +117,14 @@ const Client = ({
 
         <div className="mt-12 w-full">
           <article className="max-w-none">{children}</article>
+        </div>
+
+        {/* 記事終わり直後の共有セクション(自己紹介カードから独立) */}
+        <div className="mt-16 space-y-6 rounded-2xl border border-stone-200 bg-stone-50/30 p-6 sm:p-8 dark:border-stone-800 dark:bg-stone-900/40">
+          <h4 className="text-center text-xs font-bold tracking-widest text-stone-400 uppercase">
+            Share this journey
+          </h4>
+          <ShareButtons post={post} />
         </div>
 
         {(post.promotionPrograms?.length ?? 0) > 0 && (
@@ -204,11 +200,6 @@ const Client = ({
             </div>
           </div>
 
-          {/* Section 2: Globe Utility */}
-          <div className="overflow-hidden rounded-[2.5rem]">
-            <GlobePromo compact className="px-0 py-0" queryParams={queryParams} />
-          </div>
-
           {/* Section 3: Travel Essentials - Compacted */}
           {relevantEssentials.length > 0 && (
             <div className="space-y-10">
@@ -251,56 +242,43 @@ const Client = ({
             </div>
           )}
 
-          {/* Section 4: Post Script - Author, Share, and Meta Info */}
+          {/* Section 4: Post Script - Author and Meta Info */}
           <div className="rounded-[3rem] border border-stone-200 bg-stone-50/30 px-6 py-12 sm:px-12 dark:border-stone-800 dark:bg-[#0c0c0c]/50">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-7">
-                <div className="flex flex-col gap-8 md:flex-row md:items-start">
-                  <Image
-                    src={author?.image || "/favicon.ico"}
-                    alt={author?.name || "ともきち"}
-                    width={80}
-                    height={80}
-                    className="rounded-full grayscale transition-all hover:grayscale-0"
-                  />
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <span className="text-[10px] font-bold tracking-widest text-stone-400 uppercase">
-                        Written by
-                      </span>
-                      <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100">
-                        {author?.name}
-                      </h3>
-                    </div>
-                    <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
-                      {author?.description}
-                    </p>
-                    <div className="flex flex-wrap gap-6 pt-2">
-                      <div className="flex items-center gap-2 text-xs text-stone-400">
-                        <Calendar className="h-3.5 w-3.5" />
-                        Visited:{" "}
-                        <span className="font-bold text-stone-600 dark:text-stone-300">
-                          {post.travelDates?.start || post.publishedAt}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-stone-400">
-                        <CheckCircle className="h-3.5 w-3.5 text-teal-600" />
-                        Verified:{" "}
-                        <span className="font-bold text-stone-600 dark:text-stone-300">
-                          記事公開時
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+            <div className="flex flex-col gap-8 md:flex-row md:items-start">
+              <Image
+                src={author?.image || "/favicon.ico"}
+                alt={author?.name || "ともきち"}
+                width={80}
+                height={80}
+                className="rounded-full grayscale transition-all hover:grayscale-0"
+              />
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold tracking-widest text-stone-400 uppercase">
+                    Written by
+                  </span>
+                  <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100">
+                    {author?.name}
+                  </h3>
                 </div>
-              </div>
-
-              <div className="lg:col-span-5">
-                <div className="space-y-6 rounded-2xl bg-white/50 p-6 dark:bg-stone-900/40">
-                  <h4 className="text-center text-xs font-bold tracking-widest text-stone-400 uppercase">
-                    Share this journey
-                  </h4>
-                  <ShareButtons post={post} />
+                <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+                  {author?.description}
+                </p>
+                <div className="flex flex-wrap gap-6 pt-2">
+                  <div className="flex items-center gap-2 text-xs text-stone-400">
+                    <Calendar className="h-3.5 w-3.5" />
+                    Visited:{" "}
+                    <span className="font-bold text-stone-600 dark:text-stone-300">
+                      {post.travelDates?.start || post.publishedAt}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-stone-400">
+                    <CheckCircle className="h-3.5 w-3.5 text-teal-600" />
+                    Verified:{" "}
+                    <span className="font-bold text-stone-600 dark:text-stone-300">
+                      記事公開時
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
