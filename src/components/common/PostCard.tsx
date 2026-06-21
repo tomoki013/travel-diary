@@ -125,9 +125,7 @@ const PostCard = ({
           </div>
 
           <div
-            className={`flex flex-grow flex-col ${
-              isHorizontal ? "" : isCompact ? "mt-3" : "mt-4"
-            }`}
+            className={`flex flex-grow flex-col ${isHorizontal ? "" : isCompact ? "mt-3" : "mt-4"}`}
           >
             {discoveryNote && (
               <p
