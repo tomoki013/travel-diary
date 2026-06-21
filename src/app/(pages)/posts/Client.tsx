@@ -1,15 +1,22 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import { Reveal } from "@/components/common/Reveal";
-import { CustomSelect } from "@/components/common/CustomSelect";
 import { useSearchParams, useRouter } from "next/navigation";
 import HeroSection from "@/components/pages/HeroSection";
-import { articleCategories, travelTopicOptions } from "@/data/categories";
 import { SearchInput } from "@/components/common/SearchInput";
-import { BlogDiscoveryView } from "@/lib/post-discovery";
+import { FilterButton } from "@/components/features/search/FilterButton";
+import FilterModal from "@/components/features/search/FilterModal";
+import {
+  FilterValue,
+  LensKey,
+  SortKey,
+  countActiveFilters,
+  normalizeFilterValue,
+  sortOptions,
+} from "@/data/searchFilters";
 import { getRegionBySlug } from "@/lib/regionUtil";
 
 type PostMetadata = Omit<Post, "content">;
@@ -23,7 +30,8 @@ type DiscoveryPreset = {
     topic?: string;
     search?: string;
     region?: string;
-    view?: BlogDiscoveryView;
+    lens?: LensKey;
+    sort?: SortKey;
   };
 };
 
@@ -34,7 +42,6 @@ const PURPOSE_PRESETS: DiscoveryPreset[] = [
     kind: "purpose",
     query: {
       search: "初海外",
-      view: "recommended",
     },
   },
   {
@@ -45,7 +52,6 @@ const PURPOSE_PRESETS: DiscoveryPreset[] = [
       category: "tourism",
       topic: "transport",
       search: "空港",
-      view: "practical",
     },
   },
   {
@@ -55,7 +61,6 @@ const PURPOSE_PRESETS: DiscoveryPreset[] = [
     query: {
       category: "tourism",
       topic: "transport",
-      view: "practical",
     },
   },
   {
@@ -63,7 +68,7 @@ const PURPOSE_PRESETS: DiscoveryPreset[] = [
     label: "実用準備",
     kind: "purpose",
     query: {
-      view: "practical",
+      lens: "practical",
     },
   },
   {
@@ -72,7 +77,6 @@ const PURPOSE_PRESETS: DiscoveryPreset[] = [
     kind: "purpose",
     query: {
       category: "one-off",
-      view: "diary",
     },
   },
 ];
@@ -84,7 +88,6 @@ const CITY_PRESETS: DiscoveryPreset[] = [
     kind: "city",
     query: {
       region: "bangkok",
-      view: "recommended",
     },
   },
   {
@@ -93,7 +96,6 @@ const CITY_PRESETS: DiscoveryPreset[] = [
     kind: "city",
     query: {
       region: "kuala-lumpur",
-      view: "recommended",
     },
   },
   {
@@ -102,7 +104,6 @@ const CITY_PRESETS: DiscoveryPreset[] = [
     kind: "city",
     query: {
       region: "santorini",
-      view: "recommended",
     },
   },
 ];
@@ -112,7 +113,9 @@ interface BlogClientProps {
   totalPages: number;
   currentPage: number;
   totalPosts: number | null;
-  activeView: BlogDiscoveryView;
+  activeSort: SortKey;
+  activeLens: LensKey;
+  availableTags: string[];
 }
 
 const normalizeFilters = (category: string, topic: string) => {
@@ -129,12 +132,25 @@ const normalizeFilters = (category: string, topic: string) => {
   };
 };
 
+type DiscoveryState = {
+  page: number;
+  category: string;
+  topic: string;
+  search: string;
+  sort: SortKey;
+  lens: LensKey;
+  region: string;
+  tags: string[];
+};
+
 const normalizePresetQuery = (query: DiscoveryPreset["query"]) => ({
   category: query.category || "all",
   topic: query.topic || "all",
   search: query.search || "",
   region: query.region || "all",
-  view: query.view || "recommended",
+  lens: query.lens || ("all" as LensKey),
+  sort: query.sort || ("recommended" as SortKey),
+  tags: [] as string[],
 });
 
 const BlogClient = ({
@@ -142,16 +158,22 @@ const BlogClient = ({
   totalPages,
   currentPage,
   totalPosts,
-  activeView,
+  activeSort,
+  activeLens,
+  availableTags,
 }: BlogClientProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const rawCategoryParam = searchParams.get("category") || "all";
   const rawTopicParam = searchParams.get("topic") || "all";
   const searchParam = searchParams.get("search") || "";
-  const viewParam = (searchParams.get("view") as BlogDiscoveryView | null) || activeView;
   const regionParam = searchParams.get("region") || "all";
+  const tagsParam = (searchParams.get("tags") || "")
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
   const { category: categoryParam, topic: topicParam } = normalizeFilters(
     rawCategoryParam,
     rawTopicParam,
@@ -159,19 +181,24 @@ const BlogClient = ({
   const regionLabel =
     regionParam !== "all" ? getRegionBySlug(regionParam)?.name || regionParam : null;
 
-  const navigate = (
-    page: number,
-    category: string,
-    topic: string,
-    search: string,
-    view: BlogDiscoveryView,
-    region: string,
-  ) => {
-    const normalized = normalizeFilters(category, topic);
+  const currentState: DiscoveryState = {
+    page: currentPage,
+    category: categoryParam,
+    topic: topicParam,
+    search: searchParam,
+    sort: activeSort,
+    lens: activeLens,
+    region: regionParam,
+    tags: tagsParam,
+  };
+
+  const navigate = (next: Partial<DiscoveryState>) => {
+    const state: DiscoveryState = { ...currentState, page: 1, ...next };
+    const normalized = normalizeFilters(state.category, state.topic);
     const params = new URLSearchParams();
-    params.set("page", String(page));
-    if (view !== "recommended") {
-      params.set("view", view);
+    params.set("page", String(state.page));
+    if (state.sort !== "recommended") {
+      params.set("sort", state.sort);
     }
     if (normalized.category !== "all") {
       params.set("category", normalized.category);
@@ -179,11 +206,17 @@ const BlogClient = ({
     if (normalized.topic !== "all") {
       params.set("topic", normalized.topic);
     }
-    if (region !== "all") {
-      params.set("region", region);
+    if (state.lens !== "all") {
+      params.set("lens", state.lens);
     }
-    if (search) {
-      params.set("search", search);
+    if (state.region !== "all") {
+      params.set("region", state.region);
+    }
+    if (state.tags.length > 0) {
+      params.set("tags", state.tags.join(","));
+    }
+    if (state.search) {
+      params.set("search", state.search);
     }
     router.push(`?${params.toString()}`);
   };
@@ -198,66 +231,66 @@ const BlogClient = ({
   };
 
   const handleSearch = (query: string) => {
-    navigate(1, categoryParam, topicParam, query, viewParam, regionParam);
+    navigate({ search: query });
   };
 
   const handleResetSearch = () => {
-    navigate(1, categoryParam, topicParam, "", viewParam, regionParam);
+    navigate({ search: "" });
   };
 
-  const handleCategoryChange = (slug: string) => {
-    const nextTopic = slug === "tourism" ? topicParam : "all";
-    navigate(1, slug, nextTopic, searchParam, viewParam, regionParam);
+  const handleSortChange = (sort: SortKey) => {
+    navigate({ sort });
   };
 
-  const handleTopicChange = (slug: string) => {
-    navigate(1, categoryParam, slug, searchParam, viewParam, regionParam);
-  };
-
-  const handleViewChange = (view: BlogDiscoveryView) => {
-    navigate(1, categoryParam, topicParam, searchParam, view, regionParam);
+  const handleApplyFilter = (value: FilterValue) => {
+    const normalized = normalizeFilterValue(value);
+    navigate({
+      category: normalized.category,
+      topic: normalized.topic,
+      lens: normalized.lens,
+      tags: normalized.tags,
+    });
   };
 
   const handlePresetSelect = (preset: DiscoveryPreset) => {
     const normalized = normalizePresetQuery(preset.query);
-    navigate(
-      1,
-      normalized.category,
-      normalized.topic,
-      normalized.search,
-      normalized.view,
-      normalized.region,
-    );
+    navigate({
+      category: normalized.category,
+      topic: normalized.topic,
+      search: normalized.search,
+      region: normalized.region,
+      lens: normalized.lens,
+      sort: normalized.sort,
+      tags: normalized.tags,
+    });
   };
 
   const handleClearAll = () => {
-    navigate(1, "all", "all", "", "recommended", "all");
+    navigate({
+      category: "all",
+      topic: "all",
+      search: "",
+      region: "all",
+      lens: "all",
+      sort: "recommended",
+      tags: [],
+    });
+  };
+
+  const handleClearRegion = () => {
+    navigate({ region: "all" });
   };
 
   const handlePageChange = (page: number) => {
-    navigate(page, categoryParam, topicParam, searchParam, viewParam, regionParam);
+    navigate({ page });
   };
 
   const handlePrev = () => {
-    navigate(
-      Math.max(1, currentPage - 1),
-      categoryParam,
-      topicParam,
-      searchParam,
-      viewParam,
-      regionParam,
-    );
+    navigate({ page: Math.max(1, currentPage - 1) });
   };
 
   const handleNext = () => {
-    navigate(
-      Math.min(totalPages, currentPage + 1),
-      categoryParam,
-      topicParam,
-      searchParam,
-      viewParam,
-      regionParam,
-    );
+    navigate({ page: Math.min(totalPages, currentPage + 1) });
   };
 
   useEffect(() => {
@@ -285,22 +318,25 @@ const BlogClient = ({
     return pages;
   }, [totalPages, currentPage]);
 
-  const current = {
+  const currentFilter: FilterValue = {
     category: categoryParam,
     topic: topicParam,
-    search: searchParam,
-    region: regionParam,
-    view: viewParam,
+    lens: activeLens,
+    tags: tagsParam,
   };
+
+  const activeFilterCount = countActiveFilters(currentFilter);
 
   const activePreset = [...PURPOSE_PRESETS, ...CITY_PRESETS].find((preset) => {
     const normalized = normalizePresetQuery(preset.query);
     return (
-      normalized.category === current.category &&
-      normalized.topic === current.topic &&
-      normalized.search === current.search &&
-      normalized.region === current.region &&
-      normalized.view === current.view
+      normalized.category === currentState.category &&
+      normalized.topic === currentState.topic &&
+      normalized.search === currentState.search &&
+      normalized.region === currentState.region &&
+      normalized.lens === currentState.lens &&
+      normalized.sort === currentState.sort &&
+      currentState.tags.length === 0
     );
   });
 
@@ -320,31 +356,11 @@ const BlogClient = ({
     categoryParam !== "all" ||
     topicParam !== "all" ||
     regionParam !== "all" ||
-    viewParam !== "recommended";
+    activeLens !== "all" ||
+    tagsParam.length > 0 ||
+    activeSort !== "recommended";
 
   const searchPlaceholder = "キーワードで探す...";
-
-  const viewTabs: Array<{
-    value: BlogDiscoveryView;
-    label: string;
-  }> = [
-    {
-      value: "recommended",
-      label: "おすすめ",
-    },
-    {
-      value: "new",
-      label: "新着",
-    },
-    {
-      value: "practical",
-      label: "実用情報",
-    },
-    {
-      value: "diary",
-      label: "旅行記",
-    },
-  ];
 
   return (
     <div>
@@ -364,7 +380,7 @@ const BlogClient = ({
             <div className="text-center md:text-left">
               <h2 className="text-foreground text-2xl font-bold tracking-tight">記事を探す</h2>
               <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                キーワードやタグ、カテゴリから読みたい記事だけを絞り込めます。
+                キーワードで探すか、絞り込みからカテゴリ・タグを指定できます。
               </p>
             </div>
 
@@ -405,63 +421,15 @@ const BlogClient = ({
               </div>
             </div>
 
-            <div className="border-border/50 bg-background/70 rounded-2xl border p-5 backdrop-blur-sm">
-              <div className="mb-4 flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-muted-foreground"
-                >
-                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                </svg>
-                <h3 className="text-foreground text-sm font-semibold">絞り込み</h3>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <CustomSelect
-                  options={articleCategories}
-                  value={categoryParam}
-                  onChange={handleCategoryChange}
-                  labelPrefix="記事カテゴリ"
+            {/* 絞り込み・件数 */}
+            <div className="flex flex-col gap-4 pt-2">
+              <div className="flex flex-wrap items-center gap-3">
+                <FilterButton
+                  onClick={() => setIsFilterOpen(true)}
+                  activeCount={activeFilterCount}
                 />
-                <CustomSelect
-                  options={travelTopicOptions}
-                  value={topicParam}
-                  onChange={handleTopicChange}
-                  labelPrefix="実用ラベル"
-                />
-              </div>
-              {regionLabel && (
-                <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  「{regionLabel}」の記事に絞り込み中
-                </p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-5 pt-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-4 text-sm font-medium">
                 {totalPosts !== null && (
-                  <span className="border-border/50 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-1 shadow-sm">
+                  <span className="border-border/50 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium shadow-sm">
                     該当件数:{" "}
                     <span className="font-bold text-amber-600 dark:text-amber-400">
                       {totalPosts}件
@@ -471,7 +439,7 @@ const BlogClient = ({
                 {hasRefinements && (
                   <button
                     onClick={handleClearAll}
-                    className="text-muted-foreground flex items-center gap-1.5 transition hover:text-red-500"
+                    className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -487,10 +455,33 @@ const BlogClient = ({
                       <path d="M18 6 6 18" />
                       <path d="m6 6 12 12" />
                     </svg>
-                    クリア
+                    すべてクリア
                   </button>
                 )}
               </div>
+
+              {regionLabel && (
+                <button
+                  onClick={handleClearRegion}
+                  className="inline-flex w-fit items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 transition hover:bg-sky-100 dark:bg-sky-950/30 dark:text-sky-300"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  「{regionLabel}」で絞り込み中 ✕
+                </button>
+              )}
             </div>
           </div>
         </section>
@@ -504,12 +495,12 @@ const BlogClient = ({
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {viewTabs.map((tab) => {
-                const isActive = tab.value === viewParam;
+              {sortOptions.map((tab) => {
+                const isActive = tab.value === activeSort;
                 return (
                   <button
                     key={tab.value}
-                    onClick={() => handleViewChange(tab.value)}
+                    onClick={() => handleSortChange(tab.value)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 ${
                       isActive
                         ? "bg-stone-900 text-stone-50 shadow-sm dark:bg-stone-100 dark:text-stone-900"
@@ -530,7 +521,7 @@ const BlogClient = ({
 
         {posts.length > 0 ? (
           <section
-            key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}-${viewParam}-${regionParam}`}
+            key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}-${activeSort}-${activeLens}-${regionParam}-${tagsParam.join("_")}`}
             className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
           >
             {posts.map((post) =>
@@ -551,7 +542,7 @@ const BlogClient = ({
           <div className="bg-card rounded-2xl border px-6 py-16 text-center">
             <p className="text-foreground text-xl">該当する記事が見つかりませんでした。</p>
             <p className="text-muted-foreground mt-2 text-sm">
-              検索条件またはカテゴリ・ラベルを変更してお試しください。
+              検索条件または絞り込みを変更してお試しください。
             </p>
           </div>
         )}
@@ -590,6 +581,14 @@ const BlogClient = ({
           </section>
         )}
       </div>
+
+      <FilterModal
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        value={currentFilter}
+        onApply={handleApplyFilter}
+        availableTags={availableTags}
+      />
     </div>
   );
 };
