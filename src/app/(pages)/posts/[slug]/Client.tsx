@@ -275,9 +275,7 @@ const Client = ({
                   <div className="flex items-center gap-2 text-xs text-stone-400">
                     <CheckCircle className="h-3.5 w-3.5 text-teal-600" />
                     Verified:{" "}
-                    <span className="font-bold text-stone-600 dark:text-stone-300">
-                      記事公開時
-                    </span>
+                    <span className="font-bold text-stone-600 dark:text-stone-300">記事公開時</span>
                   </div>
                 </div>
               </div>
