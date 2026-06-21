@@ -114,6 +114,13 @@ Core types defined in `src/types/types.ts`:
 
 - `@/` maps to `src/`
 
+## Versioning & Releases
+
+- Follow `docs/versioning-release.md` (source of truth) for SemVer, release steps, the changelog, and the public update history.
+- When shipping a user-visible change, keep `package.json` `version`, `CHANGELOG.md`, and the public update history in `src/components/features/roadmap/UpdateList.tsx` consistent.
+- Never delete a feature from the update history. Mark removed features with `removed: true` / `removedNote` so the UI shows them as discontinued (e.g. Generative UI, Focus Mode, PWA offline).
+- Keep the public roadmap (`src/data/roadmap.tsx`) statuses aligned with reality; only one `CURRENT_TARGET` at a time.
+
 ## Documentation Maintenance
 
 - Shared development and operations docs live in `docs/`. Treat them as the source of truth for repository workflow and structure.

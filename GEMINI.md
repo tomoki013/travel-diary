@@ -29,6 +29,13 @@ The following rules are foundational for all blog post creation, editing, and fo
 
 - When tasked with "cleaning up" or "writing" a blog post, Gemini must first read the rules in `draft-posts/rules/` to ensure full compliance.
 
+## Versioning & Releases
+
+- Follow `docs/versioning-release.md` (source of truth) for SemVer, releases, the changelog, and the public update history.
+- When shipping a user-visible change, keep `package.json` `version`, `CHANGELOG.md`, and `src/components/features/roadmap/UpdateList.tsx` consistent.
+- Never delete a feature from the update history; mark removed features with `removed: true` / `removedNote` so the UI shows them as discontinued.
+- Keep `src/data/roadmap.tsx` statuses aligned with reality (only one `CURRENT_TARGET`).
+
 ## Documentation Maintenance
 
 - Shared development and operations docs live in `docs/` and are the source of truth for repository workflow and structure.
