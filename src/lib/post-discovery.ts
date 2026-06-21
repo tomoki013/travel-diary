@@ -1,10 +1,9 @@
 import { getRegionPath } from "./regionUtil";
 import { Post, TravelTopic } from "@/types/types";
 import { inferRevenueCategory } from "./revenue";
+import type { LensKey, SortKey } from "@/data/searchFilters";
 
 type PostMetadata = Omit<Post, "content">;
-
-export type BlogDiscoveryView = "recommended" | "new" | "practical" | "diary";
 
 const ENTRY_TOPIC_SCORES: Record<TravelTopic, number> = {
   transport: 26,
@@ -91,6 +90,11 @@ const sortByDateDesc = (posts: PostMetadata[]) =>
     (left, right) => getTimestamp(right.publishedAt) - getTimestamp(left.publishedAt),
   );
 
+const sortByDateAsc = (posts: PostMetadata[]) =>
+  [...posts].sort(
+    (left, right) => getTimestamp(left.publishedAt) - getTimestamp(right.publishedAt),
+  );
+
 export const getRecommendedPosts = (posts: PostMetadata[]) =>
   [...posts].sort((left, right) => {
     const scoreDiff = getPostEntryScore(right) - getPostEntryScore(left);
@@ -144,14 +148,36 @@ export const getHomepageEntryPosts = (posts: PostMetadata[], limit: number = 4) 
   return takeDiversePosts(getRecommendedPosts(candidates), limit);
 };
 
-export const getPostsForView = (posts: PostMetadata[], view: BlogDiscoveryView) => {
-  switch (view) {
+/** 旅行記（シリーズ・旅程）に該当するか。lens=diary の絞り込みに使う。 */
+export const isDiaryPost = (post: PostMetadata) => DIARY_CATEGORIES.has(post.category);
+
+/**
+ * 記事タイプ（lens）で絞り込む。表示する記事の取捨選択のみを行い、並び順は変えない。
+ */
+export const filterByLens = (posts: PostMetadata[], lens: LensKey) => {
+  switch (lens) {
     case "practical":
-      return getRecommendedPosts(posts.filter(isPracticalPost));
+      return posts.filter(isPracticalPost);
     case "diary":
-      return sortByDateDesc(posts.filter((post) => DIARY_CATEGORIES.has(post.category)));
+      return posts.filter(isDiaryPost);
+    case "all":
+    default:
+      return posts;
+  }
+};
+
+/**
+ * 並び替え（sort）。表示順だけを切り替える。
+ * - recommended: スコアによるおすすめ順
+ * - new: 新しい順
+ * - old: 古い順
+ */
+export const getSortedPosts = (posts: PostMetadata[], sort: SortKey) => {
+  switch (sort) {
     case "new":
       return sortByDateDesc(posts);
+    case "old":
+      return sortByDateAsc(posts);
     case "recommended":
     default:
       return getRecommendedPosts(posts);

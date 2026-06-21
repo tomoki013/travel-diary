@@ -5,7 +5,9 @@ import { LoadingAnimation } from "@/components/features/LoadingAnimation/Loading
 import { POSTS_PER_PAGE } from "@/constants/constants";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { TravelTopic } from "@/types/types";
-import { BlogDiscoveryView, getPostsForView } from "@/lib/post-discovery";
+import { filterByLens, getSortedPosts } from "@/lib/post-discovery";
+import { filterByTag } from "@/lib/post-filters";
+import { FILTERABLE_TAGS, LensKey, SortKey, isLensKey, isSortKey } from "@/data/searchFilters";
 import { getRegionAndDescendantSlugs } from "@/lib/regionUtil";
 import { createPageMetadata } from "@/lib/page-metadata";
 
@@ -33,8 +35,31 @@ const normalizeFilters = (
   };
 };
 
-const isDiscoveryView = (value: string): value is BlogDiscoveryView =>
-  value === "recommended" || value === "new" || value === "practical" || value === "diary";
+/**
+ * 並び替え（sort）と記事タイプ（lens）を解決する。
+ * 旧 `view` パラメータ（recommended/new/practical/diary）からのリンクも壊れないようマップする。
+ */
+const resolveSortAndLens = (
+  rawSort: string | undefined,
+  rawLens: string | undefined,
+  rawView: string | undefined,
+): { sort: SortKey; lens: LensKey } => {
+  let sort: SortKey = rawSort && isSortKey(rawSort) ? rawSort : "recommended";
+  let lens: LensKey = rawLens && isLensKey(rawLens) ? rawLens : "all";
+
+  // 後方互換: 旧 view パラメータを sort / lens に振り分ける
+  if (!rawSort && !rawLens && rawView) {
+    if (rawView === "new") {
+      sort = "new";
+    } else if (rawView === "practical") {
+      lens = "practical";
+    } else if (rawView === "diary") {
+      lens = "diary";
+    }
+  }
+
+  return { sort, lens };
+};
 
 const PostsPage = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -46,9 +71,19 @@ const PostsPage = async (props: {
   const { category, topic } = normalizeFilters(rawCategory, rawTopic);
   const page = typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
   const searchQuery = typeof searchParams.search === "string" ? searchParams.search : "";
-  const rawView = typeof searchParams.view === "string" ? searchParams.view : "recommended";
-  const view = isDiscoveryView(rawView) ? rawView : "recommended";
+  const { sort, lens } = resolveSortAndLens(
+    typeof searchParams.sort === "string" ? searchParams.sort : undefined,
+    typeof searchParams.lens === "string" ? searchParams.lens : undefined,
+    typeof searchParams.view === "string" ? searchParams.view : undefined,
+  );
   const region = typeof searchParams.region === "string" ? searchParams.region : "all";
+  const tags =
+    typeof searchParams.tags === "string"
+      ? searchParams.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean)
+      : [];
 
   const allPosts = await getAllPosts();
 
@@ -70,6 +105,14 @@ const PostsPage = async (props: {
     );
   }
 
+  if (lens !== "all") {
+    filteredPosts = filterByLens(filteredPosts, lens);
+  }
+
+  for (const tag of tags) {
+    filteredPosts = filterByTag(filteredPosts, tag);
+  }
+
   let processedPosts = filteredPosts;
 
   if (searchQuery) {
@@ -77,7 +120,7 @@ const PostsPage = async (props: {
     const scoredPosts = calculateScores(processedPosts, searchQuery);
     processedPosts = scoredPosts.sort((a, b) => b.score - a.score).map((item) => item.post);
   } else {
-    processedPosts = getPostsForView(processedPosts, view);
+    processedPosts = getSortedPosts(processedPosts, sort);
   }
 
   const totalPosts = processedPosts.length;
@@ -90,6 +133,11 @@ const PostsPage = async (props: {
 
   const displayTotalPosts = totalPosts;
 
+  // 維持基準を満たす厳選タグのうち、実際に記事に存在するものだけを候補にする
+  const availableTags = FILTERABLE_TAGS.filter((tag) =>
+    allPosts.some((post) => post.tags?.includes(tag)),
+  );
+
   return (
     <Suspense fallback={<LoadingAnimation variant="mapRoute" />}>
       <BlogClient
@@ -97,7 +145,9 @@ const PostsPage = async (props: {
         totalPages={totalPages}
         currentPage={safePage}
         totalPosts={displayTotalPosts}
-        activeView={view}
+        activeSort={sort}
+        activeLens={lens}
+        availableTags={availableTags}
       />
     </Suspense>
   );

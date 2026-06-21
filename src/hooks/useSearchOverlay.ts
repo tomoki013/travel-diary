@@ -2,7 +2,12 @@ import { useState, useEffect, useCallback, KeyboardEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "./useDebounce";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
-import { TravelTopic } from "@/types/types";
+import {
+  EMPTY_FILTER,
+  FilterValue,
+  countActiveFilters,
+  normalizeFilterValue,
+} from "@/data/searchFilters";
 
 type Suggestion = {
   title: string;
@@ -18,91 +23,75 @@ interface UseSearchOverlayProps {
   onClose: () => void;
 }
 
-const normalizeFilters = (
-  category: string | null,
-  topic: TravelTopic | null,
-): { category: string | null; topic: TravelTopic | null } => {
-  let nextCategory = category;
-  const nextTopic = topic;
-
-  if (nextTopic) {
-    nextCategory = "tourism";
+/** filter から /api/search 用のクエリ文字列を組み立てる（q は別途付与）。 */
+const buildFilterParams = (params: URLSearchParams, filter: FilterValue) => {
+  const normalized = normalizeFilterValue(filter);
+  if (normalized.category !== "all") {
+    params.append("category", normalized.category);
   }
-
-  return {
-    category: nextCategory,
-    topic: nextTopic,
-  };
+  if (normalized.topic !== "all") {
+    params.append("topic", normalized.topic);
+  }
+  if (normalized.lens !== "all") {
+    params.append("lens", normalized.lens);
+  }
+  if (normalized.tags.length > 0) {
+    params.append("tags", normalized.tags.join(","));
+  }
+  return normalized;
 };
 
 export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedTopic, setSelectedTopic] = useState<TravelTopic | null>(null);
+  const [filter, setFilter] = useState<FilterValue>(EMPTY_FILTER);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [totalResults, setTotalResults] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_CONFIG.DEBOUNCE_DELAY);
 
-  const fetchSuggestions = useCallback(
-    async (query: string, category: string | null, topic: TravelTopic | null) => {
-      const normalized = normalizeFilters(category, topic);
+  const hasActiveFilter = countActiveFilters(filter) > 0;
 
-      if (
-        query.length < SEARCH_CONFIG.MIN_QUERY_LENGTH &&
-        !normalized.category &&
-        !normalized.topic
-      ) {
-        setSuggestions([]);
-        setTotalResults(null);
-        return;
-      }
+  const fetchSuggestions = useCallback(async (query: string, currentFilter: FilterValue) => {
+    const activeFilter = countActiveFilters(currentFilter) > 0;
 
-      setIsLoading(true);
+    if (query.length < SEARCH_CONFIG.MIN_QUERY_LENGTH && !activeFilter) {
+      setSuggestions([]);
       setTotalResults(null);
+      return;
+    }
 
-      try {
-        const params = new URLSearchParams();
-        if (query) {
-          params.append("q", query);
-        }
-        if (normalized.category) {
-          params.append("category", normalized.category);
-        }
-        if (normalized.topic) {
-          params.append("topic", normalized.topic);
-        }
+    setIsLoading(true);
+    setTotalResults(null);
 
-        const response = await fetch(`/api/search?${params.toString()}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data: SearchApiResponse = await response.json();
-        setSuggestions(data.suggestions);
-        setTotalResults(data.total);
-      } catch (error) {
-        console.error("検索候補の取得に失敗しました:", error);
-        setSuggestions([]);
-        setTotalResults(0);
-      } finally {
-        setIsLoading(false);
+    try {
+      const params = new URLSearchParams();
+      if (query) {
+        params.append("q", query);
       }
-    },
-    [],
-  );
+      buildFilterParams(params, currentFilter);
+
+      const response = await fetch(`/api/search?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data: SearchApiResponse = await response.json();
+      setSuggestions(data.suggestions);
+      setTotalResults(data.total);
+    } catch (error) {
+      console.error("検索候補の取得に失敗しました:", error);
+      setSuggestions([]);
+      setTotalResults(0);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const normalized = normalizeFilters(selectedCategory, selectedTopic);
-
-    if (
-      debouncedSearchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH ||
-      normalized.category ||
-      normalized.topic
-    ) {
+    if (debouncedSearchTerm.length >= SEARCH_CONFIG.MIN_QUERY_LENGTH || hasActiveFilter) {
       const frameId = window.requestAnimationFrame(() => {
-        void fetchSuggestions(debouncedSearchTerm, normalized.category, normalized.topic);
+        void fetchSuggestions(debouncedSearchTerm, filter);
       });
 
       return () => window.cancelAnimationFrame(frameId);
@@ -114,13 +103,13 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
 
       return () => window.cancelAnimationFrame(frameId);
     }
-  }, [debouncedSearchTerm, selectedCategory, selectedTopic, fetchSuggestions]);
+  }, [debouncedSearchTerm, filter, hasActiveFilter, fetchSuggestions]);
 
   const executeSearch = useCallback(() => {
     const trimmedSearchTerm = searchTerm.trim();
-    const normalized = normalizeFilters(selectedCategory, selectedTopic);
+    const normalized = normalizeFilterValue(filter);
 
-    if (!trimmedSearchTerm && !normalized.category && !normalized.topic) {
+    if (!trimmedSearchTerm && countActiveFilters(normalized) === 0) {
       onClose();
       return;
     }
@@ -129,16 +118,11 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
     if (trimmedSearchTerm) {
       searchParams.append("search", trimmedSearchTerm);
     }
-    if (normalized.category) {
-      searchParams.append("category", normalized.category);
-    }
-    if (normalized.topic) {
-      searchParams.append("topic", normalized.topic);
-    }
+    buildFilterParams(searchParams, normalized);
 
     router.push(`/posts?${searchParams.toString()}`);
     onClose();
-  }, [searchTerm, selectedCategory, selectedTopic, router, onClose]);
+  }, [searchTerm, filter, router, onClose]);
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -149,39 +133,16 @@ export function useSearchOverlay({ onClose }: UseSearchOverlayProps) {
     [executeSearch],
   );
 
-  const toggleCategory = useCallback((category: string) => {
-    setSelectedCategory((prev) => {
-      const nextCategory = prev === category ? null : category;
-      setSelectedTopic((currentTopic) => {
-        if (nextCategory && nextCategory !== "tourism") {
-          return null;
-        }
-
-        const normalized = normalizeFilters(nextCategory, currentTopic);
-        return normalized.topic;
-      });
-      return nextCategory;
-    });
-  }, []);
-
-  const toggleTopic = useCallback((topic: TravelTopic) => {
-    setSelectedTopic((prev) => {
-      const nextTopic = prev === topic ? null : topic;
-      setSelectedCategory((currentCategory) => {
-        const normalized = normalizeFilters(currentCategory, nextTopic);
-        return normalized.category;
-      });
-      return nextTopic;
-    });
+  const applyFilter = useCallback((next: FilterValue) => {
+    setFilter(normalizeFilterValue(next));
   }, []);
 
   return {
     searchTerm,
     setSearchTerm,
-    selectedCategory,
-    selectedTopic,
-    toggleCategory,
-    toggleTopic,
+    filter,
+    applyFilter,
+    activeFilterCount: countActiveFilters(filter),
     suggestions,
     totalResults,
     isLoading,

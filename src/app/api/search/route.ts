@@ -3,6 +3,9 @@ import { getAllPosts } from "@/lib/post-metadata";
 import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
 import { TravelTopic } from "@/types/types";
+import { filterByLens } from "@/lib/post-discovery";
+import { filterByTag } from "@/lib/post-filters";
+import { isLensKey } from "@/data/searchFilters";
 
 export const revalidate = 3600; // 1 hour
 
@@ -11,8 +14,16 @@ export async function GET(request: Request) {
   const query = searchParams.get("q");
   const category = searchParams.get("category");
   const topic = searchParams.get("topic") as TravelTopic | null;
+  const rawLens = searchParams.get("lens");
+  const lens = rawLens && isLensKey(rawLens) ? rawLens : "all";
+  const tags = (searchParams.get("tags") || "")
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
 
-  if (!query && !category && !topic) {
+  const hasFilter = Boolean(category || topic || lens !== "all" || tags.length > 0);
+
+  if (!query && !hasFilter) {
     return NextResponse.json({ error: "Query or filter parameter is missing" }, { status: 400 });
   }
 
@@ -30,6 +41,14 @@ export async function GET(request: Request) {
 
     if (topic) {
       postsToSearch = postsToSearch.filter((post) => post.travelTopics?.includes(topic));
+    }
+
+    if (lens !== "all") {
+      postsToSearch = filterByLens(postsToSearch, lens);
+    }
+
+    for (const tag of tags) {
+      postsToSearch = filterByTag(postsToSearch, tag);
     }
 
     let finalPosts = postsToSearch;

@@ -38,7 +38,7 @@ const EntryPostsSection = ({ posts }: EntryPostsSectionProps) => {
       </RevealStagger>
 
       <div className="mt-12">
-        <Button href="/posts?view=recommended">おすすめ記事をもっと見る</Button>
+        <Button href="/posts">おすすめ記事をもっと見る</Button>
       </div>
     </Reveal>
   );

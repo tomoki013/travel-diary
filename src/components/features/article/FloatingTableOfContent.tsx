@@ -99,16 +99,19 @@ const FloatingTableOfContent = ({
 
       <AnimatePresence>
         {isOpen && (
-          <m.div
-            className="fixed inset-0 z-[80] flex items-end justify-center px-3 pb-3 sm:px-6 sm:pb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <button
+          // 親では opacity をアニメしない。opacity アニメで子の backdrop-filter を
+          // 巻き込むとブラーが最後に一気にかかるため。退場アニメは子要素側で行う。
+          <m.div className="fixed inset-0 z-[80] flex items-end justify-center px-3 pb-3 sm:px-6 sm:pb-6">
+            {/* 背景: パネルの開きに同期して、ブラーと暗転をじわっと効かせる */}
+            <m.button
               type="button"
               aria-label="目次を閉じる"
-              className="absolute inset-0 bg-stone-950/50 backdrop-blur-sm"
+              className="absolute inset-0"
+              style={{ WebkitBackdropFilter: "blur(0px)" }}
+              initial={{ backgroundColor: "rgba(12,10,9,0)", backdropFilter: "blur(0px)" }}
+              animate={{ backgroundColor: "rgba(12,10,9,0.5)", backdropFilter: "blur(8px)" }}
+              exit={{ backgroundColor: "rgba(12,10,9,0)", backdropFilter: "blur(0px)" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               onClick={() => setIsOpen(false)}
             />
             <m.div
