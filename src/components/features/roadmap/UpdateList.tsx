@@ -41,13 +41,21 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 // 並びは新しい順。package.json の version と先頭エントリを一致させること。
 const UPDATES: UpdateItem[] = [
   {
+    date: "2026.06.22",
+    version: "v4.7.1",
+    title: "記事の日付表示をわかりやすく整理",
+    content:
+      "記事ページで「訪問日・公開日・更新日」を区別して表示するようにしました。記事の上部に公開日と更新日（ある場合）、記事末尾に旅の訪問日を載せています。",
+    type: "patch",
+    isNew: true,
+  },
+  {
     date: "2026.06.21",
     version: "v4.7.0",
     title: "記事の絞り込みと並び替えを刷新",
     content:
       "「絞り込み」ボタンからカテゴリ・タグ・記事タイプをまとめて指定できるようにし、並び替えはおすすめ・新しい順・古い順から選べるようにしました。",
     type: "feature",
-    isNew: true,
   },
   {
     date: "2026.06.16",
