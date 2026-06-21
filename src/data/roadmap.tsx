@@ -72,7 +72,7 @@ export const ROADMAP_DATA: RoadmapItem[] = [
     title: "知能と視覚：AI & Globe",
     description:
       "AI旅行プランナー（Beta）と3D地球儀「Tomokichi Globe」をリリース。サイトの健康状態を示すステータスページも公開し、信頼性を高めました。",
-    status: "DEPLOYED",
+    status: "COMPLETED",
     icon: <Globe className="h-6 w-6" />,
   },
   {
@@ -81,7 +81,7 @@ export const ROADMAP_DATA: RoadmapItem[] = [
     title: "自動操縦：AI Autopilot",
     description:
       "サイト運営の一部にAIを本格導入。最新情報の更新やデータ管理をAIがサポートすることで、クリエイティブな発信により注力できる体制へ。",
-    status: "CURRENT_TARGET",
+    status: "DEPLOYED",
     icon: <Cpu className="h-6 w-6" />,
   },
   {
@@ -90,7 +90,7 @@ export const ROADMAP_DATA: RoadmapItem[] = [
     title: "共創の広場：Co-Creation",
     description:
       "記事テーマの公募やQ&Aセッションを本格始動。「ユーザーと共に作り上げるメディア」として、双方向のコミュニティを形成します。",
-    status: "PENDING",
+    status: "CURRENT_TARGET",
     icon: <Users className="h-6 w-6" />,
   },
   {
@@ -99,7 +99,7 @@ export const ROADMAP_DATA: RoadmapItem[] = [
     title: "境界なき旅：Partnership Voyage",
     description:
       "旅行会社やクリエイターとのコラボ企画を実施。一部記事の多言語化も開始し、世界中の旅人とワクワクを共有するステージへ。",
-    status: "CONCEPT",
+    status: "PENDING",
     icon: <Share2 className="h-6 w-6" />,
   },
   {

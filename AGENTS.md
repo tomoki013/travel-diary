@@ -28,6 +28,13 @@ All AI agents MUST adhere to the following rules for blog post creation, editing
 - **Build Step:** Prebuild scripts generate caches from posts.
 - **Regions:** Valid locations must be defined in `src/data/region.ts`.
 
+## Versioning & Releases
+
+- Versioning, release steps, the changelog, and the public update history follow `docs/versioning-release.md` (source of truth). Versions use SemVer.
+- When shipping a user-visible change, keep `package.json` `version`, `CHANGELOG.md`, and the public update history in `src/components/features/roadmap/UpdateList.tsx` consistent.
+- Never delete a feature from the update history. Mark a removed feature with `removed: true` / `removedNote` so the UI shows it as discontinued (例: Generative UI, Focus Mode, PWA offline).
+- Keep the public roadmap (`src/data/roadmap.tsx`) statuses aligned with reality (only one `CURRENT_TARGET`).
+
 ## Documentation Maintenance
 
 - Development and operations docs live under `docs/` and are the source of truth for shared workflow and repository structure.

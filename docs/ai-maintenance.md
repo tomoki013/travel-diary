@@ -16,3 +16,6 @@
 - 記事編集時: `draft-posts/rules/` と `docs/content-operations.md`
 - 構造変更時: `docs/architecture.md` と `docs/page-map.md`
 - 運用変更時: `docs/development-workflow.md` とこのファイル
+- バージョン・リリース・公開更新履歴・ロードマップ変更時: `docs/versioning-release.md`
+  - 利用者から見える変更を出すときは `package.json` のバージョン、`CHANGELOG.md`、`UpdateList.tsx` を整合させる。
+  - 一度公開して削除した機能は履歴から消さず、`removed` 指定で「提供終了」と分かるようにする。

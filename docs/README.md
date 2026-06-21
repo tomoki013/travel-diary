@@ -8,6 +8,7 @@
 - `development-workflow.md`: セットアップ、主要コマンド、日常の開発手順
 - `content-operations.md`: 記事・下書き・frontmatter・ビルド前生成の運用
 - `page-map.md`: 主要ページの役割と、どの導線に責任を持つか
+- `versioning-release.md`: バージョニング（SemVer）、リリース手順、CHANGELOG / 公開更新履歴・ロードマップの更新ルール
 - `ai-maintenance.md`: AI 向けルール、同期対象、更新義務
 
 ## 運用ルール
