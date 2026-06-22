@@ -9,9 +9,6 @@
   align-items: center;
   justify-content: center;
   background-color: var(--background);
-  /* 地図のようなドットグリッド（テーマ追従・控えめ） */
-  background-image: radial-gradient(var(--border) 1px, transparent 1px);
-  background-size: 28px 28px;
   transition:
     transform 1s cubic-bezier(0.76, 0, 0.24, 1),
     border-radius 1s cubic-bezier(0.76, 0, 0.24, 1);

@@ -619,33 +619,33 @@ const BlogClient = ({
                 </span>
               )}
             </div>
-            <SortControl value={view.sort} onChange={handleSortChange} />
-          </div>
-
-          {hasRefinements && (
-            <div className="mt-2 flex justify-end">
-              <button
-                onClick={handleClearAll}
-                className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            {/* 並び替えは右端に固定。「すべてクリア」は同じ行の左隣に出す（並び替えは動かない）。 */}
+            <div className="flex w-full items-center justify-end gap-3 sm:w-auto">
+              {hasRefinements && (
+                <button
+                  onClick={handleClearAll}
+                  className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
                 >
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </svg>
-                すべてクリア
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                  すべてクリア
+                </button>
+              )}
+              <SortControl value={view.sort} onChange={handleSortChange} />
             </div>
-          )}
+          </div>
         </div>
 
         {isPending ? (
