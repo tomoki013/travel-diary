@@ -232,6 +232,19 @@ const SortControl = ({
   </div>
 );
 
+/** 記事カード（compact）のスケルトン。条件変更中の結果待ちに表示する。 */
+const PostCardSkeleton = () => (
+  <div className="border-border/70 bg-card rounded-2xl border p-4 shadow-sm">
+    <div className="bg-muted aspect-[16/9] w-full animate-pulse rounded-xl" />
+    <div className="mt-3 space-y-2">
+      <div className="bg-muted h-3 w-1/3 animate-pulse rounded" />
+      <div className="bg-muted h-4 w-5/6 animate-pulse rounded" />
+      <div className="bg-muted h-4 w-2/3 animate-pulse rounded" />
+      <div className="bg-muted mt-1 h-3 w-1/2 animate-pulse rounded" />
+    </div>
+  </div>
+);
+
 const BlogClient = ({
   posts,
   totalPages,
@@ -449,6 +462,9 @@ const BlogClient = ({
 
   const searchPlaceholder = "キーワードで探す...";
 
+  // スケルトンの枚数は、いま表示している件数に合わせる（無ければ控えめに 6 枚）。
+  const skeletonCount = posts.length > 0 ? posts.length : 6;
+
   const renderPreset = (preset: DiscoveryPreset, Icon: typeof Compass) => {
     const isActive = activePreset?.id === preset.id;
     return (
@@ -628,14 +644,21 @@ const BlogClient = ({
           </div>
         </div>
 
-        {posts.length > 0 ? (
+        {isPending ? (
+          // 条件変更中はスケルトンを表示（薄色化ではなく読み込み中だと分かるように）
+          <section
+            aria-busy
+            className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
+            aria-label="読み込み中"
+          >
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <PostCardSkeleton key={i} />
+            ))}
+          </section>
+        ) : posts.length > 0 ? (
           <section
             key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}-${activeSort}-${activeLens}-${regionParam}-${tagsParam.join("_")}`}
-            aria-busy={isPending}
-            className={cn(
-              "mb-12 grid gap-5 transition-opacity duration-200 md:grid-cols-2 md:gap-6",
-              isPending && "pointer-events-none opacity-50",
-            )}
+            className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
           >
             {posts.map((post) =>
               currentPage === 1 ? (

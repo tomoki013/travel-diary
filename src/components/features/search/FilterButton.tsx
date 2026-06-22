@@ -31,7 +31,7 @@ export const FilterButton = ({
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-md border px-4 py-2 text-sm font-semibold shadow-sm transition-colors",
         isProminent
-          ? "border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-500/50 dark:bg-amber-950/30 dark:text-amber-300 dark:hover:bg-amber-950/50"
+          ? "border-stone-900 bg-stone-900 text-white hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
           : "border-border/60 bg-background text-foreground hover:border-amber-400",
         className,
       )}
