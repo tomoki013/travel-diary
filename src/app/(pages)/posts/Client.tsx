@@ -507,23 +507,25 @@ const BlogClient = ({
               </p>
             </div>
 
-            {/* 検索バー + 絞り込み（絞り込みは検索の真横に置いて見つけやすく） */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="flex-grow">
-                <SearchInput
-                  initialValue={searchParam}
-                  placeholder={searchPlaceholder}
-                  maxLength={SEARCH_QUERY_MAX_LENGTH}
-                  onSearch={handleSearch}
-                  onReset={handleResetSearch}
-                />
-              </div>
-              <FilterButton
-                variant="prominent"
-                onClick={() => setIsFilterOpen(true)}
-                activeCount={activeFilterCount}
-                className="shrink-0"
+            {/* 検索バー＋詳しく絞り込む（絞り込みは独立した行に置いて役割を明確にする） */}
+            <div className="space-y-3">
+              <SearchInput
+                initialValue={searchParam}
+                placeholder={searchPlaceholder}
+                maxLength={SEARCH_QUERY_MAX_LENGTH}
+                onSearch={handleSearch}
+                onReset={handleResetSearch}
               />
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <FilterButton
+                  variant="prominent"
+                  onClick={() => setIsFilterOpen(true)}
+                  activeCount={activeFilterCount}
+                />
+                <span className="text-muted-foreground text-sm">
+                  カテゴリ・タグ・記事タイプで詳しく絞り込む
+                </span>
+              </div>
             </div>
 
             {/* 人気のタグ（絞り込みのタグと連動） */}
@@ -601,24 +603,27 @@ const BlogClient = ({
           </div>
         </section>
 
-        {/* 結果ヘッダー（ツールバー）：見出し＋件数（左） / クリア＋並び替え（右）。
-            条件変更時はここの先頭へスクロールする（scroll-mt で固定ヘッダー分を確保）。 */}
-        <div
-          id="search-results"
-          className="border-border/50 mb-6 flex scroll-mt-24 flex-col gap-3 border-b pb-3 sm:flex-row sm:items-center sm:justify-between"
-        >
-          <div className="flex items-baseline gap-3">
-            <h2 className="text-foreground text-xl font-bold">{currentSummaryTitle}</h2>
-            {totalPosts !== null && (
-              <span className="text-muted-foreground text-sm whitespace-nowrap">
-                該当{" "}
-                <span className="font-bold text-amber-600 dark:text-amber-500">{totalPosts}</span>{" "}
-                件
-              </span>
-            )}
+        {/* 結果ヘッダー（ツールバー）。条件変更時はここの先頭へスクロールする
+            （scroll-mt で固定ヘッダー分を確保）。
+            並び替えは常に同じ位置に固定し、「すべてクリア」は出現しても並び替えを
+            動かさないよう別行（右寄せ）に置く。 */}
+        <div id="search-results" className="border-border/50 mb-6 scroll-mt-24 border-b pb-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-baseline gap-3">
+              <h2 className="text-foreground text-xl font-bold">{currentSummaryTitle}</h2>
+              {totalPosts !== null && (
+                <span className="text-muted-foreground text-sm whitespace-nowrap">
+                  該当{" "}
+                  <span className="font-bold text-amber-600 dark:text-amber-500">{totalPosts}</span>{" "}
+                  件
+                </span>
+              )}
+            </div>
+            <SortControl value={view.sort} onChange={handleSortChange} />
           </div>
-          <div className="flex items-center justify-between gap-3 sm:justify-end">
-            {hasRefinements && (
+
+          {hasRefinements && (
+            <div className="mt-2 flex justify-end">
               <button
                 onClick={handleClearAll}
                 className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
@@ -639,9 +644,8 @@ const BlogClient = ({
                 </svg>
                 すべてクリア
               </button>
-            )}
-            <SortControl value={view.sort} onChange={handleSortChange} />
-          </div>
+            </div>
+          )}
         </div>
 
         {isPending ? (
