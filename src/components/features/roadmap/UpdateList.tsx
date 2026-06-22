@@ -42,12 +42,20 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 const UPDATES: UpdateItem[] = [
   {
     date: "2026.06.22",
+    version: "v4.8.0",
+    title: "記事を探す画面と About ページを刷新",
+    content:
+      "記事一覧の検索エリアを整理し、絞り込みボタンを検索のすぐ横へ、並び替えを同じセクション内へまとめました。「人気のタグ」は絞り込みのタグと連動。目的・エリアのショートカットも見やすく整理し、絞り込みモーダルにも説明を添えました。フッターからこの更新履歴へ飛べるリンクを追加し、About ページは「旅の記録」マップを最下部に配置し直しています。",
+    type: "feature",
+    isNew: true,
+  },
+  {
+    date: "2026.06.22",
     version: "v4.7.1",
     title: "記事の日付表示をわかりやすく整理",
     content:
       "記事ページで「訪問日・公開日・更新日」を区別して表示するようにしました。記事の上部に公開日と更新日（ある場合）、記事末尾に旅の訪問日を載せています。",
     type: "patch",
-    isNew: true,
   },
   {
     date: "2026.06.21",
@@ -489,7 +497,7 @@ const UPDATES: UpdateItem[] = [
 
 export default function UpdateList() {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-12">
+    <section id="updates" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-12">
       <div className="mb-12 text-center">
         <h2 className="font-heading text-primary mb-4 text-3xl font-bold md:text-4xl">
           Update History

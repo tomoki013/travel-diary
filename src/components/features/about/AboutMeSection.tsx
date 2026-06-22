@@ -1,17 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "@/components/common/Reveal";
-import WorldMap from "../worldMap/WorldMap";
-import { regionData } from "@/data/region";
 
 const AboutMeSection = () => {
-  // 訪問した国名を小文字の配列として抽出
-  const visitedCountryNames = regionData.flatMap((continent) =>
-    continent.countries.map((country) => country.slug),
-  );
-
-  const visitedCountriesCount = visitedCountryNames.length;
-  const totalCountries = 196;
-
   return (
     <Reveal as="section" className="py-20 md:py-28">
       <div className="text-foreground mx-auto max-w-5xl px-6">
@@ -56,22 +46,6 @@ const AboutMeSection = () => {
                 私の旅は、有名な観光地を巡るだけでなく、現地の人が通うカフェでのんびりしたり、裏路地をあてもなく散策したり、その土地の日常に溶け込むことを大切にしています。このブログでは、そうしたリアルな現地の雰囲気も伝えていきたいと思っています。
               </p>
             </div>
-          </div>
-        </div>
-        {/* 訪問国を可視化するマップ */}
-        <div className="mt-20">
-          <h3 className="mb-10 text-center text-2xl font-bold md:text-3xl">
-            旅の記録 - My Footprints
-          </h3>
-          <WorldMap highlightedRegions={visitedCountryNames} isClickable={true} />
-          <div className="mt-8 text-center">
-            <p className="text-xl font-bold md:text-2xl">
-              <span className="text-primary text-3xl font-extrabold md:text-4xl">
-                {visitedCountriesCount}
-              </span>
-              <span className="mx-2 text-lg md:text-xl">/</span>
-              <span className="text-lg md:text-xl">{totalCountries}</span>
-            </p>
           </div>
         </div>
       </div>
