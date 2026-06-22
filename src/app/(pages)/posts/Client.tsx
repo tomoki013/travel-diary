@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useOptimistic, useState, useTransition } from "react";
 import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import { Reveal } from "@/components/common/Reveal";
@@ -46,6 +46,10 @@ const PILL_SELECTED =
   "border border-amber-500 bg-amber-500 text-white shadow-[0_1px_6px_-2px_rgba(245,158,11,0.35)]";
 const PILL_UNSELECTED =
   "border border-border/60 bg-background text-muted-foreground hover:border-amber-400";
+// 並び替えは「フィルタ適用」ではなく単一選択の切り替えなので、アンバーではなく
+// 落ち着いた無彩色（セグメント風）で選択を示す。
+const PILL_SELECTED_SORT =
+  "border border-stone-900 bg-stone-900 text-stone-50 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900";
 
 const PURPOSE_PRESETS: DiscoveryPreset[] = [
   {
@@ -165,6 +169,13 @@ const normalizePresetQuery = (query: DiscoveryPreset["query"]) => ({
   tags: [] as string[],
 });
 
+// useOptimistic 用：パッチを当てつつ、URL 生成と同じ正規化（カテゴリ/実用ラベル）を適用する。
+const reduceView = (state: DiscoveryState, patch: Partial<DiscoveryState>): DiscoveryState => {
+  const merged = { ...state, ...patch };
+  const normalized = normalizeFilters(merged.category, merged.topic);
+  return { ...merged, category: normalized.category, topic: normalized.topic };
+};
+
 const BlogClient = ({
   posts,
   totalPages,
@@ -190,9 +201,6 @@ const BlogClient = ({
     rawCategoryParam,
     rawTopicParam,
   );
-  const regionLabel =
-    regionParam !== "all" ? getRegionBySlug(regionParam)?.name || regionParam : null;
-
   const currentState: DiscoveryState = {
     page: currentPage,
     category: categoryParam,
@@ -204,33 +212,30 @@ const BlogClient = ({
     tags: tagsParam,
   };
 
+  // 反応を即時にするため、URL 遷移（サーバー再取得）の完了を待たずに選択状態を
+  // 楽観的に更新する。遷移が終わると searchParams 由来の値へ自動で再同期される。
+  const [isPending, startTransition] = useTransition();
+  const [view, addOptimisticView] = useOptimistic(currentState, reduceView);
+
+  const regionLabel =
+    view.region !== "all" ? getRegionBySlug(view.region)?.name || view.region : null;
+
   const navigate = (next: Partial<DiscoveryState>) => {
-    const state: DiscoveryState = { ...currentState, page: 1, ...next };
-    const normalized = normalizeFilters(state.category, state.topic);
-    const params = new URLSearchParams();
-    params.set("page", String(state.page));
-    if (state.sort !== "recommended") {
-      params.set("sort", state.sort);
-    }
-    if (normalized.category !== "all") {
-      params.set("category", normalized.category);
-    }
-    if (normalized.topic !== "all") {
-      params.set("topic", normalized.topic);
-    }
-    if (state.lens !== "all") {
-      params.set("lens", state.lens);
-    }
-    if (state.region !== "all") {
-      params.set("region", state.region);
-    }
-    if (state.tags.length > 0) {
-      params.set("tags", state.tags.join(","));
-    }
-    if (state.search) {
-      params.set("search", state.search);
-    }
-    router.push(`?${params.toString()}`);
+    startTransition(() => {
+      addOptimisticView({ ...next, page: 1 });
+      const state: DiscoveryState = { ...currentState, page: 1, ...next };
+      const normalized = normalizeFilters(state.category, state.topic);
+      const params = new URLSearchParams();
+      params.set("page", String(state.page));
+      if (state.sort !== "recommended") params.set("sort", state.sort);
+      if (normalized.category !== "all") params.set("category", normalized.category);
+      if (normalized.topic !== "all") params.set("topic", normalized.topic);
+      if (state.lens !== "all") params.set("lens", state.lens);
+      if (state.region !== "all") params.set("region", state.region);
+      if (state.tags.length > 0) params.set("tags", state.tags.join(","));
+      if (state.search) params.set("search", state.search);
+      router.push(`?${params.toString()}`);
+    });
   };
 
   const scrollToDiscoveryHub = () => {
@@ -267,9 +272,9 @@ const BlogClient = ({
   // 「人気のタグ」は絞り込みモーダルのタグと同じ集合・同じ state を共有する。
   // ここでトグルすると絞り込みのタグも連動して切り替わる。
   const handleTagToggle = (tag: string) => {
-    const nextTags = tagsParam.includes(tag)
-      ? tagsParam.filter((t) => t !== tag)
-      : [...tagsParam, tag];
+    const nextTags = view.tags.includes(tag)
+      ? view.tags.filter((t) => t !== tag)
+      : [...view.tags, tag];
     navigate({ tags: nextTags });
   };
 
@@ -341,10 +346,10 @@ const BlogClient = ({
   }, [totalPages, currentPage]);
 
   const currentFilter: FilterValue = {
-    category: categoryParam,
-    topic: topicParam,
-    lens: activeLens,
-    tags: tagsParam,
+    category: view.category,
+    topic: view.topic,
+    lens: view.lens,
+    tags: view.tags,
   };
 
   const activeFilterCount = countActiveFilters(currentFilter);
@@ -353,13 +358,13 @@ const BlogClient = ({
   const activePreset = [...PURPOSE_PRESETS, ...CITY_PRESETS].find((preset) => {
     const normalized = normalizePresetQuery(preset.query);
     return (
-      normalized.category === currentState.category &&
-      normalized.topic === currentState.topic &&
-      normalized.search === currentState.search &&
-      normalized.region === currentState.region &&
-      normalized.lens === currentState.lens &&
-      normalized.sort === currentState.sort &&
-      currentState.tags.length === 0
+      normalized.category === view.category &&
+      normalized.topic === view.topic &&
+      normalized.search === view.search &&
+      normalized.region === view.region &&
+      normalized.lens === view.lens &&
+      normalized.sort === view.sort &&
+      view.tags.length === 0
     );
   });
 
@@ -368,20 +373,20 @@ const BlogClient = ({
       ? `${activePreset.label}で絞り込み中`
       : activePreset?.kind === "city"
         ? `${activePreset.label}の記事を表示中`
-        : searchParam
-          ? `「${searchParam}」の検索結果`
+        : view.search
+          ? `「${view.search}」の検索結果`
           : regionLabel
             ? `${regionLabel}の記事`
             : "記事一覧";
 
   const hasRefinements =
-    Boolean(searchParam) ||
-    categoryParam !== "all" ||
-    topicParam !== "all" ||
-    regionParam !== "all" ||
-    activeLens !== "all" ||
-    tagsParam.length > 0 ||
-    activeSort !== "recommended";
+    Boolean(view.search) ||
+    view.category !== "all" ||
+    view.topic !== "all" ||
+    view.region !== "all" ||
+    view.lens !== "all" ||
+    view.tags.length > 0 ||
+    view.sort !== "recommended";
 
   const searchPlaceholder = "キーワードで探す...";
 
@@ -451,7 +456,7 @@ const BlogClient = ({
                 <span className="text-muted-foreground text-sm font-semibold">並び替え</span>
                 <div className="flex flex-wrap gap-1.5">
                   {sortOptions.map((tab) => {
-                    const isActive = tab.value === activeSort;
+                    const isActive = tab.value === view.sort;
                     return (
                       <button
                         key={tab.value}
@@ -459,7 +464,7 @@ const BlogClient = ({
                         className={cn(
                           "px-3.5 py-1.5",
                           PILL_BASE,
-                          isActive ? PILL_SELECTED : PILL_UNSELECTED,
+                          isActive ? PILL_SELECTED_SORT : PILL_UNSELECTED,
                         )}
                       >
                         {tab.label}
@@ -511,7 +516,7 @@ const BlogClient = ({
                 </p>
                 <div className="flex flex-wrap items-center gap-2.5">
                   {availableTags.map((tag) => {
-                    const isActive = tagsParam.includes(tag);
+                    const isActive = view.tags.includes(tag);
                     return (
                       <button
                         key={tag}
@@ -585,7 +590,11 @@ const BlogClient = ({
         {posts.length > 0 ? (
           <section
             key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}-${activeSort}-${activeLens}-${regionParam}-${tagsParam.join("_")}`}
-            className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
+            aria-busy={isPending}
+            className={cn(
+              "mb-12 grid gap-5 transition-opacity duration-200 md:grid-cols-2 md:gap-6",
+              isPending && "pointer-events-none opacity-50",
+            )}
           >
             {posts.map((post) =>
               currentPage === 1 ? (
