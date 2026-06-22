@@ -5,7 +5,7 @@ import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import { Reveal } from "@/components/common/Reveal";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Compass, MapPin } from "lucide-react";
+import { ChevronDown, Compass, MapPin } from "lucide-react";
 import HeroSection from "@/components/pages/HeroSection";
 import { SearchInput } from "@/components/common/SearchInput";
 import { FilterButton } from "@/components/features/search/FilterButton";
@@ -175,6 +175,62 @@ const reduceView = (state: DiscoveryState, patch: Partial<DiscoveryState>): Disc
   const normalized = normalizeFilters(merged.category, merged.topic);
   return { ...merged, category: normalized.category, topic: normalized.topic };
 };
+
+/**
+ * 並び替えの独立コントロール。
+ * モバイルはネイティブの `<select>`（省スペース）、PC はセグメントボタンで切り替える。
+ */
+const SortControl = ({
+  value,
+  onChange,
+}: {
+  value: SortKey;
+  onChange: (sort: SortKey) => void;
+}) => (
+  <div className="flex items-center gap-2">
+    <span className="text-muted-foreground hidden text-sm font-semibold sm:inline">並び替え</span>
+
+    {/* モバイル: セレクト */}
+    <div className="relative sm:hidden">
+      <label htmlFor="posts-sort" className="sr-only">
+        並び替え
+      </label>
+      <select
+        id="posts-sort"
+        value={value}
+        onChange={(e) => onChange(e.target.value as SortKey)}
+        className="border-border/60 bg-background text-foreground appearance-none rounded-md border py-1.5 pr-8 pl-3 text-sm font-semibold"
+      >
+        {sortOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="text-muted-foreground pointer-events-none absolute top-1/2 right-2 h-4 w-4 -translate-y-1/2" />
+    </div>
+
+    {/* PC: セグメントボタン */}
+    <div className="hidden flex-wrap gap-1.5 sm:flex">
+      {sortOptions.map((tab) => {
+        const isActive = tab.value === value;
+        return (
+          <button
+            key={tab.value}
+            onClick={() => onChange(tab.value)}
+            className={cn(
+              "px-3.5 py-1.5",
+              PILL_BASE,
+              isActive ? PILL_SELECTED_SORT : PILL_UNSELECTED,
+            )}
+          >
+            {tab.label}
+          </button>
+        );
+      })}
+    </div>
+  </div>
+);
 
 const BlogClient = ({
   posts,
@@ -395,7 +451,8 @@ const BlogClient = ({
     return (
       <button
         key={preset.id}
-        onClick={() => handlePresetSelect(preset)}
+        // 選択中をもう一度押したら解除（全条件をクリア）。それ以外は適用。
+        onClick={() => (isActive ? handleClearAll() : handlePresetSelect(preset))}
         aria-pressed={isActive}
         className={cn(
           "inline-flex items-center gap-1.5 px-3.5 py-1.5",
@@ -448,64 +505,6 @@ const BlogClient = ({
                 activeCount={activeFilterCount}
                 className="shrink-0"
               />
-            </div>
-
-            {/* 並び替え（検索セクション内に統合） + 件数 + クリア */}
-            <div className="border-border/50 flex flex-wrap items-center gap-x-4 gap-y-3 border-t pt-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-muted-foreground text-sm font-semibold">並び替え</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {sortOptions.map((tab) => {
-                    const isActive = tab.value === view.sort;
-                    return (
-                      <button
-                        key={tab.value}
-                        onClick={() => handleSortChange(tab.value)}
-                        className={cn(
-                          "px-3.5 py-1.5",
-                          PILL_BASE,
-                          isActive ? PILL_SELECTED_SORT : PILL_UNSELECTED,
-                        )}
-                      >
-                        {tab.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="ml-auto flex flex-wrap items-center gap-3">
-                {totalPosts !== null && (
-                  <span className="border-border/50 bg-background text-muted-foreground inline-flex items-center gap-1.5 rounded-md border px-3 py-1 text-sm font-medium">
-                    該当{" "}
-                    <span className="font-bold text-amber-600 dark:text-amber-500">
-                      {totalPosts}件
-                    </span>
-                  </span>
-                )}
-                {hasRefinements && (
-                  <button
-                    onClick={handleClearAll}
-                    className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
-                    すべてクリア
-                  </button>
-                )}
-              </div>
             </div>
 
             {/* 人気のタグ（絞り込みのタグと連動） */}
@@ -583,9 +582,44 @@ const BlogClient = ({
           </div>
         </section>
 
-        <h2 className="text-foreground border-border/50 mb-6 border-b pb-2 text-xl font-bold">
-          {currentSummaryTitle}
-        </h2>
+        {/* 結果ヘッダー（ツールバー）：見出し＋件数（左） / クリア＋並び替え（右） */}
+        <div className="border-border/50 mb-6 flex flex-col gap-3 border-b pb-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-baseline gap-3">
+            <h2 className="text-foreground text-xl font-bold">{currentSummaryTitle}</h2>
+            {totalPosts !== null && (
+              <span className="text-muted-foreground text-sm whitespace-nowrap">
+                該当{" "}
+                <span className="font-bold text-amber-600 dark:text-amber-500">{totalPosts}</span>{" "}
+                件
+              </span>
+            )}
+          </div>
+          <div className="flex items-center justify-between gap-3 sm:justify-end">
+            {hasRefinements && (
+              <button
+                onClick={handleClearAll}
+                className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+                すべてクリア
+              </button>
+            )}
+            <SortControl value={view.sort} onChange={handleSortChange} />
+          </div>
+        </div>
 
         {posts.length > 0 ? (
           <section
