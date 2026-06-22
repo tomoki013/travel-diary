@@ -88,7 +88,11 @@ const SearchSuggestions = ({
 
   return (
     <div className="bg-background border-border mt-4 rounded-lg border shadow-lg">
-      {isLoading && <LoadingAnimation variant="luggageCarousel" />}
+      {isLoading && (
+        <div className="flex justify-center p-6">
+          <LoadingAnimation size={150} showLabel label="検索しています" />
+        </div>
+      )}
 
       {!isLoading && totalResults !== null && (
         <div className="text-muted-foreground border-border border-b p-3 text-sm">

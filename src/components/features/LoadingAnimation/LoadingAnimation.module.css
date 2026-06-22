@@ -1,125 +1,201 @@
-/* LoadingAnimation.module.css */
+/* LoadingAnimation.module.css — 通常のローディング（ふわふわ熱気球の情景） */
 
-.loader-map-route :global(.map-path) {
-  stroke: #e0e0e0;
-  stroke-width: 0.5;
-  fill: none;
-}
-.loader-map-route :global(.route-line) {
-  fill: none;
-  stroke: #14b8a6;
-  stroke-width: 1;
-  stroke-dasharray: 4 4;
-  animation: draw-route 4s linear infinite;
-}
-.loader-map-route :global(.plane) {
-  fill: #14b8a6;
-  offset-path: path("M10,50 Q60,10 110,50 T210,50");
-  animation: move-plane 4s linear infinite;
-}
-@keyframes draw-route {
-  from {
-    stroke-dashoffset: 250;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes move-plane {
-  from {
-    motion-offset: 0%;
-  }
-  to {
-    motion-offset: 100%;
-  }
+.wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
 }
 
-.loader-carousel {
-  width: 150px;
-  height: 150px;
-  position: relative;
+.scene {
+  width: var(--size, 200px);
+  height: auto;
+  overflow: visible;
 }
-.loader-carousel :global(.track) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  border: 4px solid #9ca3af;
-  border-radius: 50%;
-  transform: translate(-50%, -50%) rotateX(60deg);
+
+/* 熱気球：やわらかく上下に漂い、わずかに揺れる */
+.balloon {
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.12));
 }
-.loader-carousel :global(.luggage) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 15px;
-  border-radius: 4px;
-  transform-origin: -40px 0;
-  animation: move-luggage 4s linear infinite;
+.balloonA {
+  animation: float-a 4.4s ease-in-out infinite;
 }
-.loader-carousel :global(.luggage.l1) {
-  background-color: #3b82f6;
+.balloonB {
+  animation: float-b 5.2s ease-in-out infinite;
+  animation-delay: -1.2s;
+}
+.balloonC {
+  animation: float-c 3.8s ease-in-out infinite;
+  animation-delay: -0.6s;
+}
+
+/* 雲：ゆっくり横に流れる */
+.cloud {
+  transform-box: view-box;
+}
+.cloud1 {
+  animation: drift-r 9s ease-in-out infinite alternate;
+}
+.cloud2 {
+  animation: drift-l 11s ease-in-out infinite alternate;
+}
+
+/* きらめき：ちらちらと明滅 */
+.sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+.sp1 {
   animation-delay: 0s;
 }
-.loader-carousel :global(.luggage.l2) {
-  background-color: #ef4444;
-  animation-delay: -1.3s;
+.sp2 {
+  animation-delay: 0.7s;
 }
-.loader-carousel :global(.luggage.l3) {
-  background-color: #f59e0b;
-  animation-delay: -2.6s;
+.sp3 {
+  animation-delay: 1.3s;
 }
-@keyframes move-luggage {
-  from {
-    transform: rotate(0deg);
+.sp4 {
+  animation-delay: 1.9s;
+}
+.sp5 {
+  animation-delay: 2.4s;
+}
+
+/* 鳥：ゆっくり横切る */
+.bird {
+  transform-box: view-box;
+  opacity: 0;
+}
+.bird1 {
+  animation: bird-fly1 12s linear infinite;
+}
+.bird2 {
+  animation: bird-fly2 16s linear infinite;
+  animation-delay: -5s;
+}
+
+.message {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #f59e0b;
+  animation: soft-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translateY(2px) rotate(-2.5deg);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: translateY(-12px) rotate(2.5deg);
+  }
+}
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(4px) rotate(-2deg);
+  }
+}
+@keyframes float-c {
+  0%,
+  100% {
+    transform: translateY(-4px) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(1.5deg);
   }
 }
 
-.loader-split-flap {
-  display: flex;
-  gap: 4px;
-}
-.char-container {
-  width: 20px;
-  height: 30px;
-  perspective: 300px;
-  position: relative;
-  font-family: monospace;
-  font-size: 24px;
-  font-weight: bold;
-  color: inherit;
-}
-.flap {
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  left: 0;
-  overflow: hidden;
-  backface-visibility: hidden;
-  line-height: 30px;
-}
-.flap.top {
-  top: 0;
-  border-radius: 3px 3px 0 0;
-}
-.flap.bottom {
-  top: 50%;
-  border-radius: 0 0 3px 3px;
-  line-height: 0;
-}
-.flap.flipping {
-  animation: flip-down 0.4s ease-in-out;
-}
-@keyframes flip-down {
+@keyframes drift-r {
   from {
-    transform: rotateX(0deg);
+    transform: translateX(-8px);
   }
   to {
-    transform: rotateX(-90deg);
+    transform: translateX(8px);
+  }
+}
+@keyframes drift-l {
+  from {
+    transform: translateX(8px);
+  }
+  to {
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bird-fly1 {
+  0% {
+    transform: translate(120px, 50px);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(232px, 34px);
+    opacity: 0;
+  }
+}
+
+@keyframes bird-fly2 {
+  0% {
+    transform: translate(70px, 40px);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(216px, 26px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balloonA,
+  .balloonB,
+  .balloonC,
+  .cloud1,
+  .cloud2,
+  .sparkle,
+  .bird1,
+  .bird2,
+  .message {
+    animation: none;
+  }
+  .bird1,
+  .bird2 {
+    opacity: 0;
   }
 }

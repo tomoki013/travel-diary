@@ -1,0 +1,45 @@
+/* SplitFlapBoard.module.css — パタパタ表示（装飾用途、見た目は従来どおり） */
+
+.loader-split-flap {
+  display: flex;
+  gap: 4px;
+}
+.char-container {
+  width: 20px;
+  height: 30px;
+  perspective: 300px;
+  position: relative;
+  font-family: monospace;
+  font-size: 24px;
+  font-weight: bold;
+  color: inherit;
+}
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  left: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  line-height: 30px;
+}
+.flap.top {
+  top: 0;
+  border-radius: 3px 3px 0 0;
+}
+.flap.bottom {
+  top: 50%;
+  border-radius: 0 0 3px 3px;
+  line-height: 0;
+}
+.flap.flipping {
+  animation: flip-down 0.4s ease-in-out;
+}
+@keyframes flip-down {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(-90deg);
+  }
+}

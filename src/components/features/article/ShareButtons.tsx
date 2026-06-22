@@ -1,9 +1,6 @@
 "use client";
 
 import { PostMetadata } from "@/types/types";
-import XButton from "@/components/common/share-buttons/XButton";
-import FacebookButton from "@/components/common/share-buttons/FacebookButton";
-import LineButton from "@/components/common/share-buttons/LineButton";
 import CopyLinkButton from "@/components/common/share-buttons/CopyLinkButton";
 import NativeShareButton from "@/components/common/share-buttons/NativeShareButton";
 
@@ -22,11 +19,9 @@ const ShareButtons = ({ post, url }: Props) => {
   return (
     <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
       <span className="font-semibold">Share:</span>
-      <XButton url={currentUrl} title={post.title} />
-      <FacebookButton url={currentUrl} />
-      <LineButton url={currentUrl} title={post.title} />
-      <CopyLinkButton url={currentUrl} />
+      {/* OS の共有シート（モバイル等、対応環境のみ表示）とコピーのみを提供する */}
       <NativeShareButton url={currentUrl} title={post.title} text={post.excerpt || ""} />
+      <CopyLinkButton url={currentUrl} />
     </div>
   );
 };

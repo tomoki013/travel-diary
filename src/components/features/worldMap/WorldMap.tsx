@@ -10,7 +10,7 @@ import "d3-transition";
 import * as topojson from "topojson-client";
 import { Topology, GeometryCollection } from "topojson-specification";
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
-import WorldMapPlaceholder from "./WorldMapPlaceholder";
+import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
 import { ContinentData } from "@/types/types";
 
 interface WorldTopology extends Topology {
@@ -301,11 +301,11 @@ const WorldMap = forwardRef<WorldMapHandle, WorldMapProps>(
 
     return (
       <div ref={containerRef} className="relative mx-auto h-auto w-full">
-        {/* 動き続けるローディングは Speed Index を悪化させるため静的シルエットを表示 */}
+        {/* 地図データ読み込み中は通常のローディングアニメーション（熱気球）を表示 */}
         <div
           className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-100" : "pointer-events-none opacity-0"} `}
         >
-          <WorldMapPlaceholder />
+          <LoadingAnimation />
         </div>
         <svg
           ref={svgRef}

@@ -75,6 +75,16 @@ const FilterModal = ({ isOpen, onClose, value, onApply, availableTags }: FilterM
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  // モーダル表示中は背景（body）のスクロールを禁止する
+  useEffect(() => {
+    if (!isOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [isOpen]);
+
   const debouncedDraft = useDebounce(draft, 300);
 
   // 「この条件: N件」のプレビュー件数を取得（失敗時は非表示）
@@ -140,6 +150,13 @@ const FilterModal = ({ isOpen, onClose, value, onApply, availableTags }: FilterM
   };
 
   const tagOptions = availableTags.map((tag) => ({ slug: tag, title: tag }));
+
+  // 何らかの条件が選択されているか（リセットの出し分けに使う）。
+  const hasDraft =
+    draft.category !== "all" ||
+    draft.topic !== "all" ||
+    draft.lens !== "all" ||
+    draft.tags.length > 0;
 
   return (
     <AnimatePresence>
@@ -222,30 +239,26 @@ const FilterModal = ({ isOpen, onClose, value, onApply, availableTags }: FilterM
               )}
             </div>
 
-            {/* フッター */}
-            <div className="border-border flex items-center justify-between gap-4 border-t px-6 py-4">
-              <div className="text-muted-foreground text-sm">
-                {count !== null ? (
-                  <span>
-                    この条件: <span className="text-foreground font-bold">{count}件</span>
-                  </span>
-                ) : (
-                  <button
+            {/* フッター（モバイルは縦積み、PC は横並び） */}
+            <div className="border-border flex flex-col gap-3 border-t px-6 py-4 sm:flex-row sm:items-center">
+              {count !== null && (
+                <div className="text-muted-foreground text-sm">
+                  この条件: <span className="text-foreground font-bold">{count}件</span>
+                </div>
+              )}
+              <div className="flex items-center gap-2 sm:ml-auto">
+                {hasDraft && (
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="sm"
                     onClick={handleClear}
-                    className="hover:text-foreground transition-colors"
+                    className="flex-1 sm:flex-none"
                   >
-                    条件をリセット
-                  </button>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                {count !== null && (
-                  <Button type="button" variant="ghost" size="sm" onClick={handleClear}>
                     リセット
                   </Button>
                 )}
-                <Button type="button" onClick={handleApply}>
+                <Button type="button" onClick={handleApply} className="flex-1 sm:flex-none">
                   適用する
                 </Button>
               </div>

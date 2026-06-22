@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useOptimistic, useState, useTransition } from "react";
 import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import { Reveal } from "@/components/common/Reveal";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Compass, MapPin } from "lucide-react";
+import { ChevronDown, Compass, MapPin } from "lucide-react";
 import HeroSection from "@/components/pages/HeroSection";
 import { SearchInput } from "@/components/common/SearchInput";
 import { FilterButton } from "@/components/features/search/FilterButton";
@@ -37,6 +37,19 @@ type DiscoveryPreset = {
     sort?: SortKey;
   };
 };
+
+// 検索セクション内のトグル系（並び替え・タグ・プリセット・ページ送り）の共通スタイル。
+// 角丸はサイトのボタン基準（rounded-md）。アクセントは光らせたアンバーで、選択は塗り＋グロー、
+// 未選択はホバーでアンバーの縁・文字＋淡いグロー。サイト全体のアンバー基調に揃える。
+const PILL_BASE = "rounded-md text-sm font-semibold transition-colors duration-200";
+const PILL_SELECTED =
+  "border border-amber-500 bg-amber-500 text-white shadow-[0_1px_6px_-2px_rgba(245,158,11,0.35)]";
+const PILL_UNSELECTED =
+  "border border-border/60 bg-background text-muted-foreground hover:border-amber-400";
+// 並び替えは「フィルタ適用」ではなく単一選択の切り替えなので、アンバーではなく
+// 落ち着いた無彩色（セグメント風）で選択を示す。
+const PILL_SELECTED_SORT =
+  "border border-stone-900 bg-stone-900 text-stone-50 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900";
 
 const PURPOSE_PRESETS: DiscoveryPreset[] = [
   {
@@ -156,6 +169,82 @@ const normalizePresetQuery = (query: DiscoveryPreset["query"]) => ({
   tags: [] as string[],
 });
 
+// useOptimistic 用：パッチを当てつつ、URL 生成と同じ正規化（カテゴリ/実用ラベル）を適用する。
+const reduceView = (state: DiscoveryState, patch: Partial<DiscoveryState>): DiscoveryState => {
+  const merged = { ...state, ...patch };
+  const normalized = normalizeFilters(merged.category, merged.topic);
+  return { ...merged, category: normalized.category, topic: normalized.topic };
+};
+
+/**
+ * 並び替えの独立コントロール。
+ * モバイルはネイティブの `<select>`（省スペース）、PC はセグメントボタンで切り替える。
+ */
+const SortControl = ({
+  value,
+  onChange,
+}: {
+  value: SortKey;
+  onChange: (sort: SortKey) => void;
+}) => (
+  <div className="flex items-center gap-2">
+    <span className="text-muted-foreground hidden text-sm font-semibold sm:inline">並び替え</span>
+
+    {/* モバイル: セレクト */}
+    <div className="relative sm:hidden">
+      <label htmlFor="posts-sort" className="sr-only">
+        並び替え
+      </label>
+      <select
+        id="posts-sort"
+        value={value}
+        onChange={(e) => onChange(e.target.value as SortKey)}
+        className="border-border/60 bg-background text-foreground appearance-none rounded-md border py-1.5 pr-8 pl-3 text-sm font-semibold"
+      >
+        {sortOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="text-muted-foreground pointer-events-none absolute top-1/2 right-2 h-4 w-4 -translate-y-1/2" />
+    </div>
+
+    {/* PC: セグメントボタン */}
+    <div className="hidden flex-wrap gap-1.5 sm:flex">
+      {sortOptions.map((tab) => {
+        const isActive = tab.value === value;
+        return (
+          <button
+            key={tab.value}
+            onClick={() => onChange(tab.value)}
+            className={cn(
+              "px-3.5 py-1.5",
+              PILL_BASE,
+              isActive ? PILL_SELECTED_SORT : PILL_UNSELECTED,
+            )}
+          >
+            {tab.label}
+          </button>
+        );
+      })}
+    </div>
+  </div>
+);
+
+/** 記事カード（compact）のスケルトン。条件変更中の結果待ちに表示する。 */
+const PostCardSkeleton = () => (
+  <div className="border-border/70 bg-card rounded-2xl border p-4 shadow-sm">
+    <div className="bg-muted aspect-[16/9] w-full animate-pulse rounded-xl" />
+    <div className="mt-3 space-y-2">
+      <div className="bg-muted h-3 w-1/3 animate-pulse rounded" />
+      <div className="bg-muted h-4 w-5/6 animate-pulse rounded" />
+      <div className="bg-muted h-4 w-2/3 animate-pulse rounded" />
+      <div className="bg-muted mt-1 h-3 w-1/2 animate-pulse rounded" />
+    </div>
+  </div>
+);
+
 const BlogClient = ({
   posts,
   totalPages,
@@ -181,9 +270,6 @@ const BlogClient = ({
     rawCategoryParam,
     rawTopicParam,
   );
-  const regionLabel =
-    regionParam !== "all" ? getRegionBySlug(regionParam)?.name || regionParam : null;
-
   const currentState: DiscoveryState = {
     page: currentPage,
     category: categoryParam,
@@ -195,37 +281,37 @@ const BlogClient = ({
     tags: tagsParam,
   };
 
+  // 反応を即時にするため、URL 遷移（サーバー再取得）の完了を待たずに選択状態を
+  // 楽観的に更新する。遷移が終わると searchParams 由来の値へ自動で再同期される。
+  const [isPending, startTransition] = useTransition();
+  const [view, addOptimisticView] = useOptimistic(currentState, reduceView);
+
+  const regionLabel =
+    view.region !== "all" ? getRegionBySlug(view.region)?.name || view.region : null;
+
   const navigate = (next: Partial<DiscoveryState>) => {
-    const state: DiscoveryState = { ...currentState, page: 1, ...next };
-    const normalized = normalizeFilters(state.category, state.topic);
-    const params = new URLSearchParams();
-    params.set("page", String(state.page));
-    if (state.sort !== "recommended") {
-      params.set("sort", state.sort);
-    }
-    if (normalized.category !== "all") {
-      params.set("category", normalized.category);
-    }
-    if (normalized.topic !== "all") {
-      params.set("topic", normalized.topic);
-    }
-    if (state.lens !== "all") {
-      params.set("lens", state.lens);
-    }
-    if (state.region !== "all") {
-      params.set("region", state.region);
-    }
-    if (state.tags.length > 0) {
-      params.set("tags", state.tags.join(","));
-    }
-    if (state.search) {
-      params.set("search", state.search);
-    }
-    router.push(`?${params.toString()}`);
+    startTransition(() => {
+      addOptimisticView({ ...next, page: 1 });
+      const state: DiscoveryState = { ...currentState, page: 1, ...next };
+      const normalized = normalizeFilters(state.category, state.topic);
+      const params = new URLSearchParams();
+      params.set("page", String(state.page));
+      if (state.sort !== "recommended") params.set("sort", state.sort);
+      if (normalized.category !== "all") params.set("category", normalized.category);
+      if (normalized.topic !== "all") params.set("topic", normalized.topic);
+      if (state.lens !== "all") params.set("lens", state.lens);
+      if (state.region !== "all") params.set("region", state.region);
+      if (state.tags.length > 0) params.set("tags", state.tags.join(","));
+      if (state.search) params.set("search", state.search);
+      // Next の自動トップスクロールを無効化（この後 scrollToResults で結果先頭へ
+      // スムーズ移動するため。両方走るとトップへ飛んでから戻る二重挙動になる）。
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
-  const scrollToDiscoveryHub = () => {
-    const section = document.getElementById("discovery-hub");
+  // 条件変更（タグ追加・並び替え・ページ送り等）後は結果の先頭へスクロールする。
+  const scrollToResults = () => {
+    const section = document.getElementById("search-results");
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
@@ -258,9 +344,9 @@ const BlogClient = ({
   // 「人気のタグ」は絞り込みモーダルのタグと同じ集合・同じ state を共有する。
   // ここでトグルすると絞り込みのタグも連動して切り替わる。
   const handleTagToggle = (tag: string) => {
-    const nextTags = tagsParam.includes(tag)
-      ? tagsParam.filter((t) => t !== tag)
-      : [...tagsParam, tag];
+    const nextTags = view.tags.includes(tag)
+      ? view.tags.filter((t) => t !== tag)
+      : [...view.tags, tag];
     navigate({ tags: nextTags });
   };
 
@@ -308,7 +394,7 @@ const BlogClient = ({
 
   useEffect(() => {
     if (searchParams.toString()) {
-      scrollToDiscoveryHub();
+      scrollToResults();
     }
   }, [searchParams]);
 
@@ -332,10 +418,10 @@ const BlogClient = ({
   }, [totalPages, currentPage]);
 
   const currentFilter: FilterValue = {
-    category: categoryParam,
-    topic: topicParam,
-    lens: activeLens,
-    tags: tagsParam,
+    category: view.category,
+    topic: view.topic,
+    lens: view.lens,
+    tags: view.tags,
   };
 
   const activeFilterCount = countActiveFilters(currentFilter);
@@ -344,13 +430,13 @@ const BlogClient = ({
   const activePreset = [...PURPOSE_PRESETS, ...CITY_PRESETS].find((preset) => {
     const normalized = normalizePresetQuery(preset.query);
     return (
-      normalized.category === currentState.category &&
-      normalized.topic === currentState.topic &&
-      normalized.search === currentState.search &&
-      normalized.region === currentState.region &&
-      normalized.lens === currentState.lens &&
-      normalized.sort === currentState.sort &&
-      currentState.tags.length === 0
+      normalized.category === view.category &&
+      normalized.topic === view.topic &&
+      normalized.search === view.search &&
+      normalized.region === view.region &&
+      normalized.lens === view.lens &&
+      normalized.sort === view.sort &&
+      view.tags.length === 0
     );
   });
 
@@ -359,35 +445,38 @@ const BlogClient = ({
       ? `${activePreset.label}で絞り込み中`
       : activePreset?.kind === "city"
         ? `${activePreset.label}の記事を表示中`
-        : searchParam
-          ? `「${searchParam}」の検索結果`
+        : view.search
+          ? `「${view.search}」の検索結果`
           : regionLabel
             ? `${regionLabel}の記事`
             : "記事一覧";
 
   const hasRefinements =
-    Boolean(searchParam) ||
-    categoryParam !== "all" ||
-    topicParam !== "all" ||
-    regionParam !== "all" ||
-    activeLens !== "all" ||
-    tagsParam.length > 0 ||
-    activeSort !== "recommended";
+    Boolean(view.search) ||
+    view.category !== "all" ||
+    view.topic !== "all" ||
+    view.region !== "all" ||
+    view.lens !== "all" ||
+    view.tags.length > 0 ||
+    view.sort !== "recommended";
 
   const searchPlaceholder = "キーワードで探す...";
+
+  // スケルトンの枚数は、いま表示している件数に合わせる（無ければ控えめに 6 枚）。
+  const skeletonCount = posts.length > 0 ? posts.length : 6;
 
   const renderPreset = (preset: DiscoveryPreset, Icon: typeof Compass) => {
     const isActive = activePreset?.id === preset.id;
     return (
       <button
         key={preset.id}
-        onClick={() => handlePresetSelect(preset)}
+        // 選択中をもう一度押したら解除（全条件をクリア）。それ以外は適用。
+        onClick={() => (isActive ? handleClearAll() : handlePresetSelect(preset))}
         aria-pressed={isActive}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-200",
-          isActive
-            ? "border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"
-            : "border-border/60 bg-background text-foreground hover:-translate-y-[1px] hover:border-amber-300 hover:bg-amber-50/40 dark:hover:bg-amber-950/20",
+          "inline-flex items-center gap-1.5 px-3.5 py-1.5",
+          PILL_BASE,
+          isActive ? PILL_SELECTED : PILL_UNSELECTED,
         )}
       >
         <Icon className="h-3.5 w-3.5 opacity-70" />
@@ -418,80 +507,24 @@ const BlogClient = ({
               </p>
             </div>
 
-            {/* 検索バー + 絞り込み（絞り込みは検索の真横に置いて見つけやすく） */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-              <div className="flex-grow">
-                <SearchInput
-                  initialValue={searchParam}
-                  placeholder={searchPlaceholder}
-                  maxLength={SEARCH_QUERY_MAX_LENGTH}
-                  onSearch={handleSearch}
-                  onReset={handleResetSearch}
-                />
-              </div>
-              <FilterButton
-                variant="prominent"
-                onClick={() => setIsFilterOpen(true)}
-                activeCount={activeFilterCount}
-                className="shrink-0 sm:py-2.5"
+            {/* 検索バー＋詳しく絞り込む（絞り込みは独立した行に置いて役割を明確にする） */}
+            <div className="space-y-3">
+              <SearchInput
+                initialValue={searchParam}
+                placeholder={searchPlaceholder}
+                maxLength={SEARCH_QUERY_MAX_LENGTH}
+                onSearch={handleSearch}
+                onReset={handleResetSearch}
               />
-            </div>
-
-            {/* 並び替え（検索セクション内に統合） + 件数 + クリア */}
-            <div className="border-border/50 flex flex-wrap items-center gap-x-4 gap-y-3 border-t pt-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-muted-foreground text-sm font-semibold">並び替え</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {sortOptions.map((tab) => {
-                    const isActive = tab.value === activeSort;
-                    return (
-                      <button
-                        key={tab.value}
-                        onClick={() => handleSortChange(tab.value)}
-                        className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 ${
-                          isActive
-                            ? "bg-stone-900 text-stone-50 shadow-sm dark:bg-stone-100 dark:text-stone-900"
-                            : "border-border/60 bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground border"
-                        }`}
-                      >
-                        {tab.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="ml-auto flex flex-wrap items-center gap-3">
-                {totalPosts !== null && (
-                  <span className="border-border/50 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium shadow-sm">
-                    該当{" "}
-                    <span className="font-bold text-amber-600 dark:text-amber-400">
-                      {totalPosts}件
-                    </span>
-                  </span>
-                )}
-                {hasRefinements && (
-                  <button
-                    onClick={handleClearAll}
-                    className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
-                    すべてクリア
-                  </button>
-                )}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <FilterButton
+                  variant="prominent"
+                  onClick={() => setIsFilterOpen(true)}
+                  activeCount={activeFilterCount}
+                />
+                <span className="text-muted-foreground text-sm">
+                  カテゴリ・タグ・記事タイプで詳しく絞り込む
+                </span>
               </div>
             </div>
 
@@ -503,22 +536,19 @@ const BlogClient = ({
                 </p>
                 <div className="flex flex-wrap items-center gap-2.5">
                   {availableTags.map((tag) => {
-                    const isActive = tagsParam.includes(tag);
+                    const isActive = view.tags.includes(tag);
                     return (
                       <button
                         key={tag}
                         onClick={() => handleTagToggle(tag)}
                         aria-pressed={isActive}
-                        className={`group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium shadow-sm transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-md ${
-                          isActive
-                            ? "dark:ring-offset-background bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2"
-                            : "border-border/60 text-foreground dark:bg-background border bg-white hover:border-amber-300"
-                        } `}
-                      >
-                        {!isActive && (
-                          <div className="absolute inset-0 translate-y-full bg-amber-50/50 transition-transform duration-300 ease-out group-hover:translate-y-0" />
+                        className={cn(
+                          "px-3.5 py-1.5",
+                          PILL_BASE,
+                          isActive ? PILL_SELECTED : PILL_UNSELECTED,
                         )}
-                        <span className="relative z-10">#{tag}</span>
+                      >
+                        #{tag}
                       </button>
                     );
                   })}
@@ -551,7 +581,7 @@ const BlogClient = ({
             {regionLabel && (
               <button
                 onClick={handleClearRegion}
-                className="inline-flex w-fit items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 transition hover:bg-sky-100 dark:bg-sky-950/30 dark:text-sky-300"
+                className="border-border/60 bg-background text-muted-foreground inline-flex w-fit items-center gap-1.5 rounded-md border px-3 py-1 text-xs font-medium transition-colors hover:border-amber-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -573,11 +603,63 @@ const BlogClient = ({
           </div>
         </section>
 
-        <h2 className="text-foreground border-border/50 mb-6 border-b pb-2 text-xl font-bold">
-          {currentSummaryTitle}
-        </h2>
+        {/* 結果ヘッダー（ツールバー）。条件変更時はここの先頭へスクロールする
+            （scroll-mt で固定ヘッダー分を確保）。
+            並び替えは常に同じ位置に固定し、「すべてクリア」は出現しても並び替えを
+            動かさないよう別行（右寄せ）に置く。 */}
+        <div id="search-results" className="border-border/50 mb-6 scroll-mt-24 border-b pb-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-baseline gap-3">
+              <h2 className="text-foreground text-xl font-bold">{currentSummaryTitle}</h2>
+              {totalPosts !== null && (
+                <span className="text-muted-foreground text-sm whitespace-nowrap">
+                  該当{" "}
+                  <span className="font-bold text-amber-600 dark:text-amber-500">{totalPosts}</span>{" "}
+                  件
+                </span>
+              )}
+            </div>
+            {/* 並び替えは右端に固定。「すべてクリア」は同じ行の左隣に出す（並び替えは動かない）。 */}
+            <div className="flex w-full items-center justify-end gap-3 sm:w-auto">
+              {hasRefinements && (
+                <button
+                  onClick={handleClearAll}
+                  className="text-muted-foreground flex items-center gap-1.5 text-sm transition hover:text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                  すべてクリア
+                </button>
+              )}
+              <SortControl value={view.sort} onChange={handleSortChange} />
+            </div>
+          </div>
+        </div>
 
-        {posts.length > 0 ? (
+        {isPending ? (
+          // 条件変更中はスケルトンを表示（薄色化ではなく読み込み中だと分かるように）
+          <section
+            aria-busy
+            className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
+            aria-label="読み込み中"
+          >
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <PostCardSkeleton key={i} />
+            ))}
+          </section>
+        ) : posts.length > 0 ? (
           <section
             key={`${currentPage}-${categoryParam}-${topicParam}-${searchParam}-${activeSort}-${activeLens}-${regionParam}-${tagsParam.join("_")}`}
             className="mb-12 grid gap-5 md:grid-cols-2 md:gap-6"
@@ -608,23 +690,25 @@ const BlogClient = ({
         {totalPages > 1 && (
           <section className="mt-16 flex flex-wrap items-center justify-center gap-2">
             {currentPage > 1 && (
-              <button onClick={handlePrev} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
+              <button onClick={handlePrev} className={cn("px-4 py-2", PILL_BASE, PILL_UNSELECTED)}>
                 Prev
               </button>
             )}
 
             {paginationNumbers.map((page, idx) =>
               page === "..." ? (
-                <span key={`ellipsis-${idx}`} className="px-2">
+                <span key={`ellipsis-${idx}`} className="text-muted-foreground px-2">
                   ...
                 </span>
               ) : (
                 <button
                   key={page}
                   onClick={() => handlePageChange(page as number)}
-                  className={`rounded-lg px-4 py-2 ${
-                    currentPage === page ? "bg-teal-600 text-white" : "bg-gray-200 text-black"
-                  }`}
+                  className={cn(
+                    "px-4 py-2",
+                    PILL_BASE,
+                    currentPage === page ? PILL_SELECTED : PILL_UNSELECTED,
+                  )}
                 >
                   {page}
                 </button>
@@ -632,7 +716,13 @@ const BlogClient = ({
             )}
 
             {currentPage < totalPages && (
-              <button onClick={handleNext} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
+              <button
+                onClick={handleNext}
+                className={cn(
+                  "rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition-all duration-200",
+                  PILL_UNSELECTED,
+                )}
+              >
                 Next
               </button>
             )}

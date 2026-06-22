@@ -7,6 +7,7 @@ import {
 } from "@/constants/navigation";
 import Link from "next/link";
 import { ExternalLink, Heart, ArrowRight } from "lucide-react";
+import { APP_VERSION } from "@/lib/appVersion";
 
 const Footer = () => {
   return (
@@ -157,6 +158,14 @@ const Footer = () => {
             <p className="flex items-center gap-1.5 text-xs text-stone-400">
               Made with <Heart className="h-3 w-3 text-red-500" /> by Tomokichi
             </p>
+            {APP_VERSION && (
+              <Link
+                href="/roadmap#updates"
+                className="font-code text-xs text-stone-400 transition-colors hover:text-amber-600 dark:hover:text-amber-500"
+              >
+                v{APP_VERSION}
+              </Link>
+            )}
           </div>
         </div>
       </div>

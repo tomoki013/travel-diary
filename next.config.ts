@@ -1,9 +1,20 @@
 import type { NextConfig } from "next";
+import { createRequire } from "module";
 
 const AI_PLANNER_EXTERNAL_URL = "https://tabide.ai/";
 
+// package.json を唯一のバージョン source of truth とし、UI へはここから注入する。
+// （UpdateList などにバージョン番号を手書きで重複させない＝編集箇所を減らす）
+const { version: APP_VERSION } = createRequire(import.meta.url)("./package.json") as {
+  version: string;
+};
+
 const nextConfig: NextConfig = {
   /* config options here */
+  // ビルド時にバージョンをバンドルへインライン展開（サーバー/クライアント共通）。
+  env: {
+    NEXT_PUBLIC_APP_VERSION: APP_VERSION,
+  },
   // Pin the file-tracing root to this project so Next does not infer a parent
   // workspace root when multiple lockfiles are present (e.g. git worktrees).
   outputFileTracingRoot: process.cwd(),

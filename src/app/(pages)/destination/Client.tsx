@@ -8,7 +8,11 @@ import { LoadingAnimation } from "@/components/features/LoadingAnimation/Loading
 
 const WorldMap = dynamic(() => import("@/components/features/worldMap/WorldMap"), {
   ssr: false,
-  loading: () => <LoadingAnimation variant="mapRoute" />,
+  loading: () => (
+    <div className="flex h-full min-h-[240px] w-full items-center justify-center">
+      <LoadingAnimation />
+    </div>
+  ),
 });
 
 const Destination = dynamic(() => import("@/components/pages/Destination"), {

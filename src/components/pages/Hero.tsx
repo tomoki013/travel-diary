@@ -2,17 +2,15 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { SplitFlapBoard } from "../features/LoadingAnimation/SplitFlapBoard";
 import { LoadingAnimation } from "../features/LoadingAnimation/LoadingAnimation";
-import WorldMapPlaceholder from "../features/worldMap/WorldMapPlaceholder";
 import { allRegions } from "@/lib/regionUtil";
 
 const WorldMap = dynamic(() => import("../features/worldMap/WorldMap"), {
   ssr: false,
-  // ファーストビュー内で動き続けるローディングは Speed Index を悪化させる
-  // ため、最終形に近い静的シルエットを表示する(WorldMapPlaceholder 参照)。
   loading: () => (
     <div className="flex h-full w-full items-center justify-center">
-      <WorldMapPlaceholder />
+      <LoadingAnimation />
     </div>
   ),
 });
@@ -58,8 +56,7 @@ const Hero = () => {
             <p className="font-code mb-4 text-sm tracking-[0.3em] text-amber-200/80 uppercase">
               Destinations
             </p>
-            <LoadingAnimation
-              variant="splitFlap"
+            <SplitFlapBoard
               className="font-code flex items-center justify-center text-sm tracking-[0.3em] text-amber-400 uppercase md:justify-start"
               words={shuffleArray(allRegions.map((region) => region.slug.toUpperCase()))}
               flapBG="bg-transparent"

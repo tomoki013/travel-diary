@@ -2,6 +2,7 @@ import { Reveal } from "@/components/common/Reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Tag, Archive } from "lucide-react";
+import { APP_VERSION } from "@/lib/appVersion";
 
 /**
  * 更新の種別はバージョン番号（SemVer）の桁で機械的に決める。
@@ -18,7 +19,6 @@ interface UpdateItem {
   title: string;
   content: string;
   type: UpdateType;
-  isNew?: boolean;
   /** 一度提供したが現在は削除・終了した機能であることを示す */
   removed?: boolean;
   /** 削除・終了した時期や理由の補足（removed が true のときに表示） */
@@ -42,12 +42,19 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 const UPDATES: UpdateItem[] = [
   {
     date: "2026.06.22",
+    version: "v4.8.1",
+    title: "ローディング表示の刷新と検索まわりの調整",
+    content:
+      "読み込み中のアニメーションを刷新しました。初回表示時は飛行機が航路を描き、サイト名がふわっと現れるオープニング、ページの切り替え時は飛行機の航路、世界地図や検索の待ち時間はやわらかい熱気球が浮かぶアニメーションになります。あわせて記事を探す画面のボタンの色や形を統一し、絞り込みやタグの切り替えがすぐ反映されるよう操作の反応を改善。絞り込み中は背景がスクロールしないように修正し、記事の共有は端末の共有メニューとリンクコピーに整理しました。",
+    type: "patch",
+  },
+  {
+    date: "2026.06.22",
     version: "v4.8.0",
     title: "記事を探す画面と About ページを刷新",
     content:
       "記事一覧の検索エリアを整理し、絞り込みボタンを検索のすぐ横へ、並び替えを同じセクション内へまとめました。「人気のタグ」は絞り込みのタグと連動。目的・エリアのショートカットも見やすく整理し、絞り込みモーダルにも説明を添えました。フッターからこの更新履歴へ飛べるリンクを追加し、About ページは「旅の記録」マップを最下部に配置し直しています。",
     type: "feature",
-    isNew: true,
   },
   {
     date: "2026.06.22",
@@ -506,83 +513,88 @@ export default function UpdateList() {
       </div>
 
       <div className="space-y-6">
-        {UPDATES.map((item, index) => (
-          <Reveal
-            key={index}
-            amount={0}
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { delay: index * 0.1 } },
-            }}
-          >
-            <Card
-              className={
-                "overflow-hidden border-l-4 transition-shadow duration-300 hover:shadow-lg " +
-                (item.removed
-                  ? "border-l-muted-foreground/40 bg-muted/30 opacity-70"
-                  : "border-l-primary")
-              }
+        {UPDATES.map((item, index) => {
+          // 「NEW」は現在のアプリバージョン（package.json）と一致するエントリに自動付与する。
+          // isNew を手動で付け替えないことで、並行ブランチでの競合を避ける。
+          const isLatest = item.version === `v${APP_VERSION}`;
+          return (
+            <Reveal
+              key={index}
+              amount={0}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { delay: index * 0.1 } },
+              }}
             >
-              <CardContent className="p-6">
-                <div className="flex flex-col gap-6 md:flex-row">
-                  {/* Meta Info */}
-                  <div className="border-border flex flex-shrink-0 flex-col gap-2 border-b pb-4 md:w-48 md:border-r md:border-b-0 md:pr-6 md:pb-0">
-                    <div className="text-muted-foreground flex items-center gap-2">
-                      <Calendar className="h-4 w-4" />
-                      <span className="font-mono text-sm">{item.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Tag className="text-primary h-4 w-4" />
-                      <span className="text-lg font-bold">{item.version}</span>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Badge variant={TYPE_VARIANT[item.type]} className="mt-1">
-                        {TYPE_LABEL[item.type]}
-                      </Badge>
-                      {item.removed && (
-                        <Badge
-                          variant="outline"
-                          className="border-muted-foreground/40 text-muted-foreground mt-1 gap-1"
-                        >
-                          <Archive className="h-3 w-3" />
-                          提供終了
+              <Card
+                className={
+                  "overflow-hidden border-l-4 transition-shadow duration-300 hover:shadow-lg " +
+                  (item.removed
+                    ? "border-l-muted-foreground/40 bg-muted/30 opacity-70"
+                    : "border-l-primary")
+                }
+              >
+                <CardContent className="p-6">
+                  <div className="flex flex-col gap-6 md:flex-row">
+                    {/* Meta Info */}
+                    <div className="border-border flex flex-shrink-0 flex-col gap-2 border-b pb-4 md:w-48 md:border-r md:border-b-0 md:pr-6 md:pb-0">
+                      <div className="text-muted-foreground flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        <span className="font-mono text-sm">{item.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Tag className="text-primary h-4 w-4" />
+                        <span className="text-lg font-bold">{item.version}</span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge variant={TYPE_VARIANT[item.type]} className="mt-1">
+                          {TYPE_LABEL[item.type]}
                         </Badge>
-                      )}
+                        {item.removed && (
+                          <Badge
+                            variant="outline"
+                            className="border-muted-foreground/40 text-muted-foreground mt-1 gap-1"
+                          >
+                            <Archive className="h-3 w-3" />
+                            提供終了
+                          </Badge>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Content */}
-                  <div className="flex-1">
-                    <div className="mb-3 flex items-center gap-3">
-                      <h3
-                        className={
-                          "text-xl font-bold " +
-                          (item.removed
-                            ? "text-muted-foreground line-through decoration-1"
-                            : "text-foreground")
-                        }
-                      >
-                        {item.title}
-                      </h3>
-                      {item.isNew && (
-                        <span className="animate-pulse rounded-full bg-red-500 px-2 py-0.5 text-[10px] font-bold text-white">
-                          NEW
-                        </span>
+                    {/* Content */}
+                    <div className="flex-1">
+                      <div className="mb-3 flex items-center gap-3">
+                        <h3
+                          className={
+                            "text-xl font-bold " +
+                            (item.removed
+                              ? "text-muted-foreground line-through decoration-1"
+                              : "text-foreground")
+                          }
+                        >
+                          {item.title}
+                        </h3>
+                        {isLatest && (
+                          <span className="animate-pulse rounded-full bg-red-500 px-2 py-0.5 text-[10px] font-bold text-white">
+                            NEW
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed">{item.content}</p>
+                      {item.removed && item.removedNote && (
+                        <p className="text-muted-foreground/80 mt-3 flex items-center gap-1.5 text-sm">
+                          <Archive className="h-3.5 w-3.5 flex-shrink-0" />
+                          <span>{item.removedNote}</span>
+                        </p>
                       )}
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">{item.content}</p>
-                    {item.removed && item.removedNote && (
-                      <p className="text-muted-foreground/80 mt-3 flex items-center gap-1.5 text-sm">
-                        <Archive className="h-3.5 w-3.5 flex-shrink-0" />
-                        <span>{item.removedNote}</span>
-                      </p>
-                    )}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Reveal>
-        ))}
+                </CardContent>
+              </Card>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

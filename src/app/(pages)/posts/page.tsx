@@ -1,7 +1,5 @@
 import { getAllPosts } from "@/lib/post-metadata";
 import BlogClient from "./Client";
-import { Suspense } from "react";
-import { LoadingAnimation } from "@/components/features/LoadingAnimation/LoadingAnimation";
 import { POSTS_PER_PAGE } from "@/constants/constants";
 import { TravelTopic } from "@/types/types";
 import { FILTERABLE_TAGS, LensKey, SortKey, isLensKey, isSortKey } from "@/data/searchFilters";
@@ -113,18 +111,19 @@ const PostsPage = async (props: {
     allPosts.some((post) => post.tags?.includes(tag)),
   );
 
+  // 重い取得（getAllPosts）は return 前に解決済みで、BlogClient はサスペンドしない。
+  // 以前ここにあった <Suspense> の fallback は表示されないデッドコードだったため撤去。
+  // ページ遷移中のローディングは (pages)/loading.tsx が担当する。
   return (
-    <Suspense fallback={<LoadingAnimation variant="mapRoute" />}>
-      <BlogClient
-        posts={paginatedPosts}
-        totalPages={totalPages}
-        currentPage={safePage}
-        totalPosts={displayTotalPosts}
-        activeSort={sort}
-        activeLens={lens}
-        availableTags={availableTags}
-      />
-    </Suspense>
+    <BlogClient
+      posts={paginatedPosts}
+      totalPages={totalPages}
+      currentPage={safePage}
+      totalPosts={displayTotalPosts}
+      activeSort={sort}
+      activeLens={lens}
+      availableTags={availableTags}
+    />
   );
 };
 

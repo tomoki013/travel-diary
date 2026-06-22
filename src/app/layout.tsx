@@ -8,6 +8,7 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import CookieBanner from "@/components/common/CookieBanner";
 import Background from "@/components/common/Background";
+import InitialPreloader from "@/components/common/InitialPreloader";
 import { DEFAULT_SOCIAL_IMAGE_URL, ENABLE_AFFILIATES, PRIMARY_SITE_URL } from "@/constants/site";
 import { UIProvider } from "@/context/UIContext";
 import MotionProvider from "@/components/common/MotionProvider";
@@ -162,6 +163,7 @@ export default function RootLayout({
         >
           <MotionProvider>
             <UIProvider>
+              <InitialPreloader />
               <Background />
               <div className="flex min-h-screen flex-col">
                 <Header />

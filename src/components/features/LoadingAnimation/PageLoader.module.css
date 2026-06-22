@@ -1,0 +1,194 @@
+/* PageLoader.module.css — フルスクリーンのページ遷移ローディング（航路を描く飛行機） */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.flight {
+  width: min(360px, 78vw);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* 航路ガイド（点線） */
+.guide {
+  stroke: var(--border);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1 7;
+  opacity: 0.8;
+}
+
+/* 描かれていくトレイル（warm → amber のグラデ） */
+.trail {
+  stroke: url(#pl-trail);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 350;
+  stroke-dashoffset: 350;
+  animation: draw-trail 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.markerStart {
+  fill: #a8a29e;
+}
+
+.endDot {
+  fill: #f59e0b;
+}
+
+.endGlow {
+  fill: #f59e0b;
+  opacity: 0.18;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* 航路上を進む飛行機 */
+.plane {
+  offset-path: path("M20,120 C90,120 150,55 280,28");
+  offset-rotate: auto;
+  animation: fly 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.planeBody {
+  fill: var(--foreground);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+}
+
+/* テキスト（下からせり上がるリビール） */
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: center;
+}
+
+.mask {
+  display: flex;
+  overflow: hidden;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding-left: 0.32em; /* 字間で右に伸びるぶんを視覚的に中央へ寄せる */
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  transform: translateY(120%);
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.title {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--foreground);
+  transform: translateY(120%);
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+.tagline {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  transform: translateY(120%);
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+}
+
+@keyframes draw-trail {
+  0% {
+    stroke-dashoffset: 350;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  70% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  70% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  80% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.16;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.32;
+  }
+}
+
+@keyframes reveal-up {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    animation: none;
+  }
+  .plane {
+    offset-distance: 100%;
+    opacity: 0;
+    animation: none;
+  }
+  .endGlow {
+    animation: none;
+  }
+  .eyebrow,
+  .title,
+  .tagline {
+    transform: none;
+    animation: none;
+  }
+}
