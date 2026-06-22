@@ -10,6 +10,8 @@ interface SearchInputProps {
   placeholder?: string;
   onSearch: (query: string) => void;
   onReset: () => void;
+  /** 入力できる最大文字数 */
+  maxLength?: number;
 }
 
 export const SearchInput = ({
@@ -17,6 +19,7 @@ export const SearchInput = ({
   placeholder = "キーワードで検索...",
   onSearch,
   onReset,
+  maxLength,
 }: SearchInputProps) => {
   const [query, setQuery] = useState(initialValue);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +51,7 @@ export const SearchInput = ({
           type="search"
           placeholder={placeholder}
           value={query}
+          maxLength={maxLength}
           onChange={(e) => setQuery(e.target.value)}
           className="bg-white/80 pl-10 text-gray-800"
         />

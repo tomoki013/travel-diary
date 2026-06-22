@@ -37,6 +37,7 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
 
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
+  { name: "更新履歴", pass: "/roadmap#updates" },
   { name: "旅行予約・準備", pass: "/travel-essentials" },
   { name: "サイトマップ", pass: "/sitemap" },
 ];

@@ -3,12 +3,9 @@ import BlogClient from "./Client";
 import { Suspense } from "react";
 import { LoadingAnimation } from "@/components/features/LoadingAnimation/LoadingAnimation";
 import { POSTS_PER_PAGE } from "@/constants/constants";
-import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { TravelTopic } from "@/types/types";
-import { filterByLens, getSortedPosts } from "@/lib/post-discovery";
-import { filterByTag } from "@/lib/post-filters";
 import { FILTERABLE_TAGS, LensKey, SortKey, isLensKey, isSortKey } from "@/data/searchFilters";
-import { getRegionAndDescendantSlugs } from "@/lib/regionUtil";
+import { searchPosts, SEARCH_QUERY_MAX_LENGTH } from "@/lib/searchService";
 import { createPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = createPageMetadata({
@@ -70,7 +67,11 @@ const PostsPage = async (props: {
     typeof searchParams.topic === "string" ? (searchParams.topic as TravelTopic) : "all";
   const { category, topic } = normalizeFilters(rawCategory, rawTopic);
   const page = typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
-  const searchQuery = typeof searchParams.search === "string" ? searchParams.search : "";
+  // 検索キーワードは文字数制限を適用（/api/search と共通の上限）
+  const searchQuery = (typeof searchParams.search === "string" ? searchParams.search : "").slice(
+    0,
+    SEARCH_QUERY_MAX_LENGTH,
+  );
   const { sort, lens } = resolveSortAndLens(
     typeof searchParams.sort === "string" ? searchParams.sort : undefined,
     typeof searchParams.lens === "string" ? searchParams.lens : undefined,
@@ -87,43 +88,17 @@ const PostsPage = async (props: {
 
   const allPosts = await getAllPosts();
 
-  let filteredPosts = allPosts;
+  // フィルタ・検索・並び替えは /api/search と共通のサービスに委譲する
+  const { posts: processedPosts, total: totalPosts } = searchPosts(allPosts, {
+    query: searchQuery,
+    category,
+    topic,
+    lens,
+    tags,
+    region,
+    sort,
+  });
 
-  if (category !== "all") {
-    filteredPosts = filteredPosts.filter((post) => post.category === category);
-  }
-
-  if (topic !== "all") {
-    filteredPosts = filteredPosts.filter((post) => post.travelTopics?.includes(topic));
-  }
-
-  if (region !== "all") {
-    // 指定リージョンの子孫（都市など）も含めて展開してフィルタリングする
-    const regionSlugs = getRegionAndDescendantSlugs(region);
-    filteredPosts = filteredPosts.filter((post) =>
-      post.regionIds?.some((id) => regionSlugs.includes(id)),
-    );
-  }
-
-  if (lens !== "all") {
-    filteredPosts = filterByLens(filteredPosts, lens);
-  }
-
-  for (const tag of tags) {
-    filteredPosts = filterByTag(filteredPosts, tag);
-  }
-
-  let processedPosts = filteredPosts;
-
-  if (searchQuery) {
-    processedPosts = filterPostsBySearch(filteredPosts, searchQuery);
-    const scoredPosts = calculateScores(processedPosts, searchQuery);
-    processedPosts = scoredPosts.sort((a, b) => b.score - a.score).map((item) => item.post);
-  } else {
-    processedPosts = getSortedPosts(processedPosts, sort);
-  }
-
-  const totalPosts = processedPosts.length;
   const totalPages = Math.max(1, Math.ceil(totalPosts / POSTS_PER_PAGE));
   const safePage = Math.min(Math.max(page, 1), totalPages);
   const paginatedPosts = processedPosts.slice(
