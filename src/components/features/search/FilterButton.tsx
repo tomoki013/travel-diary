@@ -29,10 +29,10 @@ export const FilterButton = ({
       type="button"
       onClick={onClick}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition-colors",
+        "inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition-all",
         isProminent
-          ? "border border-amber-500 bg-amber-500 text-white hover:bg-amber-600"
-          : "border-border/60 bg-background text-foreground hover:border-foreground/20 border",
+          ? "border border-amber-500 bg-amber-500 text-white shadow-[0_1px_8px_-2px_rgba(245,158,11,0.4)] hover:bg-amber-600"
+          : "border-border/60 bg-background text-foreground border shadow-sm hover:border-amber-400",
         className,
       )}
       aria-haspopup="dialog"
@@ -42,7 +42,7 @@ export const FilterButton = ({
       {activeCount > 0 && (
         <span
           className={cn(
-            "ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-xs font-bold",
+            "ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded px-1.5 text-xs font-bold",
             isProminent ? "bg-white text-amber-600" : "bg-amber-500 text-white",
           )}
         >

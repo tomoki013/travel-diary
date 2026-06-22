@@ -75,6 +75,16 @@ const FilterModal = ({ isOpen, onClose, value, onApply, availableTags }: FilterM
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  // モーダル表示中は背景（body）のスクロールを禁止する
+  useEffect(() => {
+    if (!isOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [isOpen]);
+
   const debouncedDraft = useDebounce(draft, 300);
 
   // 「この条件: N件」のプレビュー件数を取得（失敗時は非表示）

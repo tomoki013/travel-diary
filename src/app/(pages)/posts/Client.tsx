@@ -38,6 +38,15 @@ type DiscoveryPreset = {
   };
 };
 
+// 検索セクション内のトグル系（並び替え・タグ・プリセット・ページ送り）の共通スタイル。
+// 角丸はサイトのボタン基準（rounded-md）。アクセントは光らせたアンバーで、選択は塗り＋グロー、
+// 未選択はホバーでアンバーの縁・文字＋淡いグロー。サイト全体のアンバー基調に揃える。
+const PILL_BASE = "rounded-md text-sm font-semibold transition-colors duration-200";
+const PILL_SELECTED =
+  "border border-amber-500 bg-amber-500 text-white shadow-[0_1px_6px_-2px_rgba(245,158,11,0.35)]";
+const PILL_UNSELECTED =
+  "border border-border/60 bg-background text-muted-foreground hover:border-amber-400";
+
 const PURPOSE_PRESETS: DiscoveryPreset[] = [
   {
     id: "first-overseas",
@@ -384,10 +393,9 @@ const BlogClient = ({
         onClick={() => handlePresetSelect(preset)}
         aria-pressed={isActive}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-200",
-          isActive
-            ? "border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"
-            : "border-border/60 bg-background text-foreground hover:-translate-y-[1px] hover:border-amber-300 hover:bg-amber-50/40 dark:hover:bg-amber-950/20",
+          "inline-flex items-center gap-1.5 px-3.5 py-1.5",
+          PILL_BASE,
+          isActive ? PILL_SELECTED : PILL_UNSELECTED,
         )}
       >
         <Icon className="h-3.5 w-3.5 opacity-70" />
@@ -419,7 +427,7 @@ const BlogClient = ({
             </div>
 
             {/* 検索バー + 絞り込み（絞り込みは検索の真横に置いて見つけやすく） */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <div className="flex-grow">
                 <SearchInput
                   initialValue={searchParam}
@@ -433,7 +441,7 @@ const BlogClient = ({
                 variant="prominent"
                 onClick={() => setIsFilterOpen(true)}
                 activeCount={activeFilterCount}
-                className="shrink-0 sm:py-2.5"
+                className="shrink-0"
               />
             </div>
 
@@ -448,11 +456,11 @@ const BlogClient = ({
                       <button
                         key={tab.value}
                         onClick={() => handleSortChange(tab.value)}
-                        className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 ${
-                          isActive
-                            ? "bg-stone-900 text-stone-50 shadow-sm dark:bg-stone-100 dark:text-stone-900"
-                            : "border-border/60 bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground border"
-                        }`}
+                        className={cn(
+                          "px-3.5 py-1.5",
+                          PILL_BASE,
+                          isActive ? PILL_SELECTED : PILL_UNSELECTED,
+                        )}
                       >
                         {tab.label}
                       </button>
@@ -463,9 +471,9 @@ const BlogClient = ({
 
               <div className="ml-auto flex flex-wrap items-center gap-3">
                 {totalPosts !== null && (
-                  <span className="border-border/50 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium shadow-sm">
+                  <span className="border-border/50 bg-background text-muted-foreground inline-flex items-center gap-1.5 rounded-md border px-3 py-1 text-sm font-medium">
                     該当{" "}
-                    <span className="font-bold text-amber-600 dark:text-amber-400">
+                    <span className="font-bold text-amber-600 dark:text-amber-500">
                       {totalPosts}件
                     </span>
                   </span>
@@ -509,16 +517,13 @@ const BlogClient = ({
                         key={tag}
                         onClick={() => handleTagToggle(tag)}
                         aria-pressed={isActive}
-                        className={`group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium shadow-sm transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-md ${
-                          isActive
-                            ? "dark:ring-offset-background bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2"
-                            : "border-border/60 text-foreground dark:bg-background border bg-white hover:border-amber-300"
-                        } `}
-                      >
-                        {!isActive && (
-                          <div className="absolute inset-0 translate-y-full bg-amber-50/50 transition-transform duration-300 ease-out group-hover:translate-y-0" />
+                        className={cn(
+                          "px-3.5 py-1.5",
+                          PILL_BASE,
+                          isActive ? PILL_SELECTED : PILL_UNSELECTED,
                         )}
-                        <span className="relative z-10">#{tag}</span>
+                      >
+                        #{tag}
                       </button>
                     );
                   })}
@@ -551,7 +556,7 @@ const BlogClient = ({
             {regionLabel && (
               <button
                 onClick={handleClearRegion}
-                className="inline-flex w-fit items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 transition hover:bg-sky-100 dark:bg-sky-950/30 dark:text-sky-300"
+                className="border-border/60 bg-background text-muted-foreground inline-flex w-fit items-center gap-1.5 rounded-md border px-3 py-1 text-xs font-medium transition-colors hover:border-amber-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -608,23 +613,25 @@ const BlogClient = ({
         {totalPages > 1 && (
           <section className="mt-16 flex flex-wrap items-center justify-center gap-2">
             {currentPage > 1 && (
-              <button onClick={handlePrev} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
+              <button onClick={handlePrev} className={cn("px-4 py-2", PILL_BASE, PILL_UNSELECTED)}>
                 Prev
               </button>
             )}
 
             {paginationNumbers.map((page, idx) =>
               page === "..." ? (
-                <span key={`ellipsis-${idx}`} className="px-2">
+                <span key={`ellipsis-${idx}`} className="text-muted-foreground px-2">
                   ...
                 </span>
               ) : (
                 <button
                   key={page}
                   onClick={() => handlePageChange(page as number)}
-                  className={`rounded-lg px-4 py-2 ${
-                    currentPage === page ? "bg-teal-600 text-white" : "bg-gray-200 text-black"
-                  }`}
+                  className={cn(
+                    "px-4 py-2",
+                    PILL_BASE,
+                    currentPage === page ? PILL_SELECTED : PILL_UNSELECTED,
+                  )}
                 >
                   {page}
                 </button>
@@ -632,7 +639,13 @@ const BlogClient = ({
             )}
 
             {currentPage < totalPages && (
-              <button onClick={handleNext} className="rounded-lg bg-gray-200 px-4 py-2 text-black">
+              <button
+                onClick={handleNext}
+                className={cn(
+                  "rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition-all duration-200",
+                  PILL_UNSELECTED,
+                )}
+              >
                 Next
               </button>
             )}

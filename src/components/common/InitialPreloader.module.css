@@ -1,0 +1,36 @@
+/* InitialPreloader.module.css — 初回ロードのスプラッシュ（スライドアップ退場） */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  /* 地図のようなドットグリッド（テーマ追従・控えめ） */
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  transition:
+    transform 1s cubic-bezier(0.76, 0, 0.24, 1),
+    border-radius 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* 退場：上へスライドし、下端を弧にして上質感を出す */
+.exit {
+  transform: translateY(-100%);
+  border-bottom-left-radius: 50vw;
+  border-bottom-right-radius: 50vw;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    transition: none;
+  }
+  .exit {
+    transform: translateY(-100%);
+    border-radius: 0;
+  }
+}

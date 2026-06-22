@@ -89,8 +89,8 @@ const SearchSuggestions = ({
   return (
     <div className="bg-background border-border mt-4 rounded-lg border shadow-lg">
       {isLoading && (
-        <div className="flex justify-center p-8">
-          <LoadingAnimation size={72} label="検索しています" />
+        <div className="flex justify-center p-6">
+          <LoadingAnimation size={150} showLabel label="検索しています" />
         </div>
       )}
 

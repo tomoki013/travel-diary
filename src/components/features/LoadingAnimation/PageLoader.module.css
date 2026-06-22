@@ -1,122 +1,180 @@
-/* PageLoader.module.css — フルスクリーンのページ遷移ローディング（コンパス） */
+/* PageLoader.module.css — フルスクリーンのページ遷移ローディング（航路を描く飛行機） */
 
 .root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6rem;
-  color: var(--primary);
+  gap: 1.8rem;
 }
 
-.compass {
-  width: min(280px, 64vw);
+.flight {
+  width: min(360px, 78vw);
 }
 
-.compass svg {
+.svg {
   display: block;
   width: 100%;
   height: auto;
   overflow: visible;
 }
 
-/* 外周ダイヤル */
-.dial {
+/* 航路ガイド（点線） */
+.guide {
+  stroke: var(--border);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1 7;
+  opacity: 0.8;
+}
+
+/* 描かれていくトレイル（warm → amber のグラデ） */
+.trail {
+  stroke: url(#pl-trail);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 350;
+  stroke-dashoffset: 350;
+  animation: draw-trail 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.markerStart {
+  fill: #a8a29e;
+}
+
+.endDot {
+  fill: #f59e0b;
+}
+
+.endGlow {
+  fill: #f59e0b;
+  opacity: 0.18;
   transform-box: fill-box;
   transform-origin: center;
-  animation: dial-spin 20s linear infinite;
+  animation: glow-pulse 2s ease-in-out infinite;
 }
 
-.rim {
-  stroke: currentColor;
-  stroke-width: 1;
-  opacity: 0.25;
+/* 航路上を進む飛行機 */
+.plane {
+  offset-path: path("M20,120 C90,120 150,55 280,28");
+  offset-rotate: auto;
+  animation: fly 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-.tick {
-  stroke: currentColor;
-  stroke-width: 1;
-  stroke-linecap: round;
-  opacity: 0.35;
+.planeBody {
+  fill: var(--foreground);
 }
 
-.tickMajor {
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  opacity: 0.65;
+/* テキスト（下からせり上がるリビール） */
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: center;
 }
 
-/* コンパス針 */
-.needle {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: needle-search 3.6s cubic-bezier(0.45, 0.05, 0.2, 1) infinite;
+.mask {
+  display: flex;
+  overflow: hidden;
 }
 
-.north {
-  fill: currentColor;
-  filter: drop-shadow(0 0 4px currentColor);
+.title {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--foreground);
+  transform: translateY(120%);
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
 }
 
-.south {
-  fill: currentColor;
-  opacity: 0.22;
+.tagline {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  transform: translateY(120%);
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
 }
 
-.hub {
-  fill: currentColor;
-}
-
-.message {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--primary);
-  animation: message-pulse 1.8s ease-in-out infinite;
-}
-
-@keyframes dial-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 針が探して振れ、行き過ぎて戻りながら一周する */
-@keyframes needle-search {
+@keyframes draw-trail {
   0% {
-    transform: rotate(0deg);
+    stroke-dashoffset: 350;
+    opacity: 0;
   }
-  25% {
-    transform: rotate(295deg);
+  6% {
+    opacity: 1;
   }
-  42% {
-    transform: rotate(250deg);
+  70% {
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
-  68% {
-    transform: rotate(540deg);
-  }
-  84% {
-    transform: rotate(498deg);
+  86% {
+    opacity: 1;
   }
   100% {
-    transform: rotate(720deg);
+    stroke-dashoffset: 0;
+    opacity: 0;
   }
 }
 
-@keyframes message-pulse {
+@keyframes fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  70% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  80% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes glow-pulse {
   0%,
   100% {
-    opacity: 0.6;
+    transform: scale(1);
+    opacity: 0.16;
   }
   50% {
-    opacity: 1;
+    transform: scale(1.5);
+    opacity: 0.32;
+  }
+}
+
+@keyframes reveal-up {
+  to {
+    transform: translateY(0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dial,
-  .needle,
-  .message {
+  .trail {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    animation: none;
+  }
+  .plane {
+    offset-distance: 100%;
+    opacity: 0;
+    animation: none;
+  }
+  .endGlow {
+    animation: none;
+  }
+  .title,
+  .tagline {
+    transform: none;
     animation: none;
   }
 }
