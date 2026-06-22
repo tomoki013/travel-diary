@@ -42,12 +42,20 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 const UPDATES: UpdateItem[] = [
   {
     date: "2026.06.22",
+    version: "v4.7.2",
+    title: "ローディング表示を一新",
+    content:
+      "ページの読み込み中に表示されるアニメーションを、よりおしゃれで洗練されたデザインに作り直しました。ページ遷移では方位を探すコンパス、世界地図や検索の待ち時間では波紋が広がるアニメーションを表示します。",
+    type: "patch",
+    isNew: true,
+  },
+  {
+    date: "2026.06.22",
     version: "v4.7.1",
     title: "記事の日付表示をわかりやすく整理",
     content:
       "記事ページで「訪問日・公開日・更新日」を区別して表示するようにしました。記事の上部に公開日と更新日（ある場合）、記事末尾に旅の訪問日を載せています。",
     type: "patch",
-    isNew: true,
   },
   {
     date: "2026.06.21",

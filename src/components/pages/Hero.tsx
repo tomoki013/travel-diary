@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { LoadingAnimation } from "../features/LoadingAnimation/LoadingAnimation";
+import { SplitFlapBoard } from "../features/LoadingAnimation/SplitFlapBoard";
 import WorldMapPlaceholder from "../features/worldMap/WorldMapPlaceholder";
 import { allRegions } from "@/lib/regionUtil";
 
@@ -58,8 +58,7 @@ const Hero = () => {
             <p className="font-code mb-4 text-sm tracking-[0.3em] text-amber-200/80 uppercase">
               Destinations
             </p>
-            <LoadingAnimation
-              variant="splitFlap"
+            <SplitFlapBoard
               className="font-code flex items-center justify-center text-sm tracking-[0.3em] text-amber-400 uppercase md:justify-start"
               words={shuffleArray(allRegions.map((region) => region.slug.toUpperCase()))}
               flapBG="bg-transparent"

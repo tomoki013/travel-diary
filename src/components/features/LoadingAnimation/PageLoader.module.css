@@ -1,0 +1,122 @@
+/* PageLoader.module.css — フルスクリーンのページ遷移ローディング（コンパス） */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  color: var(--primary);
+}
+
+.compass {
+  width: min(280px, 64vw);
+}
+
+.compass svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* 外周ダイヤル */
+.dial {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dial-spin 20s linear infinite;
+}
+
+.rim {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+.tick {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.35;
+}
+
+.tickMajor {
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.65;
+}
+
+/* コンパス針 */
+.needle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: needle-search 3.6s cubic-bezier(0.45, 0.05, 0.2, 1) infinite;
+}
+
+.north {
+  fill: currentColor;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.south {
+  fill: currentColor;
+  opacity: 0.22;
+}
+
+.hub {
+  fill: currentColor;
+}
+
+.message {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--primary);
+  animation: message-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dial-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 針が探して振れ、行き過ぎて戻りながら一周する */
+@keyframes needle-search {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(295deg);
+  }
+  42% {
+    transform: rotate(250deg);
+  }
+  68% {
+    transform: rotate(540deg);
+  }
+  84% {
+    transform: rotate(498deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes message-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dial,
+  .needle,
+  .message {
+    animation: none;
+  }
+}

@@ -9,6 +9,28 @@
 > （2025-03 開始）から再構築したものです。利用者向けの公開更新履歴は
 > `src/components/features/roadmap/UpdateList.tsx` と一致させています。
 
+## [4.7.2] - 2026-06-22
+
+### Changed
+
+- ローディングアニメーションを 0 から作り直し。ページ遷移時のフルスクリーン表示は方位を探すコンパスの `PageLoader`、世界地図・検索などインライン表示は波紋が広がるソナー型の `LoadingAnimation` に刷新（従来の紙飛行機 / mapRoute / luggageCarousel を破棄）。
+
+### Added
+
+- フッターにアプリのバージョンを表示。`package.json` の `version` を `next.config.ts` でビルド時に注入し、UI 側はそれを参照する（バージョン番号の手書き重複を排除）。
+
+### Fixed
+
+- `/posts` で表示されることのなかったデッドコードの `<Suspense fallback>`（`getAllPosts` 解決後に非サスペンドの `BlogClient` を包んでいた）を撤去。ページ遷移中のローディングは `loading.tsx` が担当する。
+
+### Performance
+
+- ローディングアニメーションを `left` / `width` などレイアウトを誘発するプロパティから `transform` / `opacity` 中心へ変更し、`prefers-reduced-motion` に対応。
+
+### Removed
+
+- ローディング以外（装飾）だったパタパタ表示を `LoadingAnimation` から `SplitFlapBoard` として切り出し（見た目・挙動は従来どおり）。共通コンポーネントの責務をローディングのみに整理。
+
 ## [4.7.1] - 2026-06-22
 
 ### Changed
