@@ -5,6 +5,7 @@ import { Post } from "@/types/types";
 import PostCard from "@/components/common/PostCard";
 import { Reveal } from "@/components/common/Reveal";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Compass, MapPin } from "lucide-react";
 import HeroSection from "@/components/pages/HeroSection";
 import { SearchInput } from "@/components/common/SearchInput";
 import { FilterButton } from "@/components/features/search/FilterButton";
@@ -17,7 +18,9 @@ import {
   normalizeFilterValue,
   sortOptions,
 } from "@/data/searchFilters";
+import { SEARCH_QUERY_MAX_LENGTH } from "@/lib/searchService";
 import { getRegionBySlug } from "@/lib/regionUtil";
+import { cn } from "@/lib/utils";
 
 type PostMetadata = Omit<Post, "content">;
 
@@ -231,7 +234,7 @@ const BlogClient = ({
   };
 
   const handleSearch = (query: string) => {
-    navigate({ search: query });
+    navigate({ search: query.slice(0, SEARCH_QUERY_MAX_LENGTH) });
   };
 
   const handleResetSearch = () => {
@@ -252,6 +255,16 @@ const BlogClient = ({
     });
   };
 
+  // 「人気のタグ」は絞り込みモーダルのタグと同じ集合・同じ state を共有する。
+  // ここでトグルすると絞り込みのタグも連動して切り替わる。
+  const handleTagToggle = (tag: string) => {
+    const nextTags = tagsParam.includes(tag)
+      ? tagsParam.filter((t) => t !== tag)
+      : [...tagsParam, tag];
+    navigate({ tags: nextTags });
+  };
+
+  // クイックアクセス（目的・エリア）は curated な開始点なので、条件を丸ごと差し替える。
   const handlePresetSelect = (preset: DiscoveryPreset) => {
     const normalized = normalizePresetQuery(preset.query);
     navigate({
@@ -327,6 +340,7 @@ const BlogClient = ({
 
   const activeFilterCount = countActiveFilters(currentFilter);
 
+  // クイックアクセスのプリセットが現在の条件と完全一致しているか（アクティブ表示用）。
   const activePreset = [...PURPOSE_PRESETS, ...CITY_PRESETS].find((preset) => {
     const normalized = normalizePresetQuery(preset.query);
     return (
@@ -362,6 +376,26 @@ const BlogClient = ({
 
   const searchPlaceholder = "キーワードで探す...";
 
+  const renderPreset = (preset: DiscoveryPreset, Icon: typeof Compass) => {
+    const isActive = activePreset?.id === preset.id;
+    return (
+      <button
+        key={preset.id}
+        onClick={() => handlePresetSelect(preset)}
+        aria-pressed={isActive}
+        className={cn(
+          "inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-all duration-200",
+          isActive
+            ? "border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"
+            : "border-border/60 bg-background text-foreground hover:-translate-y-[1px] hover:border-amber-300 hover:bg-amber-50/40 dark:hover:bg-amber-950/20",
+        )}
+      >
+        <Icon className="h-3.5 w-3.5 opacity-70" />
+        {preset.label}
+      </button>
+    );
+  };
+
   return (
     <div>
       <HeroSection
@@ -376,61 +410,61 @@ const BlogClient = ({
           id="discovery-hub"
           className="border-border/40 bg-card/70 relative mb-10 overflow-hidden rounded-[2rem] border p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-8"
         >
-          <div className="relative z-10 space-y-8">
+          <div className="relative z-10 space-y-6">
             <div className="text-center md:text-left">
               <h2 className="text-foreground text-2xl font-bold tracking-tight">記事を探す</h2>
               <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                キーワードで探すか、絞り込みからカテゴリ・タグを指定できます。
+                キーワード・絞り込み・並び替えで、お探しの記事にたどり着けます。
               </p>
             </div>
 
-            {/* 検索バー */}
-            <div className="w-full">
-              <SearchInput
-                initialValue={searchParam}
-                placeholder={searchPlaceholder}
-                onSearch={handleSearch}
-                onReset={handleResetSearch}
+            {/* 検索バー + 絞り込み（絞り込みは検索の真横に置いて見つけやすく） */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+              <div className="flex-grow">
+                <SearchInput
+                  initialValue={searchParam}
+                  placeholder={searchPlaceholder}
+                  maxLength={SEARCH_QUERY_MAX_LENGTH}
+                  onSearch={handleSearch}
+                  onReset={handleResetSearch}
+                />
+              </div>
+              <FilterButton
+                variant="prominent"
+                onClick={() => setIsFilterOpen(true)}
+                activeCount={activeFilterCount}
+                className="shrink-0 sm:py-2.5"
               />
             </div>
 
-            {/* クイックスタートタグ */}
-            <div className="space-y-3">
-              <p className="text-muted-foreground text-sm font-semibold">人気のタグから見つける</p>
-              <div className="flex flex-wrap items-center gap-2.5">
-                {[...PURPOSE_PRESETS, ...CITY_PRESETS].map((preset) => {
-                  const isActive = activePreset?.id === preset.id;
-                  return (
-                    <button
-                      key={preset.id}
-                      onClick={() => handlePresetSelect(preset)}
-                      className={`group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium shadow-sm transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-md ${
-                        isActive
-                          ? "dark:ring-offset-background bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2"
-                          : "border-border/60 text-foreground dark:bg-background border bg-white hover:border-amber-300"
-                      } `}
-                    >
-                      {/* Hover highlight effect */}
-                      {!isActive && (
-                        <div className="absolute inset-0 translate-y-full bg-amber-50/50 transition-transform duration-300 ease-out group-hover:translate-y-0" />
-                      )}
-                      <span className="relative z-10">#{preset.label}</span>
-                    </button>
-                  );
-                })}
+            {/* 並び替え（検索セクション内に統合） + 件数 + クリア */}
+            <div className="border-border/50 flex flex-wrap items-center gap-x-4 gap-y-3 border-t pt-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-muted-foreground text-sm font-semibold">並び替え</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {sortOptions.map((tab) => {
+                    const isActive = tab.value === activeSort;
+                    return (
+                      <button
+                        key={tab.value}
+                        onClick={() => handleSortChange(tab.value)}
+                        className={`rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 ${
+                          isActive
+                            ? "bg-stone-900 text-stone-50 shadow-sm dark:bg-stone-100 dark:text-stone-900"
+                            : "border-border/60 bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground border"
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
 
-            {/* 絞り込み・件数 */}
-            <div className="flex flex-col gap-4 pt-2">
-              <div className="flex flex-wrap items-center gap-3">
-                <FilterButton
-                  onClick={() => setIsFilterOpen(true)}
-                  activeCount={activeFilterCount}
-                />
+              <div className="ml-auto flex flex-wrap items-center gap-3">
                 {totalPosts !== null && (
                   <span className="border-border/50 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium shadow-sm">
-                    該当件数:{" "}
+                    該当{" "}
                     <span className="font-bold text-amber-600 dark:text-amber-400">
                       {totalPosts}件
                     </span>
@@ -459,61 +493,85 @@ const BlogClient = ({
                   </button>
                 )}
               </div>
-
-              {regionLabel && (
-                <button
-                  onClick={handleClearRegion}
-                  className="inline-flex w-fit items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 transition hover:bg-sky-100 dark:bg-sky-950/30 dark:text-sky-300"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  「{regionLabel}」で絞り込み中 ✕
-                </button>
-              )}
             </div>
+
+            {/* 人気のタグ（絞り込みのタグと連動） */}
+            {availableTags.length > 0 && (
+              <div className="space-y-3">
+                <p className="text-muted-foreground text-sm font-semibold">
+                  人気のタグから絞り込む
+                </p>
+                <div className="flex flex-wrap items-center gap-2.5">
+                  {availableTags.map((tag) => {
+                    const isActive = tagsParam.includes(tag);
+                    return (
+                      <button
+                        key={tag}
+                        onClick={() => handleTagToggle(tag)}
+                        aria-pressed={isActive}
+                        className={`group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium shadow-sm transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-md ${
+                          isActive
+                            ? "dark:ring-offset-background bg-amber-500 text-white ring-2 ring-amber-500 ring-offset-2"
+                            : "border-border/60 text-foreground dark:bg-background border bg-white hover:border-amber-300"
+                        } `}
+                      >
+                        {!isActive && (
+                          <div className="absolute inset-0 translate-y-full bg-amber-50/50 transition-transform duration-300 ease-out group-hover:translate-y-0" />
+                        )}
+                        <span className="relative z-10">#{tag}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* クイックアクセス（目的・エリアの定番ショートカット） */}
+            <div className="border-border/50 grid gap-5 border-t pt-4 sm:grid-cols-2">
+              <div className="space-y-3">
+                <p className="text-muted-foreground flex items-center gap-1.5 text-sm font-semibold">
+                  <Compass className="h-4 w-4" />
+                  目的から探す
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {PURPOSE_PRESETS.map((preset) => renderPreset(preset, Compass))}
+                </div>
+              </div>
+              <div className="space-y-3">
+                <p className="text-muted-foreground flex items-center gap-1.5 text-sm font-semibold">
+                  <MapPin className="h-4 w-4" />
+                  エリアから探す
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {CITY_PRESETS.map((preset) => renderPreset(preset, MapPin))}
+                </div>
+              </div>
+            </div>
+
+            {regionLabel && (
+              <button
+                onClick={handleClearRegion}
+                className="inline-flex w-fit items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800 transition hover:bg-sky-100 dark:bg-sky-950/30 dark:text-sky-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                「{regionLabel}」で絞り込み中 ✕
+              </button>
+            )}
           </div>
         </section>
-
-        <div className="border-border/40 bg-card/60 mb-8 rounded-[1.75rem] border p-6 shadow-[0_8px_24px_rgb(0,0,0,0.03)]">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="text-foreground text-lg font-bold">並び替え</h2>
-              <p className="text-muted-foreground mt-1 text-sm">
-                表示順だけを切り替えて、同じ条件のまま見やすい順に並べ替えます。
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {sortOptions.map((tab) => {
-                const isActive = tab.value === activeSort;
-                return (
-                  <button
-                    key={tab.value}
-                    onClick={() => handleSortChange(tab.value)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 ${
-                      isActive
-                        ? "bg-stone-900 text-stone-50 shadow-sm dark:bg-stone-100 dark:text-stone-900"
-                        : "border-border/60 bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground border"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
 
         <h2 className="text-foreground border-border/50 mb-6 border-b pb-2 text-xl font-bold">
           {currentSummaryTitle}

@@ -1,66 +1,48 @@
 import { NextResponse } from "next/server";
 import { getAllPosts } from "@/lib/post-metadata";
-import { filterPostsBySearch, calculateScores } from "@/lib/search";
 import { SEARCH_CONFIG } from "@/constants/searchConfig";
-import { TravelTopic } from "@/types/types";
-import { filterByLens } from "@/lib/post-discovery";
-import { filterByTag } from "@/lib/post-filters";
 import { isLensKey } from "@/data/searchFilters";
+import { searchPosts, SEARCH_QUERY_MAX_LENGTH } from "@/lib/searchService";
 
 export const revalidate = 3600; // 1 hour
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q");
-  const category = searchParams.get("category");
-  const topic = searchParams.get("topic") as TravelTopic | null;
+  const category = searchParams.get("category") || "all";
+  const topic = searchParams.get("topic") || "all";
   const rawLens = searchParams.get("lens");
   const lens = rawLens && isLensKey(rawLens) ? rawLens : "all";
+  const region = searchParams.get("region") || "all";
   const tags = (searchParams.get("tags") || "")
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean);
 
-  const hasFilter = Boolean(category || topic || lens !== "all" || tags.length > 0);
+  const hasFilter =
+    category !== "all" || topic !== "all" || lens !== "all" || region !== "all" || tags.length > 0;
 
   if (!query && !hasFilter) {
     return NextResponse.json({ error: "Query or filter parameter is missing" }, { status: 400 });
   }
 
-  if (query && query.length > 100) {
+  if (query && query.length > SEARCH_QUERY_MAX_LENGTH) {
     return NextResponse.json({ error: "Query is too long" }, { status: 400 });
   }
 
   try {
     const allPosts = await getAllPosts();
-    let postsToSearch = allPosts;
+    // /posts と同じ条件・適用順で検索する共通サービスに委譲する
+    const { posts, total } = searchPosts(allPosts, {
+      query: query || "",
+      category,
+      topic,
+      lens,
+      tags,
+      region,
+    });
 
-    if (category) {
-      postsToSearch = postsToSearch.filter((post) => post.category === category);
-    }
-
-    if (topic) {
-      postsToSearch = postsToSearch.filter((post) => post.travelTopics?.includes(topic));
-    }
-
-    if (lens !== "all") {
-      postsToSearch = filterByLens(postsToSearch, lens);
-    }
-
-    for (const tag of tags) {
-      postsToSearch = filterByTag(postsToSearch, tag);
-    }
-
-    let finalPosts = postsToSearch;
-
-    if (query) {
-      const filteredBySearch = filterPostsBySearch(postsToSearch, query);
-      const scoredPosts = calculateScores(filteredBySearch, query);
-      finalPosts = scoredPosts.sort((a, b) => b.score - a.score).map((item) => item.post);
-    }
-
-    const total = finalPosts.length;
-    const suggestions = finalPosts.slice(0, SEARCH_CONFIG.API_MAX_RESULTS).map((post) => ({
+    const suggestions = posts.slice(0, SEARCH_CONFIG.API_MAX_RESULTS).map((post) => ({
       title: post.title,
       slug: post.slug,
     }));

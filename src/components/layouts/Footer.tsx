@@ -160,7 +160,7 @@ const Footer = () => {
             </p>
             {APP_VERSION && (
               <Link
-                href="/roadmap"
+                href="/roadmap#updates"
                 className="font-code text-xs text-stone-400 transition-colors hover:text-amber-600 dark:hover:text-amber-500"
               >
                 v{APP_VERSION}

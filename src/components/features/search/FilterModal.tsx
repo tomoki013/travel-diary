@@ -179,34 +179,46 @@ const FilterModal = ({ isOpen, onClose, value, onApply, availableTags }: FilterM
             </div>
 
             {/* 本体 */}
-            <div className="flex max-h-[60vh] flex-col gap-6 overflow-y-auto px-6 py-5">
-              <FilterChipGroup
-                title="記事カテゴリ"
-                options={filterableCategories}
-                selected={draft.category === "all" ? null : draft.category}
-                onToggle={toggleCategory}
-              />
-              <FilterChipGroup
-                title="記事タイプ"
-                options={lensOptions
-                  .filter((option) => option.value !== "all")
-                  .map((option) => ({ slug: option.value, title: option.label }))}
-                selected={draft.lens === "all" ? null : draft.lens}
-                onToggle={toggleLens}
-              />
-              <FilterChipGroup
-                title="実用ラベル"
-                options={filterableTopics}
-                selected={draft.topic === "all" ? null : draft.topic}
-                onToggle={toggleTopic}
-              />
-              {tagOptions.length > 0 && (
+            <div className="divide-border/60 flex max-h-[60vh] flex-col divide-y overflow-y-auto px-6">
+              <div className="py-5">
                 <FilterChipGroup
-                  title="タグ"
-                  options={tagOptions}
-                  selected={draft.tags}
-                  onToggle={toggleTag}
+                  title="記事タイプ"
+                  description="まずは読み方から。実用情報か、読み物としての旅行記か。"
+                  options={lensOptions
+                    .filter((option) => option.value !== "all")
+                    .map((option) => ({ slug: option.value, title: option.label }))}
+                  selected={draft.lens === "all" ? null : draft.lens}
+                  onToggle={toggleLens}
                 />
+              </div>
+              <div className="py-5">
+                <FilterChipGroup
+                  title="記事カテゴリ"
+                  description="記事の種類で絞り込みます（観光情報・旅程・シリーズなど）。"
+                  options={filterableCategories}
+                  selected={draft.category === "all" ? null : draft.category}
+                  onToggle={toggleCategory}
+                />
+              </div>
+              <div className="py-5">
+                <FilterChipGroup
+                  title="実用ラベル"
+                  description="お金・交通・ビザなど、知りたい実務トピックで絞り込みます（観光情報が対象）。"
+                  options={filterableTopics}
+                  selected={draft.topic === "all" ? null : draft.topic}
+                  onToggle={toggleTopic}
+                />
+              </div>
+              {tagOptions.length > 0 && (
+                <div className="py-5">
+                  <FilterChipGroup
+                    title="タグ"
+                    description="旅の定番テーマから選べます（複数選択でき、すべてを含む記事に絞ります）。"
+                    options={tagOptions}
+                    selected={draft.tags}
+                    onToggle={toggleTag}
+                  />
+                </div>
               )}
             </div>
 

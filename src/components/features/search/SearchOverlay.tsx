@@ -65,7 +65,9 @@ const SearchSuggestions = ({
 
   const displayedSuggestions = suggestions.slice(0, SEARCH_CONFIG.MAX_SUGGESTIONS);
 
-  const showSeeAllButton = suggestions.length > SEARCH_CONFIG.MAX_SUGGESTIONS;
+  // API は表示件数ぶんしか候補を返さないため、「すべての結果」ボタンの出し分けは
+  // 総件数（totalResults）で判定する。
+  const showSeeAllButton = totalResults !== null && totalResults > displayedSuggestions.length;
 
   const listVariants = {
     hidden: { opacity: 0 },
