@@ -6,21 +6,24 @@ const FLIGHT_PATH = "M20,120 C90,120 150,55 280,28";
 interface PageLoaderProps {
   /** 中央に出すサイト名 */
   title?: string;
-  /** その下のタグライン */
+  /** サイト名の上に出す英字のオーバーライン */
+  eyebrow?: string;
+  /** サイト名の下に出すタグライン */
   tagline?: string;
-  /** サイト名・タグラインを表示するか。初回ロードのスプラッシュは true、
+  /** ブランド表記（英字＋サイト名＋タグライン）を表示するか。初回ロードのスプラッシュは true、
    *  ページ遷移（loading.tsx）は false にして飛行機の航路だけを出す。 */
   showText?: boolean;
 }
 
 /**
  * フルスクリーンのローディング。飛行機が航路（大圏コース）を描きながら目的地へ向かう演出。
- * `showText` が true のときだけサイト名とタグラインが下からせり上がる。
- * 色・雰囲気はサイトのアンバー基調＋テーマトークンに合わせている。
+ * `showText` が true のときだけブランド表記（英字 `TRAVEL DIARY` ＋サイト名＋タグライン）が
+ * 下からせり上がる。色・雰囲気はサイトのアンバー基調＋テーマトークンに合わせている。
  * フックを持たないためサーバーコンポーネントのまま利用できる。
  */
 export const PageLoader = ({
   title = "ともきちの旅行日記",
+  eyebrow = "TRAVEL DIARY",
   tagline = "一生モノの体験を、もっと身近に。",
   showText = true,
 }: PageLoaderProps) => {
@@ -54,6 +57,9 @@ export const PageLoader = ({
 
       {showText && (
         <div className={styles.text}>
+          <span className={styles.mask}>
+            <span className={`font-code ${styles.eyebrow}`}>{eyebrow}</span>
+          </span>
           <span className={styles.mask}>
             <span className={`font-heading ${styles.title}`}>{title}</span>
           </span>

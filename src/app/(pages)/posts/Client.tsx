@@ -294,8 +294,9 @@ const BlogClient = ({
     });
   };
 
-  const scrollToDiscoveryHub = () => {
-    const section = document.getElementById("discovery-hub");
+  // 条件変更（タグ追加・並び替え・ページ送り等）後は結果の先頭へスクロールする。
+  const scrollToResults = () => {
+    const section = document.getElementById("search-results");
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
@@ -378,7 +379,7 @@ const BlogClient = ({
 
   useEffect(() => {
     if (searchParams.toString()) {
-      scrollToDiscoveryHub();
+      scrollToResults();
     }
   }, [searchParams]);
 
@@ -582,8 +583,12 @@ const BlogClient = ({
           </div>
         </section>
 
-        {/* 結果ヘッダー（ツールバー）：見出し＋件数（左） / クリア＋並び替え（右） */}
-        <div className="border-border/50 mb-6 flex flex-col gap-3 border-b pb-3 sm:flex-row sm:items-center sm:justify-between">
+        {/* 結果ヘッダー（ツールバー）：見出し＋件数（左） / クリア＋並び替え（右）。
+            条件変更時はここの先頭へスクロールする（scroll-mt で固定ヘッダー分を確保）。 */}
+        <div
+          id="search-results"
+          className="border-border/50 mb-6 flex scroll-mt-24 flex-col gap-3 border-b pb-3 sm:flex-row sm:items-center sm:justify-between"
+        >
           <div className="flex items-baseline gap-3">
             <h2 className="text-foreground text-xl font-bold">{currentSummaryTitle}</h2>
             {totalPosts !== null && (
