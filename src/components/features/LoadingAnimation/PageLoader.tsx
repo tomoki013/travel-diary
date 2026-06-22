@@ -48,9 +48,12 @@ export const PageLoader = ({
           <circle className={styles.endGlow} cx="280" cy="28" r="11" />
           <circle className={styles.endDot} cx="280" cy="28" r="4.5" />
 
-          {/* 航路上を進む飛行機（offset-path で曲線追従） */}
+          {/* 航路上を進む飛行機（上面視のシルエット、offset-path で曲線追従） */}
           <g className={styles.plane}>
-            <path className={styles.planeBody} d="M-8,-5 L9,0 L-8,5 L-3,0 Z" />
+            <path
+              className={styles.planeBody}
+              d="M10,0 L2,-1.2 L-2.5,-6 L-1.6,-1.4 L-7.5,-1 L-10,-3 L-8.8,-0.8 L-10.5,-0.8 L-10.5,0.8 L-8.8,0.8 L-10,3 L-7.5,1 L-1.6,1.4 L-2.5,6 L2,1.2 Z"
+            />
           </g>
         </svg>
       </div>

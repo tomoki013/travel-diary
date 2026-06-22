@@ -290,7 +290,9 @@ const BlogClient = ({
       if (state.region !== "all") params.set("region", state.region);
       if (state.tags.length > 0) params.set("tags", state.tags.join(","));
       if (state.search) params.set("search", state.search);
-      router.push(`?${params.toString()}`);
+      // Next の自動トップスクロールを無効化（この後 scrollToResults で結果先頭へ
+      // スムーズ移動するため。両方走るとトップへ飛んでから戻る二重挙動になる）。
+      router.push(`?${params.toString()}`, { scroll: false });
     });
   };
 
