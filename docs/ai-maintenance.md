@@ -13,7 +13,7 @@
 
 ## AI が最低限確認するもの
 
-- 記事編集時: `draft-posts/rules/` と `docs/content-operations.md`
+- 記事編集時: `draft-posts/rules/OPERATIONS.md`（記事ルールの正本）と `docs/content-operations.md`
 - 構造変更時: `docs/architecture.md` と `docs/page-map.md`
 - 運用変更時: `docs/development-workflow.md` とこのファイル
 - バージョン・リリース・公開更新履歴・ロードマップ変更時: `docs/versioning-release.md`

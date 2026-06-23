@@ -8,23 +8,24 @@
 
 ## 基本ルール
 
-- 共通基準は `EDITORIAL_BASELINE.md`
-- カテゴリ意図は `CONTENT_STRATEGY.md`
-- `series: travel-diary` は `TRAVEL_DIARY_RULES.md`
+- 記事ルールの正本は `draft-posts/rules/OPERATIONS.md`（frontmatter・命名・出力先・内部リンク・公開前チェック）。
+- 文体・構成・カテゴリ別の執筆方針といった編集ルールは廃止済み。`OPERATIONS.md` 以外のルールファイルは存在しない。
 
 ## frontmatter の主な項目
 
-- `title`
-- `dates`
-- `category`
-- `excerpt`
-- `image`
-- `location`
-- `series`
-- `journey`
+正確な型・必須/任意・使用タイミングは `draft-posts/rules/OPERATIONS.md` の frontmatter 表を正本とする。
+
+- `title`（必須）
+- `publishedAt` / `updatedAt` / `travelDates`（公開日・更新日・訪問日。3種を区別する）
+- `category`（必須。`tourism` / `itinerary` / `series` / `one-off`）
+- `excerpt` / `description`
+- `heroImage`（必須） / `heroAlt`
+- `regionIds`（`src/data/region.ts` の slug に一致させる）
+- `series`（`category: series` で必須） / `journeyId`
+- `costReport`（`category: itinerary`） / `promotionPrograms`（PR 記事）
 - `tags`
-- `travelTopics`
-- `revenueCategory`
+- `travelTopics`（`category: tourism` のみ）
+- `draft`
 
 ## 運用上の前提
 
