@@ -1,111 +1,92 @@
 import Link from "next/link";
-import Image from "next/image";
+import { Compass, ArrowRight, BookOpen, Image as ImageIcon, MapPin } from "lucide-react";
+
+const quickLinks = [
+  {
+    href: "/posts",
+    label: "ブログ一覧",
+    description: "旅の記録を読む",
+    icon: BookOpen,
+  },
+  {
+    href: "/destination",
+    label: "地域別に探す",
+    description: "行き先から記事をたどる",
+    icon: MapPin,
+  },
+  {
+    href: "/gallery",
+    label: "写真ギャラリー",
+    description: "景色から旅を選ぶ",
+    icon: ImageIcon,
+  },
+];
 
 export default function NotFound() {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 font-sans text-slate-50">
-      {/* 背景画像：旅の情景（霧の山道や広い空など、迷いつつも美しい場所） */}
-      {/* Next.jsのImageコンポーネントを使う場合は差し替えてください */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/Greece/oia-castle-sunset-view.jpg"
-          alt="Travel Landscape"
-          fill
-          sizes="100vw"
-          className="h-full w-full object-cover opacity-40 transition-transform duration-1000 hover:scale-105"
-        />
-        {/* グラデーションオーバーレイ：文字の可読性を確保しつつ、雰囲気を出す */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
-      </div>
-
-      {/* メインコンテンツエリア */}
-      <div className="relative z-10 flex w-full max-w-4xl flex-col items-center px-6 text-center md:px-12">
-        {/* 巨大な404タイポグラフィ - 背景に溶け込ませる */}
-        <h1 className="text-[12rem] leading-none font-bold tracking-tighter text-white/10 mix-blend-overlay blur-[2px] select-none md:text-[20rem]">
-          404
-        </h1>
-
-        {/* メッセージカード - グラスモーフィズム */}
-        <div className="-mt-20 max-w-lg rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md md:-mt-32 md:p-12">
-          <div className="mb-6 flex justify-center">
-            {/* コンパスのアイコン装飾 */}
-            <div className="rounded-full bg-white/10 p-3 ring-1 ring-white/20">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="animate-spin text-sky-200"
-                style={{ animationDuration: "4s" }}
-              >
-                <circle cx="12" cy="12" r="10" />
-                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-              </svg>
-            </div>
-          </div>
-
-          <h2 className="mb-4 text-2xl font-bold tracking-wide text-white md:text-3xl">
-            Destination Unknown
-          </h2>
-
-          <p className="mb-8 text-sm leading-relaxed text-slate-300 md:text-base">
-            お探しのページは、地図の座標から外れてしまったようです。
-            <br className="hidden md:block" />
-            旅には予期せぬ寄り道がつきもの。新しい目的地へ出発しましょう。
-          </p>
-
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            {/* ホームに戻るボタン */}
-            <Link
-              href="/"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-8 py-3 text-sm font-medium text-slate-900 transition-all hover:bg-sky-50 hover:text-sky-900 focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none"
-            >
-              <span>トップページへ戻る</span>
-              <svg
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </Link>
-
-            {/* 記事一覧へ（オプション） */}
-            <Link
-              href="/posts"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
-            >
-              旅の記録を読む
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* フッター装飾 */}
-      <div className="absolute right-0 bottom-8 left-0 text-center">
-        <p className="text-xs font-light tracking-[0.2em] text-slate-500 uppercase">
-          Tomokichi&apos;s Travel Diary
-        </p>
-      </div>
-
-      {/* ノイズテクスチャ（フィルム写真のような質感を追加） */}
+    <div className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden bg-stone-50 px-6 py-20 text-stone-900 dark:bg-[#080808] dark:text-stone-100">
+      {/* 背景の淡いグラデーション装飾 */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        className="pointer-events-none absolute inset-0 opacity-60 dark:opacity-40"
+        aria-hidden
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundImage:
+            "radial-gradient(60% 50% at 50% 0%, rgba(217,119,6,0.10), transparent 70%)",
         }}
       />
+
+      <div className="relative z-10 flex w-full max-w-2xl flex-col items-center text-center">
+        {/* コンパスアイコン */}
+        <div className="mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+          <Compass
+            className="h-8 w-8 animate-spin text-amber-600 dark:text-amber-500"
+            style={{ animationDuration: "6s" }}
+            strokeWidth={1.5}
+          />
+        </div>
+
+        {/* 大きな 404 */}
+        <p className="font-heading text-7xl font-extrabold tracking-tight text-stone-900 sm:text-8xl dark:text-stone-50">
+          404
+        </p>
+        <p className="font-code mt-3 text-xs tracking-[0.3em] text-amber-600 uppercase dark:text-amber-500">
+          Destination Unknown
+        </p>
+
+        <h1 className="mt-6 text-2xl font-bold tracking-tight text-stone-800 sm:text-3xl dark:text-stone-100">
+          お探しのページが見つかりません
+        </h1>
+        <p className="mt-4 max-w-md text-sm leading-relaxed text-stone-600 sm:text-base dark:text-stone-400">
+          ページが移動・削除されたか、URL が間違っている可能性があります。
+          旅には予期せぬ寄り道がつきもの。新しい目的地へ出発しましょう。
+        </p>
+
+        {/* プライマリ導線 */}
+        <Link
+          href="/"
+          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-amber-600 px-7 py-3 text-sm font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-amber-700 hover:shadow-md"
+        >
+          トップページへ戻る
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Link>
+
+        {/* クイックリンク */}
+        <div className="mt-12 grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          {quickLinks.map(({ href, label, description, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group flex flex-col items-center gap-2 rounded-2xl border border-stone-200 bg-white p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-md dark:border-stone-800 dark:bg-stone-900/50 dark:hover:border-amber-500/40"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-stone-100 text-stone-600 transition-colors group-hover:bg-amber-100 group-hover:text-amber-700 dark:bg-stone-800 dark:text-stone-300 dark:group-hover:bg-amber-900/30 dark:group-hover:text-amber-400">
+                <Icon className="h-5 w-5" />
+              </span>
+              <span className="text-sm font-bold text-stone-800 dark:text-stone-100">{label}</span>
+              <span className="text-xs text-stone-500 dark:text-stone-400">{description}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

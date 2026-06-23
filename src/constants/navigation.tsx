@@ -1,8 +1,5 @@
-import { FaGithub, FaPenSquare, FaTiktok, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaPenSquare } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { SiZenn, SiQiita } from "react-icons/si";
-import { ConnpassIcon } from "@/components/common/icons/ConnpassIcon";
-import { MAP_PATH } from "./site";
 
 export interface NavLink {
   href: string;
@@ -32,13 +29,11 @@ export const FOOTER_CONTENTS_LIST: FooterContent[] = [
   { name: "地域別一覧", pass: "/destination" },
   { name: "シリーズ一覧", pass: "/series" },
   { name: "旅の軌跡", pass: "/journey" },
-  { name: "Tomokichi Globe", pass: MAP_PATH, target: "_blank" },
 ];
 
 export const FOOTER_ABOUT_LIST: FooterContent[] = [
   { name: "サイトについて", pass: "/about" },
   { name: "更新履歴", pass: "/roadmap#updates" },
-  { name: "旅行予約・準備", pass: "/travel-essentials" },
   { name: "サイトマップ", pass: "/sitemap" },
 ];
 
@@ -59,16 +54,6 @@ export const FOOTER_LEGAL_LIST: FooterContent[] = [
 
 export const SOCIAL_LIST = [
   {
-    name: "YouTube",
-    pass: "https://www.youtube.com/@tomokichi_travel",
-    icon: <FaYoutube />,
-  },
-  {
-    name: "TikTok",
-    pass: "https://www.tiktok.com/@tomokichitravel",
-    icon: <FaTiktok />,
-  },
-  {
     name: "note",
     pass: "https://note.com/tomokichidiary",
     icon: <FaPenSquare />,
@@ -82,25 +67,5 @@ export const SOCIAL_LIST = [
     name: "X",
     pass: "https://x.com/tomokichi178694",
     icon: <FaXTwitter />,
-  },
-  {
-    name: "Qiita",
-    pass: "https://qiita.com/tomokichidiary",
-    icon: <SiQiita />,
-  },
-  {
-    name: "Zenn",
-    pass: "https://zenn.dev/tomoki013",
-    icon: <SiZenn />,
-  },
-  {
-    name: "LinkedIn",
-    pass: "https://www.linkedin.com/in/tomoki-takagi-5b08a738b",
-    icon: <FaLinkedin />,
-  },
-  {
-    name: "connpass",
-    pass: "https://connpass.com/user/tomoki013/",
-    icon: <ConnpassIcon />,
   },
 ];

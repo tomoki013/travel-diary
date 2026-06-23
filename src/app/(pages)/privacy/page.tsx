@@ -1,6 +1,6 @@
-import { Separator } from "@/components/ui/separator"; // 推奨されるインポートパス
 import Link from "next/link";
 import { createPageMetadata } from "@/lib/page-metadata";
+import LegalPageLayout from "@/components/common/LegalPageLayout";
 
 export const metadata = createPageMetadata({
   title: "プライバシーポリシー",
@@ -11,143 +11,104 @@ export const metadata = createPageMetadata({
 
 const PrivacyPage = () => {
   return (
-    <div className="container py-16">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:mx-8">
-        <h1 className="mb-8 text-4xl font-bold">プライバシーポリシー</h1>
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <p>
-            当サイト「ともきちの旅行日記」（以下、「当サイト」）は、ユーザーの個人情報の保護を重要と考えています。本プライバシーポリシーでは、当サイトがどのように個人情報を収集、使用、保護するかについて説明します。
-          </p>
+    <LegalPageLayout
+      title="プライバシーポリシー"
+      description="当サイト「ともきちの旅行日記」は、ユーザーの個人情報の保護を重要と考えています。本ポリシーでは、個人情報をどのように収集・使用・保護するかを説明します。"
+      enactedDate="2024年9月15日"
+      updatedDate="2025年12月22日"
+    >
+      <h2>1. 収集する情報</h2>
+      <p>当サイトでは、以下の情報を収集する場合があります：</p>
+      <ul className="list-disc pl-6">
+        <li>
+          お問い合わせフォームにご入力いただいた情報（お名前、メールアドレス、お問い合わせ内容）
+        </li>
+        <li>
+          サーバーによって自動的に記録されるアクセスログ情報（IPアドレス、ブラウザの種類、リファラなど）
+        </li>
+        <li>Cookieを通じて収集される、個人を特定しない形でのサイト利用履歴</li>
+      </ul>
 
-          <Separator className="my-8" />
+      <h2>2. 情報の使用目的</h2>
+      <p>収集した情報は、以下の目的で使用されます：</p>
+      <ul className="list-disc pl-6">
+        <li>お問い合わせ内容への回答および連絡</li>
+        <li>サービスの安定的な提供と改善</li>
+        <li>新機能や新しいコンテンツの開発の参考</li>
+        <li>当サイトの利用状況の分析、およびマーケティング活動</li>
+      </ul>
 
-          <h2 className="text-2xl font-bold">1. 収集する情報</h2>
-          <p>当サイトでは、以下の情報を収集する場合があります：</p>
-          <ul className="list-disc pl-6">
-            <li>
-              お問い合わせフォームにご入力いただいた情報（お名前、メールアドレス、お問い合わせ内容）
-            </li>
-            <li>
-              サーバーによって自動的に記録されるアクセスログ情報（IPアドレス、ブラウザの種類、リファラなど）
-            </li>
-            <li>Cookieを通じて収集される、個人を特定しない形でのサイト利用履歴</li>
-          </ul>
+      <h2>3. 個人情報の保護</h2>
+      <p>
+        当サイトは、収集した個人情報の漏洩、紛失、改ざんなどを防ぐため、適切なセキュリティ対策を実施し、厳重に管理いたします。
+      </p>
 
-          <Separator className="my-8" />
+      <h2>4. 第三者への提供</h2>
+      <p>当サイトは、以下の場合を除き、収集した個人情報を第三者に提供することはありません：</p>
+      <ul className="list-disc pl-6">
+        <li>ユーザーご本人の同意がある場合</li>
+        <li>法令に基づく開示請求があった場合</li>
+        <li>
+          人の生命、身体または財産の保護のために必要がある場合であって、ご本人の同意を得ることが困難であるとき
+        </li>
+      </ul>
 
-          <h2 className="text-2xl font-bold">2. 情報の使用目的</h2>
-          <p>収集した情報は、以下の目的で使用されます：</p>
-          <ul className="list-disc pl-6">
-            <li>お問い合わせ内容への回答および連絡</li>
-            <li>サービスの安定的な提供と改善</li>
-            <li>新機能や新しいコンテンツの開発の参考</li>
-            <li>当サイトの利用状況の分析、およびマーケティング活動</li>
-          </ul>
+      <h2 id="cookie">5. Cookie（クッキー）の使用について</h2>
+      <p>
+        当サイトでは、サービスの向上、アクセス解析、および広告配信のためにCookieを使用しています。
+        Cookieの具体的な使用目的、使用しているツール、および無効化の方法などの詳細については、
+        <Link href="/cookie-policy">クッキーポリシー</Link>
+        をご確認ください。
+      </p>
 
-          <Separator className="my-8" />
+      <h2>6. 広告の配信について</h2>
+      <p>
+        当サイトは、第三者配信の広告サービス（Google
+        AdSense等）を利用しています。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」（氏名、住所、メール
+        アドレス、電話番号は含まれません）を使用することがあります。
+      </p>
+      <p>
+        また、Google
+        AdSenseに関して、このプロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、
+        <a
+          href="https://policies.google.com/technologies/ads?hl=ja"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Googleポリシーと規約
+        </a>
+        をご覧ください。
+      </p>
 
-          <h2 className="text-2xl font-bold">3. 個人情報の保護</h2>
-          <p>
-            当サイトは、収集した個人情報の漏洩、紛失、改ざんなどを防ぐため、適切なセキュリティ対策を実施し、厳重に管理いたします。
-          </p>
+      <h2>7. アフィリエイトプログラムについて</h2>
+      <p>当サイトは、アフィリエイトプログラム参加者です。</p>
+      <p>
+        第三者がコンテンツおよび宣伝を提供し、訪問者から直接情報を収集し、訪問者のブラウザにCookieを設定したりこれを認識したりする場合があります。
+      </p>
+      <p>
+        詳しい運営方針は<Link href="/affiliates">アフィリエイトポリシー</Link>をご覧ください。
+      </p>
 
-          <Separator className="my-8" />
+      <h2>8. 免責事項</h2>
+      <p>
+        当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。当サイトからリンクやバナーなどによって他のサイトに移動した場合、移動先サイトで提供される情報、サービス等についても一切の責任を負いません。
+      </p>
+      <p>
+        当サイトで掲載しているコンテンツ・情報は、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。必ずしも正確性を保証するものではありません。また、合法性や安全性なども保証致しません。
+      </p>
 
-          <h2 className="text-2xl font-bold">4. 第三者への提供</h2>
-          <p>当サイトは、以下の場合を除き、収集した個人情報を第三者に提供することはありません：</p>
-          <ul className="list-disc pl-6">
-            <li>ユーザーご本人の同意がある場合</li>
-            <li>法令に基づく開示請求があった場合</li>
-            <li>
-              人の生命、身体または財産の保護のために必要がある場合であって、ご本人の同意を得ることが困難であるとき
-            </li>
-          </ul>
+      <h2>9. お問い合わせ</h2>
+      <p>
+        本プライバシーポリシーに関するお問い合わせは、
+        <Link href="/contact">お問い合わせフォーム</Link>
+        よりご連絡ください。
+      </p>
 
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold" id="cookie">
-            5. Cookie（クッキー）の使用について
-          </h2>
-          <p>
-            当サイトでは、サービスの向上、アクセス解析、および広告配信のためにCookieを使用しています。
-            Cookieの具体的な使用目的、使用しているツール、および無効化の方法などの詳細については、
-            <Link href="/cookie-policy" className="text-primary hover:text-secondary underline">
-              クッキーポリシー
-            </Link>
-            をご確認ください。
-          </p>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">6. 広告の配信について</h2>
-          <p>
-            当サイトは、第三者配信の広告サービス（Google
-            AdSense等）を利用しています。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」（氏名、住所、メール
-            アドレス、電話番号は含まれません）を使用することがあります。
-          </p>
-          <p>
-            また、Google
-            AdSenseに関して、このプロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、
-            <a
-              href="https://policies.google.com/technologies/ads?hl=ja"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:text-secondary underline"
-            >
-              Googleポリシーと規約
-            </a>
-            をご覧ください。
-          </p>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">7. アフィリエイトプログラムについて</h2>
-          <p>当サイトは、アフィリエイトプログラム参加者です。</p>
-          <p>
-            第三者がコンテンツおよび宣伝を提供し、訪問者から直接情報を収集し、訪問者のブラウザにCookieを設定したりこれを認識したりする場合があります。
-          </p>
-          <p>
-            詳しい運営方針は
-            <Link href={`/affiliates`} className="text-primary hover:text-secondary underline">
-              アフィリエイトポリシー
-            </Link>
-            をご覧ください。
-          </p>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">8. 免責事項</h2>
-          <p>
-            当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。当サイトからリンクやバナーなどによって他のサイトに移動した場合、移動先サイトで提供される情報、サービス等についても一切の責任を負いません。
-          </p>
-          <p>
-            当サイトで掲載しているコンテンツ・情報は、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。必ずしも正確性を保証するものではありません。また、合法性や安全性なども保証致しません。
-          </p>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">9. お問い合わせ</h2>
-          <p>
-            本プライバシーポリシーに関するお問い合わせは、
-            <Link href="/contact" className="text-primary hover:text-secondary underline">
-              お問い合わせフォーム
-            </Link>
-            よりご連絡ください。
-          </p>
-
-          <Separator className="my-8" />
-
-          <h2 className="text-2xl font-bold">10. プライバシーポリシーの変更</h2>
-          <p>
-            当サイトは、法令の変更やサービスの改善に伴い、本プライバシーポリシーを事前の予告なく変更することがあります。変更後のプライバシーポリシーは、当サイトに掲載したときから効力を生じるものとします。
-          </p>
-
-          <Separator className="my-8" />
-
-          <p className="text-muted-foreground text-sm">最終更新日：2025年12月22日</p>
-        </div>
-      </div>
-    </div>
+      <h2>10. プライバシーポリシーの変更</h2>
+      <p>
+        当サイトは、法令の変更やサービスの改善に伴い、本プライバシーポリシーを事前の予告なく変更することがあります。変更後のプライバシーポリシーは、当サイトに掲載したときから効力を生じるものとします。
+      </p>
+    </LegalPageLayout>
   );
 };
 

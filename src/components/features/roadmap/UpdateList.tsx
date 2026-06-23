@@ -41,6 +41,14 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 // 並びは新しい順。package.json の version と先頭エントリを一致させること。
 const UPDATES: UpdateItem[] = [
   {
+    date: "2026.06.23",
+    version: "v4.9.0",
+    title: "フッター・404・共有・各種ポリシーを整理し、一部ページを統合",
+    content:
+      "フッターのSNSを note・GitHub・X に絞り、リンクをすっきりさせました。記事の共有ボタンを X・Facebook・LINE・リンクコピーに刷新し、見た目もサイトの雰囲気に合わせて整えています。お探しのページが見つからないときの画面（404）も、サイトの配色に合わせて作り直し、よく見られるページへの入口を追加しました。プライバシーポリシーや利用規約などの各種ポリシーページを読みやすく整え、制定日と最終更新日を表示するようにしています。サイトマップには年ごとに記事へ飛べるリンクを追加。あわせて、サイト内からの Tomokichi Globe の案内と「旅行予約・準備」ページを終了し、関連する導線を記事一覧へ整理しました。",
+    type: "feature",
+  },
+  {
     date: "2026.06.22",
     version: "v4.8.1",
     title: "ローディング表示の刷新と検索まわりの調整",
@@ -284,6 +292,8 @@ const UPDATES: UpdateItem[] = [
     title: "Globeプロモの調整",
     content: "Tomokichi Globe を紹介するセクションの文言と配置を調整しました。",
     type: "patch",
+    removed: true,
+    removedNote: "2026年6月にサイト内の導線を終了しました。",
   },
   {
     date: "2025.12.11",
@@ -291,6 +301,8 @@ const UPDATES: UpdateItem[] = [
     title: "Tomokichi Globeのプロモを追加",
     content: "ホーム・記事・地域ページに、3D地球儀 Tomokichi Globe への導線を追加しました。",
     type: "feature",
+    removed: true,
+    removedNote: "2026年6月にサイト内の導線を終了しました。",
   },
   {
     date: "2025.12.05",

@@ -34,10 +34,10 @@ const NativeShareButton = ({ url, title, text }: Props) => {
   return (
     <button
       onClick={handleShare}
-      className="text-foreground bg-primary-foreground rounded-full p-3 transition-colors hover:bg-gray-200"
-      aria-label="Share"
+      className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-stone-600 shadow-sm ring-1 ring-stone-200 transition-all hover:-translate-y-0.5 hover:bg-amber-600 hover:text-white hover:shadow-md hover:ring-amber-600 dark:bg-stone-900 dark:text-stone-300 dark:ring-stone-800 dark:hover:bg-amber-600 dark:hover:text-white"
+      aria-label="共有"
     >
-      <FiShare size={20} />
+      <FiShare size={18} />
     </button>
   );
 };
