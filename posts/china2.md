@@ -86,4 +86,4 @@ journeyId: j-2025-11-29
 
 そのあとはCHAGEEを買ってホテルに戻り、デザート用に買ったパンを食べて就寝。観光のために整備された中華とヨーロッパの街並みを、一日でしっかり体験できた日だった。
 
-[上海でCHAGEEにかなりハマった話](./shanghai-chagee-addict)
+[上海でCHAGEEにかなりハマった話](./shanghai-chagee)

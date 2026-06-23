@@ -60,7 +60,7 @@ journeyId: j-2025-11-29
 
 ![上海で最初に飲んだCHAGEEのジャスミンミルクティー](/images/China/chagee-in-shanghai1.jpg)
 
-[上海でCHAGEEにかなりハマった話](./shanghai-chagee-addict)
+[上海でCHAGEEにかなりハマった話](./shanghai-chagee)
 
 ## 最後は外灘の夜景で、初日が締まる
 

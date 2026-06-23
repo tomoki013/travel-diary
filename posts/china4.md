@@ -53,4 +53,4 @@ journeyId: j-2025-11-29
 
 美味しい食べ物と素敵な街の雰囲気に包まれて、とても楽しい旅になった。また必ず行きたいと思える場所だった。
 
-[上海でCHAGEEにハマった話](./shanghai-chagee-addict)
+[上海でCHAGEEにハマった話](./shanghai-chagee)
