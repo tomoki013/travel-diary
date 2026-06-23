@@ -400,7 +400,7 @@ travelTopics:
 > Multiple（複数回入国可能）  
 > 選択したビザによって自動選択されているはず
 
-\*Expected Date of Arrival（入国予定日）\*\*
+**Expected Date of Arrival（入国予定日）**
 
 > 1ページ目で入力した日付が表示されているはず
 > **Port of Exit from India（出国予定空港）**
