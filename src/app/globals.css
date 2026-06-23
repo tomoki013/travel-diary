@@ -67,22 +67,6 @@
     animation: fade-up-mount 0.8s ease-in-out both;
   }
 
-  /* GlobePromo の地球儀アイコンがゆっくり上下に浮遊する動き
-     (旧 framer-motion の animate={{ y: [0, -10, 0] }} 4s easeInOut 無限ループ)。 */
-  @keyframes float-y {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-float-y {
-    animation: float-y 4s ease-in-out infinite;
-  }
-
   /* マウント時のシンプルなフェードイン(旧 framer-motion の
      initial={opacity:0} → animate={opacity:1} 相当)。duration は用途別に指定。 */
   @keyframes fade-in-mount {

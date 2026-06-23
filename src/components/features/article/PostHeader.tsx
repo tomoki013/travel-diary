@@ -68,7 +68,8 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
             <span className="truncate text-stone-700 dark:text-stone-300">{post.title}</span>
           </nav>
 
-          <div className="mb-6 flex flex-wrap gap-2">
+          {/* プライマリ分類(シリーズ・カテゴリ)を主役に、トピック/タグは控えめにして階層を作る */}
+          <div className="mb-6 flex flex-wrap items-center gap-2">
             {series && (
               <Link
                 href={`/series/${series.slug}`}
@@ -80,16 +81,22 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
             {categoryTitle && (
               <Link
                 href={`/posts?category=${post.category}`}
-                className="rounded-md bg-stone-100 px-3 py-1 text-xs font-bold tracking-wide text-stone-700 shadow-sm transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
+                className="rounded-md bg-stone-800 px-3 py-1 text-xs font-bold tracking-wide text-white shadow-sm transition-colors hover:bg-stone-700 dark:bg-stone-200 dark:text-stone-900 dark:hover:bg-white"
               >
                 {categoryTitle}
               </Link>
             )}
+
+            {(topicTitles.length > 0 || (post.tags && post.tags.length > 0)) &&
+              (series || categoryTitle) && (
+                <span className="mx-1 h-4 w-px bg-stone-200 dark:bg-stone-700" aria-hidden />
+              )}
+
             {topicTitles.map((topicTitle, index) => (
               <Link
                 key={`${topicTitle}-${index}`}
                 href={`/posts?topic=${post.travelTopics?.[index]}`}
-                className="rounded-md bg-stone-100 px-3 py-1 text-xs font-bold tracking-wide text-stone-700 shadow-sm transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
+                className="rounded-md border border-stone-200 px-3 py-1 text-xs font-medium tracking-wide text-stone-500 transition-colors hover:border-amber-300 hover:text-amber-700 dark:border-stone-700 dark:text-stone-400 dark:hover:border-amber-500/50 dark:hover:text-amber-400"
               >
                 {topicTitle}
               </Link>
@@ -99,7 +106,7 @@ const PostHeader = ({ post, variant = "full" }: PostHeaderProps) => {
                 <Link
                   key={tag}
                   href={`/posts?search=${tag}`}
-                  className="rounded-md bg-stone-100 px-3 py-1 text-xs font-bold tracking-wide text-stone-700 shadow-sm transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
+                  className="rounded-md border border-stone-200 px-3 py-1 text-xs font-medium tracking-wide text-stone-500 transition-colors hover:border-amber-300 hover:text-amber-700 dark:border-stone-700 dark:text-stone-400 dark:hover:border-amber-500/50 dark:hover:text-amber-400"
                 >
                   #{tag}
                 </Link>

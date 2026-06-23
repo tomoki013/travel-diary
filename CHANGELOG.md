@@ -9,6 +9,22 @@
 > （2025-03 開始）から再構築したものです。利用者向けの公開更新履歴は
 > `src/components/features/roadmap/UpdateList.tsx` と一致させています。
 
+## [4.9.0] - 2026-06-23
+
+### Changed
+
+- フッターの「Follow Journey」を note・GitHub・X の 3 つに整理（YouTube・TikTok・Qiita・Zenn・LinkedIn・connpass を削除）。Explore からも Tomokichi Globe を削除。
+- 記事の共有セクションを刷新。X・Facebook・LINE への共有リンクに加え、OS 共有シート（対応環境のみ）とリンクコピーを、サイトの stone/amber 基調・ライト/ダークに合わせた円形ボタンへ統一（`ShareButtons` / `NativeShareButton` / `CopyLinkButton`）。
+- 記事ヘッダーの分類表示を視覚的に整理。シリーズ・カテゴリをプライマリ（塗り）、トピック・タグを控えめなアウトラインにし、区切りを入れて階層を明確化（要素自体は維持）。
+- 404 ページ（`not-found.tsx`）を、`slate` 固定のダークテーマからサイト共通の stone/amber・ライト/ダーク対応へ作り直し、ブログ・地域・ギャラリーへのクイックリンクを追加。
+- サイトマップの「全記事一覧」上部に年別のジャンプリンクを追加し、各年見出しへアンカー（`#year-YYYY`）で移動できるようにした。サイトマップのメインページ一覧からも Tomokichi Globe を削除。
+- 法務・ポリシー系ページ（プライバシーポリシー・利用規約・クッキーポリシー・アフィリエイトポリシー・執筆編集ポリシー）を共通レイアウト（`LegalPageLayout`）に統一。過剰な区切り線を整理し、各 h2 を上罫線で区切る読みやすい構成にしたうえで、制定日・最終更新日をヘッダーに明示（利用規約・プライバシーポリシーの制定日は 2024-09-15）。中央寄せが崩れる `lg:mx-8` のレイアウト不具合も解消。
+
+### Removed
+
+- サイト内からの Tomokichi Globe の導線を終了。`GlobePromo` セクション（目的地ページ）・ホームの地図ユーティリティセクション（`HomeUtilitySection`）・FAQ の言及・フッター/サイトマップのリンクを削除（外部の地球儀アプリ自体は存続）。公開時のエントリ（`v3.3.0` / `v3.3.1`）は `removed` 注記付きで履歴に保持。
+- 「旅行予約・準備」ページ（`/travel-essentials`）を削除。記事内の「Travel Essentials」セクションを撤去し、フッター・サイトマップのリンク、収益 CTA（booking / sim / insurance）の導線を記事一覧（`/posts?topic=...`）へ付け替え。
+
 ## [4.8.1] - 2026-06-22
 
 ### Changed

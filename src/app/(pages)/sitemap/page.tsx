@@ -7,7 +7,6 @@ import HeroSection from "@/components/pages/HeroSection";
 import { featuredSeries } from "@/data/series";
 import { regionData } from "@/data/region";
 import AllDestination from "@/components/features/destination/allDestination";
-import { MAP_PATH } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "サイトマップ",
@@ -59,13 +58,11 @@ const mainList = [
   { pass: "/faq", name: "FAQ" },
   { pass: "/request", name: "記事テーマ募集ページ" },
   { pass: "/contact", name: "お問い合わせページ" },
-  { pass: "/travel-essentials", name: "旅行予約・準備" },
   { pass: "/privacy", name: "プライバシーポリシー/免責事項" },
   { pass: "/terms", name: "利用規約/免責事項" },
   { pass: "/affiliates", name: "アフィリエイトポリシー" },
   { pass: "/editorial-policy", name: "執筆・編集ポリシー" },
   { pass: "/journey", name: "旅の軌跡" },
-  { pass: MAP_PATH, name: "Tomokichi Globe" },
 ];
 
 // --- Page Component ---
@@ -143,9 +140,22 @@ export default async function SitemapPage() {
             <h2 className="mb-4 border-b-2 border-teal-500 pb-2 text-2xl font-bold">
               全記事一覧 (時系列)
             </h2>
+            {postsByYearMonth.length > 0 && (
+              <nav aria-label="年別ジャンプ" className="mb-8 flex flex-wrap gap-2">
+                {postsByYearMonth.map(({ year }) => (
+                  <a
+                    key={year}
+                    href={`#year-${year}`}
+                    className="rounded-full border border-teal-500/40 bg-teal-500/5 px-3 py-1 text-sm font-semibold text-teal-700 transition-colors hover:bg-teal-500 hover:text-white dark:text-teal-300"
+                  >
+                    {year}年
+                  </a>
+                ))}
+              </nav>
+            )}
             <div className="space-y-8">
               {postsByYearMonth.map(({ year, months }) => (
-                <div key={year}>
+                <div key={year} id={`year-${year}`} className="scroll-mt-24">
                   <h3 className="text-foreground text-xl font-semibold">{year}年</h3>
                   <div className="mt-2 space-y-4">
                     {months.map(({ month, posts }) => (

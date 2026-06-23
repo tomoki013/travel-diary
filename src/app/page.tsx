@@ -11,7 +11,6 @@ import Affiliates from "@/components/pages/Affiliates";
 import HighIntentSection from "@/components/pages/HighIntentSection";
 import { getHighIntentPosts } from "@/lib/revenue";
 import EntryPostsSection from "@/components/pages/EntryPostsSection";
-import HomeUtilitySection from "@/components/pages/HomeUtilitySection";
 import HomeAboutSection from "@/components/pages/HomeAboutSection";
 import { getHomepageEntryPosts } from "@/lib/post-discovery";
 import type { Metadata } from "next";
@@ -45,7 +44,6 @@ export default async function HomePage() {
       <FeaturedSeries />
       <NewPosts posts={allPosts} />
       <Gallery teaser />
-      <HomeUtilitySection />
       <HomeAboutSection />
       <Affiliates />
       <Request />

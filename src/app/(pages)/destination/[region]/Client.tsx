@@ -7,7 +7,6 @@ import PostCard from "@/components/common/PostCard";
 import { slideFadeIn } from "@/components/common/animation";
 import { Wind } from "lucide-react";
 import AllDestination from "@/components/features/destination/allDestination";
-import GlobePromo from "@/components/features/promo/GlobePromo";
 
 interface ClientProps extends AllDestinationProps {
   region: Region;
@@ -211,10 +210,6 @@ const Client = ({
           </div>
         )}
       </div>
-      <GlobePromo
-        className="mx-auto max-w-5xl"
-        queryParams={country ? { country: region.slug } : { region: region.slug }}
-      />
 
       <div className="mx-auto mt-16 max-w-5xl px-4 sm:px-6 lg:px-8">
         <h2 className="mb-12 text-center text-3xl font-bold">全ての旅行先を見る</h2>
