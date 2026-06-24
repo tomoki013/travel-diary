@@ -122,3 +122,11 @@
   to = "/posts"
   status = 301
   force = true
+
+# 記事の分割・slug変更にともなう旧URLの恒久リダイレクト
+# 旧 CHAGEE 記事（shanghai-chagee-addict）を分割し、ブランド記事 shanghai-chagee へ統合
+[[redirects]]
+  from = "/posts/shanghai-chagee-addict"
+  to = "/posts/shanghai-chagee"
+  status = 301
+  force = true
