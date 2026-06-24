@@ -89,23 +89,11 @@ Many pages follow a Server Component + Client Component pattern:
 - **Animations**: スクロール連動フェードインは CSS + IntersectionObserver (`src/components/common/Reveal.tsx`)。退場アニメーション(`AnimatePresence`)・共有要素(`layoutId`)・FLIP(`layout`)が必要な箇所のみ framer-motion を使用し、必ず `LazyMotion` 配下で `m.*` を使うこと(`motion.*` は使用禁止。`src/components/common/MotionProvider.tsx` 参照)
 - **Forms**: react-hook-form + zod validation
 
-## Blogging Mandates (AI Rules)
+## Blog Post Operations
 
-All AI agents MUST adhere to the following rules for blog post creation, editing, and formatting.
-
-### Rule Source
-
-- **Primary Rules:** `draft-posts/rules/*.md`
-- Agents MUST always check and adhere to the latest instructions in `draft-posts/rules/` before creating or editing any blog posts.
-- Specifically, use `draft-posts/rules/EDITORIAL_BASELINE.md` as the general editorial baseline, apply `draft-posts/rules/CONTENT_STRATEGY.md` for category intent, and apply `draft-posts/rules/TRAVEL_DIARY_RULES.md` whenever working on `series: travel-diary`.
-
-### Core Principles
-
-- **Style Consistency:** Match the existing patterns in the `posts/` directory.
-- **Fixed Targets:** Always define the target file path before starting edits.
-- **Structural Integrity:** Use proper Markdown headings (`##`, `###`), unified "Desu/Masu" (です・ます) tone, and chronological re-organization.
-- **Noise Removal:** Rigorously remove all non-essential elements (Images, ToC, CTAs, external links).
-- **Verification:** Double-check for residual noise keywords (URLs, "ToC", "images", etc.) before finalizing any post.
+- 記事制作の正本は `draft-posts/rules/OPERATIONS.md`（frontmatter・命名・出力先・内部リンク・公開前チェック）。記事を新規作成・編集する前に必ず確認する。
+- 新規作成や修正した記事は、いきなり `posts/` へ置かず、必ず一旦 `draft-posts/` に出力して確認を挟む。
+- frontmatter の項目とカテゴリ要件は `OPERATIONS.md` に従う（このファイルの Content System も参照）。
 
 ### External Services
 

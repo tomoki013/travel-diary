@@ -32,14 +32,11 @@
 
 ## draft-posts/rules/ ディレクトリ
 
-| path                                                                                  | 種別         | 現在の役割                                           | 内容の鮮度 | 重複 | 外部公開 | 判定     | 理由                                                 |
-| ------------------------------------------------------------------------------------- | ------------ | ---------------------------------------------------- | ---------- | ---- | -------- | -------- | ---------------------------------------------------- |
-| [draft-posts/rules/README.md](../draft-posts/rules/README.md)                         | インデックス | `rules/` の目次・各ファイルの使い分け説明            | 最新       | なし | されない | **残す** | ルールディレクトリの入口として必要。                 |
-| [draft-posts/rules/EDITORIAL_BASELINE.md](../draft-posts/rules/EDITORIAL_BASELINE.md) | 設計書       | 全記事共通の編集ルール正本                           | 最新       | なし | されない | **残す** | AI・運営者が記事編集時に最初に参照するファイル。     |
-| [draft-posts/rules/CONTENT_STRATEGY.md](../draft-posts/rules/CONTENT_STRATEGY.md)     | 設計書       | カテゴリごとの目的・主観・客観の比率                 | 最新       | なし | されない | **残す** | カテゴリ判断の基準として使っている。                 |
-| [draft-posts/rules/TRAVEL_DIARY_RULES.md](../draft-posts/rules/TRAVEL_DIARY_RULES.md) | 設計書       | `series: travel-diary` 専用の記事ルール              | 最新       | なし | されない | **残す** | シリーズ旅行記の品質を揃える中心的なルール。         |
-| [draft-posts/rules/OPERATIONS.md](../draft-posts/rules/OPERATIONS.md)                 | 運用手順     | frontmatter・命名・公開前チェックなど                | 最新       | なし | されない | **残す** | 運用仕様の正本。AIが参照する。                       |
-| [draft-posts/rules/SOURCE_CONVERSION.md](../draft-posts/rules/SOURCE_CONVERSION.md)   | 設計書       | Note記事・外部テキストを本ブログ原稿に変換するルール | 最新       | なし | されない | **残す** | Note連携を行う際に使用。不要になったときは削除候補。 |
+記事ルールは `OPERATIONS.md` 1 本に集約済み（frontmatter・命名・出力先・内部リンク・公開前チェック）。文体・構成・カテゴリ別の執筆方針・Note 変換といった編集ルール（`EDITORIAL_BASELINE.md` / `CONTENT_STRATEGY.md` / `TRAVEL_DIARY_RULES.md` / `SOURCE_CONVERSION.md`）と索引 `README.md` は廃止・削除済み。
+
+| path                                                                  | 種別     | 現在の役割                                            | 内容の鮮度 | 重複 | 外部公開 | 判定     | 理由                     |
+| --------------------------------------------------------------------- | -------- | ----------------------------------------------------- | ---------- | ---- | -------- | -------- | ------------------------ |
+| [draft-posts/rules/OPERATIONS.md](../draft-posts/rules/OPERATIONS.md) | 運用手順 | frontmatter・命名・出力先・内部リンク・公開前チェック | 最新       | なし | されない | **残す** | 記事ルールの唯一の正本。 |
 
 ---
 
