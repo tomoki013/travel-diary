@@ -70,7 +70,16 @@ const config = {
     };
   },
   robotsTxtOptions: {
-    policies: [{ userAgent: "*", allow: "/" }],
+    policies: [
+      {
+        userAgent: "*",
+        allow: "/",
+        // 検索・絞り込みのパラメータ付きURL(/posts?search=xx 等)は
+        // 実体が一覧ページの複製のためクロールさせない
+        // (GSCの「クロール済み - インデックス未登録」に蓄積していた)
+        disallow: ["/posts?", "/affiliates?"],
+      },
+    ],
   },
 };
 

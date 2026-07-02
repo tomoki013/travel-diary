@@ -37,7 +37,7 @@ journeyId: j-2025-06-10
 
 ![ワット・ポー境内のマッサージ受付周辺](/images/Thai/wat-pho-massage.jpg)
 
-[バンコク三大寺院の一つ「ワット・ポー」の魅力と行き方](./wat-pho)
+[バンコク三大寺院の回り方。ワット・プラ・ケオ、ワット・ポー、ワット・アルン](./bankok-sandaijiin)
 
 [本場のタイマッサージ体験記](./thai-traditional-massage)
 

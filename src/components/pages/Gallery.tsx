@@ -31,7 +31,10 @@ const MarqueeRow = ({
       >
         {loopItems.map((item, index) => (
           <div
-            key={`${item.path}-${index}`}
+            // NOTE: key を「パス + 連番」にすると RSC ペイロード内の
+            // "/images/xxx.jpg-1" という文字列を Googlebot が URL と誤解釈して
+            // 404 クロールが発生する(GSC で実測)。連番を先頭に置いて回避する。
+            key={`${index}-${item.path}`}
             className="h-[268px] w-[260px] shrink-0 overflow-hidden rounded-md md:w-[300px] lg:w-[360px]"
           >
             <Image

@@ -262,8 +262,7 @@ Petit Hostel Palacio Real宿泊（5泊13,763円）
 
 ### フランス・パリ
 
-- [パリの地下鉄（メトロ）の乗り方と注意点](./paris-subway)
-- [パリをお得に移動！Navigo Easyの使いこなし術](./paris-navigo-easy)
+- [パリのメトロの乗り方とチケットの選び方](./paris-navigo-easy)
 - [パリで実際に訪れてよかったレストラン・カフェまとめ](./paris-restraunt)
 
 ### スペイン
