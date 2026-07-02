@@ -9,9 +9,9 @@ const EXIT_MS = 1000;
 // エントランス演出を見せる最低表示時間。
 // NOTE: フルスクリーンでコンテンツを隠すため、長くするほど体感速度と
 // LCP を悪化させる。演出は維持しつつ待ち時間は最小限にする。
-const MIN_VISIBLE_MS = 800;
+const MIN_VISIBLE_MS = 1200;
 // load が発火しない等の保険として、最大でこの時間で退場を始める。
-const MAX_VISIBLE_MS = 3000;
+const MAX_VISIBLE_MS = 4500;
 
 /**
  * 初回ロード／リロード時だけ表示するフルスクリーンのスプラッシュ。
