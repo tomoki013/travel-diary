@@ -15,6 +15,7 @@ regionIds:
   - giza
   - varanasi
 author: ともきち
+noindex: true
 ---
 
 ## 結論

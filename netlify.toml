@@ -123,10 +123,35 @@
   status = 301
   force = true
 
+# 撤去済み機能(Generative UI)の残骸URL。GSCの「検出-インデックス未登録」に
+# 残留していたため、トップへ恒久リダイレクトして掃除する
+[[redirects]]
+  from = "/generative-ui/*"
+  to = "/"
+  status = 301
+  force = true
+
 # 記事の分割・slug変更にともなう旧URLの恒久リダイレクト
 # 旧 CHAGEE 記事（shanghai-chagee-addict）を分割し、ブランド記事 shanghai-chagee へ統合
 [[redirects]]
   from = "/posts/shanghai-chagee-addict"
   to = "/posts/shanghai-chagee"
+  status = 301
+  force = true
+
+# パリ地下鉄記事の統合(2026-07): paris-subway の内容を paris-navigo-easy へ統合
+# (Googleが paris-subway を「クロール済み-インデックス未登録」と判定したため、
+# 検索で機能している navigo 記事へ一本化)
+[[redirects]]
+  from = "/posts/paris-subway"
+  to = "/posts/paris-navigo-easy"
+  status = 301
+  force = true
+
+# ワット・ポー単独記事の統合(2026-07): wat-pho の内容を三大寺院まとめ
+# (bankok-sandaijiin)へ統合(同上の理由)
+[[redirects]]
+  from = "/posts/wat-pho"
+  to = "/posts/bankok-sandaijiin"
   status = 301
   force = true

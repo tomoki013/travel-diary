@@ -32,6 +32,9 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: `${journey.title} - 旅の記録 | ともきちの旅行日記`,
     description: journey.description,
+    alternates: {
+      canonical: `/journey/${journey.id}`,
+    },
   };
 }
 

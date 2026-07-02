@@ -22,10 +22,12 @@ export async function generateMetadata(props: {
   const regionSlug = params.region;
   const currentRegion = getRegionBySlug(regionSlug);
 
-  // 記事数が1件以下の地域ページは noindex にする
+  // 記事数が2件以下の地域ページは noindex にする(カード数枚だけの
+  // 薄いアーカイブページを検索対象から外す。AdSense再審査対応)。
+  // 基準を変えたら next-sitemap.config.js の除外リストも同期すること。
   const targetSlugs = getRegionAndDescendantSlugs(regionSlug);
   const allRegionPosts = await getAllPosts({ region: targetSlugs });
-  const shouldNoIndex = allRegionPosts.length <= 1;
+  const shouldNoIndex = allRegionPosts.length <= 2;
 
   return {
     title: currentRegion ? `${currentRegion.name}の旅行記` : "地域別一覧",

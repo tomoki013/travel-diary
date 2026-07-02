@@ -256,6 +256,11 @@ export const regionData: ContinentData[] = [
         imageURL: "/images/Turkey/balloons-in-cappadocia.jpg",
         children: [
           {
+            slug: "istanbul",
+            name: "イスタンブール",
+            imageURL: "/images/Turkey/meidens-tower.jpg",
+          },
+          {
             slug: "cappadocia",
             name: "カッパドキア",
             imageURL: "/images/Turkey/balloons-in-cappadocia.jpg",
