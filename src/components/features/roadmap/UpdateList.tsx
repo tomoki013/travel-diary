@@ -41,6 +41,14 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 // 並びは新しい順。package.json の version と先頭エントリを一致させること。
 const UPDATES: UpdateItem[] = [
   {
+    date: "2026.07.02",
+    version: "v4.9.1",
+    title: "コンテンツの補強と読み込み表示の調整",
+    content:
+      "AdSense再審査に向けて、内容が薄かった一部の記事を補強し、リンク切れなどの不具合を修正しました。また、サイト表示時のローディングアニメーションを見られるように、表示時間を少し長く調整しています。",
+    type: "patch",
+  },
+  {
     date: "2026.06.23",
     version: "v4.9.0",
     title: "フッター・404・共有・各種ポリシーを整理し、一部ページを統合",
