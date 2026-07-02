@@ -29,13 +29,35 @@ const config = {
     // noindex 対象ページ（AdSense再審査対応）
     "/roadmap",
     "/affiliates",
-    // 記事1件以下の地域ページ
-    "/destination/osaka",
-    "/destination/istanbul",
-    "/destination/sentosa",
-    "/destination/yogyakarta",
-    "/destination/seoul",
+    // noindex を宣言しているページ群。sitemap に載せると Search Console で
+    // 「送信された URL に noindex タグが追加されています」エラーになるため除外する。
+    // 各 page.tsx の robots 設定と必ず同期させること。
+    "/gallery",
+    "/social",
+    "/request",
+    "/sitemap",
+    "/series",
+    "/series/*",
+    // 執筆用の内部ページ（本番では404、プレビュー環境では認証必須）
+    "/preview",
+    "/preview/*",
+    // 記事2件以下(子地域の記事も集計)の地域ページ。
+    // destination/[region] の generateMetadata にある動的 noindex 判定と同期させる
+    // こと。記事が増えて noindex が外れたらここからも削除する。
+    // 確認方法: ビルド後に .next/server/app/destination/*.html を noindex で grep。
+    "/destination/agra",
+    "/destination/belgium",
     "/destination/brussels",
+    "/destination/hokkaido",
+    "/destination/istanbul",
+    "/destination/new-delhi",
+    "/destination/osaka",
+    "/destination/seminyak",
+    "/destination/sentosa",
+    "/destination/seoul",
+    "/destination/singapore-city",
+    "/destination/south-korea",
+    "/destination/yogyakarta",
   ],
   // noindex: true の記事をsitemapから除外する
   transform: async (config, path) => {
