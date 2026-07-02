@@ -270,7 +270,7 @@ Petit Hostel Palacio Real宿泊（5泊13,763円）
 
 - [バルセロナ・マドリードで食べた絶品グルメ記録](./spain-restaurant)
 - [古都トレドを一望！展望台ミラドール・デル・バイエへの行き方](./howtoget-mirador-del-valle)
-- [スペイン周遊の記録一覧はこちら](./series/spain)
+- [スペイン周遊の記録一覧はこちら](/destination/spain)
 
 ### 準備・テクニック
 
