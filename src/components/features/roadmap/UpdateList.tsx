@@ -41,6 +41,14 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 // 並びは新しい順。package.json の version と先頭エントリを一致させること。
 const UPDATES: UpdateItem[] = [
   {
+    date: "2026.07.03",
+    version: "v4.10.0",
+    title: "共有ボタンの整理とデータ分析基盤の整備",
+    content:
+      "記事の共有ボタンを、お使いの端末の共有機能（対応環境のみ）とリンクコピーの2つにシンプルに整理しました。あわせて、検索やアクセスの実データを分析する運営者向けの仕組みを整備。どの記事が読まれ、どんな検索で見つけてもらえているかを継続的に把握し、記事の改善やリライトに反映していきます。",
+    type: "feature",
+  },
+  {
     date: "2026.07.02",
     version: "v4.9.1",
     title: "コンテンツの補強と読み込み表示の調整",

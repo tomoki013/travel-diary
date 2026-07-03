@@ -56,10 +56,10 @@ const Hero = () => {
             <p className="font-code mb-4 text-sm tracking-[0.3em] text-amber-200/80 uppercase">
               Destinations
             </p>
+            {/* フラップの文字色はここの text-amber-* を継承する (盤面はコンポーネント側で常時ダーク) */}
             <SplitFlapBoard
-              className="font-code flex items-center justify-center text-sm tracking-[0.3em] text-amber-400 uppercase md:justify-start"
+              className="justify-center text-amber-300 md:justify-start"
               words={shuffleArray(allRegions.map((region) => region.slug.toUpperCase()))}
-              flapBG="bg-transparent"
             />
           </div>
         </div>

@@ -41,6 +41,9 @@ const config = {
     // 執筆用の内部ページ（本番では404、プレビュー環境では認証必須）
     "/preview",
     "/preview/*",
+    // 運営者用のアナリティクス管理画面（認証必須・noindex）
+    "/admin",
+    "/admin/*",
     // 記事2件以下(子地域の記事も集計)の地域ページ。
     // destination/[region] の generateMetadata にある動的 noindex 判定と同期させる
     // こと。記事が増えて noindex が外れたらここからも削除する。

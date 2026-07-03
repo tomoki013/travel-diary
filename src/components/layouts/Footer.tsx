@@ -23,7 +23,7 @@ const Footer = () => {
                   ともきちの旅行日記
                 </span>
                 <span className="font-code text-[10px] tracking-[0.3em] text-stone-500 uppercase group-hover:text-amber-600 dark:text-stone-400">
-                  Travel Diary Portfolio
+                  Travel Diary
                 </span>
               </Link>
               <p className="max-w-xs text-sm leading-relaxed text-stone-600 dark:text-stone-400">

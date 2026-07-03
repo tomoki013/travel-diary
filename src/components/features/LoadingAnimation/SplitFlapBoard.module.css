@@ -1,45 +1,215 @@
-/* SplitFlapBoard.module.css — パタパタ表示（装飾用途、見た目は従来どおり） */
+/* SplitFlapBoard.module.css — ソラリー式(空港の反転フラップ板)を模したパタパタ表示。
+   構造: 各セル = 静止上半分(次の文字) + 静止下半分(今の文字) + 落下フラップ(表=前の文字上半分/裏=次の文字下半分)。
+   フラップは中央ヒンジを軸に 0→-180deg 回転し、重力風の加速と着地時のバウンドを付ける。 */
 
-.loader-split-flap {
+.board {
   display: flex;
-  gap: 4px;
+  gap: 3px;
+  perspective: 600px;
 }
-.char-container {
-  width: 20px;
-  height: 30px;
-  perspective: 300px;
+
+.cell {
+  /* --step / --land はコンポーネントから注入されるフラップ1枚の回転時間。
+     --h はセルの高さで、文字の上下半分の切り出し位置もここから計算する */
+  --h: 30px;
   position: relative;
-  font-family: monospace;
-  font-size: 24px;
-  font-weight: bold;
+  flex: 0 0 auto;
+  width: 21px;
+  height: var(--h);
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 17px;
+  font-weight: 700;
   color: inherit;
+  transform-style: preserve-3d;
+  background: #0b0b0e;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
-.flap {
+
+.half {
   position: absolute;
+  left: 0;
   width: 100%;
   height: 50%;
-  left: 0;
   overflow: hidden;
-  backface-visibility: hidden;
-  line-height: 30px;
 }
-.flap.top {
+
+.half span,
+.leafFront span,
+.leafBack span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--h);
+  line-height: var(--h);
+  text-align: center;
+}
+
+.top {
   top: 0;
   border-radius: 3px 3px 0 0;
+  /* 上半分は光を受けにくく、わずかに暗い (実機の見え方) */
+  background: linear-gradient(180deg, #303036 0%, #26262c 100%);
 }
-.flap.bottom {
+.top span {
+  top: 0;
+}
+
+.bottom {
   top: 50%;
   border-radius: 0 0 3px 3px;
-  line-height: 0;
+  background: linear-gradient(180deg, #222228 0%, #18181d 100%);
 }
-.flap.flipping {
-  animation: flip-down 0.4s ease-in-out;
+.bottom span {
+  top: calc(var(--h) / -2);
 }
-@keyframes flip-down {
+
+/* 中央ヒンジ。フラップの回転軸に見える細い影 */
+.hinge {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.35));
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* 落下するフラップ本体 (上半分の領域を占め、下端=ヒンジを軸に回る) */
+.leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  z-index: 2;
+  animation: flap-fall var(--step) cubic-bezier(0.45, 0.05, 0.85, 0.5) forwards;
+}
+
+/* 目的の文字で止まる最後の1枚だけ、着地後に跳ね返るバウンド付き */
+.leaf.landing {
+  animation: flap-land var(--land) cubic-bezier(0.4, 0.05, 0.6, 1) forwards;
+}
+
+.leafFront,
+.leafBack {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.leafFront {
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, #303036 0%, #26262c 100%);
+}
+.leafFront span {
+  top: 0;
+}
+
+.leafBack {
+  transform: rotateX(180deg);
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(180deg, #222228 0%, #18181d 100%);
+}
+.leafBack span {
+  top: calc(var(--h) / -2);
+}
+
+/* 狭い画面では盤面ごと少し小さくする (最長14桁がはみ出さないように) */
+@media (max-width: 380px) {
+  .cell {
+    --h: 26px;
+    width: 18px;
+    font-size: 14px;
+  }
+}
+
+/* 回転に合わせた陰影: 表面は倒れるほど暗く、裏面は起きるほど明るく */
+.leafFront::after,
+.leafBack::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  pointer-events: none;
+}
+.leafFront::after {
+  opacity: 0;
+  animation: flap-shade-front var(--step) linear forwards;
+}
+.leafBack::after {
+  opacity: 0.55;
+  animation: flap-shade-back var(--step) linear forwards;
+}
+.landing .leafFront::after {
+  animation-duration: var(--land);
+}
+.landing .leafBack::after {
+  animation-duration: var(--land);
+}
+
+@keyframes flap-fall {
   from {
     transform: rotateX(0deg);
   }
   to {
-    transform: rotateX(-90deg);
+    transform: rotateX(-180deg);
+  }
+}
+
+/* 62%で着地 → 跳ね返り → 収束 (フラップが板を叩いて弾む) */
+@keyframes flap-land {
+  0% {
+    transform: rotateX(0deg);
+  }
+  62% {
+    transform: rotateX(-180deg);
+  }
+  76% {
+    transform: rotateX(-164deg);
+  }
+  88% {
+    transform: rotateX(-177deg);
+  }
+  100% {
+    transform: rotateX(-180deg);
+  }
+}
+
+@keyframes flap-shade-front {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes flap-shade-back {
+  0% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 動きを減らす設定の環境ではフラップを描かず即時切り替えにする */
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    display: none;
   }
 }
