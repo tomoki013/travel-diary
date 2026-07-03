@@ -9,6 +9,30 @@
 > （2025-03 開始）から再構築したものです。利用者向けの公開更新履歴は
 > `src/components/features/roadmap/UpdateList.tsx` と一致させています。
 
+## [Unreleased]
+
+### Added
+
+- 運営者用のアナリティクス管理画面 `/admin/analytics` を追加（利用者には非公開の内部ツールのため
+  バージョンは上げない）。GSC/GA4 の BigQuery エクスポートを
+  `scripts/generate-analytics-snapshot.mjs` で手動集計し、概要 KPI・記事別テーブル・
+  検索クエリ（リライト候補）・SEO 施策の経過観察を表示する。`ANALYTICS_PASSWORD`
+  環境変数 + Cookie 認証、全ページ noindex・サイトマップ除外。運用は
+  `docs/analytics-dashboard.md` を参照。
+
+## [4.9.1] - 2026-07-02
+
+### Changed
+
+- AdSense 再審査に向けたコンテンツ補強（PR #502）: GSC 実データに基づき、内容の薄い記事を
+  体験ベースで再構成・301 統合（bangkok-tourism 再構成、paris-subway → paris-navigo-easy、
+  wat-pho → bankok-sandaijiin）。`robots.txt` でパラメータ付き一覧 URL のクロールを抑制。
+- 初回ロードのローディングアニメーションの表示時間を延長し、演出が見えるように調整。
+
+### Fixed
+
+- ギャラリーの `key` 起因で発生していた偽 URL への 404 リンクを修正。
+
 ## [4.9.0] - 2026-06-23
 
 ### Changed
