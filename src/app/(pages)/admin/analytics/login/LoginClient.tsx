@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { LockKeyhole } from "lucide-react";
 import { toast } from "sonner";
 
 export default function LoginClient() {
@@ -41,8 +42,12 @@ export default function LoginClient() {
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-center text-2xl">Analytics Login</CardTitle>
+        <CardHeader className="items-center text-center">
+          <div className="bg-primary/10 text-primary mx-auto mb-2 flex size-12 items-center justify-center rounded-full">
+            <LockKeyhole className="size-6" />
+          </div>
+          <CardTitle className="text-2xl">Analytics</CardTitle>
+          <p className="text-muted-foreground text-sm">運営者用ダッシュボード</p>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent>

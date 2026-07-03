@@ -41,6 +41,14 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 // 並びは新しい順。package.json の version と先頭エントリを一致させること。
 const UPDATES: UpdateItem[] = [
   {
+    date: "2026.07.03",
+    version: "v4.10.0",
+    title: "サイト改善のためのデータ分析基盤を整備",
+    content:
+      "検索やアクセスの実データを分析する運営者向けの仕組みを整えました。どの記事が読まれ、どんな検索で見つけてもらえているかを継続的に把握し、記事の改善やリライトに反映していきます。読者のみなさんに直接見える変化はありませんが、今後のコンテンツの質の向上につながる基盤です。",
+    type: "feature",
+  },
+  {
     date: "2026.07.02",
     version: "v4.9.1",
     title: "コンテンツの補強と読み込み表示の調整",

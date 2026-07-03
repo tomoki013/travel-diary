@@ -1,7 +1,17 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Eye,
+  MousePointerClick,
+  Percent,
+  BarChart3,
+  Users,
+  FileText,
+  ArrowUpRight,
+  ArrowDownRight,
+} from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { AnalyticsSnapshot, AnalyticsPostInfo } from "@/types/analytics";
 import { DailyChart } from "./charts";
-import { fmtCtr, fmtDelta, fmtInt, sumWindows } from "./format";
+import { fmtCtr, fmtInt, sumWindows } from "./format";
 
 interface OverviewTabProps {
   snapshot: AnalyticsSnapshot;
@@ -11,37 +21,55 @@ interface OverviewTabProps {
 function KpiCard({
   label,
   value,
-  delta,
-  deltaGoodWhen,
+  icon: Icon,
+  diff,
+  diffLabel,
+  goodWhen,
 }: {
   label: string;
   value: string;
-  delta?: string | null;
-  /** delta の符号がどちらなら好転か。省略時は色を付けない */
-  deltaGoodWhen?: "positive" | "negative";
+  icon: React.ComponentType<{ className?: string }>;
+  /** 前28日との差分 (表示しない場合は undefined) */
+  diff?: number;
+  diffLabel?: string;
+  /** diff の符号がどちらなら好転か。省略時は色を付けない */
+  goodWhen?: "positive" | "negative";
 }) {
-  const isPositive = delta?.startsWith("+");
-  const good = deltaGoodWhen && (deltaGoodWhen === "positive") === isPositive;
+  const showDiff = diff != null && diff !== 0;
+  const good = goodWhen && (goodWhen === "positive") === (diff ?? 0) > 0;
   return (
-    <Card className="gap-2 py-4">
+    <Card className="gap-1 py-4">
       <CardHeader className="px-4">
-        <CardTitle className="text-muted-foreground text-xs font-medium">{label}</CardTitle>
+        <CardTitle className="text-muted-foreground flex items-center gap-1.5 text-xs font-medium">
+          <Icon className="size-3.5" />
+          {label}
+        </CardTitle>
       </CardHeader>
       <CardContent className="px-4">
-        <div className="text-2xl font-bold">{value}</div>
-        {delta && (
-          <div
-            className={`mt-1 text-xs ${
-              deltaGoodWhen
-                ? good
-                  ? "text-green-600 dark:text-green-400"
-                  : "text-destructive"
-                : "text-muted-foreground"
-            }`}
-          >
-            {delta} <span className="text-muted-foreground">vs 前28日</span>
-          </div>
-        )}
+        <div className="font-heading text-2xl font-bold tabular-nums">{value}</div>
+        <div className="mt-1 flex min-h-4 items-center gap-1 text-xs">
+          {showDiff && (
+            <>
+              <span
+                className={`inline-flex items-center gap-0.5 font-medium ${
+                  goodWhen
+                    ? good
+                      ? "text-green-600 dark:text-green-400"
+                      : "text-destructive"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {(diff ?? 0) > 0 ? (
+                  <ArrowUpRight className="size-3" />
+                ) : (
+                  <ArrowDownRight className="size-3" />
+                )}
+                {diffLabel}
+              </span>
+              <span className="text-muted-foreground">vs 前28日</span>
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
@@ -58,12 +86,17 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
   );
   const position = imp.current > 0 ? posWeighted.current / imp.current : null;
   const positionPrev = imp.previous > 0 ? posWeighted.previous / imp.previous : null;
+  const positionDiff =
+    position != null && positionPrev != null
+      ? Math.round((position - positionPrev) * 10) / 10
+      : undefined;
 
   const sessions = sumWindows(ga4.daily, ga4.range.end, (r) => r.sessions);
   const pageViews = sumWindows(ga4.daily, ga4.range.end, (r) => r.pageViews);
 
   const topPages = [...gsc.pages].sort((a, b) => b.clicks28 - a.clicks28).slice(0, 8);
   const topSources = [...ga4.sources].sort((a, b) => b.sessions28 - a.sessions28).slice(0, 8);
+  const maxSourceSessions = Math.max(1, ...topSources.map((s) => s.sessions28));
 
   return (
     <div className="space-y-6">
@@ -71,44 +104,51 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
         <KpiCard
           label="表示回数 (28日)"
           value={fmtInt(imp.current)}
-          delta={fmtDelta(imp.current, imp.previous)}
-          deltaGoodWhen="positive"
+          icon={Eye}
+          diff={imp.current - imp.previous}
+          diffLabel={fmtInt(Math.abs(imp.current - imp.previous))}
+          goodWhen="positive"
         />
         <KpiCard
           label="クリック (28日)"
           value={fmtInt(clicks.current)}
-          delta={fmtDelta(clicks.current, clicks.previous)}
-          deltaGoodWhen="positive"
+          icon={MousePointerClick}
+          diff={clicks.current - clicks.previous}
+          diffLabel={fmtInt(Math.abs(clicks.current - clicks.previous))}
+          goodWhen="positive"
         />
-        <KpiCard label="CTR (28日)" value={fmtCtr(clicks.current, imp.current)} />
+        <KpiCard label="CTR (28日)" value={fmtCtr(clicks.current, imp.current)} icon={Percent} />
         <KpiCard
           label="平均掲載順位 (28日)"
           value={position == null ? "-" : position.toFixed(1)}
-          delta={
-            position != null && positionPrev != null
-              ? fmtDelta(Math.round(position * 10) / 10, Math.round(positionPrev * 10) / 10)
-              : null
-          }
-          deltaGoodWhen="negative"
+          icon={BarChart3}
+          diff={positionDiff}
+          diffLabel={positionDiff != null ? Math.abs(positionDiff).toFixed(1) : undefined}
+          goodWhen="negative"
         />
         <KpiCard
           label="セッション (28日)"
           value={fmtInt(sessions.current)}
-          delta={fmtDelta(sessions.current, sessions.previous)}
-          deltaGoodWhen="positive"
+          icon={Users}
+          diff={sessions.current - sessions.previous}
+          diffLabel={fmtInt(Math.abs(sessions.current - sessions.previous))}
+          goodWhen="positive"
         />
         <KpiCard
           label="ページビュー (28日)"
           value={fmtInt(pageViews.current)}
-          delta={fmtDelta(pageViews.current, pageViews.previous)}
-          deltaGoodWhen="positive"
+          icon={FileText}
+          diff={pageViews.current - pageViews.previous}
+          diffLabel={fmtInt(Math.abs(pageViews.current - pageViews.previous))}
+          goodWhen="positive"
         />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">検索での見え方 (GSC 日次)</CardTitle>
+            <CardTitle className="text-base">検索での見え方</CardTitle>
+            <CardDescription>Google Search Console の日次推移</CardDescription>
           </CardHeader>
           <CardContent>
             <DailyChart
@@ -118,6 +158,7 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
                   name: "表示回数",
                   color: "var(--primary)",
                   values: gsc.daily.map((r) => r.impressions),
+                  area: true,
                 },
                 {
                   name: "クリック",
@@ -131,7 +172,8 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">サイト訪問 (GA4 日次)</CardTitle>
+            <CardTitle className="text-base">サイト訪問</CardTitle>
+            <CardDescription>GA4 の日次推移（Cookie 同意ユーザーのみ計測）</CardDescription>
           </CardHeader>
           <CardContent>
             <DailyChart
@@ -141,6 +183,7 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
                   name: "ページビュー",
                   color: "var(--primary)",
                   values: ga4.daily.map((r) => r.pageViews),
+                  area: true,
                 },
                 {
                   name: "セッション",
@@ -156,27 +199,34 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">クリック上位ページ (28日)</CardTitle>
+            <CardTitle className="text-base">クリック上位ページ</CardTitle>
+            <CardDescription>直近28日の検索クリック順</CardDescription>
           </CardHeader>
           <CardContent>
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-muted-foreground border-b text-left text-xs">
-                  <th className="py-1.5 font-medium">ページ</th>
-                  <th className="py-1.5 text-right font-medium">クリック</th>
-                  <th className="py-1.5 text-right font-medium">表示</th>
-                  <th className="py-1.5 text-right font-medium">CTR</th>
+                  <th className="w-6 py-2 font-medium">#</th>
+                  <th className="w-1/2 py-2 font-medium">ページ</th>
+                  <th className="py-2 text-right font-medium">クリック</th>
+                  <th className="py-2 text-right font-medium">表示</th>
+                  <th className="py-2 text-right font-medium">CTR</th>
                 </tr>
               </thead>
               <tbody>
-                {topPages.map((page) => (
-                  <tr key={page.path} className="border-b last:border-0">
-                    <td className="max-w-0 truncate py-1.5 pr-2" title={page.path}>
+                {topPages.map((page, i) => (
+                  <tr key={page.path} className="hover:bg-muted/50 border-b last:border-0">
+                    <td className="text-muted-foreground py-2 text-xs tabular-nums">{i + 1}</td>
+                    <td className="max-w-0 truncate py-2 pr-2" title={page.path}>
                       {postInfo[page.path]?.title ?? page.path}
                     </td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(page.clicks28)}</td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(page.impressions28)}</td>
-                    <td className="py-1.5 text-right tabular-nums">
+                    <td className="py-2 text-right font-medium tabular-nums">
+                      {fmtInt(page.clicks28)}
+                    </td>
+                    <td className="text-muted-foreground py-2 text-right tabular-nums">
+                      {fmtInt(page.impressions28)}
+                    </td>
+                    <td className="text-muted-foreground py-2 text-right tabular-nums">
                       {fmtCtr(page.clicks28, page.impressions28)}
                     </td>
                   </tr>
@@ -188,29 +238,27 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">流入元 (GA4 28日)</CardTitle>
+            <CardTitle className="text-base">流入元</CardTitle>
+            <CardDescription>直近28日のセッション数 (GA4)</CardDescription>
           </CardHeader>
-          <CardContent>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-muted-foreground border-b text-left text-xs">
-                  <th className="py-1.5 font-medium">参照元 / メディア</th>
-                  <th className="py-1.5 text-right font-medium">セッション (28日)</th>
-                  <th className="py-1.5 text-right font-medium">全期間</th>
-                </tr>
-              </thead>
-              <tbody>
-                {topSources.map((source) => (
-                  <tr key={`${source.source}/${source.medium}`} className="border-b last:border-0">
-                    <td className="py-1.5 pr-2">
-                      {source.source} / {source.medium}
-                    </td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(source.sessions28)}</td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(source.sessions)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <CardContent className="space-y-2.5">
+            {topSources.map((source) => (
+              <div key={`${source.source}/${source.medium}`} className="text-sm">
+                <div className="mb-1 flex items-baseline justify-between gap-2">
+                  <span className="truncate">
+                    {source.source}
+                    <span className="text-muted-foreground text-xs"> / {source.medium}</span>
+                  </span>
+                  <span className="font-medium tabular-nums">{fmtInt(source.sessions28)}</span>
+                </div>
+                <div className="bg-muted h-1.5 overflow-hidden rounded-full">
+                  <div
+                    className="bg-primary h-full rounded-full"
+                    style={{ width: `${(source.sessions28 / maxSourceSessions) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
           </CardContent>
         </Card>
       </div>

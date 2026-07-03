@@ -1,3 +1,4 @@
+import { TrendingUp, TrendingDown, Minus, EyeOff } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
@@ -6,12 +7,45 @@ import type {
   AnalyticsWatchlistEntry,
 } from "@/types/analytics";
 import { Sparkline } from "./charts";
-import { fmtDelta, fmtInt, fmtPosition } from "./format";
+import { fmtDelta, fmtInt } from "./format";
+import { PositionValue } from "./PositionValue";
 
 interface WatchlistTabProps {
   snapshot: AnalyticsSnapshot;
   watchlist: AnalyticsWatchlistEntry[];
   postInfo: Record<string, AnalyticsPostInfo>;
+}
+
+/** 直近28日 vs 前28日の表示回数から経過ステータスを判定する */
+function getStatus(impressions28: number, impressionsPrev28: number) {
+  if (impressions28 === 0 && impressionsPrev28 === 0) {
+    return {
+      label: "表示なし",
+      icon: EyeOff,
+      className: "bg-destructive/10 text-destructive border-transparent",
+    };
+  }
+  const diff = impressions28 - impressionsPrev28;
+  const ratio = impressionsPrev28 > 0 ? diff / impressionsPrev28 : 1;
+  if (ratio >= 0.1) {
+    return {
+      label: "改善",
+      icon: TrendingUp,
+      className: "bg-green-600/10 text-green-700 dark:text-green-400 border-transparent",
+    };
+  }
+  if (ratio <= -0.1) {
+    return {
+      label: "悪化",
+      icon: TrendingDown,
+      className: "bg-destructive/10 text-destructive border-transparent",
+    };
+  }
+  return {
+    label: "横ばい",
+    icon: Minus,
+    className: "bg-muted text-muted-foreground border-transparent",
+  };
 }
 
 export default function WatchlistTab({ snapshot, watchlist, postInfo }: WatchlistTabProps) {
@@ -39,6 +73,8 @@ export default function WatchlistTab({ snapshot, watchlist, postInfo }: Watchlis
             (week) => entry.since >= week && entry.since < addDays(week, 7),
           );
           const impDelta = gsc ? fmtDelta(gsc.impressions28, gsc.impressionsPrev28) : null;
+          const status = getStatus(gsc?.impressions28 ?? 0, gsc?.impressionsPrev28 ?? 0);
+          const StatusIcon = status.icon;
 
           return (
             <Card key={entry.path} className="gap-3">
@@ -47,11 +83,17 @@ export default function WatchlistTab({ snapshot, watchlist, postInfo }: Watchlis
                   <a href={entry.path} target="_blank" rel="noreferrer" className="hover:underline">
                     {postInfo[entry.path]?.title ?? entry.path}
                   </a>
-                  <Badge variant="outline" className="shrink-0">
-                    {entry.since} 施策
+                  <Badge className={`shrink-0 gap-1 ${status.className}`}>
+                    <StatusIcon className="size-3" />
+                    {status.label}
                   </Badge>
                 </CardTitle>
-                <CardDescription>{entry.note}</CardDescription>
+                <CardDescription className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <Badge variant="outline" className="px-1.5 py-0 text-[10px] font-normal">
+                    {entry.since} 施策
+                  </Badge>
+                  {entry.note}
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex items-end justify-between gap-4">
                 <dl className="grid grid-cols-3 gap-x-6 gap-y-1 text-sm">
@@ -68,15 +110,15 @@ export default function WatchlistTab({ snapshot, watchlist, postInfo }: Watchlis
                   </dd>
                   <dd className="font-semibold tabular-nums">{fmtInt(gsc?.clicks28 ?? 0)}</dd>
                   <dd className="font-semibold tabular-nums">
-                    {fmtPosition(gsc?.position28 ?? null)}
+                    <PositionValue position={gsc?.position28 ?? null} />
                   </dd>
                 </dl>
                 <div className="shrink-0">
                   <Sparkline
                     values={weekly}
                     markerIndex={markerIndex === -1 ? undefined : markerIndex}
-                    width={120}
-                    height={32}
+                    width={130}
+                    height={36}
                   />
                   <div className="text-muted-foreground mt-0.5 text-right text-[10px]">
                     週次表示回数

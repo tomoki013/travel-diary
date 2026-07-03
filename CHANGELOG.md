@@ -9,12 +9,11 @@
 > （2025-03 開始）から再構築したものです。利用者向けの公開更新履歴は
 > `src/components/features/roadmap/UpdateList.tsx` と一致させています。
 
-## [Unreleased]
+## [4.10.0] - 2026-07-03
 
 ### Added
 
-- 運営者用のアナリティクス管理画面 `/admin/analytics` を追加（利用者には非公開の内部ツールのため
-  バージョンは上げない）。GSC/GA4 の BigQuery エクスポートを
+- 運営者用のアナリティクス管理画面 `/admin/analytics` を追加。GSC/GA4 の BigQuery エクスポートを
   `scripts/generate-analytics-snapshot.mjs` で手動集計し、概要 KPI・記事別テーブル・
   検索クエリ（リライト候補）・SEO 施策の経過観察を表示する。`ANALYTICS_PASSWORD`
   環境変数 + Cookie 認証、全ページ noindex・サイトマップ除外。運用は

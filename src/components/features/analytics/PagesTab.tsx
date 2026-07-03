@@ -1,12 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import type { AnalyticsSnapshot, AnalyticsPostInfo } from "@/types/analytics";
 import { Sparkline } from "./charts";
-import { fmtCtr, fmtEngagementSec, fmtInt, fmtPosition } from "./format";
+import { fmtCtr, fmtEngagementSec, fmtInt } from "./format";
+import { PositionValue } from "./PositionValue";
 
 interface PagesTabProps {
   snapshot: AnalyticsSnapshot;
@@ -104,57 +106,65 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
 
   const sortableHeader = (key: SortKey, label: string) => (
     <th
-      className={`cursor-pointer py-1.5 text-right font-medium select-none ${sortKey === key ? "text-foreground" : ""}`}
+      className={`cursor-pointer py-2 text-right font-medium select-none ${
+        sortKey === key ? "text-foreground" : "hover:text-foreground"
+      }`}
       onClick={() => setSortKey(key)}
       title="クリックでソート"
     >
-      {label}
-      {sortKey === key ? " ▼" : ""}
+      <span className="inline-flex items-center gap-0.5">
+        {label}
+        {sortKey === key && <ChevronDown className="size-3" />}
+      </span>
     </th>
   );
 
   return (
     <Card>
       <CardContent className="space-y-4">
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="タイトル・パスで絞り込み"
             className="max-w-xs"
           />
-          <label className="flex items-center gap-1.5 text-sm">
+          <label className="flex cursor-pointer items-center gap-1.5 text-sm">
             <input
               type="checkbox"
+              className="accent-primary size-3.5"
               checked={postsOnly}
               onChange={(e) => setPostsOnly(e.target.checked)}
             />
             記事のみ
           </label>
-          <label className="flex items-center gap-1.5 text-sm">
+          <label className="flex cursor-pointer items-center gap-1.5 text-sm">
             <input
               type="checkbox"
+              className="accent-primary size-3.5"
               checked={excludeDiary}
               onChange={(e) => setExcludeDiary(e.target.checked)}
             />
             日記 (series) を除く
           </label>
-          <span className="text-muted-foreground ml-auto text-xs">{filtered.length} 件</span>
+          <span className="text-muted-foreground ml-auto text-xs tabular-nums">
+            {filtered.length} 件
+          </span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] text-sm">
+          <table className="w-full min-w-[780px] text-sm">
             <thead>
               <tr className="text-muted-foreground border-b text-left text-xs">
-                <th className="py-1.5 font-medium">ページ</th>
+                <th className="py-2 font-medium">ページ</th>
                 {sortableHeader("impressions28", "表示 (28日)")}
                 {sortableHeader("clicks28", "クリック")}
-                <th className="py-1.5 text-right font-medium">CTR</th>
+                <th className="py-2 text-right font-medium">CTR</th>
                 {sortableHeader("position28", "順位")}
                 {sortableHeader("views28", "PV (GA4)")}
-                <th className="py-1.5 text-right font-medium">滞在/PV</th>
+                <th className="py-2 text-right font-medium">滞在/PV</th>
                 {sortableHeader("impressions", "表示 (全期間)")}
-                <th className="py-1.5 pl-3 font-medium">週次推移</th>
+                <th className="py-2 pl-4 font-medium">週次推移</th>
               </tr>
             </thead>
             <tbody>
@@ -166,19 +176,19 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
                   row.category != null &&
                   row.category !== "series";
                 return (
-                  <tr key={row.path} className="border-b last:border-0">
-                    <td className="max-w-64 py-1.5 pr-2">
+                  <tr key={row.path} className="hover:bg-muted/50 border-b last:border-0">
+                    <td className="max-w-64 py-2 pr-2">
                       <div className="truncate" title={row.path}>
                         <a
                           href={row.path}
                           target="_blank"
                           rel="noreferrer"
-                          className="hover:underline"
+                          className="font-medium hover:underline"
                         >
                           {row.title}
                         </a>
                       </div>
-                      <div className="flex items-center gap-1.5">
+                      <div className="mt-0.5 flex items-center gap-1.5">
                         <span className="text-muted-foreground max-w-48 truncate text-xs">
                           {row.path}
                         </span>
@@ -199,20 +209,22 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
                         )}
                       </div>
                     </td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(row.impressions28)}</td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(row.clicks28)}</td>
-                    <td className="py-1.5 text-right tabular-nums">
+                    <td className="py-2 text-right tabular-nums">{fmtInt(row.impressions28)}</td>
+                    <td className="py-2 text-right tabular-nums">{fmtInt(row.clicks28)}</td>
+                    <td className="text-muted-foreground py-2 text-right tabular-nums">
                       {fmtCtr(row.clicks28, row.impressions28)}
                     </td>
-                    <td className="py-1.5 text-right tabular-nums">
-                      {fmtPosition(row.position28)}
+                    <td className="py-2 text-right tabular-nums">
+                      <PositionValue position={row.position28} />
                     </td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(row.views28)}</td>
-                    <td className="py-1.5 text-right tabular-nums">
+                    <td className="py-2 text-right tabular-nums">{fmtInt(row.views28)}</td>
+                    <td className="text-muted-foreground py-2 text-right tabular-nums">
                       {fmtEngagementSec(row.engagementMs28, row.views28)}
                     </td>
-                    <td className="py-1.5 text-right tabular-nums">{fmtInt(row.impressions)}</td>
-                    <td className="py-1.5 pl-3">
+                    <td className="text-muted-foreground py-2 text-right tabular-nums">
+                      {fmtInt(row.impressions)}
+                    </td>
+                    <td className="py-2 pl-4">
                       <Sparkline values={row.weekly} />
                     </td>
                   </tr>
