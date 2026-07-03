@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import type { AnalyticsSnapshot, AnalyticsPostInfo } from "@/types/analytics";
 import { Sparkline } from "./charts";
 import { fmtCtr, fmtEngagementSec, fmtInt } from "./format";
+import { computeMomentum, type MomentumResult } from "./insights";
 import { PositionValue } from "./PositionValue";
 
 interface PagesTabProps {
@@ -27,6 +28,37 @@ interface PageRow {
   views28: number;
   engagementMs28: number;
   weekly: number[];
+  momentum: MomentumResult;
+}
+
+/** 直近2週 vs その前2週の傾向アイコン */
+function MomentumCell({ momentum }: { momentum: MomentumResult }) {
+  if (momentum.momentum === "rising") {
+    return (
+      <span
+        className="inline-flex items-center gap-0.5 text-xs font-medium text-green-600 dark:text-green-400"
+        title={`直近2週 ${momentum.recent} / その前2週 ${momentum.prior}`}
+      >
+        <TrendingUp className="size-3.5" />
+        {momentum.changeRatio != null && `+${Math.round(momentum.changeRatio * 100)}%`}
+      </span>
+    );
+  }
+  if (momentum.momentum === "falling") {
+    return (
+      <span
+        className="text-destructive inline-flex items-center gap-0.5 text-xs font-medium"
+        title={`直近2週 ${momentum.recent} / その前2週 ${momentum.prior}`}
+      >
+        <TrendingDown className="size-3.5" />
+        {momentum.changeRatio != null && `${Math.round(momentum.changeRatio * 100)}%`}
+      </span>
+    );
+  }
+  if (momentum.momentum === "flat") {
+    return <Minus className="text-muted-foreground size-3.5" />;
+  }
+  return <span className="text-muted-foreground text-xs">-</span>;
 }
 
 type SortKey = "impressions28" | "clicks28" | "position28" | "views28" | "impressions";
@@ -66,7 +98,9 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
       const info = postInfo[path];
       const gsc = gscByPath.get(path);
       const ga4 = ga4ByPath.get(path);
+      const weekly = weeklyByPath.get(path) ?? [];
       result.push({
+        momentum: computeMomentum(weeks, weekly, snapshot.gsc.range.end),
         path,
         title: info?.title ?? path,
         category: info?.category ?? null,
@@ -77,7 +111,7 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
         position28: gsc?.position28 ?? null,
         views28: ga4?.views28 ?? 0,
         engagementMs28: ga4?.engagementMs28 ?? 0,
-        weekly: weeklyByPath.get(path) ?? [],
+        weekly,
       });
     }
     return result;
@@ -164,7 +198,8 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
                 {sortableHeader("views28", "PV (GA4)")}
                 <th className="py-2 text-right font-medium">滞在/PV</th>
                 {sortableHeader("impressions", "表示 (全期間)")}
-                <th className="py-2 pl-4 font-medium">週次推移</th>
+                <th className="py-2 pl-4 text-center font-medium">傾向</th>
+                <th className="py-2 pl-2 font-medium">週次推移</th>
               </tr>
             </thead>
             <tbody>
@@ -224,7 +259,10 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
                     <td className="text-muted-foreground py-2 text-right tabular-nums">
                       {fmtInt(row.impressions)}
                     </td>
-                    <td className="py-2 pl-4">
+                    <td className="py-2 pl-4 text-center">
+                      <MomentumCell momentum={row.momentum} />
+                    </td>
+                    <td className="py-2 pl-2">
                       <Sparkline values={row.weekly} />
                     </td>
                   </tr>

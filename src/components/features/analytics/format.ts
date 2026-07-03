@@ -10,6 +10,11 @@ export function fmtCtr(clicks: number, impressions: number): string {
   return `${((clicks / impressions) * 100).toFixed(1)}%`;
 }
 
+/** 0〜1 の比率を % 表記にする */
+export function fmtPct(ratio: number): string {
+  return `${(ratio * 100).toFixed(1)}%`;
+}
+
 export function fmtPosition(position: number | null | undefined): string {
   return position == null ? "-" : position.toFixed(1);
 }

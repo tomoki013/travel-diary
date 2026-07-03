@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { AnalyticsSnapshot, AnalyticsPostInfo } from "@/types/analytics";
-import { DailyChart } from "./charts";
+import { DailyChart, Sparkline } from "./charts";
 import { fmtCtr, fmtInt, sumWindows } from "./format";
 
 interface OverviewTabProps {
@@ -25,6 +25,7 @@ function KpiCard({
   diff,
   diffLabel,
   goodWhen,
+  spark,
 }: {
   label: string;
   value: string;
@@ -34,6 +35,8 @@ function KpiCard({
   diffLabel?: string;
   /** diff の符号がどちらなら好転か。省略時は色を付けない */
   goodWhen?: "positive" | "negative";
+  /** 直近28日の日次ミニ推移 (省略可) */
+  spark?: number[];
 }) {
   const showDiff = diff != null && diff !== 0;
   const good = goodWhen && (goodWhen === "positive") === (diff ?? 0) > 0;
@@ -46,7 +49,14 @@ function KpiCard({
         </CardTitle>
       </CardHeader>
       <CardContent className="px-4">
-        <div className="font-heading text-2xl font-bold tabular-nums">{value}</div>
+        <div className="flex items-end justify-between gap-2">
+          <div className="font-heading text-2xl font-bold tabular-nums">{value}</div>
+          {spark && spark.some((v) => v > 0) && (
+            <div className="mb-0.5 hidden opacity-80 sm:block">
+              <Sparkline values={spark} width={64} height={22} />
+            </div>
+          )}
+        </div>
         <div className="mt-1 flex min-h-4 items-center gap-1 text-xs">
           {showDiff && (
             <>
@@ -98,6 +108,10 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
   const topSources = [...ga4.sources].sort((a, b) => b.sessions28 - a.sessions28).slice(0, 8);
   const maxSourceSessions = Math.max(1, ...topSources.map((s) => s.sessions28));
 
+  // KPI カード内のミニ推移 (直近28日の日次)
+  const gscSpark = gsc.daily.slice(-28);
+  const ga4Spark = ga4.daily.slice(-28);
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
@@ -108,6 +122,7 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
           diff={imp.current - imp.previous}
           diffLabel={fmtInt(Math.abs(imp.current - imp.previous))}
           goodWhen="positive"
+          spark={gscSpark.map((r) => r.impressions)}
         />
         <KpiCard
           label="クリック (28日)"
@@ -116,6 +131,7 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
           diff={clicks.current - clicks.previous}
           diffLabel={fmtInt(Math.abs(clicks.current - clicks.previous))}
           goodWhen="positive"
+          spark={gscSpark.map((r) => r.clicks)}
         />
         <KpiCard label="CTR (28日)" value={fmtCtr(clicks.current, imp.current)} icon={Percent} />
         <KpiCard
@@ -133,6 +149,7 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
           diff={sessions.current - sessions.previous}
           diffLabel={fmtInt(Math.abs(sessions.current - sessions.previous))}
           goodWhen="positive"
+          spark={ga4Spark.map((r) => r.sessions)}
         />
         <KpiCard
           label="ページビュー (28日)"
@@ -141,6 +158,7 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
           diff={pageViews.current - pageViews.previous}
           diffLabel={fmtInt(Math.abs(pageViews.current - pageViews.previous))}
           goodWhen="positive"
+          spark={ga4Spark.map((r) => r.pageViews)}
         />
       </div>
 
