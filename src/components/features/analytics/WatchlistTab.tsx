@@ -1,6 +1,4 @@
 import { TrendingUp, TrendingDown, Minus, EyeOff } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
   AnalyticsSnapshot,
   AnalyticsPostInfo,
@@ -9,6 +7,7 @@ import type {
 import { Sparkline } from "./charts";
 import { fmtDelta, fmtInt } from "./format";
 import { PositionValue } from "./PositionValue";
+import { panel, panelBody, panelHeader, badgeNeutral, badgeGood, badgeBad } from "./theme";
 
 interface WatchlistTabProps {
   snapshot: AnalyticsSnapshot;
@@ -19,33 +18,17 @@ interface WatchlistTabProps {
 /** 直近28日 vs 前28日の表示回数から経過ステータスを判定する */
 function getStatus(impressions28: number, impressionsPrev28: number) {
   if (impressions28 === 0 && impressionsPrev28 === 0) {
-    return {
-      label: "表示なし",
-      icon: EyeOff,
-      className: "bg-destructive/10 text-destructive border-transparent",
-    };
+    return { label: "表示なし", icon: EyeOff, className: badgeBad };
   }
   const diff = impressions28 - impressionsPrev28;
   const ratio = impressionsPrev28 > 0 ? diff / impressionsPrev28 : 1;
   if (ratio >= 0.1) {
-    return {
-      label: "改善",
-      icon: TrendingUp,
-      className: "bg-green-600/10 text-green-700 dark:text-green-400 border-transparent",
-    };
+    return { label: "改善", icon: TrendingUp, className: badgeGood };
   }
   if (ratio <= -0.1) {
-    return {
-      label: "悪化",
-      icon: TrendingDown,
-      className: "bg-destructive/10 text-destructive border-transparent",
-    };
+    return { label: "悪化", icon: TrendingDown, className: badgeBad };
   }
-  return {
-    label: "横ばい",
-    icon: Minus,
-    className: "bg-muted text-muted-foreground border-transparent",
-  };
+  return { label: "横ばい", icon: Minus, className: badgeNeutral };
 }
 
 export default function WatchlistTab({ snapshot, watchlist, postInfo }: WatchlistTabProps) {
@@ -59,12 +42,12 @@ export default function WatchlistTab({ snapshot, watchlist, postInfo }: Watchlis
 
   return (
     <div className="space-y-4">
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-slate-400">
         SEO施策を打った記事の経過観察リスト (
-        <code className="text-xs">src/data/analytics/watchlist.ts</code> で管理)。 点線は施策日。
-        検索結果への反映には通常2〜8週間かかるため、施策直後の数値では判断しないこと。
+        <code className="text-xs text-slate-300">src/data/analytics/watchlist.ts</code> で管理)。
+        点線は施策日。検索結果への反映には通常2〜8週間かかるため、施策直後の数値では判断しないこと。
       </p>
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 xl:grid-cols-2">
         {watchlist.map((entry) => {
           const gsc = gscByPath.get(entry.path);
           const weekly = weeklyByPath.get(entry.path) ?? [];
@@ -77,38 +60,41 @@ export default function WatchlistTab({ snapshot, watchlist, postInfo }: Watchlis
           const StatusIcon = status.icon;
 
           return (
-            <Card key={entry.path} className="gap-3">
-              <CardHeader>
-                <CardTitle className="flex items-start justify-between gap-2 text-base">
-                  <a href={entry.path} target="_blank" rel="noreferrer" className="hover:underline">
+            <section key={entry.path} className={panel}>
+              <div className={`${panelHeader} pb-3`}>
+                <div className="flex items-start justify-between gap-2">
+                  <a
+                    href={entry.path}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-semibold text-slate-100 hover:text-sky-400 hover:underline"
+                  >
                     {postInfo[entry.path]?.title ?? entry.path}
                   </a>
-                  <Badge className={`shrink-0 gap-1 ${status.className}`}>
+                  <span className={`${status.className} shrink-0`}>
                     <StatusIcon className="size-3" />
                     {status.label}
-                  </Badge>
-                </CardTitle>
-                <CardDescription className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                  <Badge variant="outline" className="px-1.5 py-0 text-[10px] font-normal">
-                    {entry.since} 施策
-                  </Badge>
+                  </span>
+                </div>
+                <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
+                  <span className={badgeNeutral}>{entry.since} 施策</span>
                   {entry.note}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex items-end justify-between gap-4">
+                </p>
+              </div>
+              <div className={`${panelBody} flex items-end justify-between gap-4 py-3.5`}>
                 <dl className="grid grid-cols-3 gap-x-6 gap-y-1 text-sm">
-                  <dt className="text-muted-foreground col-start-1 text-xs">表示 (28日)</dt>
-                  <dt className="text-muted-foreground text-xs">クリック (28日)</dt>
-                  <dt className="text-muted-foreground text-xs">順位 (28日)</dt>
-                  <dd className="col-start-1 font-semibold tabular-nums">
+                  <dt className="col-start-1 text-xs text-slate-500">表示 (28日)</dt>
+                  <dt className="text-xs text-slate-500">クリック (28日)</dt>
+                  <dt className="text-xs text-slate-500">順位 (28日)</dt>
+                  <dd className="col-start-1 font-semibold text-slate-100 tabular-nums">
                     {fmtInt(gsc?.impressions28 ?? 0)}
                     {impDelta && (
-                      <span className="text-muted-foreground ml-1 text-xs font-normal">
-                        ({impDelta})
-                      </span>
+                      <span className="ml-1 text-xs font-normal text-slate-500">({impDelta})</span>
                     )}
                   </dd>
-                  <dd className="font-semibold tabular-nums">{fmtInt(gsc?.clicks28 ?? 0)}</dd>
+                  <dd className="font-semibold text-slate-100 tabular-nums">
+                    {fmtInt(gsc?.clicks28 ?? 0)}
+                  </dd>
                   <dd className="font-semibold tabular-nums">
                     <PositionValue position={gsc?.position28 ?? null} />
                   </dd>
@@ -120,12 +106,10 @@ export default function WatchlistTab({ snapshot, watchlist, postInfo }: Watchlis
                     width={130}
                     height={36}
                   />
-                  <div className="text-muted-foreground mt-0.5 text-right text-[10px]">
-                    週次表示回数
-                  </div>
+                  <div className="mt-0.5 text-right text-[10px] text-slate-500">週次表示回数</div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </section>
           );
         })}
       </div>

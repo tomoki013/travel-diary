@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { LockKeyhole } from "lucide-react";
+import { Activity } from "lucide-react";
 import { toast } from "sonner";
 
+// Analytics Console (常時ダーク) に合わせた自前スタイルのログイン画面
 export default function LoginClient() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -40,38 +38,38 @@ export default function LoginClient() {
   };
 
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="items-center text-center">
-          <div className="bg-primary/10 text-primary mx-auto mb-2 flex size-12 items-center justify-center rounded-full">
-            <LockKeyhole className="size-6" />
-          </div>
-          <CardTitle className="text-2xl">Analytics</CardTitle>
-          <p className="text-muted-foreground text-sm">運営者用ダッシュボード</p>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="password">Password</label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter analytics password"
-                  required
-                />
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Logging in..." : "Login"}
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900/60 p-8"
+      >
+        <div className="mb-6 flex flex-col items-center text-center">
+          <span className="mb-3 flex size-12 items-center justify-center rounded-xl bg-sky-500/15 text-sky-400">
+            <Activity className="size-6" />
+          </span>
+          <h1 className="text-xl font-bold tracking-tight text-slate-50">Analytics Console</h1>
+          <p className="mt-1 text-xs text-slate-500">ともきちの旅行日記 — 運営者用ダッシュボード</p>
+        </div>
+        <label htmlFor="password" className="mb-1.5 block text-xs font-medium text-slate-400">
+          Password
+        </label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="••••••••••"
+          required
+          className="w-full rounded-lg border border-slate-800 bg-slate-950/60 px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:border-sky-500/60 focus:ring-1 focus:ring-sky-500/40 focus:outline-none"
+        />
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="mt-4 w-full rounded-lg bg-sky-500 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-sky-400 disabled:opacity-60"
+        >
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
+      </form>
     </div>
   );
 }

@@ -149,6 +149,76 @@ export function computeMomentum(
   return { momentum, recent, prior, changeRatio: prior > 0 ? ratio : null };
 }
 
+/** 新出クエリ: 全期間の表示がすべて直近28日に集中 = 最近検索に出始めたクエリ */
+export function findNewQueries(queries: GscQueryRow[]): GscQueryRow[] {
+  return queries
+    .filter((row) => row.impressions28 >= 5 && row.impressions28 === row.impressions)
+    .sort((a, b) => b.impressions28 - a.impressions28);
+}
+
+/** 順位分布: 直近28日に表示のあったクエリを順位帯ごとに数える */
+export interface PositionBucket {
+  label: string;
+  count: number;
+  impressions: number;
+}
+
+export function buildPositionDistribution(queries: GscQueryRow[]): PositionBucket[] {
+  const buckets: { label: string; min: number; max: number }[] = [
+    { label: "1〜3位", min: 1, max: 3 },
+    { label: "4〜10位", min: 4, max: 10 },
+    { label: "11〜20位", min: 11, max: 20 },
+    { label: "21〜50位", min: 21, max: 50 },
+    { label: "51位〜", min: 51, max: Infinity },
+  ];
+  return buckets.map(({ label, min, max }) => {
+    const rows = queries.filter(
+      (row) =>
+        row.impressions28 > 0 &&
+        row.position28 != null &&
+        row.position28 >= min &&
+        row.position28 <= max,
+    );
+    return {
+      label,
+      count: rows.length,
+      impressions: rows.reduce((a, r) => a + r.impressions28, 0),
+    };
+  });
+}
+
+/** クエリ健康度: 順位帯ごとのユニーククエリ数 (28日) */
+export function buildQueryHealth(queries: GscQueryRow[]) {
+  const active = queries.filter((row) => row.impressions28 > 0 && row.position28 != null);
+  const uniq = (rows: GscQueryRow[]) => new Set(rows.map((r) => r.query)).size;
+  return {
+    total: uniq(active),
+    top3: uniq(active.filter((r) => r.position28! <= 3)),
+    top10: uniq(active.filter((r) => r.position28! <= 10)),
+    striking: uniq(active.filter((r) => r.position28! > 10 && r.position28! <= 20)),
+  };
+}
+
+/** 曜日パターン: 日次データを曜日ごとに平均する (月曜始まり) */
+export function buildWeekdayPattern<T extends { date: string }>(
+  daily: T[],
+  pick: (row: T) => number,
+): { label: string; value: number }[] {
+  const sums = new Array(7).fill(0);
+  const counts = new Array(7).fill(0);
+  for (const row of daily) {
+    // getUTCDay: 0=日曜 → 月曜始まりの index へ変換
+    const day = (new Date(`${row.date}T00:00:00Z`).getUTCDay() + 6) % 7;
+    sums[day] += pick(row);
+    counts[day] += 1;
+  }
+  const labels = ["月", "火", "水", "木", "金", "土", "日"];
+  return labels.map((label, i) => ({
+    label,
+    value: counts[i] > 0 ? Math.round((sums[i] / counts[i]) * 10) / 10 : 0,
+  }));
+}
+
 /** ダッシュボード全体のインサイトをまとめて計算する */
 export function buildInsights(
   snapshot: AnalyticsSnapshot,
@@ -157,6 +227,9 @@ export function buildInsights(
   const ctrGaps = findCtrGaps(snapshot.gsc.queries).slice(0, 10);
   const rewrites = findRewriteCandidates(snapshot.gsc.queries).slice(0, 10);
   const indexSuspects = findIndexSuspects(snapshot.gsc.pages, postInfo);
+  const newQueries = findNewQueries(snapshot.gsc.queries).slice(0, 12);
+  const positionDistribution = buildPositionDistribution(snapshot.gsc.queries);
+  const queryHealth = buildQueryHealth(snapshot.gsc.queries);
 
   // ページ別モメンタム
   const weeks = [...new Set(snapshot.gsc.pagesWeekly.map((r) => r.week))].sort();
@@ -176,7 +249,17 @@ export function buildInsights(
     .filter(([, m]) => m.momentum === "falling")
     .sort(([, a], [, b]) => b.prior - a.prior);
 
-  return { ctrGaps, rewrites, indexSuspects, rising, falling, momentumByPath };
+  return {
+    ctrGaps,
+    rewrites,
+    indexSuspects,
+    newQueries,
+    positionDistribution,
+    queryHealth,
+    rising,
+    falling,
+    momentumByPath,
+  };
 }
 
 function addDays(date: string, days: number): string {

@@ -1,14 +1,16 @@
 // /admin/analytics 用の軽量 SVG チャート。
 // 管理画面専用なのでチャートライブラリは追加せず自前描画で済ませる。
+// 配色はサイトテーマから独立した theme.ts の chart カラーを使う。
 
 import { useId } from "react";
 import { fmtShortDate } from "./format";
+import { chart } from "./theme";
 
 export interface ChartSeries {
   name: string;
-  color: string; // CSS color (var(--primary) など)
+  color: string;
   values: (number | null)[];
-  /** 最初の系列などに面グラデーションを敷く場合 true */
+  /** 面グラデーションを敷く場合 true */
   area?: boolean;
 }
 
@@ -66,7 +68,7 @@ export function DailyChart({ dates, series, height = 200 }: DailyChartProps) {
             (s, si) =>
               s.area && (
                 <linearGradient key={s.name} id={`${gradientId}-${si}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={s.color} stopOpacity="0.28" />
+                  <stop offset="0%" stopColor={s.color} stopOpacity="0.25" />
                   <stop offset="100%" stopColor={s.color} stopOpacity="0.02" />
                 </linearGradient>
               ),
@@ -80,17 +82,11 @@ export function DailyChart({ dates, series, height = 200 }: DailyChartProps) {
               x2={width - pad.right}
               y1={y(tick)}
               y2={y(tick)}
-              stroke="var(--border)"
+              stroke={chart.grid}
               strokeWidth="1"
               strokeDasharray={ti === 0 ? undefined : "3 4"}
             />
-            <text
-              x={pad.left - 8}
-              y={y(tick) + 4}
-              textAnchor="end"
-              fontSize="11"
-              fill="var(--muted-foreground)"
-            >
+            <text x={pad.left - 8} y={y(tick) + 4} textAnchor="end" fontSize="11" fill={chart.axis}>
               {tick.toLocaleString("ja-JP")}
             </text>
           </g>
@@ -103,7 +99,7 @@ export function DailyChart({ dates, series, height = 200 }: DailyChartProps) {
               y={height - 6}
               textAnchor="middle"
               fontSize="11"
-              fill="var(--muted-foreground)"
+              fill={chart.axis}
             >
               {fmtShortDate(date)}
             </text>
@@ -136,7 +132,7 @@ export function DailyChart({ dates, series, height = 200 }: DailyChartProps) {
                   cy={y(s.values[lastIdx] as number)}
                   r="3.5"
                   fill={s.color}
-                  stroke="var(--card)"
+                  stroke={chart.dotStroke}
                   strokeWidth="1.5"
                 />
               )}
@@ -160,7 +156,7 @@ export function DailyChart({ dates, series, height = 200 }: DailyChartProps) {
           </rect>
         ))}
       </svg>
-      <figcaption className="text-muted-foreground mt-2 flex gap-4 text-xs">
+      <figcaption className="mt-2 flex gap-4 text-xs text-slate-400">
         {series.map((s) => (
           <span key={s.name} className="inline-flex items-center gap-1.5">
             <span
@@ -181,13 +177,20 @@ interface SparklineProps {
   markerIndex?: number;
   width?: number;
   height?: number;
+  color?: string;
 }
 
 /** テーブル行内の小さな推移表示 (面グラデーション付き) */
-export function Sparkline({ values, markerIndex, width = 96, height = 28 }: SparklineProps) {
+export function Sparkline({
+  values,
+  markerIndex,
+  width = 96,
+  height = 28,
+  color = chart.primary,
+}: SparklineProps) {
   const gradientId = useId();
   if (values.length === 0 || values.every((v) => v === 0)) {
-    return <span className="text-muted-foreground text-xs">-</span>;
+    return <span className="text-xs text-slate-500">-</span>;
   }
   const max = Math.max(1, ...values);
   const x = (i: number) => (values.length <= 1 ? 0 : (i / (values.length - 1)) * (width - 4)) + 2;
@@ -199,8 +202,8 @@ export function Sparkline({ values, markerIndex, width = 96, height = 28 }: Spar
     <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} aria-hidden="true">
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.02" />
+          <stop offset="0%" stopColor={color} stopOpacity="0.3" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.02" />
         </linearGradient>
       </defs>
       <polygon
@@ -214,7 +217,7 @@ export function Sparkline({ values, markerIndex, width = 96, height = 28 }: Spar
           x2={x(markerIndex)}
           y1={2}
           y2={height - 2}
-          stroke="var(--destructive)"
+          stroke={chart.bad}
           strokeWidth="1"
           strokeDasharray="2 2"
         />
@@ -222,7 +225,7 @@ export function Sparkline({ values, markerIndex, width = 96, height = 28 }: Spar
       <polyline
         points={points}
         fill="none"
-        stroke="var(--primary)"
+        stroke={color}
         strokeWidth="1.5"
         strokeLinejoin="round"
         strokeLinecap="round"
@@ -231,10 +234,168 @@ export function Sparkline({ values, markerIndex, width = 96, height = 28 }: Spar
         cx={x(last)}
         cy={y(values[last])}
         r="2"
-        fill="var(--primary)"
-        stroke="var(--card)"
+        fill={color}
+        stroke={chart.dotStroke}
         strokeWidth="1"
       />
     </svg>
+  );
+}
+
+export interface ScatterPoint {
+  x: number;
+  y: number;
+  label: string;
+  color: string;
+  size?: number;
+}
+
+interface ScatterChartProps {
+  points: ScatterPoint[];
+  /** 期待値カーブ (x昇順の折れ線) を重ねる場合 */
+  curve?: { x: number; y: number }[];
+  curveLabel?: string;
+  xLabel: string;
+  yLabel: string;
+  xMax: number;
+  yMax: number;
+  height?: number;
+  /** x軸の目盛り値 */
+  xTicks?: number[];
+  /** y軸の値のフォーマッタ (目盛り表示用) */
+  formatY?: (v: number) => string;
+}
+
+/** 散布図 (順位×CTR など)。<title> でホバー時に個別値を表示する */
+export function ScatterChart({
+  points,
+  curve,
+  curveLabel,
+  xLabel,
+  yLabel,
+  xMax,
+  yMax,
+  height = 260,
+  xTicks,
+  formatY = (v) => String(v),
+}: ScatterChartProps) {
+  const width = 720;
+  const pad = { top: 14, right: 16, bottom: 34, left: 52 };
+  const innerW = width - pad.left - pad.right;
+  const innerH = height - pad.top - pad.bottom;
+  const x = (v: number) => pad.left + (Math.min(v, xMax) / xMax) * innerW;
+  const y = (v: number) => pad.top + innerH - (Math.min(v, yMax) / yMax) * innerH;
+
+  const ticksX = xTicks ?? [0, Math.round(xMax / 2), xMax];
+  const ticksY = [0, 0.25, 0.5, 0.75, 1].map((r) => yMax * r);
+
+  const curvePath = curve?.map((p, i) => `${i === 0 ? "M" : "L"}${x(p.x)},${y(p.y)}`).join(" ");
+
+  return (
+    <figure>
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full" role="img" aria-label={yLabel}>
+        {ticksY.map((tick) => (
+          <g key={tick}>
+            <line
+              x1={pad.left}
+              x2={width - pad.right}
+              y1={y(tick)}
+              y2={y(tick)}
+              stroke={chart.grid}
+              strokeWidth="1"
+              strokeDasharray={tick === 0 ? undefined : "3 4"}
+            />
+            <text x={pad.left - 8} y={y(tick) + 4} textAnchor="end" fontSize="11" fill={chart.axis}>
+              {formatY(tick)}
+            </text>
+          </g>
+        ))}
+        {ticksX.map((tick) => (
+          <text
+            key={tick}
+            x={x(tick)}
+            y={height - 16}
+            textAnchor="middle"
+            fontSize="11"
+            fill={chart.axis}
+          >
+            {tick}
+          </text>
+        ))}
+        <text
+          x={pad.left + innerW / 2}
+          y={height - 2}
+          textAnchor="middle"
+          fontSize="11"
+          fill={chart.axis}
+        >
+          {xLabel}
+        </text>
+
+        {curvePath && (
+          <path
+            d={curvePath}
+            fill="none"
+            stroke={chart.axis}
+            strokeWidth="1.5"
+            strokeDasharray="5 4"
+            opacity="0.8"
+          >
+            {curveLabel && <title>{curveLabel}</title>}
+          </path>
+        )}
+
+        {points.map((p, i) => (
+          <circle
+            key={i}
+            cx={x(p.x)}
+            cy={y(p.y)}
+            r={p.size ?? 4}
+            fill={p.color}
+            fillOpacity="0.85"
+            stroke={chart.dotStroke}
+            strokeWidth="1"
+          >
+            <title>{p.label}</title>
+          </circle>
+        ))}
+      </svg>
+      <figcaption className="mt-1 text-xs text-slate-400">
+        {yLabel}
+        {curveLabel && ` / 点線 = ${curveLabel}`}
+      </figcaption>
+    </figure>
+  );
+}
+
+interface BarListProps {
+  items: { label: string; value: number; color?: string; hint?: string }[];
+  /** 値の表示フォーマッタ */
+  format?: (v: number) => string;
+}
+
+/** 横バーの比較リスト (順位分布・曜日パターンなど) */
+export function BarList({ items, format = (v) => v.toLocaleString("ja-JP") }: BarListProps) {
+  const max = Math.max(1, ...items.map((i) => i.value));
+  return (
+    <div className="space-y-2">
+      {items.map((item) => (
+        <div key={item.label} className="text-sm" title={item.hint}>
+          <div className="mb-1 flex items-baseline justify-between gap-2">
+            <span className="text-slate-300">{item.label}</span>
+            <span className="font-medium text-slate-100 tabular-nums">{format(item.value)}</span>
+          </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-slate-800">
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${(item.value / max) * 100}%`,
+                backgroundColor: item.color ?? chart.primary,
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
