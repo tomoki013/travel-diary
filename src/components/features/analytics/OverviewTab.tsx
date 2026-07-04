@@ -8,10 +8,12 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   CalendarDays,
+  LogOut,
+  MousePointer2,
 } from "lucide-react";
 import type { AnalyticsSnapshot, AnalyticsPostInfo } from "@/types/analytics";
 import { DailyChart, Sparkline, BarList } from "./charts";
-import { fmtCtr, fmtInt, sumWindows } from "./format";
+import { fmtCtr, fmtEngagementSec, fmtExitRate, fmtInt, sumWindows } from "./format";
 import { buildWeekdayPattern } from "./insights";
 import {
   panel,
@@ -30,6 +32,14 @@ interface OverviewTabProps {
   snapshot: AnalyticsSnapshot;
   postInfo: Record<string, AnalyticsPostInfo>;
 }
+
+// GA4 拡張計測イベントのうち「読者の操作」と言えるものだけを表示する
+// (page_view/session_start/first_visit/user_engagement は自動計測のノイズなので除外)
+const INTERACTION_EVENT_LABELS: Record<string, string> = {
+  scroll: "スクロール (90%到達)",
+  click: "外部リンククリック",
+  form_start: "フォーム入力開始",
+};
 
 function KpiCard({
   label,
@@ -114,6 +124,12 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
 
   const weekdayImpressions = buildWeekdayPattern(gsc.daily, (r) => r.impressions);
   const weekdaySessions = buildWeekdayPattern(ga4.daily, (r) => r.sessions);
+
+  const interactionEvents = ga4.events.filter((e) => e.eventName in INTERACTION_EVENT_LABELS);
+  const topExitPages = [...ga4.pages]
+    .filter((p) => p.views28 >= 10)
+    .sort((a, b) => b.exits28 / b.views28 - a.exits28 / a.views28)
+    .slice(0, 8);
 
   return (
     <div className="space-y-5">
@@ -268,6 +284,77 @@ export default function OverviewTab({ snapshot, postInfo }: OverviewTabProps) {
                 label: `${s.source} / ${s.medium}`,
                 value: s.sessions28,
                 hint: `全期間 ${fmtInt(s.sessions)}`,
+              }))}
+            />
+          </div>
+        </section>
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-3">
+        <section className={`${panel} xl:col-span-2`}>
+          <div className={panelHeader}>
+            <h2 className={panelTitle}>
+              <LogOut className="size-4 text-sky-400" />
+              離脱率の高いページ
+            </h2>
+            <p className={panelDesc}>
+              直近28日でPV10以上のページを、そのページがセッション内最後の閲覧だった割合の高い順に表示。
+              高い記事は次の記事への導線 (関連記事・内部リンク) を見直す候補。
+            </p>
+          </div>
+          <div className={panelBody}>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-800 text-left">
+                  <th className={`${th} w-1/2`}>ページ</th>
+                  <th className={`${th} text-right`}>PV (28日)</th>
+                  <th className={`${th} text-right`}>滞在/PV</th>
+                  <th className={`${th} text-right`}>離脱率</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topExitPages.map((page) => (
+                  <tr key={page.path} className={tr}>
+                    <td className="max-w-0 truncate py-2 pr-2 text-slate-200" title={page.path}>
+                      {postInfo[page.path]?.title ?? page.path}
+                    </td>
+                    <td className="py-2 text-right text-slate-400 tabular-nums">
+                      {fmtInt(page.views28)}
+                    </td>
+                    <td className="py-2 text-right text-slate-400 tabular-nums">
+                      {fmtEngagementSec(page.engagementMs28, page.views28)}
+                    </td>
+                    <td className="py-2 text-right font-medium text-slate-100 tabular-nums">
+                      {fmtExitRate(page.exits28, page.views28)}
+                    </td>
+                  </tr>
+                ))}
+                {topExitPages.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="py-3 text-center text-slate-500">
+                      対象なし (PV10以上のページがまだありません)
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className={panel}>
+          <div className={panelHeader}>
+            <h2 className={panelTitle}>
+              <MousePointer2 className="size-4 text-sky-400" />
+              読者の操作 (28日)
+            </h2>
+            <p className={panelDesc}>GA4 拡張計測イベント。スクロール・外部リンク・フォーム開始</p>
+          </div>
+          <div className={panelBody}>
+            <BarList
+              items={interactionEvents.map((e) => ({
+                label: INTERACTION_EVENT_LABELS[e.eventName],
+                value: e.count28,
+                hint: `全期間 ${fmtInt(e.count)}`,
               }))}
             />
           </div>

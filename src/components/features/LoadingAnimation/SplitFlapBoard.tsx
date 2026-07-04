@@ -23,6 +23,10 @@ const STEP_MS_JITTER = 35;
 const LAND_MS = 280;
 /** 次の1枚をめくり始めるまでの隙間 */
 const STEP_GAP_MS = 15;
+/** ドラムを一周めくり切るのにかかる最大時間の目安 (最も離れた文字に当たった場合の安全マージン込み) */
+const MAX_FLIP_IN_MS = 3500;
+/** 単語が完成してから次の単語のめくりが始まるまで、読める状態を保つ時間 */
+const WORD_HOLD_MS = 3300;
 
 /**
  * 文字列の前後を均等なスペースで埋めて中央揃えにする関数
@@ -163,7 +167,7 @@ export const SplitFlapBoard = ({
   useEffect(() => {
     const wordInterval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % words.length);
-    }, 4000);
+    }, MAX_FLIP_IN_MS + WORD_HOLD_MS);
     return () => clearInterval(wordInterval);
   }, [words]);
 

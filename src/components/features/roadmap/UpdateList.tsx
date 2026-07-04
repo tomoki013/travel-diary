@@ -41,6 +41,14 @@ const TYPE_VARIANT: Record<UpdateType, "default" | "secondary" | "outline"> = {
 // 並びは新しい順。package.json の version と先頭エントリを一致させること。
 const UPDATES: UpdateItem[] = [
   {
+    date: "2026.07.04",
+    version: "v4.10.1",
+    title: "分析画面の拡充とヒーロー表示の調整",
+    content:
+      "運営者向けの分析画面に、記事ごとの離脱率と読者の操作（スクロール・外部リンククリックなど）の分析を追加しました。あわせて、トップページのパタパタ表示を、背景を透過させて単語が完成してからの表示時間を長くするよう調整しています。",
+    type: "patch",
+  },
+  {
     date: "2026.07.03",
     version: "v4.10.0",
     title: "共有ボタンの整理とデータ分析基盤の整備",

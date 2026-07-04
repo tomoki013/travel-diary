@@ -32,6 +32,12 @@ export function fmtEngagementSec(engagementMs: number, views: number): string {
   return `${Math.round(engagementMs / views / 1000)}秒`;
 }
 
+/** そのページがセッション内最後の page_view だった割合 (離脱率) */
+export function fmtExitRate(exits: number, views: number): string {
+  if (views <= 0) return "-";
+  return `${Math.round((exits / views) * 100)}%`;
+}
+
 /** 日付文字列 (YYYY-MM-DD) を「6/30」形式にする */
 export function fmtShortDate(date: string): string {
   const [, m, d] = date.split("-");
