@@ -53,7 +53,7 @@ export interface Ga4DailyRow {
   users: number;
 }
 
-/** GA4 のページ(パス)別集計 */
+/** GA4 のページ(パス)別集計。exits はそのページがセッション内最後の page_view だった回数 (離脱) */
 export interface Ga4PageRow {
   path: string;
   views: number;
@@ -61,6 +61,8 @@ export interface Ga4PageRow {
   engagementMs: number;
   views28: number;
   engagementMs28: number;
+  exits: number;
+  exits28: number;
 }
 
 /** GA4 の流入元 (source/medium) 別セッション数 */
@@ -69,6 +71,13 @@ export interface Ga4SourceRow {
   medium: string;
   sessions: number;
   sessions28: number;
+}
+
+/** GA4 拡張計測イベント (scroll/click/form_start 等) のサイト全体の発生回数 */
+export interface Ga4EventRow {
+  eventName: string;
+  count: number;
+  count28: number;
 }
 
 export interface AnalyticsSnapshot {
@@ -85,6 +94,7 @@ export interface AnalyticsSnapshot {
     daily: Ga4DailyRow[];
     pages: Ga4PageRow[];
     sources: Ga4SourceRow[];
+    events: Ga4EventRow[];
   };
 }
 

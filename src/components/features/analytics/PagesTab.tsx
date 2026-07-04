@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown, TrendingUp, TrendingDown, Minus, Search } from "lucide-react";
 import type { AnalyticsSnapshot, AnalyticsPostInfo } from "@/types/analytics";
 import { Sparkline } from "./charts";
-import { fmtCtr, fmtEngagementSec, fmtInt } from "./format";
+import { fmtCtr, fmtEngagementSec, fmtExitRate, fmtInt } from "./format";
 import { computeMomentum, type MomentumResult } from "./insights";
 import { PositionValue } from "./PositionValue";
 import { panel, panelBody, th, tr, badgeNeutral, badgeBad, badgeWarn } from "./theme";
@@ -25,6 +25,7 @@ interface PageRow {
   position28: number | null;
   views28: number;
   engagementMs28: number;
+  exits28: number;
   weekly: number[];
   momentum: MomentumResult;
 }
@@ -109,6 +110,7 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
         position28: gsc?.position28 ?? null,
         views28: ga4?.views28 ?? 0,
         engagementMs28: ga4?.engagementMs28 ?? 0,
+        exits28: ga4?.exits28 ?? 0,
         weekly,
       });
     }
@@ -196,6 +198,7 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
                 {sortableHeader("position28", "順位")}
                 {sortableHeader("views28", "PV (GA4)")}
                 <th className={`${th} text-right`}>滞在/PV</th>
+                <th className={`${th} text-right`}>離脱率</th>
                 {sortableHeader("impressions", "表示 (全期間)")}
                 <th className={`${th} pl-4 text-center`}>傾向</th>
                 <th className={`${th} pl-2`}>週次推移</th>
@@ -250,6 +253,9 @@ export default function PagesTab({ snapshot, postInfo }: PagesTabProps) {
                     </td>
                     <td className="py-2 text-right text-slate-400 tabular-nums">
                       {fmtEngagementSec(row.engagementMs28, row.views28)}
+                    </td>
+                    <td className="py-2 text-right text-slate-400 tabular-nums">
+                      {fmtExitRate(row.exits28, row.views28)}
                     </td>
                     <td className="py-2 text-right text-slate-400 tabular-nums">
                       {fmtInt(row.impressions)}

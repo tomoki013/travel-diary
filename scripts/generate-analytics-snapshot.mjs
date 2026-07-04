@@ -112,6 +112,8 @@ const queries = {
     GROUP BY date
     ORDER BY date`,
 
+  // ページ別の PV・滞在時間に加え、セッション内でそのページが最後の page_view
+  // だった回数 (= 離脱回数) を集計する
   ga4Pages: `
     WITH t AS (
       SELECT
@@ -119,22 +121,63 @@ const queries = {
         event_name,
         ${GA4_PATH} AS path,
         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'engagement_time_msec') AS engagement_ms,
-        user_pseudo_id
+        user_pseudo_id,
+        CONCAT(user_pseudo_id, '-', CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING)) AS session_id,
+        event_timestamp
+      FROM ${GA4_TABLE}
+      WHERE ${GA4_DAILY_SUFFIX}
+    ),
+    mx AS (SELECT MAX(d) AS d FROM t),
+    pv_ranked AS (
+      SELECT path, d, session_id,
+        ROW_NUMBER() OVER (PARTITION BY session_id ORDER BY event_timestamp DESC) AS rn
+      FROM t
+      WHERE event_name = 'page_view' AND path IS NOT NULL AND session_id IS NOT NULL
+    ),
+    exits AS (
+      SELECT path,
+        COUNTIF(rn = 1) AS exits,
+        COUNTIF(rn = 1 AND d > DATE_SUB((SELECT d FROM mx), INTERVAL 28 DAY)) AS exits28
+      FROM pv_ranked
+      GROUP BY path
+    ),
+    base AS (
+      SELECT
+        path,
+        COUNTIF(event_name = 'page_view') AS views,
+        COUNT(DISTINCT user_pseudo_id) AS users,
+        SUM(COALESCE(engagement_ms, 0)) AS engagementMs,
+        COUNTIF(event_name = 'page_view' AND d > DATE_SUB((SELECT d FROM mx), INTERVAL 28 DAY)) AS views28,
+        SUM(IF(d > DATE_SUB((SELECT d FROM mx), INTERVAL 28 DAY), COALESCE(engagement_ms, 0), 0)) AS engagementMs28
+      FROM t
+      WHERE path IS NOT NULL
+      GROUP BY path
+    )
+    SELECT
+      base.path,
+      base.views, base.users, base.engagementMs, base.views28, base.engagementMs28,
+      COALESCE(exits.exits, 0) AS exits,
+      COALESCE(exits.exits28, 0) AS exits28
+    FROM base
+    LEFT JOIN exits ON exits.path = base.path
+    ORDER BY base.views DESC`,
+
+  // サイト全体でどんな操作 (スクロール・クリック・フォーム開始など) が
+  // どれくらい発生しているかの内訳 (GA4 拡張計測イベント)
+  ga4Events: `
+    WITH t AS (
+      SELECT PARSE_DATE('%Y%m%d', event_date) AS d, event_name
       FROM ${GA4_TABLE}
       WHERE ${GA4_DAILY_SUFFIX}
     ),
     mx AS (SELECT MAX(d) AS d FROM t)
     SELECT
-      path,
-      COUNTIF(event_name = 'page_view') AS views,
-      COUNT(DISTINCT user_pseudo_id) AS users,
-      SUM(COALESCE(engagement_ms, 0)) AS engagementMs,
-      COUNTIF(event_name = 'page_view' AND d > DATE_SUB((SELECT d FROM mx), INTERVAL 28 DAY)) AS views28,
-      SUM(IF(d > DATE_SUB((SELECT d FROM mx), INTERVAL 28 DAY), COALESCE(engagement_ms, 0), 0)) AS engagementMs28
+      event_name AS eventName,
+      COUNT(*) AS count,
+      COUNTIF(d > DATE_SUB((SELECT d FROM mx), INTERVAL 28 DAY)) AS count28
     FROM t
-    WHERE path IS NOT NULL
-    GROUP BY path
-    ORDER BY views DESC`,
+    GROUP BY eventName
+    ORDER BY count DESC`,
 
   ga4Sources: `
     WITH t AS (
@@ -237,6 +280,7 @@ const snapshot = {
     daily: data.ga4Daily,
     pages: data.ga4Pages,
     sources: data.ga4Sources,
+    events: data.ga4Events,
   },
 };
 
