@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-23T06:38:12.209Z",
+ "generatedAt": "2026-08-23T06:53:50.672Z",
  "gsc": {
   "range": {
    "start": "2026-05-02",
@@ -15332,16 +15332,6 @@
     "views28": 1
    },
    {
-    "engagementMs": 87622,
-    "engagementMs28": 6813,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/admin/analytics/login",
-    "users": 7,
-    "views": 16,
-    "views28": 1
-   },
-   {
     "engagementMs": 984291,
     "engagementMs28": 196376,
     "exits": 11,
@@ -15350,6 +15340,16 @@
     "users": 15,
     "views": 16,
     "views28": 5
+   },
+   {
+    "engagementMs": 87622,
+    "engagementMs28": 6813,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/admin/analytics/login",
+    "users": 7,
+    "views": 16,
+    "views28": 1
    },
    {
     "engagementMs": 168104,
@@ -15392,16 +15392,6 @@
     "views28": 12
    },
    {
-    "engagementMs": 296601,
-    "engagementMs28": 23873,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/affiliates",
-    "users": 4,
-    "views": 14,
-    "views28": 1
-   },
-   {
     "engagementMs": 219752,
     "engagementMs28": 0,
     "exits": 3,
@@ -15410,6 +15400,16 @@
     "users": 3,
     "views": 14,
     "views28": 0
+   },
+   {
+    "engagementMs": 296601,
+    "engagementMs28": 23873,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/affiliates",
+    "users": 4,
+    "views": 14,
+    "views28": 1
    },
    {
     "engagementMs": 1186049,
@@ -15432,14 +15432,14 @@
     "views28": 13
    },
    {
-    "engagementMs": 217585,
-    "engagementMs28": 0,
-    "exits": 6,
-    "exits28": 2,
-    "path": "/faq",
-    "users": 9,
+    "engagementMs": 106841,
+    "engagementMs28": 377,
+    "exits": 4,
+    "exits28": 1,
+    "path": "/series/travel-diary",
+    "users": 5,
     "views": 12,
-    "views28": 2
+    "views28": 1
    },
    {
     "engagementMs": 515675,
@@ -15452,14 +15452,14 @@
     "views28": 7
    },
    {
-    "engagementMs": 106841,
-    "engagementMs28": 377,
-    "exits": 4,
-    "exits28": 1,
-    "path": "/series/travel-diary",
-    "users": 5,
+    "engagementMs": 217585,
+    "engagementMs28": 0,
+    "exits": 6,
+    "exits28": 2,
+    "path": "/faq",
+    "users": 9,
     "views": 12,
-    "views28": 1
+    "views28": 2
    },
    {
     "engagementMs": 541958,
@@ -15512,16 +15512,6 @@
     "views28": 4
    },
    {
-    "engagementMs": 76949,
-    "engagementMs28": 76949,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/penang-malaysia",
-    "users": 2,
-    "views": 9,
-    "views28": 9
-   },
-   {
     "engagementMs": 248555,
     "engagementMs28": 133549,
     "exits": 8,
@@ -15530,6 +15520,16 @@
     "users": 9,
     "views": 9,
     "views28": 4
+   },
+   {
+    "engagementMs": 76949,
+    "engagementMs28": 76949,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/penang-malaysia",
+    "users": 2,
+    "views": 9,
+    "views28": 9
    },
    {
     "engagementMs": 129890,
@@ -15542,6 +15542,16 @@
     "views28": 5
    },
    {
+    "engagementMs": 27846,
+    "engagementMs28": 21941,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/admin/cms/posts/new",
+    "users": 3,
+    "views": 9,
+    "views28": 6
+   },
+   {
     "engagementMs": 458998,
     "engagementMs28": 0,
     "exits": 5,
@@ -15552,14 +15562,14 @@
     "views28": 0
    },
    {
-    "engagementMs": 27846,
-    "engagementMs28": 21941,
-    "exits": 0,
+    "engagementMs": 12712,
+    "engagementMs28": 0,
+    "exits": 8,
     "exits28": 0,
-    "path": "/admin/cms/posts/new",
-    "users": 3,
-    "views": 9,
-    "views28": 6
+    "path": "/posts/paris-subway",
+    "users": 7,
+    "views": 8,
+    "views28": 0
    },
    {
     "engagementMs": 652083,
@@ -15572,12 +15582,12 @@
     "views28": 2
    },
    {
-    "engagementMs": 12712,
+    "engagementMs": 250590,
     "engagementMs28": 0,
-    "exits": 8,
+    "exits": 1,
     "exits28": 0,
-    "path": "/posts/paris-subway",
-    "users": 7,
+    "path": "/editorial-policy",
+    "users": 5,
     "views": 8,
     "views28": 0
    },
@@ -15602,16 +15612,6 @@
     "views28": 0
    },
    {
-    "engagementMs": 250590,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/editorial-policy",
-    "users": 5,
-    "views": 8,
-    "views28": 0
-   },
-   {
     "engagementMs": 20938,
     "engagementMs28": 0,
     "exits": 0,
@@ -15620,16 +15620,6 @@
     "users": 3,
     "views": 8,
     "views28": 0
-   },
-   {
-    "engagementMs": 352692,
-    "engagementMs28": 109843,
-    "exits": 5,
-    "exits28": 2,
-    "path": "/posts/airport-access-suvarnabhumi",
-    "users": 6,
-    "views": 7,
-    "views28": 2
    },
    {
     "engagementMs": 29156,
@@ -15642,6 +15632,16 @@
     "views28": 5
    },
    {
+    "engagementMs": 352692,
+    "engagementMs28": 109843,
+    "exits": 5,
+    "exits28": 2,
+    "path": "/posts/airport-access-suvarnabhumi",
+    "users": 6,
+    "views": 7,
+    "views28": 2
+   },
+   {
     "engagementMs": 148564,
     "engagementMs28": 0,
     "exits": 0,
@@ -15650,36 +15650,6 @@
     "users": 3,
     "views": 7,
     "views28": 0
-   },
-   {
-    "engagementMs": 99886,
-    "engagementMs28": 0,
-    "exits": 3,
-    "exits28": 0,
-    "path": "/posts/airport-access-kansai",
-    "users": 4,
-    "views": 6,
-    "views28": 0
-   },
-   {
-    "engagementMs": 148720,
-    "engagementMs28": 14433,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/request",
-    "users": 4,
-    "views": 6,
-    "views28": 1
-   },
-   {
-    "engagementMs": 48451,
-    "engagementMs28": 15463,
-    "exits": 2,
-    "exits28": 1,
-    "path": "/posts/landscape1",
-    "users": 6,
-    "views": 6,
-    "views28": 2
    },
    {
     "engagementMs": 644714,
@@ -15702,21 +15672,11 @@
     "views28": 0
    },
    {
-    "engagementMs": 190323,
+    "engagementMs": 212375,
     "engagementMs28": 0,
-    "exits": 0,
+    "exits": 1,
     "exits28": 0,
-    "path": "/terms",
-    "users": 3,
-    "views": 6,
-    "views28": 0
-   },
-   {
-    "engagementMs": 26003,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/japan",
+    "path": "/posts/egypt2",
     "users": 2,
     "views": 6,
     "views28": 0
@@ -15732,14 +15692,54 @@
     "views28": 6
    },
    {
-    "engagementMs": 212375,
+    "engagementMs": 99886,
     "engagementMs28": 0,
-    "exits": 1,
+    "exits": 3,
     "exits28": 0,
-    "path": "/posts/egypt2",
+    "path": "/posts/airport-access-kansai",
+    "users": 4,
+    "views": 6,
+    "views28": 0
+   },
+   {
+    "engagementMs": 190323,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/terms",
+    "users": 3,
+    "views": 6,
+    "views28": 0
+   },
+   {
+    "engagementMs": 48451,
+    "engagementMs28": 15463,
+    "exits": 2,
+    "exits28": 1,
+    "path": "/posts/landscape1",
+    "users": 6,
+    "views": 6,
+    "views28": 2
+   },
+   {
+    "engagementMs": 26003,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/japan",
     "users": 2,
     "views": 6,
     "views28": 0
+   },
+   {
+    "engagementMs": 148720,
+    "engagementMs28": 14433,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/request",
+    "users": 4,
+    "views": 6,
+    "views28": 1
    },
    {
     "engagementMs": 192512,
@@ -15748,16 +15748,6 @@
     "exits28": 2,
     "path": "/posts/china-alipay-useful",
     "users": 5,
-    "views": 5,
-    "views28": 2
-   },
-   {
-    "engagementMs": 162785,
-    "engagementMs28": 15763,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/series/landscape",
-    "users": 2,
     "views": 5,
     "views28": 2
    },
@@ -15772,16 +15762,6 @@
     "views28": 5
    },
    {
-    "engagementMs": 191458,
-    "engagementMs28": 8041,
-    "exits": 5,
-    "exits28": 1,
-    "path": "/posts/spain-restaurant",
-    "users": 2,
-    "views": 5,
-    "views28": 1
-   },
-   {
     "engagementMs": 156401,
     "engagementMs28": 3541,
     "exits": 2,
@@ -15792,12 +15772,32 @@
     "views28": 1
    },
    {
+    "engagementMs": 191458,
+    "engagementMs28": 8041,
+    "exits": 5,
+    "exits28": 1,
+    "path": "/posts/spain-restaurant",
+    "users": 2,
+    "views": 5,
+    "views28": 1
+   },
+   {
     "engagementMs": 44776,
     "engagementMs28": 11184,
     "exits": 0,
     "exits28": 0,
     "path": "/destination/china",
     "users": 5,
+    "views": 5,
+    "views28": 2
+   },
+   {
+    "engagementMs": 162785,
+    "engagementMs28": 15763,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/series/landscape",
+    "users": 2,
     "views": 5,
     "views28": 2
    },
@@ -15822,16 +15822,6 @@
     "views28": 0
    },
    {
-    "engagementMs": 28695,
-    "engagementMs28": 2829,
-    "exits": 2,
-    "exits28": 1,
-    "path": "/posts/architecture2",
-    "users": 3,
-    "views": 4,
-    "views28": 2
-   },
-   {
     "engagementMs": 110515,
     "engagementMs28": 0,
     "exits": 1,
@@ -15852,41 +15842,21 @@
     "views28": 3
    },
    {
+    "engagementMs": 36862,
+    "engagementMs28": 26652,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/spain",
+    "users": 2,
+    "views": 4,
+    "views28": 1
+   },
+   {
     "engagementMs": 76504,
     "engagementMs28": 12935,
     "exits": 4,
     "exits28": 1,
     "path": "/posts/ashumina-pilgrimage-in-spain",
-    "users": 4,
-    "views": 4,
-    "views28": 1
-   },
-   {
-    "engagementMs": 9355,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/singapore",
-    "users": 1,
-    "views": 4,
-    "views28": 0
-   },
-   {
-    "engagementMs": 20294,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/destination/putrajaya",
-    "users": 2,
-    "views": 4,
-    "views28": 0
-   },
-   {
-    "engagementMs": 485736,
-    "engagementMs28": 306508,
-    "exits": 3,
-    "exits28": 0,
-    "path": "/posts/chaophraya-express",
     "users": 4,
     "views": 4,
     "views28": 1
@@ -15902,14 +15872,34 @@
     "views28": 0
    },
    {
-    "engagementMs": 36862,
-    "engagementMs28": 26652,
-    "exits": 0,
+    "engagementMs": 485736,
+    "engagementMs28": 306508,
+    "exits": 3,
     "exits28": 0,
-    "path": "/destination/spain",
-    "users": 2,
+    "path": "/posts/chaophraya-express",
+    "users": 4,
     "views": 4,
     "views28": 1
+   },
+   {
+    "engagementMs": 28695,
+    "engagementMs28": 2829,
+    "exits": 2,
+    "exits28": 1,
+    "path": "/posts/architecture2",
+    "users": 3,
+    "views": 4,
+    "views28": 2
+   },
+   {
+    "engagementMs": 20294,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/destination/putrajaya",
+    "users": 2,
+    "views": 4,
+    "views28": 0
    },
    {
     "engagementMs": 13402,
@@ -15922,14 +15912,14 @@
     "views28": 0
    },
    {
-    "engagementMs": 8528,
-    "engagementMs28": 8528,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/my-travel",
+    "engagementMs": 9355,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/singapore",
     "users": 1,
-    "views": 3,
-    "views28": 3
+    "views": 4,
+    "views28": 0
    },
    {
     "engagementMs": 10536,
@@ -15942,6 +15932,16 @@
     "views28": 1
    },
    {
+    "engagementMs": 8528,
+    "engagementMs28": 8528,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/my-travel",
+    "users": 1,
+    "views": 3,
+    "views28": 3
+   },
+   {
     "engagementMs": 15374,
     "engagementMs28": 4396,
     "exits": 0,
@@ -15952,71 +15952,31 @@
     "views28": 1
    },
    {
-    "engagementMs": 133345,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/wat-pho",
-    "users": 3,
-    "views": 3,
-    "views28": 0
-   },
-   {
-    "engagementMs": 217103,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/posts/shanghai-chagee-addict",
-    "users": 2,
-    "views": 3,
-    "views28": 0
-   },
-   {
-    "engagementMs": 156590,
-    "engagementMs28": 156590,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/admin/cms/posts/penang-malaysia/edit",
-    "users": 1,
-    "views": 3,
-    "views28": 3
-   },
-   {
-    "engagementMs": 89351,
-    "engagementMs28": 7216,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/architecture1",
-    "users": 2,
-    "views": 3,
-    "views28": 1
-   },
-   {
-    "engagementMs": 16879,
-    "engagementMs28": 0,
+    "engagementMs": 146849,
+    "engagementMs28": 15836,
     "exits": 2,
-    "exits28": 1,
-    "path": "/posts/sunset1",
+    "exits28": 0,
+    "path": "/posts/malaysia2",
     "users": 3,
     "views": 3,
     "views28": 1
    },
    {
-    "engagementMs": 116144,
-    "engagementMs28": 4446,
-    "exits": 2,
-    "exits28": 1,
-    "path": "/posts/malaysia-before-thailand",
-    "users": 3,
-    "views": 3,
-    "views28": 1
-   },
-   {
-    "engagementMs": 26476,
-    "engagementMs28": 26476,
+    "engagementMs": 47409,
+    "engagementMs28": 6268,
     "exits": 3,
+    "exits28": 1,
+    "path": "/posts/india1",
+    "users": 3,
+    "views": 3,
+    "views28": 1
+   },
+   {
+    "engagementMs": 22358,
+    "engagementMs28": 22358,
+    "exits": 2,
     "exits28": 2,
-    "path": "/posts/thai-itinerary",
+    "path": "/posts/india4",
     "users": 3,
     "views": 3,
     "views28": 2
@@ -16032,61 +15992,21 @@
     "views28": 3
    },
    {
-    "engagementMs": 22358,
-    "engagementMs28": 22358,
+    "engagementMs": 5854,
+    "engagementMs28": 5854,
     "exits": 2,
     "exits28": 2,
-    "path": "/posts/india4",
+    "path": "/posts/india5",
     "users": 3,
     "views": 3,
     "views28": 2
    },
    {
-    "engagementMs": 66169,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/malaysia",
-    "users": 2,
-    "views": 3,
-    "views28": 0
-   },
-   {
-    "engagementMs": 47409,
-    "engagementMs28": 6268,
-    "exits": 3,
+    "engagementMs": 475888,
+    "engagementMs28": 386909,
+    "exits": 2,
     "exits28": 1,
-    "path": "/posts/india1",
-    "users": 3,
-    "views": 3,
-    "views28": 1
-   },
-   {
-    "engagementMs": 21506,
-    "engagementMs28": 13946,
-    "exits": 3,
-    "exits28": 2,
-    "path": "/posts/indonesia1",
-    "users": 3,
-    "views": 3,
-    "views28": 2
-   },
-   {
-    "engagementMs": 7142,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/indonesia",
-    "users": 1,
-    "views": 3,
-    "views28": 0
-   },
-   {
-    "engagementMs": 14145,
-    "engagementMs28": 10548,
-    "exits": 2,
-    "exits28": 2,
-    "path": "/destination/belgium",
+    "path": "/posts/spain2",
     "users": 3,
     "views": 3,
     "views28": 2
@@ -16102,31 +16022,81 @@
     "views28": 0
    },
    {
-    "engagementMs": 475888,
-    "engagementMs28": 386909,
+    "engagementMs": 116144,
+    "engagementMs28": 4446,
     "exits": 2,
     "exits28": 1,
-    "path": "/posts/spain2",
-    "users": 3,
-    "views": 3,
-    "views28": 2
-   },
-   {
-    "engagementMs": 146849,
-    "engagementMs28": 15836,
-    "exits": 2,
-    "exits28": 0,
-    "path": "/posts/malaysia2",
+    "path": "/posts/malaysia-before-thailand",
     "users": 3,
     "views": 3,
     "views28": 1
    },
    {
-    "engagementMs": 5854,
-    "engagementMs28": 5854,
+    "engagementMs": 14145,
+    "engagementMs28": 10548,
     "exits": 2,
     "exits28": 2,
-    "path": "/posts/india5",
+    "path": "/destination/belgium",
+    "users": 3,
+    "views": 3,
+    "views28": 2
+   },
+   {
+    "engagementMs": 16879,
+    "engagementMs28": 0,
+    "exits": 2,
+    "exits28": 1,
+    "path": "/posts/sunset1",
+    "users": 3,
+    "views": 3,
+    "views28": 1
+   },
+   {
+    "engagementMs": 21506,
+    "engagementMs28": 13946,
+    "exits": 3,
+    "exits28": 2,
+    "path": "/posts/indonesia1",
+    "users": 3,
+    "views": 3,
+    "views28": 2
+   },
+   {
+    "engagementMs": 89351,
+    "engagementMs28": 7216,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/architecture1",
+    "users": 2,
+    "views": 3,
+    "views28": 1
+   },
+   {
+    "engagementMs": 66169,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/malaysia",
+    "users": 2,
+    "views": 3,
+    "views28": 0
+   },
+   {
+    "engagementMs": 7142,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/indonesia",
+    "users": 1,
+    "views": 3,
+    "views28": 0
+   },
+   {
+    "engagementMs": 26476,
+    "engagementMs28": 26476,
+    "exits": 3,
+    "exits28": 2,
+    "path": "/posts/thai-itinerary",
     "users": 3,
     "views": 3,
     "views28": 2
@@ -16139,6 +16109,56 @@
     "path": "/journey/j-2026-03-12",
     "users": 2,
     "views": 3,
+    "views28": 0
+   },
+   {
+    "engagementMs": 133345,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/wat-pho",
+    "users": 3,
+    "views": 3,
+    "views28": 0
+   },
+   {
+    "engagementMs": 156590,
+    "engagementMs28": 156590,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/admin/cms/posts/penang-malaysia/edit",
+    "users": 1,
+    "views": 3,
+    "views28": 3
+   },
+   {
+    "engagementMs": 217103,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/posts/shanghai-chagee-addict",
+    "users": 2,
+    "views": 3,
+    "views28": 0
+   },
+   {
+    "engagementMs": 14930,
+    "engagementMs28": 10534,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/singapore2",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
+    "engagementMs": 1746,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/destination/singapore-city",
+    "users": 2,
+    "views": 2,
     "views28": 0
    },
    {
@@ -16162,32 +16182,12 @@
     "views28": 1
    },
    {
-    "engagementMs": 14930,
-    "engagementMs28": 10534,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/singapore2",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
     "engagementMs": 29055,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
     "path": "/preview/shanghai-yuyuan-evening",
     "users": 1,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 1746,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/destination/singapore-city",
-    "users": 2,
     "views": 2,
     "views28": 0
    },
@@ -16202,151 +16202,11 @@
     "views28": 0
    },
    {
-    "engagementMs": 30210,
-    "engagementMs28": 27661,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/paris",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 62013,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/india7",
-    "users": 2,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 42577,
-    "engagementMs28": 10165,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/singapore1",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 1272,
-    "engagementMs28": 20,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/destination/jaipur",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 30649,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/series/travel-history",
-    "users": 2,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 7173,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/journey/j-2025-06-10",
-    "users": 2,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 7233,
-    "engagementMs28": 4630,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/toledo",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 11306,
-    "engagementMs28": 3050,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/bangkok",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 1127,
-    "engagementMs28": 1127,
-    "exits": 2,
-    "exits28": 1,
-    "path": "/posts/hokkaido1",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 8536,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/giza",
-    "users": 2,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 2713,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/destination/new-delhi",
-    "users": 2,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 15643,
-    "engagementMs28": 11712,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/destination/brussels",
-    "users": 2,
-    "views": 2,
-    "views28": 1
-   },
-   {
-    "engagementMs": 83124,
-    "engagementMs28": 83124,
-    "exits": 2,
-    "exits28": 2,
-    "path": "/posts/europe-itinerary",
-    "users": 2,
-    "views": 2,
-    "views28": 2
-   },
-   {
     "engagementMs": 65781,
     "engagementMs28": 0,
     "exits": 1,
     "exits28": 0,
     "path": "/posts/thai1",
-    "users": 2,
-    "views": 2,
-    "views28": 0
-   },
-   {
-    "engagementMs": 2897,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/barcelona",
     "users": 2,
     "views": 2,
     "views28": 0
@@ -16372,6 +16232,96 @@
     "views28": 0
    },
    {
+    "engagementMs": 15643,
+    "engagementMs28": 11712,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/destination/brussels",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
+    "engagementMs": 30210,
+    "engagementMs28": 27661,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/paris",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
+    "engagementMs": 30649,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/series/travel-history",
+    "users": 2,
+    "views": 2,
+    "views28": 0
+   },
+   {
+    "engagementMs": 42577,
+    "engagementMs28": 10165,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/singapore1",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
+    "engagementMs": 21797,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/travel-history2",
+    "users": 2,
+    "views": 2,
+    "views28": 0
+   },
+   {
+    "engagementMs": 7173,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/journey/j-2025-06-10",
+    "users": 2,
+    "views": 2,
+    "views28": 0
+   },
+   {
+    "engagementMs": 11306,
+    "engagementMs28": 3050,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/bangkok",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
+    "engagementMs": 2713,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/destination/new-delhi",
+    "users": 2,
+    "views": 2,
+    "views28": 0
+   },
+   {
+    "engagementMs": 22276,
+    "engagementMs28": 0,
+    "exits": 2,
+    "exits28": 1,
+    "path": "/posts/china4",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
     "engagementMs": 2796,
     "engagementMs28": 1686,
     "exits": 1,
@@ -16380,6 +16330,16 @@
     "users": 2,
     "views": 2,
     "views28": 1
+   },
+   {
+    "engagementMs": 62013,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/india7",
+    "users": 2,
+    "views": 2,
+    "views28": 0
    },
    {
     "engagementMs": 185598,
@@ -16402,24 +16362,34 @@
     "views28": 0
    },
    {
-    "engagementMs": 21797,
+    "engagementMs": 2897,
     "engagementMs28": 0,
-    "exits": 1,
+    "exits": 0,
     "exits28": 0,
-    "path": "/posts/travel-history2",
+    "path": "/destination/barcelona",
     "users": 2,
     "views": 2,
     "views28": 0
    },
    {
-    "engagementMs": 22276,
-    "engagementMs28": 0,
-    "exits": 2,
+    "engagementMs": 1272,
+    "engagementMs28": 20,
+    "exits": 1,
     "exits28": 1,
-    "path": "/posts/china4",
+    "path": "/destination/jaipur",
     "users": 2,
     "views": 2,
     "views28": 1
+   },
+   {
+    "engagementMs": 8536,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/giza",
+    "users": 2,
+    "views": 2,
+    "views28": 0
    },
    {
     "engagementMs": 14289,
@@ -16432,6 +16402,16 @@
     "views28": 0
    },
    {
+    "engagementMs": 7233,
+    "engagementMs28": 4630,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/toledo",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
     "engagementMs": 14442,
     "engagementMs28": 0,
     "exits": 0,
@@ -16439,6 +16419,36 @@
     "path": "/destination/france",
     "users": 2,
     "views": 2,
+    "views28": 0
+   },
+   {
+    "engagementMs": 1127,
+    "engagementMs28": 1127,
+    "exits": 2,
+    "exits28": 1,
+    "path": "/posts/hokkaido1",
+    "users": 2,
+    "views": 2,
+    "views28": 1
+   },
+   {
+    "engagementMs": 83124,
+    "engagementMs28": 83124,
+    "exits": 2,
+    "exits28": 2,
+    "path": "/posts/europe-itinerary",
+    "users": 2,
+    "views": 2,
+    "views28": 2
+   },
+   {
+    "engagementMs": 8704,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/posts/turkey1",
+    "users": 1,
+    "views": 1,
     "views28": 0
    },
    {
@@ -16462,6 +16472,16 @@
     "views28": 0
    },
    {
+    "engagementMs": 9933,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/vietnam-transit",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
     "engagementMs": 5575,
     "engagementMs28": 5575,
     "exits": 0,
@@ -16472,14 +16492,14 @@
     "views28": 1
    },
    {
-    "engagementMs": 8704,
-    "engagementMs28": 0,
+    "engagementMs": 4563,
+    "engagementMs28": 4563,
     "exits": 0,
     "exits28": 0,
-    "path": "/posts/turkey1",
+    "path": "/posts/hello-cms",
     "users": 1,
     "views": 1,
-    "views28": 0
+    "views28": 1
    },
    {
     "engagementMs": 5007,
@@ -16512,186 +16532,6 @@
     "views28": 0
    },
    {
-    "engagementMs": 9933,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/vietnam-transit",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 4563,
-    "engagementMs28": 4563,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/posts/hello-cms",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 2094,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/journey/j-2025-02-13",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 0,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/loading-animation",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 2,
-    "engagementMs28": 2,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/admin/cms/posts/hello-cms/edit",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 0,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/journey/j-2024-02-26",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 5162,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/south-korea",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 1165,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/agra",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 9174,
-    "engagementMs28": 9174,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/wat-arun",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 14076,
-    "engagementMs28": 14076,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/india2",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 33301,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/china1",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 7760,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/posts/exchange-rate",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 1734,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/seoul",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 2881,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/kuala-lumpur",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 1183,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/yogyakarta",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 7753,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/developing-country-sunset",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 1353,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/destination/osaka",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 9006,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/posts/why-travelers-dont-return",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
     "engagementMs": 2408,
     "engagementMs28": 0,
     "exits": 1,
@@ -16700,6 +16540,16 @@
     "users": 1,
     "views": 1,
     "views28": 0
+   },
+   {
+    "engagementMs": 3414,
+    "engagementMs28": 3414,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/india3",
+    "users": 1,
+    "views": 1,
+    "views28": 1
    },
    {
     "engagementMs": 26160,
@@ -16712,11 +16562,51 @@
     "views28": 0
    },
    {
+    "engagementMs": 14862,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/posts/thai3",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 6270,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/spain7",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
     "engagementMs": 129942,
     "engagementMs28": 129942,
     "exits": 1,
     "exits28": 1,
     "path": "/posts/france1",
+    "users": 1,
+    "views": 1,
+    "views28": 1
+   },
+   {
+    "engagementMs": 4695,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/preview/login",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 0,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/thai-transportation",
     "users": 1,
     "views": 1,
     "views28": 1
@@ -16742,31 +16632,11 @@
     "views28": 1
    },
    {
-    "engagementMs": 0,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/thai-transportation",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 3414,
-    "engagementMs28": 3414,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/posts/india3",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 4695,
+    "engagementMs": 1165,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/preview/login",
+    "path": "/destination/agra",
     "users": 1,
     "views": 1,
     "views28": 0
@@ -16822,21 +16692,71 @@
     "views28": 0
    },
    {
-    "engagementMs": 14862,
+    "engagementMs": 14076,
+    "engagementMs28": 14076,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/india2",
+    "users": 1,
+    "views": 1,
+    "views28": 1
+   },
+   {
+    "engagementMs": 2094,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/posts/thai3",
+    "path": "/journey/j-2025-02-13",
     "users": 1,
     "views": 1,
     "views28": 0
    },
    {
-    "engagementMs": 6270,
+    "engagementMs": 0,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/post",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 448,
     "engagementMs28": 0,
     "exits": 1,
     "exits28": 0,
-    "path": "/posts/spain7",
+    "path": "/posts/china2",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 1734,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/seoul",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 1365,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/series/kyoto",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 2429,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/abo",
     "users": 1,
     "views": 1,
     "views28": 0
@@ -16872,21 +16792,21 @@
     "views28": 0
    },
    {
-    "engagementMs": 2429,
-    "engagementMs28": 0,
-    "exits": 1,
-    "exits28": 0,
-    "path": "/abo",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
     "engagementMs": 1554,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
     "path": "/destination/varanasi",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 1183,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/yogyakarta",
     "users": 1,
     "views": 1,
     "views28": 0
@@ -16912,31 +16832,41 @@
     "views28": 0
    },
    {
+    "engagementMs": 7753,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/developing-country-sunset",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
     "engagementMs": 0,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/post",
+    "path": "/loading-animation",
     "users": 1,
     "views": 1,
     "views28": 0
    },
    {
-    "engagementMs": 1365,
-    "engagementMs28": 0,
-    "exits": 0,
-    "exits28": 0,
-    "path": "/series/kyoto",
-    "users": 1,
-    "views": 1,
-    "views28": 0
-   },
-   {
-    "engagementMs": 448,
+    "engagementMs": 9006,
     "engagementMs28": 0,
     "exits": 1,
     "exits28": 0,
-    "path": "/posts/china2",
+    "path": "/posts/why-travelers-dont-return",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 1353,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/osaka",
     "users": 1,
     "views": 1,
     "views28": 0
@@ -16952,31 +16882,31 @@
     "views28": 0
    },
    {
-    "engagementMs": 10521,
-    "engagementMs28": 10521,
-    "exits": 1,
-    "exits28": 1,
-    "path": "/@@@",
-    "users": 1,
-    "views": 1,
-    "views28": 1
-   },
-   {
-    "engagementMs": 15712,
+    "engagementMs": 24406,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/posts/indonesia3",
+    "path": "/journey/j-2024-09-21",
     "users": 1,
     "views": 1,
     "views28": 0
    },
    {
-    "engagementMs": 2119,
+    "engagementMs": 2261,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/thai6",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 1817,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/destination/athens",
+    "path": "/destination/hokkaido",
     "users": 1,
     "views": 1,
     "views28": 0
@@ -17002,31 +16932,101 @@
     "views28": 0
    },
    {
-    "engagementMs": 1817,
+    "engagementMs": 15712,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/destination/hokkaido",
+    "path": "/posts/indonesia3",
     "users": 1,
     "views": 1,
     "views28": 0
    },
    {
-    "engagementMs": 24406,
+    "engagementMs": 2,
+    "engagementMs28": 2,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/admin/cms/posts/hello-cms/edit",
+    "users": 1,
+    "views": 1,
+    "views28": 1
+   },
+   {
+    "engagementMs": 5162,
     "engagementMs28": 0,
     "exits": 0,
     "exits28": 0,
-    "path": "/journey/j-2024-09-21",
+    "path": "/destination/south-korea",
     "users": 1,
     "views": 1,
     "views28": 0
    },
    {
-    "engagementMs": 2261,
+    "engagementMs": 0,
     "engagementMs28": 0,
     "exits": 1,
     "exits28": 0,
-    "path": "/posts/thai6",
+    "path": "/journey/j-2024-02-26",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 9174,
+    "engagementMs28": 9174,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/posts/wat-arun",
+    "users": 1,
+    "views": 1,
+    "views28": 1
+   },
+   {
+    "engagementMs": 2119,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/athens",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 33301,
+    "engagementMs28": 0,
+    "exits": 1,
+    "exits28": 0,
+    "path": "/posts/china1",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 7760,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/posts/exchange-rate",
+    "users": 1,
+    "views": 1,
+    "views28": 0
+   },
+   {
+    "engagementMs": 10521,
+    "engagementMs28": 10521,
+    "exits": 1,
+    "exits28": 1,
+    "path": "/@@@",
+    "users": 1,
+    "views": 1,
+    "views28": 1
+   },
+   {
+    "engagementMs": 2881,
+    "engagementMs28": 0,
+    "exits": 0,
+    "exits28": 0,
+    "path": "/destination/kuala-lumpur",
     "users": 1,
     "views": 1,
     "views28": 0
@@ -17064,16 +17064,16 @@
     "source": "t.co"
    },
    {
-    "medium": "organic",
-    "sessions": 7,
-    "sessions28": 0,
-    "source": "duckduckgo"
-   },
-   {
     "medium": "referral",
     "sessions": 7,
     "sessions28": 4,
     "source": "service.smt.docomo.ne.jp"
+   },
+   {
+    "medium": "organic",
+    "sessions": 7,
+    "sessions28": 0,
+    "source": "duckduckgo"
    },
    {
     "medium": "referral",
@@ -17082,10 +17082,10 @@
     "source": "search.fenrir-inc.com"
    },
    {
-    "medium": "referral",
+    "medium": "(none)",
     "sessions": 4,
-    "sessions28": 1,
-    "source": "github.com"
+    "sessions28": 3,
+    "source": "chatgpt.com"
    },
    {
     "medium": "organic",
@@ -17094,22 +17094,22 @@
     "source": "openai"
    },
    {
-    "medium": "(none)",
+    "medium": "referral",
     "sessions": 4,
-    "sessions28": 3,
-    "source": "chatgpt.com"
-   },
-   {
-    "medium": "(none)",
-    "sessions": 3,
-    "sessions28": 0,
-    "source": "copilot.com"
+    "sessions28": 1,
+    "source": "github.com"
    },
    {
     "medium": "referral",
     "sessions": 3,
     "sessions28": 0,
     "source": "n-ats.hrmos.co"
+   },
+   {
+    "medium": "(none)",
+    "sessions": 3,
+    "sessions28": 0,
+    "source": "copilot.com"
    },
    {
     "medium": "organic",
@@ -17121,7 +17121,13 @@
     "medium": "(none)",
     "sessions": 2,
     "sessions28": 0,
-    "source": "perplexity"
+    "source": "openai"
+   },
+   {
+    "medium": "referral",
+    "sessions": 2,
+    "sessions28": 1,
+    "source": "note.com"
    },
    {
     "medium": "referral",
@@ -17136,16 +17142,10 @@
     "source": "uk.search.yahoo.com"
    },
    {
-    "medium": "referral",
-    "sessions": 2,
-    "sessions28": 1,
-    "source": "note.com"
-   },
-   {
     "medium": "(none)",
     "sessions": 2,
     "sessions28": 0,
-    "source": "openai"
+    "source": "perplexity"
    },
    {
     "medium": "referral",
@@ -17157,7 +17157,37 @@
     "medium": "referral",
     "sessions": 1,
     "sessions28": 0,
+    "source": "perplexity.ai"
+   },
+   {
+    "medium": "referral",
+    "sessions": 1,
+    "sessions28": 0,
+    "source": "us.search.yahoo.com"
+   },
+   {
+    "medium": "referral",
+    "sessions": 1,
+    "sessions28": 0,
     "source": "ui.awin.com"
+   },
+   {
+    "medium": "referral",
+    "sessions": 1,
+    "sessions28": 1,
+    "source": "gstatic.com"
+   },
+   {
+    "medium": "referral",
+    "sessions": 1,
+    "sessions28": 0,
+    "source": "search.google.com"
+   },
+   {
+    "medium": "referral",
+    "sessions": 1,
+    "sessions28": 0,
+    "source": "websearch.rakuten.co.jp"
    },
    {
     "medium": "referral",
@@ -17170,36 +17200,6 @@
     "sessions": 1,
     "sessions28": 0,
     "source": "chatgpt.com"
-   },
-   {
-    "medium": "referral",
-    "sessions": 1,
-    "sessions28": 0,
-    "source": "search.google.com"
-   },
-   {
-    "medium": "referral",
-    "sessions": 1,
-    "sessions28": 0,
-    "source": "perplexity.ai"
-   },
-   {
-    "medium": "referral",
-    "sessions": 1,
-    "sessions28": 0,
-    "source": "websearch.rakuten.co.jp"
-   },
-   {
-    "medium": "referral",
-    "sessions": 1,
-    "sessions28": 1,
-    "source": "gstatic.com"
-   },
-   {
-    "medium": "referral",
-    "sessions": 1,
-    "sessions28": 0,
-    "source": "us.search.yahoo.com"
    }
   ],
   "events": [
