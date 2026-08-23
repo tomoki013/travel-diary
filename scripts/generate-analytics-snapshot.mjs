@@ -285,5 +285,5 @@ const snapshot = {
 };
 
 mkdirSync(outDir, { recursive: true });
-writeFileSync(outFile, JSON.stringify(snapshot, null, 1) + "\n");
+writeFileSync(outFile, JSON.stringify(snapshot, null, 2) + "\n");
 process.stderr.write(`Wrote ${path.relative(process.cwd(), outFile)}\n`);
