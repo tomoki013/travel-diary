@@ -27,14 +27,25 @@ author: ともきち
 
 このページでは、CHAGEEについて知りたい人向けに、**おすすめメニュー・商品の茶葉・注文方法・実際に行った店舗**を目的別にまとめています。
 
-| 知りたいこと | 読む記事 |
-| --- | --- |
-| 初めてなら何を頼む？ | [おすすめメニュー](./shanghai-chagee-menu) |
-| 商品名が何味か知りたい | [メニュー日本語解説](./chagee-menu-explained) |
-| 海外でどう注文する？ | [中国・マレーシア・シンガポールの注文方法](./chagee-ordering-china-malaysia-singapore) |
-| 上海ではどこへ行く？ | [上海の実際に行った3店舗](./shanghai-chagee-stores) |
-| クアラルンプールではどこへ行く？ | [KLの実際に行った3店舗](./chagee-kuala-lumpur-stores) |
-| シンガポールではどこへ行く？ | [シンガポールの実際に行った4店舗](./chagee-singapore-stores) |
+## 知りたいことからCHAGEEの記事を探す
+
+**初めてなら何を頼む？**  
+[CHAGEEで頼むならこれ。実際に飲んでよかったおすすめメニュー](./shanghai-chagee-menu)
+
+**商品名が何味か知りたい**  
+[CHAGEEのメニューを日本語で解説｜実際に飲んだ4種類の茶葉・香り・特徴](./chagee-menu-explained)
+
+**海外でどう注文する？**  
+[CHAGEEの注文方法｜中国・マレーシア・シンガポールで実際に注文して分かった違い](./chagee-ordering-china-malaysia-singapore)
+
+**上海ではどこへ行く？**  
+[上海のCHAGEE（霸王茶姬）実際に行った3店舗｜南京東路・豫園・浦東空港](./shanghai-chagee-stores)
+
+**クアラルンプールではどこへ行く？**  
+[クアラルンプールのCHAGEE実際に行った3店舗｜旅行中ならどこが行きやすい？](./chagee-kuala-lumpur-stores)
+
+**シンガポールではどこへ行く？**  
+[シンガポールのCHAGEE実際に行った4店舗｜観光ルート別にどこへ寄る？](./chagee-singapore-stores)
 
 ## CHAGEE（霸王茶姬）とは？
 
