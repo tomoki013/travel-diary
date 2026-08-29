@@ -23,11 +23,11 @@ journeyId: j-2025-11-29
 
 私が上海で実際に利用したのは、南京東路、豫園、上海浦東国際空港の3店舗です。
 
-| 店舗 | エリア | こんなときに便利 |
-| --- | --- | --- |
-| 霸王茶姬（上海恒基名人店） | 南京東路 | 南京東路・外灘観光の途中 |
-| 霸王茶姬（上海豫園店） | 豫園 | 豫園観光と一緒に |
-| 霸王茶姬（浦东机场S2国际店） | 上海浦東国際空港 | 国際線で帰国する前 |
+| 店舗                         | エリア           | こんなときに便利         |
+| ---------------------------- | ---------------- | ------------------------ |
+| 霸王茶姬（上海恒基名人店）   | 南京東路         | 南京東路・外灘観光の途中 |
+| 霸王茶姬（上海豫園店）       | 豫園             | 豫園観光と一緒に         |
+| 霸王茶姬（浦东机场S2国际店） | 上海浦東国際空港 | 国際線で帰国する前       |
 
 この記事では、3店舗それぞれの立地や実際に利用して感じた違いを紹介します。
 
@@ -51,7 +51,7 @@ journeyId: j-2025-11-29
 
 南京東路から外灘方面を歩く予定なら、観光ルートに組み込みやすい店舗だと思います。
 
-[Baidu Mapsで上海恒基名人店を見る](https://map.baidu.com/poi/%E9%9C%B8%E7%8E%8B%E8%8C%B6%E5%A7%AC(%E4%B8%8A%E6%B5%B7%E6%81%92%E5%9F%BA%E5%90%8D%E4%BA%BA%E5%BA%97)/@13524448.43,3642089.39,15.2z?uid=bb8df319b140d61c7ab55c40&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&en_uid=bb8df319b140d61c7ab55c40&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl)
+[Baidu Mapsで上海恒基名人店を見る](<https://map.baidu.com/poi/%E9%9C%B8%E7%8E%8B%E8%8C%B6%E5%A7%AC(%E4%B8%8A%E6%B5%B7%E6%81%92%E5%9F%BA%E5%90%8D%E4%BA%BA%E5%BA%97)/@13524448.43,3642089.39,15.2z?uid=bb8df319b140d61c7ab55c40&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&en_uid=bb8df319b140d61c7ab55c40&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl>)
 
 ## 豫園観光なら霸王茶姬（上海豫園店）
 
@@ -65,7 +65,7 @@ journeyId: j-2025-11-29
 
 特定のメニューを目当てに行く場合は選択肢が限られる可能性がありますが、豫園観光の途中でCHAGEEを飲みたい場合には便利な店舗でした。
 
-[Baidu Mapsで上海豫園店を見る](https://map.baidu.com/poi/%E9%9C%B8%E7%8E%8B%E8%8C%B6%E5%A7%AC(%E4%B8%8A%E6%B5%B7%E8%B1%AB%E5%9B%AD%E5%BA%97)/@13525220.18,3640684.12,17.54z?uid=818d935f195be490882fb531&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&en_uid=818d935f195be490882fb531&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl)
+[Baidu Mapsで上海豫園店を見る](<https://map.baidu.com/poi/%E9%9C%B8%E7%8E%8B%E8%8C%B6%E5%A7%AC(%E4%B8%8A%E6%B5%B7%E8%B1%AB%E5%9B%AD%E5%BA%97)/@13525220.18,3640684.12,17.54z?uid=818d935f195be490882fb531&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&en_uid=818d935f195be490882fb531&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl>)
 
 ## 帰国前なら霸王茶姬（浦东机场S2国际店）
 

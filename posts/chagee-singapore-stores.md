@@ -24,12 +24,12 @@ journeyId: j-2026-03-12
 
 私はシンガポールで4店舗を実際に利用しました。
 
-| 観光ルート | 立ち寄りやすいCHAGEE |
-| --- | --- |
-| Arab Street・Bugis | Raffles Specialist Centre |
-| Sentosa・Universal Studios周辺 | Resorts World Sentosa（WEAVE） |
-| Lau Pa Sat・Raffles Place | One Raffles Place |
-| Changi Airport Terminal 2から出発 | Changi Airport Terminal 2 |
+| 観光ルート                        | 立ち寄りやすいCHAGEE           |
+| --------------------------------- | ------------------------------ |
+| Arab Street・Bugis                | Raffles Specialist Centre      |
+| Sentosa・Universal Studios周辺    | Resorts World Sentosa（WEAVE） |
+| Lau Pa Sat・Raffles Place         | One Raffles Place              |
+| Changi Airport Terminal 2から出発 | Changi Airport Terminal 2      |
 
 この記事では、**シンガポール観光のどのタイミングで、どのCHAGEEへ寄ると便利なのか**を、実際に利用した4店舗をもとに紹介します。
 

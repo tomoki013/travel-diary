@@ -30,11 +30,11 @@ journeyId: j-2026-03-12
 
 結論からいうと、**その日の観光ルートに合わせて選ぶのが一番分かりやすい**です。
 
-| 旅行ルート | おすすめのCHAGEE |
-| --- | --- |
-| KL Sentral・バトゥ洞窟への移動前後 | CHAGEE NU Sentral |
+| 旅行ルート                          | おすすめのCHAGEE                |
+| ----------------------------------- | ------------------------------- |
+| KL Sentral・バトゥ洞窟への移動前後  | CHAGEE NU Sentral               |
 | Pavilion Kuala Lumpurで買い物・食事 | CHAGEE Pavilion Kuala Lumpur 6F |
-| Jalan Alor・Bukit Bintangを街歩き | CHAGEE • WOLO KL |
+| Jalan Alor・Bukit Bintangを街歩き   | CHAGEE • WOLO KL                |
 
 この記事では、クアラルンプール旅行中にCHAGEEへ行く人向けに、**実際に利用した3店舗の立地や特徴、どの観光ルートと組み合わせやすいか**を紹介します。
 
