@@ -1,0 +1,57 @@
+name: Weekly Analytics Snapshot
+
+on:
+  schedule:
+    # Every Wednesday at 07:00 JST (Tuesday 22:00 UTC)
+    - cron: "0 22 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: analytics-snapshot
+  cancel-in-progress: false
+
+jobs:
+  update-snapshot:
+    name: Update analytics snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.GCP_ANALYTICS_CREDENTIALS }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: tomokichidiary-analytics
+
+      - name: Verify BigQuery access
+        run: bq --project_id=tomokichidiary-analytics ls >/dev/null
+
+      - name: Generate analytics snapshot
+        run: node scripts/generate-analytics-snapshot.mjs
+
+      - name: Commit snapshot when changed
+        shell: bash
+        run: |
+          git add src/data/analytics/snapshot.json
+
+          if git diff --cached --quiet; then
+            echo "Analytics snapshot is already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: update weekly analytics snapshot"
+          git push origin HEAD:main
