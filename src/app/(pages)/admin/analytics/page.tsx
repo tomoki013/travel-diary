@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 // データ更新の手順は docs/analytics-dashboard.md を参照。
 // スナップショット (src/data/analytics/snapshot.json) は
-// scripts/generate-analytics-snapshot.mjs の手動実行で更新する。
+// GitHub Actions から毎週自動更新し、必要に応じて手動実行もできる。
 export default async function AdminAnalyticsPage() {
   // パスワード未設定の環境ではページごと存在しない扱いにする
   if (!process.env.ANALYTICS_PASSWORD) {
