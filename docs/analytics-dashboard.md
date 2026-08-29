@@ -9,17 +9,22 @@ BigQuery (tomokichidiary-analytics)
   ├─ searchconsole.searchdata_url_impression   … GSC 日次エクスポート (2026-05-02〜)
   └─ analytics_535794382.events_YYYYMMDD       … GA4 日次エクスポート (2026-05-03〜)
         │
-        │  scripts/generate-analytics-snapshot.mjs を手動実行 (bq CLI)
+        │  毎週水曜 07:00 JST に GitHub Actions から
+        │  scripts/generate-analytics-snapshot.mjs を実行 (bq CLI)
         ▼
-src/data/analytics/snapshot.json               … 集計済みスナップショット (コミットする)
+src/data/analytics/snapshot.json               … 集計済みスナップショット (自動コミット)
         │
-        │  ビルド時に静的 import
+        │  main 更新 → Netlify デプロイ → ビルド時に静的 import
         ▼
 /admin/analytics                               … ダッシュボード (Cookie 認証)
 ```
 
-- 自動更新はしない。データを更新したいときに `node scripts/generate-analytics-snapshot.mjs` を実行し、生成された `snapshot.json` をコミット・デプロイする（Claude に「アナリティクス更新して」と依頼すればよい）。
-- 実行の前提: Google Cloud SDK の `bq` CLI が `tomokichidiary-analytics` プロジェクトへ読み取り可能なアカウントで認証済みであること。
+- `.github/workflows/analytics-snapshot.yml` が毎週水曜 07:00 JST（火曜 22:00 UTC）に自動実行する。
+- GitHub Actions の `workflow_dispatch` から手動更新も可能。
+- スナップショットに差分がある場合のみ `src/data/analytics/snapshot.json` を `main` へ自動コミットする。
+- GitHub Actions では Repository Secret `GCP_ANALYTICS_CREDENTIALS` を使用する。値には `tomokichidiary-analytics` を読み取れる Google Cloud サービスアカウントの JSON 認証情報を設定する。
+- サービスアカウントは分析データの読み取りに必要な最小権限のみを付与し、BigQuery への書き込み権限は与えない。
+- ローカルで手動生成する場合は `node scripts/generate-analytics-snapshot.mjs` を実行する。Google Cloud SDK の `bq` CLI が `tomokichidiary-analytics` を読み取れるアカウントで認証済みであること。
 - スナップショットのクエリ列と `src/types/analytics.ts` の型は必ず同期させる。
 
 ## 認証
