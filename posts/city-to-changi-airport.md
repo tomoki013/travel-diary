@@ -11,7 +11,7 @@ tags:
   - 交通情報
   - 空港アクセス
   - シンガポール
-heroImage: /images/Singapore/jewel-rain-vortex.jpg
+heroImage: /images/Singapore/jewel-and-chagee-at-changi-international-airport.jpg
 regionIds:
   - changi
 author: ともきち

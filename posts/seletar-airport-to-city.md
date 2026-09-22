@@ -11,7 +11,7 @@ tags:
   - 交通情報
   - 空港アクセス
   - シンガポール
-heroImage: /images/Singapore/seletar-airport-arrival.jpg
+heroImage: /images/Singapore/views-around-marina-bay-sands-and-the-merlion.jpg
 regionIds:
   - singapore-city
 author: ともきち
